@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -10,8 +9,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use yii\helpers\Url;
 use app\models\ConfigWeb;
-//use app\assets\AppAsset;
 
+//use app\assets\AppAsset;
 //AppAsset::register($this);
 $configWeb = new ConfigWeb();
 $menuList = $configWeb->getPrivilege();
@@ -19,15 +18,15 @@ $menuList = $configWeb->getPrivilege();
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php $this->registerCsrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
         <!--c3 plugins CSS -->
-        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/assets/node_modules/c3-master/c3.min.css" rel="stylesheet">
+        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/assets/c3-master/c3.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/template.css" rel="stylesheet">
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/style.css" rel="stylesheet">
@@ -36,7 +35,7 @@ $menuList = $configWeb->getPrivilege();
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/timeline.css" rel="stylesheet">
     </head>
     <body class="skin-default-dark fixed-layout">
-    <?php $this->beginBody() ?>
+        <?php $this->beginBody() ?>
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
@@ -65,7 +64,7 @@ $menuList = $configWeb->getPrivilege();
                                 <img src="<?php echo Url::to('@web/images/logo-nat-design.png') ?>" alt="homepage" class="light-logo" style="width:39px;"/>
                             </b>
                         </a>
-                        
+
                     </div>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
@@ -86,7 +85,7 @@ $menuList = $configWeb->getPrivilege();
                             <!-- ============================================================== -->
                             <!-- Search -->
                             <!-- ============================================================== -->
-                            <li class="nav-item search-box"> 
+                            <li class="nav-item search-box">
                                 <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-search"></i></a>
                                 <form class="app-search">
                                     <input type="text" class="form-control" placeholder="ค้นหาด้วยชื่อลูกค้า ..."> <a
@@ -97,43 +96,43 @@ $menuList = $configWeb->getPrivilege();
 
                         </ul>
                         <ul class="navbar-nav my-lg-0">
-                            <?php if(!Yii::$app->user->isGuest) { ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Report <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Report 1</a>
-                                    <a class="dropdown-item" href="#">Report 2</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Report 3</a>
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Setting <i class="fa fa-cog" aria-hidden="true"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account'])?>">บัญชีผู้ใช้งาน</a>
-                                    <?php if(Yii::$app->user->identity->status == "A") { ?>
-                                        <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index'])?>">ผู้ใช้งาน</a>
+                            <?php if (!Yii::$app->user->isGuest) { ?>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Report <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">Report 1</a>
+                                        <a class="dropdown-item" href="#">Report 2</a>
                                         <div class="dropdown-divider"></div>
-                                    <?php } ?>
-                                </div>
-                            </li>
+                                        <a class="dropdown-item" href="#">Report 3</a>
+                                    </div>
+                                </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['site/logout']) ?>">
-                                    Log Out <i class="fa fa-sign-out"></i>
-                                </a>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Setting <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">บัญชีผู้ใช้งาน</a>
+                                        <?php if (Yii::$app->user->identity->status == "A") { ?>
+                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">ผู้ใช้งาน</a>
+                                            <div class="dropdown-divider"></div>
+                                        <?php } ?>
+                                    </div>
+                                </li>
 
-                        <?php } else { ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['user/security/login'])?>"><i class="fa fa-sign-in"></i> Sign In</a>
-                            </li>
-                        <?php } ?>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['site/logout']) ?>">
+                                        Log Out <i class="fa fa-sign-out"></i>
+                                    </a>
+                                </li>
+
+                            <?php } else { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>"><i class="fa fa-sign-in"></i> Sign In</a>
+                                </li>
+                            <?php } ?>
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
                             <!-- ============================================================== -->
@@ -192,7 +191,8 @@ $menuList = $configWeb->getPrivilege();
                                     <i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span>
                                 </a>
                             </li>
-                            <?php foreach($menuList as $rs): 
+                            <?php
+                            foreach ($menuList as $rs):
                                 $url = $rs['url'];
                                 ?>
                                 <li>
@@ -265,32 +265,33 @@ $menuList = $configWeb->getPrivilege();
                                     <span class="hide-menu text-danger">Log Out</span>
                                 </a>
                             </li>
-                        -->
+                            -->
                         </ul>
                     </nav>
                     <!-- End Sidebar navigation -->
                 </div>
                 <!-- End Sidebar scroll-->
             </aside>
-            
+
             <div class="page-wrapper">
                 <div class="container-fluid" style="padding-bottom: 0px; padding-top:0px;">
-                    <div class="row page-titles" style="margin-bottom: 0px;">
+                    <div class="row page-titles" style="margin-bottom: 0px; padding-top: 0px;">
                         <div class="col-md-12 align-self-center text-right">
                             <div class="d-flex justify-content-end align-items-center">
-                                <?php 
-                                    echo Breadcrumbs::widget([
-                                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                                    ]) 
+                                <?php
+                                echo Breadcrumbs::widget([
+                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                ])
                                 ?>
                             </div>
                         </div>
                     </div>
+
                     <?php echo Alert::widget() ?>
                     <?php echo $content ?>
                 </div>
             </div>
-            
+
         </div>
 
         <!-- ============================================================== -->
@@ -299,16 +300,14 @@ $menuList = $configWeb->getPrivilege();
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
-        <!--
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery/jquery-3.2.1.min.js"></script>
+        <!---->
+        <?php $this->endBody() ?>
 
-        -->
-    <?php $this->endBody() ?>
-            
-            <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/sweetalert2.js"></script>
-        
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/sweetalert2.js"></script>
         <!-- Bootstrap popper Core JavaScript -->
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/popper/popper.min.js"></script>
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/popper/popper.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- slimscrollbar scrollbar JavaScript -->
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/perfect-scrollbar.jquery.min.js"></script>
         <!--Wave Effects -->
@@ -321,22 +320,28 @@ $menuList = $configWeb->getPrivilege();
         <!-- This page plugins -->
         <!-- ============================================================== -->
         <!--morris JavaScript -->
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/raphael/raphael-min.js"></script>
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/morrisjs/morris.min.js"></script>
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/raphael/raphael-min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/morrisjs/morris.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery-sparkline/jquery.sparkline.min.js"></script>
         <!--c3 JavaScript -->
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/d3/d3.min.js"></script>
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/node_modules/c3-master/c3.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/d3/d3.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
-        
+
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/gijgo/gijgo.min.js"></script>
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+        <?php
+        $this->registerJs('
+            $(document).ready(function(){
+                setScreen();
+                checkLogin();
+            });
+         ');
+        ?>
         <script>
-            setScreen();
-            checkLogin();
             function setScreen() {
                 var w = window.innerWidth;
-                if(w < 500){
+                if (w < 700) {
                     $(".text-head").hide();
                 } else {
                     $(".text-head").show();
@@ -345,23 +350,22 @@ $menuList = $configWeb->getPrivilege();
                 $(".breadcrumb li").addClass("breadcrumb-item");
             }
 
-            function logOut(){
+            function logOut() {
                 var r = confirm("Are you sure ...");
-                if(r == true){
+                if (r == true) {
                     var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
-                    $.post(url,{},function(res){
+                    $.post(url, {}, function(res) {
                         window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
                     });
                 }
             }
 
-            function checkLogin(){
+            function checkLogin() {
                 var user = "<?php echo Yii::$app->user->isGuest ?>";
                 var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
-                if(user){
-                    window.location=url;
+                if (user) {
+                    window.location = url;
                 }
-                //user%2Fsecurity%2Flogin
             }
         </script>
     </body>

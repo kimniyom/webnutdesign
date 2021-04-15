@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Apr 15, 2021, 3:12:00 PM
+    Author     : kimniyom
+*/
+
+.customer-form input[type='text']{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+.customer-form textarea{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+.customer-form label{
+    color: #0066ff;
+}
+.customer-form .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.customer-form #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 5px;
+}
+
+.help-block {
+    color: red;
+}
+
+.customer-form .card{
+    border: solid #cccccc 1px;
+    border-radius: 5px;
+}

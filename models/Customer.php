@@ -24,35 +24,33 @@ use Yii;
  * @property string|null $create_date วันที่บันทึก
  * @property int|null $user_id ผู้บันทึกข้อมูล
  */
-class Customer extends \yii\db\ActiveRecord
-{
+class Customer extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'customer';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
+            [['project_name', 'customer', 'channel', 'typework', 'date_getjob', 'time_getjob', 'cur_dep', 'channel_etc'], 'required'],
             [['channel', 'typework', 'cur_dep', 'last_dep', 'user_id'], 'integer'],
             [['detail'], 'string'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
             [['project_name', 'channel_etc', 'address'], 'string', 'max' => 255],
-            [['customer', 'tel', 'file'], 'string', 'max' => 100],
+            [['customer', 'tel', 'file'], 'string', 'max' => 100]
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'project_name' => 'ชื่องาน',
@@ -66,10 +64,11 @@ class Customer extends \yii\db\ActiveRecord
             'file' => 'ไฟล์แนบ',
             'date_getjob' => 'วันที่รับสินค้า',
             'time_getjob' => 'เวลาลูกค้ารับสินค้า',
-            'cur_dep' => 'แผนกปัจุบัน',
+            'cur_dep' => 'ส่งต่อแผนก',
             'last_dep' => 'แผนกก่อนหน้า',
             'create_date' => 'วันที่บันทึก',
             'user_id' => 'ผู้บันทึกข้อมูล',
         ];
     }
+
 }

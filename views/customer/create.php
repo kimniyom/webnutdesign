@@ -6,13 +6,16 @@ use yii\helpers\Html;
 /* @var $model app\models\Customer */
 
 $this->title = 'บันทึกข้อมูลรับงาน';
-$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => Yii::$app->urlManager->createUrl(['customer'])];
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => Yii::$app->urlManager->createUrl(['customer'])];
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="customer-create">
 
-    <?= $this->render('_form', [
+    <?=
+    $this->render('_form', [
         'model' => $model,
-    ]) ?>
-
+    ])
+    ?>
 </div>
+
