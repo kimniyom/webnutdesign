@@ -15,6 +15,8 @@ $this->title = 'บันทึกข้อมูลรับงาน';
     <?=
     $this->render('_form', [
         'model' => $model,
+        'initialPreview' => [],
+        'initialPreviewConfig' => []
     ])
     ?>
 </div>

@@ -26,13 +26,16 @@ $menuList = $configWeb->getPrivilege();
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
         <!--c3 plugins CSS -->
-        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/assets/c3-master/c3.min.css" rel="stylesheet">
+        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/template.css" rel="stylesheet">
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/style.css" rel="stylesheet">
         <!-- Dashboard 1 Page CSS -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/pages/dashboard1.css" rel="stylesheet">
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/timeline.css" rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     </head>
     <body class="skin-default-dark fixed-layout">
         <?php $this->beginBody() ?>
@@ -188,7 +191,7 @@ $menuList = $configWeb->getPrivilege();
                             -->
                             <li>
                                 <a class="waves-effect waves-dark" href="index.html" aria-expanded="false">
-                                    <i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span>
+                                    <i class="fas fa-tachometer-alt"></i><span class="hide-menu">Dashboard</span>
                                 </a>
                             </li>
                             <?php
@@ -327,9 +330,10 @@ $menuList = $configWeb->getPrivilege();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/d3/d3.min.js"></script>
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
-
-        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/gijgo/gijgo.min.js"></script>
-        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+        <!--
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl   ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl   ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+        -->
         <?php
         $this->registerJs('
             $(document).ready(function(){

@@ -9,24 +9,22 @@ use app\models\Customer;
 /**
  * CustomerSearch represents the model behind the search form of `app\models\Customer`.
  */
-class CustomerSearch extends Customer
-{
+class CustomerSearch extends Customer {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'channel', 'typework', 'cur_dep', 'last_dep', 'user_id'], 'integer'],
-            [['project_name', 'customer', 'tel', 'channel_etc', 'address', 'detail', 'file', 'date_getjob', 'time_getjob', 'create_date'], 'safe'],
+            [['id', 'channel', 'typework', 'last_dep', 'user_id'], 'integer'],
+            [['project_name', 'customer', 'tel', 'channel_etc', 'address', 'detail', 'file', 'date_getjob', 'time_getjob', 'create_date', 'cur_dep'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class CustomerSearch extends Customer
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Customer::find();
 
         // add conditions that should always apply here
@@ -70,13 +67,14 @@ class CustomerSearch extends Customer
         ]);
 
         $query->andFilterWhere(['like', 'project_name', $this->project_name])
-            ->andFilterWhere(['like', 'customer', $this->customer])
-            ->andFilterWhere(['like', 'tel', $this->tel])
-            ->andFilterWhere(['like', 'channel_etc', $this->channel_etc])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'detail', $this->detail])
-            ->andFilterWhere(['like', 'file', $this->file]);
+                ->andFilterWhere(['like', 'customer', $this->customer])
+                ->andFilterWhere(['like', 'tel', $this->tel])
+                ->andFilterWhere(['like', 'channel_etc', $this->channel_etc])
+                ->andFilterWhere(['like', 'address', $this->address])
+                ->andFilterWhere(['like', 'detail', $this->detail])
+                ->andFilterWhere(['like', 'file', $this->file]);
 
         return $dataProvider;
     }
+
 }

@@ -19,7 +19,12 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "dektrium/yii2-user": "0.9.*@dev",
-        "kartik-v/yii2-widgets": "dev-master"
+        "kartik-v/yii2-widgets": "dev-master",
+        "yiisoft/yii2-bootstrap4": "^2.0",
+        "yurkinx/yii2-image": "dev-master",
+        "2amigos/yii2-date-picker-widget": "~1.0",
+        "2amigos/yii2-gallery-widget": "*",
+        "yiidoc/yii2-redactor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -45,20 +45,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
-          'urlManager' => [
-          'enablePrettyUrl' => true,
-          'showScriptName' => false,
-          'rules' => [
-          ],
-          ],
-         */
-        'assetManager' => [
-            'bundles' => [
-                'yii\bootstrap\BootstrapAsset' => [
-                    'css' => [],
-                ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
             ],
+        ],
+        'image' => [
+            'class' => 'yii\image\ImageDriver',
+            'driver' => 'GD', //GD or Imagick
         ],
     ],
     'modules' => [
@@ -68,6 +63,12 @@ $config = [
             'confirmWithin' => 21600,
             'cost' => 12,
             'admins' => ['admin']
+        ],
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+        //'uploadDir' => '@webroot/path/to/uploadfolder',
+        //'uploadUrl' => '@web/path/to/uploadfolder',
+        //'imageAllowExtensions' => ['jpg', 'png', 'gif']
         ],
     //...
     ],

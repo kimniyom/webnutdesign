@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "customer".
@@ -26,6 +27,8 @@ use Yii;
  */
 class Customer extends \yii\db\ActiveRecord {
 
+    const UPLOAD_FOLDER = 'photolibrarys';
+
     /**
      * {@inheritdoc}
      */
@@ -38,12 +41,15 @@ class Customer extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['project_name', 'customer', 'channel', 'typework', 'date_getjob', 'time_getjob', 'cur_dep', 'channel_etc'], 'required'],
-            [['channel', 'typework', 'cur_dep', 'last_dep', 'user_id'], 'integer'],
+            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'channel_etc', 'cur_dep', 'transport', 'setup', 'fast'], 'required'],
+            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast'], 'integer'],
             [['detail'], 'string'],
+            [['cur_dep'], 'safe'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
-            [['project_name', 'channel_etc', 'address'], 'string', 'max' => 255],
-            [['customer', 'tel', 'file'], 'string', 'max' => 100]
+            [['project_name', 'channel_etc', 'address', 'ref'], 'string', 'max' => 255],
+            [['customer', 'tel'], 'string', 'max' => 100]
+                // 'file'
+                // 'cur_dep'
         ];
     }
 
@@ -68,7 +74,31 @@ class Customer extends \yii\db\ActiveRecord {
             'last_dep' => 'แผนกก่อนหน้า',
             'create_date' => 'วันที่บันทึก',
             'user_id' => 'ผู้บันทึกข้อมูล',
+            'transport' => 'การจัดส่ง',
+            'setup' => 'การติดตั้ง',
+            'fast' => 'ความเร่งด่วน',
         ];
+    }
+
+    public static function getUploadPath() {
+        return Yii::getAlias('@webroot') . '/' . self::UPLOAD_FOLDER . '/';
+    }
+
+    public static function getUploadUrl() {
+        return Url::base(true) . '/' . self::UPLOAD_FOLDER . '/';
+    }
+
+    public function getThumbnails($ref, $event_name) {
+        $uploadFiles = Uploads::find()->where(['ref' => $ref])->all();
+        $preview = [];
+        foreach ($uploadFiles as $file) {
+            $preview[] = [
+                'url' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
+                'src' => self::getUploadUrl(true) . $ref . '/thumbnail/' . $file->real_filename,
+                'options' => ['title' => $event_name]
+            ];
+        }
+        return $preview;
     }
 
 }
