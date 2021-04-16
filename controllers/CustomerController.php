@@ -40,12 +40,15 @@ class CustomerController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        $ModelCustomer = new Customer();
         $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataList = $ModelCustomer->getJob();
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
+                    'dataList' => $dataList
         ]);
     }
 
@@ -70,8 +73,9 @@ class CustomerController extends Controller {
         $model = new Customer();
 
         if ($model->load(Yii::$app->request->post())) {
-
             $this->Uploads(false, $model->ref);
+            $this->user_id = Yii::$app->user->identity->id;
+
             $model->cur_dep = implode(", ", $model->cur_dep);
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);

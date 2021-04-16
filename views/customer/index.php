@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'รับงาน';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="customer-index">
     <div class="row" style="margin-bottom: 0px;">
@@ -21,32 +21,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         </a>
                         <div style="position: absolute; right: 5px; top: 5px;">งานที่รับวันนี้</div>
                     </div>
+
                     <div id="body-work" style="margin-top: 10px; overflow: auto;">
+                      <?php foreach($dataList as $rs): ?>
                         <div class="alert alert-dark" role="alert" style="background: none;">
-                            <h4 class="alert-heading">ลูกค้า คุณXXX XXX</h4>
-                            <p>รายละเอียดงาน ...</p>
+                            <h2 class="alert-heading"><?php echo $rs['project_name'] ?></h2>
+                            <h4 class="alert-heading"><?php echo $rs['customer'] ?></h4>
                             <hr>
                             <a href="javascript:popupdetail()" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                            <a href="javascript:popupedit()" class="btn btn-rounded btn-warning">แก้ไข <i class="fa fa-pencil"></i></a>
+                            <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update','id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">แก้ไข <i class="fas fa-pencil-alt"></i></a>
                             <a href="javascript:confirmCancel()" class="btn btn-rounded btn-danger">ยกเลิก <i class="fa fa-remove"></i></a>
                             <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> ฝ่ายกราฟิก</p>
                         </div>
-
-                        <div class="alert alert-dark" role="alert" style="background: none;">
-                            <h4 class="alert-heading">ลูกค้า คุณDemo Demo</h4>
-                            <p>รายละเอียดงาน ...</p>
-                            <hr>
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-info">ดูรายละเอียด</a>
-                            <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> ฝ่ายผลิต</p>
-                        </div>
-
-                        <div class="alert alert-dark" role="alert" style="background: none;">
-                            <h4 class="alert-heading">ลูกค้า คุณทดสอบ ทดสอบ</h4>
-                            <p>รายละเอียดงาน ...</p>
-                            <hr>
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-info">ดูรายละเอียด</a>
-                            <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด<br/>ฝ่ายบัญชี<br/> </p>
-                        </div>
+                      <?php endforeach;?>
+                        
                     </div>
                 </div>
             </div>

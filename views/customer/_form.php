@@ -19,10 +19,12 @@ use kartik\select2\Select2;
 
 <div class="customer-form">
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-    <div class="card" id="head-toolbar">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer']) ?>" style="text-decoration: none;">
                 <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
+            </a>
                 <div class="pull-right">
                     <button type="button" class="btn btn-danger btn-rounded"><i class="fa fa-remove"></i> ยกเลิก</button>
                     <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-success btn-rounded']) ?>
@@ -31,9 +33,9 @@ use kartik\select2\Select2;
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6 col-lg-6">
-            <div class="card">
+    <div class="row" style="margin-top: 0px; padding-top: 0px;">
+        <div class="col-md-6 col-lg-6" style="padding-right: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px;">
                 <div class="card-header">
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
@@ -53,9 +55,9 @@ use kartik\select2\Select2;
 
             </div>
         </div>
-        <div class="col-md-6 col-lg-6">
-            <div class="card">
-                <div class="card-content">
+        <div class="col-md-6 col-lg-6" style=" padding-left: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;">
+                <div class="card-content" >
                     <div class="card-header">
                         <i class="fa fa-briefcase"></i> รายละเอียดงาน
                     </div>
@@ -189,8 +191,8 @@ $this->registerJs('
         var h = window.innerHeight;
         var w = window.innerWidth;
         if (w > 768) {
-            $("#box-popup-left").css({"height": h - 245});
-            $("#box-popup-right").css({"height": h - 245});
+            $("#box-popup-left").css({"height": h - 193});
+            $("#box-popup-right").css({"height": h - 193});
         }
     }
 

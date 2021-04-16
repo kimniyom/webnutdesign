@@ -276,7 +276,7 @@ $menuList = $configWeb->getPrivilege();
                 <!-- End Sidebar scroll-->
             </aside>
 
-            <div class="page-wrapper">
+            <div class="page-wrapper" style="padding-top:38px;background: #FFFFFF !important;">
                 <div class="container-fluid" style="padding-bottom: 0px; padding-top:0px;">
                     <div class="row page-titles" style="margin-bottom: 0px; padding-top: 0px;">
                         <div class="col-md-12 align-self-center text-right">
@@ -290,13 +290,14 @@ $menuList = $configWeb->getPrivilege();
                         </div>
                     </div>
 
-                    <?php echo Alert::widget() ?>
-                    <?php echo $content ?>
+                    
                 </div>
+                <?php echo Alert::widget() ?>
+                    <?php echo $content ?>
             </div>
 
         </div>
-
+<div style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
         <!-- ============================================================== -->
         <!-- End Wrapper -->
         <!-- ============================================================== -->

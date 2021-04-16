@@ -27,6 +27,7 @@ File: scss
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,600,700");
 
 .skin-default-dark {
+  
   /*Theme Colors*/ }
   .skin-default-dark .topbar {
     background: #fff; }
