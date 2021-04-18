@@ -139,6 +139,7 @@ use kartik\select2\Select2;
                                 ?>
                             </div>
                         </div>
+
                         <hr/>
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
@@ -158,7 +159,7 @@ use kartik\select2\Select2;
                                 <div class="card-body bg-white" style=" border-radius: 5px; padding-bottom: 5px;">
                                     <?php
 //echo $form->field($model, 'cur_dep')->textInput()
-                                    $departmentList = ArrayHelper::map(Department::find()->where(['active' => 1])->all(), 'id', 'department');
+                                    $departmentList = ArrayHelper::map(Department::find()->where(['active' => 1])->andWhere(["IN", "id", ['2', '3', '4']])->all(), 'id', 'department');
                                     echo $form->field($model, 'cur_dep')->widget(Select2::classname(), [
                                         'language' => 'th',
                                         'data' => $departmentList,
@@ -242,10 +243,10 @@ $this->registerJs('
         var channel = $('input[name="Customer[quotation]"]:checked').val();
         if (channel == 1) {
             $("#customer-cur_dep").select2("val", "4");
-            $("#customer-cur_dep").prop("disabled", true);
+            //$("#customer-cur_dep").attr("readonly", "readonly");
         } else {
             $("#customer-cur_dep").select2("val", "0");
-            $("#customer-cur_dep").prop("disabled", false);
+            //$("#customer-cur_dep").prop("readonly", false);
         }
     }
 </script>

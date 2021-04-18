@@ -36,6 +36,29 @@ $menuList = $configWeb->getPrivilege();
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <style>
+            /* Works on Firefox */
+            * {
+                scrollbar-width: thin;
+                scrollbar-color: #eeeeee white;
+            }
+
+            /* Works on Chrome, Edge, and Safari */
+            *::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            *::-webkit-scrollbar-track {
+                background: none;
+            }
+
+            *::-webkit-scrollbar-thumb {
+                background-color: #eeeeee;
+                border-radius: 20px;
+                border: 3px solid white;
+            }
+
+        </style>
     </head>
     <body class="skin-default-dark fixed-layout">
         <?php $this->beginBody() ?>
@@ -144,7 +167,7 @@ $menuList = $configWeb->getPrivilege();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')               ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                 ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -341,8 +364,8 @@ $menuList = $configWeb->getPrivilege();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                  ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                  ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                    ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                    ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('

@@ -15,25 +15,23 @@ use Yii;
  * @property int|null $type ประเภท
  * @property int|null $customer_id รหัสลูกค้า
  */
-class Uploads extends \yii\db\ActiveRecord
-{
+class Uploads extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'uploads';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['create_date'], 'safe'],
             [['type', 'customer_id'], 'integer'],
-            [['ref'], 'string', 'max' => 50],
+            [['ref', 'typefile'], 'string', 'max' => 50],
             [['file_name', 'real_filename'], 'string', 'max' => 150],
         ];
     }
@@ -41,8 +39,7 @@ class Uploads extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'upload_id' => 'Upload ID',
             'ref' => 'Ref',
@@ -53,4 +50,5 @@ class Uploads extends \yii\db\ActiveRecord
             'customer_id' => 'Customer ID',
         ];
     }
+
 }

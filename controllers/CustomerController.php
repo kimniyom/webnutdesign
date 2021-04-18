@@ -59,9 +59,28 @@ class CustomerController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
+        $model = $this->findModel($id);
+        $file = $this->getFile($model->ref);
+        $timeline = $this->getTimeline($model->ref);
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $model,
+                    'filelist' => $file,
+                    'timeline' => $timeline
         ]);
+    }
+
+    function getTimeline($ref) {
+        $sql = "SELECT t.*,d.department AS curdep,p.`name`
+        FROM timeline t INNER JOIN department d ON t.department = d.id
+        INNER JOIN `profile` p ON t.user_id = p.user_id
+        WHERE t.ref = '$ref'
+        ORDER BY t.d_update DESC";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getFile($ref) {
+        $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     /**
@@ -77,6 +96,35 @@ class CustomerController extends Controller {
             $model->user_id = Yii::$app->user->identity->id;
             $model->cur_dep = implode(", ", $model->cur_dep);
             $model->create_date = date("Y-m-d H:i:s");
+            $model->confirm = $model->confirm;
+            if ($model->confirm = 1) {
+                $depStr = "'" . str_replace(",", "','", $model->cur_dep) . "'";
+                $sql = "select id,department from department where id in ($depStr)";
+                $result = \Yii::$app->db->createCommand($sql)->queryAll();
+                $depArr = [];
+                $depVal = [];
+                foreach ($result as $r):
+                    $depArr[] = $r['department'];
+                    $depVal[] = $r['id'];
+                endforeach;
+                $curdep = implode(",", $depArr);
+                //Time Line
+                $culumns = array(
+                    "department" => 1,
+                    "ref" => $model->ref,
+                    "user_id" => Yii::$app->user->identity->id,
+                    "log" => "บันทึกข้อมูลการรับงาน",
+                    "todep" => $curdep,
+                    "d_update" => date("Y-m-d H:i:s")
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("timeline", $culumns)
+                        ->execute();
+
+                //ส่งไปแผนก
+                $this->sendDepartment($depVal, $model->ref);
+            }
+
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -97,25 +145,45 @@ class CustomerController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id) {
-        /*
-          $model = $this->findModel($id);
-
-          if ($model->load(Yii::$app->request->post()) && $model->save()) {
-          return $this->redirect(['view', 'id' => $model->id]);
-          }
-
-          return $this->render('update', [
-          'model' => $model,
-          ]);
-         *
-         */
         $model = $this->findModel($id);
 
         list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref);
-
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
-            $model->cur_dep = implode(", ", $model->cur_dep);
+            $model->cur_dep = implode(",", $model->cur_dep);
+            $ref = $model->ref;
+            $model->confirm = $model->confirm;
+            if ($model->confirm = 1) {
+                \Yii::$app->db->createCommand()
+                        ->delete("timeline", "ref = '$ref'")
+                        ->execute();
+                $depStr = "'" . str_replace(",", "','", $model->cur_dep) . "'";
+                $sql = "select id,department from department where id in ($depStr)";
+                $result = \Yii::$app->db->createCommand($sql)->queryAll();
+                $depArr = [];
+                $depVal = [];
+                foreach ($result as $r):
+                    $depArr[] = $r['department'];
+                    $depVal[] = $r['id'];
+                endforeach;
+                $curdep = implode(",", $depArr);
+                //Time Line
+                $culumns = array(
+                    "department" => 1,
+                    "ref" => $model->ref,
+                    "user_id" => Yii::$app->user->identity->id,
+                    "log" => "บันทึกข้อมูลการรับงาน",
+                    "todep" => $curdep,
+                    "d_update" => date("Y-m-d H:i:s")
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("timeline", $culumns)
+                        ->execute();
+
+                //ส่งไปแผนก
+                $this->sendDepartment($depVal, $model->ref);
+            }
+
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -176,10 +244,20 @@ class CustomerController extends Controller {
                             $this->createThumbnail($ref, $realFileName);
                         }
 
+                        //$type = pathinfo($realFileName, PATHINFO_EXTENSION);
+
                         $model = new Uploads;
                         $model->ref = $ref;
                         $model->file_name = $fileName;
                         $model->real_filename = $realFileName;
+
+                        $imgAray = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'gif', 'GIF'];
+                        if (in_array($file->extension, $imgAray)) {
+                            $model->typefile = "1";
+                        } else {
+                            $model->typefile = "2";
+                        }
+                        //$model->typefile = $file->extension;
                         $model->save();
 
                         if ($isAjax === true) {
@@ -271,6 +349,28 @@ class CustomerController extends Controller {
             }
         }
         return;
+    }
+
+    private function sendDepartment($dep, $ref) {
+        if (in_array("4", $dep)) {//แผนกบัญชี
+            $res = \app\models\Account::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("account", $columns)
+                        ->execute();
+            }
+        } else if (in_array("3", $dep)) {//แผนกกราฟิก
+            $columns = array(
+                "ref" => $ref
+            );
+        } else { //แผนกการตลาดลูกค้าสัมพันธ์
+            $columns = array(
+                "ref" => $ref
+            );
+        }
     }
 
 }

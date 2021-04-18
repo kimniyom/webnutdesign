@@ -1,0 +1,97 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Apr 15, 2021, 3:12:00 PM
+    Author     : kimniyom
+*/
+
+.account-form input[type='text']{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+.account-form textarea{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+.account-form label{
+    color: #0066ff;
+}
+.account-form .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.account-form #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.help-block {
+    color: red;
+}
+
+.account-form .card{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.account-index input[type='text']{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+
+.box-list-work{
+    box-shadow: 0px 5px 20px 10px #cccccc;
+    margin: 30px;
+    border: none;
+}
+
+.account-view label{
+    color: #0066ff;
+}
+
+.account-view .card{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.account-view #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.account-view .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.account-index .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.account-index #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.account-index .card{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+
+
+

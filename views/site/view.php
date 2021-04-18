@@ -31,35 +31,18 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\ConfigWeb;
 use yii\helpers\Url;
+use app\models\Customer;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Customer */
 
-$this->title = $model->customer;
+//$this->title = $model->customer;
 //$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 $ConfigModel = new ConfigWeb();
+$CustomerModel = new Customer();
 ?>
 <div class="customer-view">
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
-        <div class="card-content">
-            <div class="card-body" style=" padding: 10px;">
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
-                </a>
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
-                </a>
-                | <button type="button" class="btn btn-danger btn-rounded"><i class="fa fa-remove"></i> ยกเลิก</button>
-
-                <div class="pull-right">
-                    <div style="font-size: 20px; float: left; color: #ffffff;">รายละเอียดงาน</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
         <div class="col-md-3 col-lg-3" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px;">
@@ -67,35 +50,32 @@ $ConfigModel = new ConfigWeb();
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px;">
-                    <?=
-                    DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            'customer',
-                            'tel',
-                            //'channel',
-                            //'channel_etc',
-                            //getChannel
-                            [
-                                'format' => 'html',
-                                'label' => 'ช่องทางลูกค้าติดต่อมา',
-                                'value' => $ConfigModel->getChannel($model->channel) . ' (ข้อมูลอื่น ๆ: ' . $model->channel_etc . ')'
-                            ],
-                            'address',
-                            [
-                                'format' => 'html',
-                                'label' => 'ผู้รับงาน',
-                                'value' => dektrium\user\models\Profile::findOne(['user_id' => $model->user_id])['name']
-                            ],
-                            [
-                                'format' => 'html',
-                                'label' => 'วันที่ทำรายการ',
-                                'value' => $ConfigModel->thaidate($model->create_date)
-                            ],
-                        ],
-                    ])
-                    ?>
-
+                    <table class="table">
+                        <tr>
+                            <th>ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</th>
+                            <td><?php echo $model['customer'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>เบอร์โทรศัพท์</th>
+                            <td><?php echo $model['tel'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>ช่องทางลูกค้าติดต่อมา</th>
+                            <td><?php echo $ConfigModel->getChannel($model['channel']) . ' (ข้อมูลอื่น ๆ: ' . $model['channel_etc'] . ')' ?></td>
+                        </tr>
+                        <tr>
+                            <th>ที่อยู่ / ข้อมูลการจัดส่ง</th>
+                            <td><?php echo $model['address'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>ผู้รับงาน</th>
+                            <td><?php echo dektrium\user\models\Profile::findOne(['user_id' => $model['user_id']])['name'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>วันที่ทำรายการ</th>
+                            <td><?php echo $ConfigModel->thaidate($model['create_date']) ?></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -107,44 +87,40 @@ $ConfigModel = new ConfigWeb();
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 5px;">
                         <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">ข้อมูลรับงาน</h3>
-                        <?=
-                        DetailView::widget([
-                            'model' => $model,
-                            'attributes' => [
-                                'project_name',
-                                [
-                                    'format' => 'html',
-                                    'label' => 'วันที่รับสินค้า',
-                                    'value' => $ConfigModel->thaidate($model->date_getjob) . " " . $model->time_getjob
-                                ],
-                                [
-                                    'format' => 'html',
-                                    'label' => 'การจัดส่ง',
-                                    'value' => ($model->transport == 1) ? "ต้องจัดส่ง" : "ไม่ต้องจัดส่ง"
-                                ],
-                                [
-                                    'format' => 'html',
-                                    'label' => 'การติดตั้ง',
-                                    'value' => ($model->setup == 1) ? "มีการติดตั้ง" : "ไม่มีการติดตั้ง"
-                                ],
-                                [
-                                    'format' => 'html',
-                                    'label' => 'ความเร่งด่วน',
-                                    'value' => ($model->fast == 1) ? "เร่งด่วน" : "ทั่วไป"
-                                ],
-                                [
-                                    'format' => 'html',
-                                    'label' => 'ใบเสนอราคา',
-                                    'value' => ($model->quotation == 1) ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา"
-                                ],
-                                'detail:ntext',
-                            ],
-                        ])
-                        ?>
+                        <table class="table">
+                            <tr>
+                                <th>ชื่องาน</th>
+                                <td><?php echo $model['project_name'] ?></td>
+                            </tr>
+                            <tr>
+                                <th>วันที่รับสินค้า</th>
+                                <td><?php echo $ConfigModel->thaidate($model['date_getjob']) . " " . $model['time_getjob'] ?></td>
+                            </tr>
+                            <tr>
+                                <th>การจัดส่ง</th>
+                                <td><?php echo ($model['transport'] == 1) ? "ต้องจัดส่ง" : "ไม่ต้องจัดส่ง" ?></td>
+                            </tr>
+                            <tr>
+                                <th>การติดตั้ง</th>
+                                <td><?php echo ($model['setup'] == 1) ? "มีการติดตั้ง" : "ไม่มีการติดตั้ง" ?></td>
+                            </tr>
+                            <tr>
+                                <th>ความเร่งด่วน</th>
+                                <td><?php echo ($model['fast'] == 1) ? "เร่งด่วน" : "ทั่วไป" ?></td>
+                            </tr>
+                            <tr>
+                                <th>ใบเสนอราคา</th>
+                                <td><?php echo ($model['quotation'] == 1) ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา" ?></td>
+                            </tr>
+                            <tr>
+                                <th>รายละเอียดงาน</th>
+                                <td><?php echo $model['detail'] ?></td>
+                            </tr>
+                        </table>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 รูปภาพแนบ
-                                <?= dosamigos\gallery\Gallery::widget(['items' => $model->getThumbnails($model->ref, $model->project_name)]); ?>
+                                <?= dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]); ?>
                                 ไฟล์แนบ
                                 <ul>
                                     <?php foreach ($filelist as $f): ?>
