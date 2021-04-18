@@ -55,7 +55,7 @@ $menuList = $configWeb->getPrivilege();
             <!-- ============================================================== -->
             <!-- Topbar header - style you can find in pages.scss -->
             <!-- ============================================================== -->
-            <header class="topbar">
+            <header class="topbar" style=" background: #1e2128">
                 <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                     <!-- ============================================================== -->
                     <!-- Logo -->
@@ -95,8 +95,6 @@ $menuList = $configWeb->getPrivilege();
                                         class="srh-btn"><i class="fa fa-times"></i></a>
                                 </form>
                             </li>
-
-
                         </ul>
                         <ul class="navbar-nav my-lg-0">
                             <?php if (!Yii::$app->user->isGuest) { ?>
@@ -111,23 +109,26 @@ $menuList = $configWeb->getPrivilege();
                                         <a class="dropdown-item" href="#">Report 3</a>
                                     </div>
                                 </li>
-
+                                <?php if (Yii::$app->user->identity->status == "A") { ?>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Setting <i class="fa fa-cog" aria-hidden="true"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">Acount</a>
+                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">จัดการผู้ใช้งาน</a>
+                                        </div>
+                                    </li>
+                                <?php } else { ?>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-info" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">
+                                            <?php echo Yii::$app->user->identity->username ?> <i class="fas fa-cog"></i>
+                                        </a>
+                                    </li>
+                                <?php } ?>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Setting <i class="fa fa-cog" aria-hidden="true"></i>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">บัญชีผู้ใช้งาน</a>
-                                        <?php if (Yii::$app->user->identity->status == "A") { ?>
-                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">ผู้ใช้งาน</a>
-                                            <div class="dropdown-divider"></div>
-                                        <?php } ?>
-                                    </div>
-                                </li>
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['site/logout']) ?>">
-                                        Log Out <i class="fa fa-sign-out"></i>
+                                    <a class="nav-link text-danger" href="<?php echo Yii::$app->urlManager->createUrl(['site/logout']) ?>">
+                                        Sign Out <i class="fas fa-sign-out-alt text-danger"></i>
                                     </a>
                                 </li>
 
@@ -139,12 +140,14 @@ $menuList = $configWeb->getPrivilege();
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
                             <!-- ============================================================== -->
+                            <!--
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php echo Url::to('@web/images/users/1.png') ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')               ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
+                            -->
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
                             <!-- ============================================================== -->
@@ -195,15 +198,21 @@ $menuList = $configWeb->getPrivilege();
                                 </a>
                             </li>
                             <?php
-                            foreach ($menuList as $rs):
-                                $url = $rs['url'];
-                                ?>
-                                <li>
-                                    <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl([$url]) ?>" aria-expanded="false">
-                                        <i class="<?php echo $rs['icon'] ?>"></i><span class="hide-menu"><?php echo $rs['department'] ?></span>
-                                    </a>
+                            if ($menuList) {
+                                foreach ($menuList as $rs):
+                                    $url = $rs['url'];
+                                    ?>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl([$url]) ?>" aria-expanded="false">
+                                            <i class="<?php echo $rs['icon'] ?>"></i><span class="hide-menu"><?php echo $rs['department'] ?></span>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php } else { ?>
+                                <li style=" text-align: center;">
+                                    ยังไม่ได้กำหนดสิทธิ์กรุณาติดต่อ Admin
                                 </li>
-                            <?php endforeach; ?>
+                            <?php } ?>
                             <!--
                             <li>
                                 <a class="waves-effect waves-dark" href="home.html" aria-expanded="false">
@@ -276,7 +285,7 @@ $menuList = $configWeb->getPrivilege();
                 <!-- End Sidebar scroll-->
             </aside>
 
-            <div class="page-wrapper" style="padding-top:38px;background: #FFFFFF !important;">
+            <div class="page-wrapper" style="padding-top:35px;background: #FFFFFF !important;">
                 <div class="container-fluid" style="padding-bottom: 0px; padding-top:0px;">
                     <div class="row page-titles" style="margin-bottom: 0px; padding-top: 0px;">
                         <div class="col-md-12 align-self-center text-right">
@@ -290,14 +299,14 @@ $menuList = $configWeb->getPrivilege();
                         </div>
                     </div>
 
-                    
+
                 </div>
                 <?php echo Alert::widget() ?>
-                    <?php echo $content ?>
+                <?php echo $content ?>
             </div>
 
         </div>
-<div style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
+        <div style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
         <!-- ============================================================== -->
         <!-- End Wrapper -->
         <!-- ============================================================== -->
@@ -332,8 +341,8 @@ $menuList = $configWeb->getPrivilege();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl   ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl   ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                  ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                  ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('

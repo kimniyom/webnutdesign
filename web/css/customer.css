@@ -40,3 +40,37 @@ and open the template in the editor.
     border: solid #cccccc 1px;
     border-radius: 0px;
 }
+
+.customer-index input[type='text']{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+
+.box-list-work{
+    box-shadow: 0px 5px 20px 10px #cccccc;
+    margin: 30px;
+    border: none;
+}
+
+.customer-view label{
+    color: #0066ff;
+}
+
+.customer-view .card{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.customer-view #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.customer-view .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+

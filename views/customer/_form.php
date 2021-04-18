@@ -1,5 +1,4 @@
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/customer.css" rel="stylesheet">
-
 <?php
 
 use yii\helpers\Html;
@@ -11,20 +10,19 @@ use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 use kartik\widgets\FileInput;
 use kartik\select2\Select2;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Customer */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="customer-form">
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
+                    <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
+                </a>
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['customer']) ?>" style="text-decoration: none;">
-                <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
-            </a>
+                    <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
+                </a>
                 <div class="pull-right">
                     <button type="button" class="btn btn-danger btn-rounded"><i class="fa fa-remove"></i> ยกเลิก</button>
                     <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-success btn-rounded']) ?>
@@ -59,7 +57,7 @@ use kartik\select2\Select2;
             <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;">
                 <div class="card-content" >
                     <div class="card-header">
-                        <i class="fa fa-briefcase"></i> รายละเอียดงาน
+                        <i class="fa fa-briefcase"></i> รายละเอียดงานการคุยงาน
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto;">
                         <?= $form->field($model, 'project_name')->textInput(['maxlength' => true]) ?>
@@ -70,7 +68,7 @@ use kartik\select2\Select2;
                         <?php ///$form->field($model, 'file')->textInput(['maxlength' => true])  ?>
 
                         <div class="form-group field-upload_files">
-                            <label class="control-label" for="upload_files[]" style=" margin-bottom: 0px; padding-bottom: 0px;"> แนบไฟล์ / รูปภาพ </label>
+                            <label class="control-label" for="upload_files[]" style=" margin-bottom: 0px; padding-bottom: 0px;"> แนบไฟล์หรือรูปภาพที่คุยกับลูกค้า </label>
                             <div style=" padding-top:0px;">
                                 <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => 255])->label(false); ?>
                                 <?=
@@ -141,9 +139,22 @@ use kartik\select2\Select2;
                                 ?>
                             </div>
                         </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <label>ใบเสนอราคา(* เมื่อต้องออกใบเสนอราคาระบบจะบังคับส่งไปยังแผนกบัญชีอัตโนมัติ)</label>
+                                <?=
+                                $form->field($model, 'quotation')->radioList([0 => "ไม่ต้องออกใบเสนอราคา", 1 => "ต้องออกใบเสนอราคา"], [
+                                    'onChange' => 'setQuotation()'
+                                ])->label(false);
+                                ?>
+
+                            </div>
+                        </div>
+
                         <div class="card" style=" border-radius: 5px;">
                             <div class="card-content">
-                                <div class=" card-header">ส่งต่อแผนก</div>
+                                <div class=" card-header">ส่งต่อแผนก(เลือกได้มากกว่า 1)</div>
                                 <div class="card-body bg-white" style=" border-radius: 5px; padding-bottom: 5px;">
                                     <?php
 //echo $form->field($model, 'cur_dep')->textInput()
@@ -167,6 +178,17 @@ use kartik\select2\Select2;
                                     ?>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <?=
+                                $form->field($model, 'confirm')->radioList([0 => "ยังไม่ตกลงซื้อ", 1 => "ตกลงซื้อ"])
+                                ?>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger">
+                            !..หมายเหตุ<br/>
+                            เมื่อยังไม่มีการยืนยันตกลงซื้อขายข้อมูลจะยังไม่ถูกส่งไปยังแผนกอื่น
                         </div>
                     </div>
                 </div>
@@ -213,6 +235,17 @@ $this->registerJs('
             $("#ch_etc").show();
         } else {
             $("#ch_etc").hide();
+        }
+    }
+
+    function setQuotation() {
+        var channel = $('input[name="Customer[quotation]"]:checked').val();
+        if (channel == 1) {
+            $("#customer-cur_dep").select2("val", "4");
+            $("#customer-cur_dep").prop("disabled", true);
+        } else {
+            $("#customer-cur_dep").select2("val", "0");
+            $("#customer-cur_dep").prop("disabled", false);
         }
     }
 </script>

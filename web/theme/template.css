@@ -2,3 +2,12 @@
     color: rgb(184, 0, 153);
 }
 
+#head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+    margin-bottom: 0px;
+    border-right:0px;
+    border-right: 0px;
+    border-left: 0px;
+    background: #2b2f3a;
+}

@@ -74,9 +74,9 @@ class CustomerController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
-            $this->user_id = Yii::$app->user->identity->id;
-
+            $model->user_id = Yii::$app->user->identity->id;
             $model->cur_dep = implode(", ", $model->cur_dep);
+            $model->create_date = date("Y-m-d H:i:s");
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -137,14 +137,11 @@ class CustomerController extends Controller {
      */
     public function actionDelete($id) {
         //$this->findModel($id)->delete();
-
         $model = $this->findModel($id);
         //remove upload file & data
         $this->removeUploadDir($model->ref);
         Uploads::deleteAll(['ref' => $model->ref]);
-
         $model->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -167,13 +164,8 @@ class CustomerController extends Controller {
         if (Yii::$app->request->isPost) {
             $images = UploadedFile::getInstancesByName('upload_ajax');
             if ($images) {
-
-
                 //$ref = Yii::$app->request->post('ref');
-
-
                 $this->CreateDir($ref);
-
                 foreach ($images as $file) {
                     $fileName = $file->baseName . '.' . $file->extension;
                     $realFileName = md5($file->baseName . time()) . '.' . $file->extension;
