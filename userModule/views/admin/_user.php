@@ -18,7 +18,10 @@
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'password')->passwordInput() ?>
-<?= $form
-                    ->field($user, 'status')
-                    ->dropDownList(['U' => 'ผู้ใช้งานทั่วไป','A' => 'Admin']); ?>
+<?=
+
+        $form
+        ->field($user, 'status')
+        ->dropDownList(['U' => 'ผู้ใช้งานทั่วไป', 'A' => 'Admin', 'M' => 'ผู้จัดการ / ผู้บริหาร']);
+?>
 

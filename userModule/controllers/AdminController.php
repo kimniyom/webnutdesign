@@ -40,11 +40,8 @@ use app\models\Department;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com
  */
-class AdminController extends Controller
-{
+class AdminController extends Controller {
 
-    
-    
     use EventTrait;
 
     /**
@@ -152,33 +149,30 @@ class AdminController extends Controller
 
     /** @var Finder */
     protected $finder;
-    
-    
+
     /**
      * @param string  $id
      * @param Module2 $module
      * @param Finder  $finder
      * @param array   $config
      */
-    public function __construct($id, $module, Finder $finder, $config = [])
-    {
+    public function __construct($id, $module, Finder $finder, $config = []) {
         $this->finder = $finder;
         $this->layout = "backend";
         parent::__construct($id, $module, $config);
     }
 
     /** @inheritdoc */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete'          => ['post'],
-                    'confirm'         => ['post'],
+                    'delete' => ['post'],
+                    'confirm' => ['post'],
                     'resend-password' => ['post'],
-                    'block'           => ['post'],
-                    'switch'          => ['post'],
+                    'block' => ['post'],
+                    'switch' => ['post'],
                 ],
             ],
             'access' => [
@@ -195,29 +189,27 @@ class AdminController extends Controller
                     [
                         'allow' => true,
                         'roles' => ['A'],
-                        //'status' => ['A'],
+                    //'status' => ['A'],
                     ],
                 ],
             ],
         ];
     }
-    
 
     /**
      * Lists all User models.
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
-        
+    public function actionIndex() {
+
         Url::remember('', 'actions-redirect');
-        $searchModel  = \Yii::createObject(UserSearch::className());
+        $searchModel = \Yii::createObject(UserSearch::className());
         $dataProvider = $searchModel->search(\Yii::$app->request->get());
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel'  => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
         ]);
     }
 
@@ -227,12 +219,11 @@ class AdminController extends Controller
      *
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         /** @var User $user */
         $user = \Yii::createObject([
-            'class'    => User::className(),
-            'scenario' => 'create',
+                    'class' => User::className(),
+                    'scenario' => 'create',
         ]);
         $event = $this->getUserEvent($user);
 
@@ -243,11 +234,28 @@ class AdminController extends Controller
             \Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
             $this->trigger(self::EVENT_AFTER_CREATE, $event);
             //return $this->redirect(['update', 'id' => $user->id]);
+            if ($user->status == "A" || $user->status == "M") {
+                $columns = array(
+                    "user_id" => $user->id,
+                    "edit_project" => 1,
+                    "notify_customer" => 1,
+                    "edit_tranfer" => 1,
+                    "approve" => 1
+                );
+            } else {
+                $columns = array(
+                    "user_id" => $user->id,
+                );
+            }
+            \Yii::$app->db->createCommand()
+                    ->insert("privilege", $columns)
+                    ->execute();
+
             return $this->redirect(['update-profile', 'id' => $user->id]);
         }
 
         return $this->render('create', [
-            'user' => $user,
+                    'user' => $user,
         ]);
     }
 
@@ -258,8 +266,7 @@ class AdminController extends Controller
      *
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         Url::remember('', 'actions-redirect');
         $user = $this->findModel($id);
         $user->scenario = 'update';
@@ -275,7 +282,7 @@ class AdminController extends Controller
         }
 
         return $this->render('_account', [
-            'user' => $user,
+                    'user' => $user,
         ]);
     }
 
@@ -286,10 +293,9 @@ class AdminController extends Controller
      *
      * @return mixed
      */
-    public function actionUpdateProfile($id)
-    {
+    public function actionUpdateProfile($id) {
         Url::remember('', 'actions-redirect');
-        $user    = $this->findModel($id);
+        $user = $this->findModel($id);
         $profile = $user->profile;
 
         if ($profile == null) {
@@ -305,12 +311,13 @@ class AdminController extends Controller
         if ($profile->load(\Yii::$app->request->post()) && $profile->save()) {
             \Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'Profile details have been updated'));
             $this->trigger(self::EVENT_AFTER_PROFILE_UPDATE, $event);
-            return $this->refresh();
+            //return $this->refresh();
+            return $this->redirect(['privilege', 'id' => $user->id]);
         }
 
         return $this->render('_profile', [
-            'user'    => $user,
-            'profile' => $profile,
+                    'user' => $user,
+                    'profile' => $profile,
         ]);
     }
 
@@ -321,13 +328,12 @@ class AdminController extends Controller
      *
      * @return string
      */
-    public function actionInfo($id)
-    {
+    public function actionInfo($id) {
         Url::remember('', 'actions-redirect');
         $user = $this->findModel($id);
 
         return $this->render('_info', [
-            'user' => $user,
+                    'user' => $user,
         ]);
     }
 
@@ -340,13 +346,12 @@ class AdminController extends Controller
      *
      * @return string
      */
-    public function actionSwitch($id = null)
-    {
+    public function actionSwitch($id = null) {
         if (!$this->module->enableImpersonateUser) {
             throw new ForbiddenHttpException(Yii::t('user', 'Impersonate user is disabled in the application configuration'));
         }
 
-        if(!$id && Yii::$app->session->has(self::ORIGINAL_USER_SESSION_KEY)) {
+        if (!$id && Yii::$app->session->has(self::ORIGINAL_USER_SESSION_KEY)) {
             $user = $this->findModel(Yii::$app->session->get(self::ORIGINAL_USER_SESSION_KEY));
 
             Yii::$app->session->remove(self::ORIGINAL_USER_SESSION_KEY);
@@ -362,9 +367,9 @@ class AdminController extends Controller
         $event = $this->getUserEvent($user);
 
         $this->trigger(self::EVENT_BEFORE_IMPERSONATE, $event);
-        
+
         Yii::$app->user->switchIdentity($user, 3600);
-        
+
         $this->trigger(self::EVENT_AFTER_IMPERSONATE, $event);
 
         return $this->goHome();
@@ -379,8 +384,7 @@ class AdminController extends Controller
      * @return string
      * @throws NotFoundHttpException
      */
-    public function actionAssignments($id)
-    {
+    public function actionAssignments($id) {
         if (!isset(\Yii::$app->extensions['dektrium/yii2-rbac'])) {
             throw new NotFoundHttpException();
         }
@@ -388,7 +392,7 @@ class AdminController extends Controller
         $user = $this->findModel($id);
 
         return $this->render('_assignments', [
-            'user' => $user,
+                    'user' => $user,
         ]);
     }
 
@@ -399,8 +403,7 @@ class AdminController extends Controller
      *
      * @return Response
      */
-    public function actionConfirm($id)
-    {
+    public function actionConfirm($id) {
         $model = $this->findModel($id);
         $event = $this->getUserEvent($model);
 
@@ -421,8 +424,7 @@ class AdminController extends Controller
      *
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         if ($id == \Yii::$app->user->getId()) {
             \Yii::$app->getSession()->setFlash('danger', \Yii::t('user', 'You can not remove your own account'));
         } else {
@@ -444,12 +446,11 @@ class AdminController extends Controller
      *
      * @return Response
      */
-    public function actionBlock($id)
-    {
+    public function actionBlock($id) {
         if ($id == \Yii::$app->user->getId()) {
             \Yii::$app->getSession()->setFlash('danger', \Yii::t('user', 'You can not block your own account'));
         } else {
-            $user  = $this->findModel($id);
+            $user = $this->findModel($id);
             $event = $this->getUserEvent($user);
             if ($user->getIsBlocked()) {
                 $this->trigger(self::EVENT_BEFORE_UNBLOCK, $event);
@@ -472,8 +473,7 @@ class AdminController extends Controller
      *
      * @return Response
      */
-    public function actionResendPassword($id)
-    {
+    public function actionResendPassword($id) {
         $user = $this->findModel($id);
         if ($user->isAdmin) {
             throw new ForbiddenHttpException(Yii::t('user', 'Password generation is not possible for admin users'));
@@ -497,8 +497,7 @@ class AdminController extends Controller
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         $user = $this->finder->findUserById($id);
         if ($user === null) {
             throw new NotFoundHttpException('The requested page does not exist');
@@ -514,8 +513,7 @@ class AdminController extends Controller
      *
      * @throws ExitException
      */
-    protected function performAjaxValidation($model)
-    {
+    protected function performAjaxValidation($model) {
         if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax) {
             if ($model->load(\Yii::$app->request->post())) {
                 \Yii::$app->response->format = Response::FORMAT_JSON;
@@ -525,11 +523,12 @@ class AdminController extends Controller
         }
     }
 
-    public function actionPrivilege($id){
+    public function actionPrivilege($id) {
         Url::remember('', 'actions-redirect');
         //$department = Department::find(['active' => 1])->all();
 
-        $department = $this->getPrivilege($id);
+        $department = $this->getPrivilegeDepartment($id);
+        $privilege = $this->getPrivilege($id);
         $user = $this->findModel($id);
         $profile = $user->profile;
 
@@ -538,38 +537,59 @@ class AdminController extends Controller
             $profile->link('user', $user);
         }
         return $this->render('_privilege', [
-            'user' => $user,
-            'department' => $department,
-            'profile' => $profile,
+                    'user' => $user,
+                    'department' => $department,
+                    'profile' => $profile,
+                    'privilege' => $privilege
         ]);
     }
 
-    function getPrivilege($userId){
+    function getPrivilegeDepartment($userId) {
         $sql = "SELECT d.id,d.department,Q.rule_id,Q.dep
-                FROM `department` d 
+                FROM `department` d
                 LEFT JOIN(
                 SELECT r.id AS rule_id,r.`department_id`,r.`department_id` AS dep
-                FROM `rule` r 
+                FROM `rule` r
                 WHERE r.`user_id` = '$userId'
                 ) Q ON d.id = Q.department_id";
         $rs = Yii::$app->db->createCommand($sql)->queryAll();
         return $rs;
     }
 
-    public function actionSaveprivilege(){
-        $user_id = \Yii::$app->request->post('user_id');
-        $department = \Yii::$app->request->post('department');
-        $columns = array("user_id" => $user_id,"department_id" => $department);
-        Yii::$app->db->createCommand()
-            ->insert("rule",$columns)
-            ->execute();
+    function getPrivilege($userId) {
+        $sql = "SELECT *
+                FROM `privilege`
+                WHERE `user_id` = '$userId'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs;
     }
 
-    public function actionDeleteprivilege(){
-        $id = \Yii::$app->request->post('id');
+    public function actionSaveprivilege() {
+        $user_id = \Yii::$app->request->post('user_id');
+        $department = \Yii::$app->request->post('department');
+        $columns = array("user_id" => $user_id, "department_id" => $department);
+        Yii::$app->db->createCommand()
+                ->insert("rule", $columns)
+                ->execute();
+    }
+
+    public function actionDeleteprivilege() {
         $id = \Yii::$app->request->post('id');
         Yii::$app->db->createCommand()
-            ->delete("rule","id = '$id'")
-            ->execute();
+                ->delete("rule", "id = '$id'")
+                ->execute();
     }
+
+    public function actionUpdateprivilege() {
+        $user_id = \Yii::$app->request->post('user_id');
+        $field = \Yii::$app->request->post('field');
+        $privilege = \Yii::$app->request->post('privilege');
+        $columns = array(
+            $field => $privilege
+        );
+        Yii::$app->db->createCommand()
+                ->update("privilege", $columns, "user_id = '$user_id'")
+                ->execute();
+    }
+
 }
