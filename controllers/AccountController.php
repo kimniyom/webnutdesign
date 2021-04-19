@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use app\models\Account;
 use app\models\AccountSearch;
 use yii\web\Controller;
@@ -46,7 +47,7 @@ class AccountController extends Controller {
     function getQuotation() {
         $sql = "SELECT c.*
                     FROM account a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`status` = '0' ";
+                    WHERE a.`status` = '0' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -56,9 +57,9 @@ class AccountController extends Controller {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id) {
+    public function actionView($ref) {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $this->findModel($ref),
         ]);
     }
 
@@ -69,13 +70,24 @@ class AccountController extends Controller {
      */
     public function actionCreate() {
         $model = new Account();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $error = "กรุณาแนบลิงค์หรืออัพโหลดใบเสนอราคา";
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if($model->file == null && $model->link == ""){
+                     return $this->render('create', [
+                        'model' => $model,
+                        'error' => $error
+                    ]);
+            } else {
+                    $model->file = $model->upload($model,'file');
+                    $model->save();
+                    return $this->redirect(['view', 'ref' => $model->ref]);
+            }
+            
         }
 
         return $this->render('create', [
                     'model' => $model,
+                    'error' => ''
         ]);
     }
 
@@ -86,15 +98,35 @@ class AccountController extends Controller {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id) {
-        $model = $this->findModel($id);
+    public function actionUpdate($ref) {
+        $model = $this->findModel($ref);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        /*รายละเอียดงาน*/
+        $modelCustomer = \app\models\Customer::findOne(['ref' => $ref]);
+        $file = $this->getFile($ref);
+
+        $error = "กรุณาแนบลิงค์หรืออัพโหลดใบเสนอราคา";
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+           if(empty($model->upload($model,'file')) && empty($model->link)){
+                     return $this->render('update', [
+                        'model' => $model,
+                        'error' => $error,
+                        'modelCustomer' =>  $modelCustomer,
+                        'file' => $file
+                    ]);
+            } else {
+                    $model->file = $model->upload($model,'file');
+                    $model->save();
+                    return $this->redirect(['view', 'ref' => $model->ref]);
+            }
         }
-
+        
         return $this->render('update', [
                     'model' => $model,
+                    'error' => '',
+                    'modelCustomer' => $modelCustomer,
+                    'file' => $file
         ]);
     }
 
@@ -105,8 +137,17 @@ class AccountController extends Controller {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id) {
-        $this->findModel($id)->delete();
+    public function actionDelete($ref) {
+        $model = $this->findModel($ref);
+        $file = $model->file;
+        //echo $file;
+        $path = Url::to('./uploads/account/'.$model->file);
+        if($file){
+            if(file_exists($path)){
+                unlink($path);
+            }
+        }
+        $this->findModel($ref)->delete();
 
         return $this->redirect(['index']);
     }
@@ -118,12 +159,26 @@ class AccountController extends Controller {
      * @return Account the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
-        if (($model = Account::findOne($id)) !== null) {
+    protected function findModel($ref) {
+        if (($model = Account::findOne(['ref' => $ref])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    function getTimeline($ref) {
+        $sql = "SELECT t.*,d.department AS curdep,p.`name`
+        FROM timeline t INNER JOIN department d ON t.department = d.id
+        INNER JOIN `profile` p ON t.user_id = p.user_id
+        WHERE t.ref = '$ref'
+        ORDER BY t.d_update DESC";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getFile($ref) {
+        $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
 }

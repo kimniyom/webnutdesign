@@ -8,10 +8,17 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
+use yii\helpers\html;
+use yii\helpers\BaseFileHelper;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Customer;
 use app\models\CustomerSearch;
+use app\models\Uploads;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller {
     /**
@@ -128,9 +135,9 @@ class SiteController extends Controller {
 
     public function actionView() {
 
-        $id = \Yii::$app->request->post('id');
+        $ref = \Yii::$app->request->post('ref');
 
-        $model = Customer::findOne(['id' => $id]);
+        $model = Customer::findOne(['ref' => $ref]);
         $file = $this->getFile($model['ref']);
         $timeline = $this->getTimeline($model['ref']);
         return $this->renderPartial('view', [

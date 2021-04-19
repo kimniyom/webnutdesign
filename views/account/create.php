@@ -10,11 +10,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Accounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+	<?php if($error){ ?>
+		<div class="container">
+			<div class="alert alert-danger"><?php echo $error ?></div>
+		</div>
+	<?php } ?>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>

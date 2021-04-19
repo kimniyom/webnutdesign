@@ -46,10 +46,17 @@ and open the template in the editor.
     background: #f4f4f4;
 }
 
+.account-index input[type='text']{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
 .box-list-work{
+    /*
     box-shadow: 0px 5px 20px 10px #cccccc;
     margin: 30px;
     border: none;
+    */
+    border-radius: 0px;
 }
 
 .account-view label{

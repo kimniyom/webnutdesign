@@ -24,6 +24,8 @@
     .customer-view table{
         border-right: 0px;
     }
+
+  
 </style>
 <?php
 

@@ -373,4 +373,15 @@ class CustomerController extends Controller {
         }
     }
 
+    public function actionViewpage($ref) {
+        $model = \app\models\Customer::findOne(['ref' => $ref]);
+        $file = $this->getFile($ref);
+        $timeline = $this->getTimeline($ref);
+        return $this->render('viewpage', [
+                    'model' => $model,
+                    'filelist' => $file,
+                    'timeline' => $timeline
+        ]);
+    }
+
 }

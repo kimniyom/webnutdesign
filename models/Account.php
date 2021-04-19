@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use \yii\web\UploadedFile;
 /**
  * This is the model class for table "account".
  *
@@ -19,7 +19,7 @@ use Yii;
  * @property string|null $update_date วันที่แก้ไขล่าสุด
  */
 class Account extends \yii\db\ActiveRecord {
-
+    public $upload_foler ='uploads/account';
     /**
      * {@inheritdoc}
      */
@@ -37,6 +37,11 @@ class Account extends \yii\db\ActiveRecord {
             [['detail', 'ref'], 'string'],
             [['link'], 'string', 'max' => 255],
             [['ref_account'], 'string', 'max' => 100],
+            [['file'], 'file',
+              'skipOnEmpty' => true,
+              'extensions' => 'pdf,doc,docx'
+            ],
+            
         ];
     }
 
@@ -47,7 +52,7 @@ class Account extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'customer_id' => 'รหัสลูกค้า',
-            'link' => 'ลิงแนบใบเสนอราคา',
+            'link' => 'ลิงค์แนบใบเสนอราคา',
             'ref_account' => 'รหัสอ้างอิงอัพโหลดไฟล์',
             'user_id' => 'ผู้บันทึกงาน',
             'last_dep' => 'แผนกที่ส่งมา',
@@ -56,7 +61,34 @@ class Account extends \yii\db\ActiveRecord {
             'create_date' => 'วันที่รับบงาน',
             'update_date' => 'วันที่แก้ไขล่าสุด',
             'detail' => 'อื่น ๆ',
+            'file' => 'แนบใบเสนอราคา',
         ];
     }
 
-}
+    public function upload($model,$attribute)
+    {
+        $file  = UploadedFile::getInstance($model, $attribute);
+          $path = $this->getUploadPath();
+        if ($this->validate() && $file !== null) {
+
+            $fileName = md5($file->baseName.time()) . '.' . $file->extension;
+            //$fileName = $photo->baseName . '.' . $photo->extension;
+            if($file->saveAs($path.$fileName)){
+              return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+    public function getUploadPath(){
+      return Yii::getAlias('@webroot').'/'.$this->upload_foler.'/';
+    }
+
+    public function getUploadUrl(){
+      return Yii::getAlias('@web').'/'.$this->upload_foler.'/';
+    }
+
+    public function getPhotoViewer(){
+      return empty($this->file) ? Yii::getAlias('@web').'/images/none.png' : $this->getUploadUrl().$this->file;
+    }
+    }

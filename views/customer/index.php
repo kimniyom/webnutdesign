@@ -4,11 +4,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\ConfigWeb;
-
+use app\models\Timeline;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CustomerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
+$TimeLineModel = new Timeline();
 $this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -41,7 +42,9 @@ $this->title = 'รับงาน';
     </div>
     <div class="row" style="margin-bottom: 0px;">
         <div class="col-lg-8 col-md-8">
-            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">งานที่รับวันนี้(<?php echo date("d/m/Y") ?>)</div>
+            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
+              !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
+            </div>
             <div id="body-work" style="margin-top: 10px; overflow: auto;">
                 <?php if ($dataList) { ?>
                     <?php foreach ($dataList as $rs): ?>
@@ -53,7 +56,7 @@ $this->title = 'รับงาน';
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">แก้ไข <i class="fas fa-pencil-alt"></i></a>
                             <a href="javascript:confirmCancel()" class="btn btn-rounded btn-danger">ยกเลิก <i class="fa fa-remove"></i></a>
-                            <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> ฝ่ายกราฟิก</p>
+                            <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref'])?></p>
                         </div>
                     <?php endforeach; ?>
                 <?php } else { ?>

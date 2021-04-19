@@ -1,47 +1,44 @@
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/account.css" rel="stylesheet">
 <style type="text/css" media="screen">
-    #popupaddwork .modal-dialog{
-        min-width: 99% !important;
-        margin-top: 10px !important;
-        margin: auto;
+    @media(min-width:767px) {
+        #popupaddwork .modal-dialog{
+            min-width: 99% !important;
+            margin-top: 10px !important;
+            margin: auto;
+        }
+
+        #detail-q{
+            position: relative;
+            overflow: auto;
+        }
+
+        #box-popup{
+            background: #ffffff;
+            padding:0px;
+            padding-bottom: 0px;
+        }
     }
 
-    #detail-q{
-        position: relative;
-        overflow: auto;
-    }
-
-    #box-popup{
-        background: #eeeeee;
-    }
 
 
 </style>
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\ConfigWeb;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\\models\AccountSeach */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
 $this->title = 'Accounts';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-index">
-
-
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
                 </a>
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
-                </a>
+               
                 <div class="pull-right">
                     <div style="font-size: 20px; float: left; color: #ffffff;">บัญชี</div>
                 </div>
@@ -58,17 +55,30 @@ $this->title = 'Accounts';
                 <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px;">
                     <?php if ($dataList) { ?>
                         <?php foreach ($dataList as $rs): ?>
-                            <div class="alert alert-dark box-list-work" role="alert" style="background: none;">
-                                <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
-                                <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
-                                <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
-                                <hr>
+                            <div class="alert alert-dark box-list-work" role="alert" style="background: none; padding: 0px;">
+                                <div class="row" style=" margin: 0px;">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div style=" padding:10px;">
+                                        <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
+                                        <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
+                                        <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                     
                                 <!--
                                 <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']])                    ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
                                 -->
-
-                                <a href="javascript:getViews('<?php echo $rs['id'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">แก้ไข <i class="fas fa-pencil-alt"></i></a>
+                                <div class="row" style=" margin: 0px; padding: 0px;">
+                                    <div class="col-md-6 col-lg-6" style=" padding: 0px;">
+                                        <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-dark btn-block" style="border-radius: 0px;">ดูรายละเอียด <i class="fa fa-eye"></i></a>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6" style="padding:0px;">
+                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['account/update', 'ref' => $rs['ref']]) ?>" class="btn btn-success btn-block" style="border-radius: 0px;">ใบเสนอราคา <i class="fas fa-pencil-alt"></i></a>
+                                    </div>
+                                </div>
+                                
+                                
                             </div>
                         <?php endforeach; ?>
                     <?php } else { ?>
@@ -115,26 +125,25 @@ $this->title = 'Accounts';
             </div>
         </div>
     </div>
-</div>
 
-<!-- เอาคิวข้าว -->
-<div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">ข้อมูลรายละเอียด(* ต้องมี)</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <!-- เอาคิวข้าว -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="position: relative;">
+                <div class="modal-header">
+                    <h5 class="modal-title">ข้อมูลรายละเอียด(* ต้องมี)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
-            </div>
-            <div class="modal-body" id="box-popup">
-                <div id="view-customer"></div>
+                </div>
+                <div class="modal-body" id="box-popup">
+                    <div id="view-customer"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <?php
 $this->registerJs('
@@ -155,17 +164,13 @@ $this->registerJs('
         }
     }
 
-    function getViews(id) {
+    function getViews(ref) {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
-        var data = {id: id};
+        var data = {ref: ref};
         $.post(url, data, function(res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
-    }
-
-    function popupaddwork() {
-        $("#popupaddwork").modal();
     }
 </script>
 

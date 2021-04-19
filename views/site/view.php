@@ -1,12 +1,18 @@
-<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/customer.css" rel="stylesheet">
+
+<!--
+<link href="<?php //echo Yii::$app->urlManager->baseUrl ?>/css/account.css" rel="stylesheet">
+-->
+<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
+<script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+<script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/dosamigos-blueimp-gallery.js"></script>
 <style>
-    #w2 img{
+    #w0 img{
         border-radius: 10px;
         margin: 10px;
         width: 20%;
         transition: box-shadow 0.3s ease-in-out;
     }
-    #w2 img:hover{
+    #w0 img:hover{
         box-shadow: 0px 5px 20px 10px #cccccc;
     }
     .head-title{
@@ -24,6 +30,27 @@
     .customer-view table{
         border-right: 0px;
     }
+
+    @media(max-width:767px) {
+     .customer-view .card{
+        padding:0px;
+        border:0px;
+        border-radius: 0px;
+        margin: 0px;
+     }
+      .customer-view .card-head{
+        padding:0px;
+        border:none;
+        border-radius: 0px;
+        margin: 0px;
+     }
+
+     .customer-view .card-responsive{
+        padding: 0px !important;
+        margin: 0px;
+     }
+
+    }
 </style>
 <?php
 
@@ -33,23 +60,17 @@ use app\models\ConfigWeb;
 use yii\helpers\Url;
 use app\models\Customer;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Customer */
-
-//$this->title = $model->customer;
-//$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
 $ConfigModel = new ConfigWeb();
 $CustomerModel = new Customer();
 ?>
 <div class="customer-view">
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
-        <div class="col-md-3 col-lg-3" style="padding-right: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px;">
+        <div class="col-md-3 col-lg-3 card-responsive" style="padding-right: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; margin-bottom: 0px; padding-bottom: 0px;">
                 <div class="card-header">
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
-                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px;">
+                <div class="card-body" id="box-popup-left-view" style="overflow: auto; padding: 5px;">
                     <table class="table">
                         <tr>
                             <th>ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</th>
@@ -79,13 +100,13 @@ $CustomerModel = new Customer();
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-6" style=" padding-left: 0px; padding-right: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px;">
+        <div class="col-md-6 col-lg-6 card-responsive" style=" padding-left: 0px; padding-right: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px;margin-bottom: 0px; padding-bottom: 0px;">
                 <div class="card-content" >
                     <div class="card-header">
                         <i class="fa fa-briefcase"></i> รายละเอียดงาน
                     </div>
-                    <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 5px;">
+                    <div class="card-body" id="box-popup-right-view" style="overflow: auto; padding: 5px;">
                         <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">ข้อมูลรับงาน</h3>
                         <table class="table">
                             <tr>
@@ -120,7 +141,7 @@ $CustomerModel = new Customer();
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 รูปภาพแนบ
-                                <?= dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]); ?>
+                                <?php echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]); ?>
                                 ไฟล์แนบ
                                 <ul>
                                     <?php foreach ($filelist as $f): ?>
@@ -138,13 +159,13 @@ $CustomerModel = new Customer();
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3" style=" padding-left: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;">
+        <div class="col-md-3 col-lg-3 card-responsive" style=" padding-left: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;margin-bottom: 0px; padding-bottom: 0px;">
                 <div class="card-content">
                     <div class="card-header">
                         <i class="fas fa-long-arrow-alt-down text-danger"></i><i class="fas fa-long-arrow-alt-up text-success"></i> กิจกรรม
                     </div>
-                    <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px;">
+                    <div class="card-body" id="box-timeline-view" style="overflow: auto; padding: 0px;">
                         <ul class="list-group" style=" border-radius: 0px;">
                             <?php foreach ($timeline as $tm): ?>
                                 <li class="list-group-item" style="border-left: 0px; border-right: 0px; border-top: 0px;">
@@ -167,20 +188,24 @@ $CustomerModel = new Customer();
 <?php
 $this->registerJs('
         $(document).ready(function(){
-            setScreens();
+            setScreensView();
         });
             ');
 ?>
 
 <script type="text/javascript">
-    function setScreens() {
+    jQuery(function ($) {
+    dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
+
+    setScreensView();
+    function setScreensView() {
         var h = window.innerHeight;
         var w = window.innerWidth;
         if (w > 768) {
-            $("#box-popup-left").css({"height": h - 193});
-            $("#box-popup-right").css({"height": h - 193});
-            $("#box-timeline").css({"height": h - 193});
+            $("#box-popup-left-view").css({"height": h - 128});
+            $("#box-popup-right-view").css({"height": h - 128});
+            $("#box-timeline-view").css({"height": h - 128});
         }
     }
-
+});
 </script>

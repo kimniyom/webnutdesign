@@ -17,7 +17,7 @@ class AccountSeach extends Account {
     public function rules() {
         return [
             [['id', 'customer_id', 'user_id', 'last_dep', 'status', 'approve'], 'integer'],
-            [['link', 'ref_account', 'create_date', 'update_date'], 'safe'],
+            [['link', 'ref_account', 'create_date', 'update_date','ref'], 'safe'],
         ];
     }
 
@@ -57,6 +57,7 @@ class AccountSeach extends Account {
         $query->andFilterWhere([
             'id' => $this->id,
             'customer_id' => $this->customer_id,
+            'ref' => $this->ref,
             'user_id' => $this->user_id,
             'last_dep' => $this->last_dep,
             'status' => $this->status,
