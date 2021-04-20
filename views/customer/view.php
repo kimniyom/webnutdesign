@@ -53,7 +53,6 @@ $ConfigModel = new ConfigWeb();
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['customer']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
                 </a>
-                | <button type="button" class="btn btn-danger btn-rounded"><i class="fa fa-remove"></i> ยกเลิก</button>
 
                 <div class="pull-right">
                     <div style="font-size: 20px; float: left; color: #ffffff;">รายละเอียดงาน</div>
@@ -146,20 +145,16 @@ $ConfigModel = new ConfigWeb();
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 รูปภาพแนบ
-                                <?= dosamigos\gallery\Gallery::widget(['items' => $model->getThumbnails($model->ref, $model->project_name)]); ?>
+                                <?= dosamigos\gallery\Gallery::widget(['items' => $model->getThumbnails($model->ref, 'รายละเอียดการคุยงาน')]); ?>
                                 ไฟล์แนบ
                                 <ul>
                                     <?php foreach ($filelist as $f): ?>
-                                        <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['real_filename'] ?></a></li>
+                                        <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
-                        <!-- Account -->
-                        <hr/>
-                        <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">บัญชี</h3>
-                        <hr/>
-                        <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">กราฟิก / ใบสั่งงาน</h3>
+                        
                     </div>
                 </div>
             </div>

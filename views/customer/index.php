@@ -13,6 +13,29 @@ $TimeLineModel = new Timeline();
 $this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
+<style type="text/css" media="screen">
+    @media(min-width:767px) {
+        #popupaddwork .modal-dialog{
+            min-width: 99% !important;
+            margin-top: 10px !important;
+            margin: auto;
+        }
+
+        #detail-q{
+            position: relative;
+            overflow: auto;
+        }
+
+        #box-popup{
+            background: #ffffff;
+            padding:0px;
+            padding-bottom: 0px;
+        }
+    }
+
+
+
+</style>
 <div class="customer-index">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
@@ -53,7 +76,10 @@ $this->title = 'รับงาน';
                             <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
                             <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
                             <hr>
-                            <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
+                            <!--
+                            <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
+                            -->
+                             <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-info" >ดูรายละเอียด <i class="fa fa-eye"></i></a>
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">แก้ไข <i class="fas fa-pencil-alt"></i></a>
                             <a href="javascript:confirmCancel('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger">ยกเลิก <i class="fa fa-remove"></i></a>
                             <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref'])?></p>
@@ -70,7 +96,7 @@ $this->title = 'รับงาน';
                     <div class="card-title" style=" font-weight: bold;">ประวัติการรับงาน</div>
                     <div id="body-history" style="overflow: auto; padding: 0px;">
                         <div class="steamline m-t-40">
-                            <div class="sl-item">
+                            <div class="sl-item" style=" display: none;">
                                 <div class="sl-left bg-success"> <i class="fa fa-user"></i></div>
                                 <div class="sl-right">
                                     <div class="font-medium">คุณ Dem omo <span class="sl-date"> 19/03/2564</span>
@@ -84,33 +110,8 @@ $this->title = 'รับงาน';
                                     </div>
                                 </div>
                             </div>
-                            <div class="sl-item">
-                                <div class="sl-left bg-info"><i class="fa fa-image"></i></div>
-                                <div class="sl-right">
-                                    <div class="font-medium">โรงแรมเวียงตาก <span class="sl-date"> 19/03/2564</span></div>
-                                    <div class="desc">
-                                        ประเภทงาน: ป้าย<br/>
-                                        <a href="javascript:void(0)"
-                                           class="btn m-t-10 m-r-5 btn-rounded btn-outline-success btn-sm">ดูรายละเอียด</a>
-                                        <a
-                                            class="btn m-t-10 btn-rounded btn-outline-danger btn-sm disabled">สถานะล่าสุก รออนุมัติ</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sl-item">
-                                <div class="sl-left"> <img class="img-circle" alt="user"
-                                                           src="../assets/images/users/1.png"> </div>
-                                <div class="sl-right">
-                                    <div class="font-medium">ร้าน A-Mobile <span class="sl-date"> 19/03/2564</span></div>
-                                    <div class="desc">
-                                        ประเภทงาน: ป้าย<br/>
-                                        <a href="javascript:void(0)"
-                                           class="btn m-t-10 m-r-5 btn-rounded btn-outline-success btn-sm">ดูรายละเอียด</a>
-                                        <a
-                                            class="btn m-t-10 btn-rounded btn-outline-danger btn-sm disabled">สถานะล่าสุก ส่งงานเรียบร้อย</a>
-                                    </div>
-                                </div>
-                            </div>
+        
+       
                         </div>
                     </div>
                 </div>
@@ -148,6 +149,25 @@ $this->title = 'รับงาน';
 
 
 </div>
+
+<!-- Popup Detail -->
+<div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="position: relative;">
+                <div class="modal-header">
+                    <h5 class="modal-title">ข้อมูลรายละเอียด</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body" id="box-popup">
+                    <div id="view-customer"></div>
+                </div>
+            </div>
+        </div>
+</div>
+
 
 <?php
 $this->registerJs('
@@ -195,6 +215,15 @@ $this->registerJs('
                                     }
                                 });
                             }
+
+  function getViews(ref) {
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
+        var data = {ref: ref};
+        $.post(url, data, function(res) {
+            $("#view-customer").html(res);
+            $("#popupaddwork").modal();
+        });
+    }
 </script>
 
 

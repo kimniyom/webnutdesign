@@ -19,6 +19,8 @@ use app\models\Customer;
 use app\models\CustomerSearch;
 use app\models\Uploads;
 use yii\web\UploadedFile;
+use app\models\Account;
+use app\models\Graphic;
 
 class SiteController extends Controller {
     /**
@@ -134,22 +136,34 @@ class SiteController extends Controller {
     }
 
     public function actionView() {
-
         $ref = \Yii::$app->request->post('ref');
 
         $model = Customer::findOne(['ref' => $ref]);
         $file = $this->getFile($model['ref']);
         $timeline = $this->getTimeline($model['ref']);
+        //Account 
+        $account = Account::findOne(['ref' => $ref]);
+        //กราฟฟิก 
+        $graphic = Graphic::findOne(['ref' => $ref]);
+        $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
         return $this->renderPartial('view', [
                     'model' => $model,
                     'filelist' => $file,
-                    'timeline' => $timeline
+                    'timeline' => $timeline,
+                    'account' => $account,
+                    'graphic' => $graphic,
+                    'filegraphic' => $fileGraphic
         ]);
         //return $this->renderPartial("views");
     }
 
     function getFile($ref) {
         $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getImgGraphic($ref) {
+        $sql = "select * from uploads where ref = '$ref' and typefile = '1'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -161,5 +175,7 @@ class SiteController extends Controller {
         ORDER BY t.d_update DESC";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
+
+
 
 }

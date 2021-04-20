@@ -396,6 +396,12 @@ class CustomerController extends Controller {
             ->update("account",array("status" => 2),"ref = '$ref'")
             ->execute();
 
+        //Update Graphic
+        Yii::$app->db->createCommand()
+            ->update("graphic",array("status" => 2),"ref = '$ref'")
+            ->execute();
+        
+
         //Time Line
         $culumns = array(
             "department" => 1,

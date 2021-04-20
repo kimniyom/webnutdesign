@@ -202,7 +202,7 @@ $menuList = $configWeb->getPrivilege();
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li>
-                                <a class="waves-effect waves-dark" href="index.html" aria-expanded="false">
+                                <a class="waves-effect waves-dark" href="#" aria-expanded="false">
                                     <i class="fas fa-tachometer-alt"></i><span class="hide-menu">Dashboard</span>
                                 </a>
                             </li>

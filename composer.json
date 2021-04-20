@@ -24,7 +24,8 @@
         "yurkinx/yii2-image": "dev-master",
         "2amigos/yii2-date-picker-widget": "~1.0",
         "2amigos/yii2-gallery-widget": "*",
-        "yiidoc/yii2-redactor": "*"
+        "yiidoc/yii2-redactor": "*",
+        "kartik-v/yii2-editors": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

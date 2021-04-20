@@ -15,8 +15,19 @@
     #w0 img:hover{
         box-shadow: 0px 5px 20px 10px #cccccc;
     }
+
+    #w1 img{
+        border-radius: 10px;
+        margin: 10px;
+        width: 20%;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    #w1 img:hover{
+        box-shadow: 0px 5px 20px 10px #cccccc;
+    }
     .head-title{
         color: #00cccc;
+
     }
 
     .customer-view table tr th{
@@ -31,6 +42,14 @@
         border-right: 0px;
     }
 
+    .customer-view .card-header{
+        border-bottom: solid 1px #eeeeee;
+    }
+
+    .customer-view #box-popup-right-view{
+        border-left: solid 1px #eeeeee;
+         border-right: solid 1px #eeeeee;
+    }
     @media(max-width:767px) {
      .customer-view .card{
         padding:0px;
@@ -38,17 +57,35 @@
         border-radius: 0px;
         margin: 0px;
      }
-      .customer-view .card-head{
-        padding:0px;
+      .customer-view .card-header{
+       background: none;
         border:none;
         border-radius: 0px;
         margin: 0px;
+        font-size: 20px;
+        font-weight: bold;
+        padding-left: 0px;
      }
 
      .customer-view .card-responsive{
         padding: 0px !important;
         margin: 0px;
      }
+
+     .customer-view #box-popup-right-view{
+        border-left: none;
+        border-right: none;
+        }
+
+    .customer-view .card{
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .head-title{
+        color: #00cccc;
+        font-size: 18px;
+    }
 
     }
 </style>
@@ -63,7 +100,7 @@ use app\models\Customer;
 $ConfigModel = new ConfigWeb();
 $CustomerModel = new Customer();
 ?>
-<div class="customer-view">
+<div class="customer-view" style=" padding-top: 0px; margin-top: 0px;">
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
         <div class="col-md-3 col-lg-3 card-responsive" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; margin-bottom: 0px; padding-bottom: 0px;">
@@ -145,7 +182,7 @@ $CustomerModel = new Customer();
                                 ไฟล์แนบ
                                 <ul>
                                     <?php foreach ($filelist as $f): ?>
-                                        <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['real_filename'] ?></a></li>
+                                        <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -153,8 +190,47 @@ $CustomerModel = new Customer();
                         <!-- Account -->
                         <hr/>
                         <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">บัญชี</h3>
+                        <div style="padding: 0px 10px;">
+                        <?php if($account){ ?>
+                        <label style="font-weight: bold;">รายละเอียด</label> <?php echo ($account['detail']) ? $account['detail'] : "-" ?><br/>
+                        <label style="font-weight: bold;">ใบเสนอราคา</label>
+                        <ul>
+                            <?php if($account['link']) { ?>
+                                <li><a href="<?php echo $account['link'] ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
+                            <?php } ?>
+                            <?php if($account['file']) { ?>
+                                <li><a href="<?php echo Url::to('@web/uploads/account/' . $account['file']) ?>" target="_back">ใบเสนอราคา</a></li>
+                            <?php } ?>
+                        </ul>
+                        <label>โดย <?php echo dektrium\user\models\Profile::findOne(['user_id' => $account['user_id']])['name'] ?></label>
+                        <?php } else { ?>
+                            ยังไม่มีข้อมูลในส่วนนี้
+                        <?php } ?>
+                        </div>
                         <hr/>
                         <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">กราฟิก / ใบสั่งงาน</h3>
+                        <?php 
+                            if($graphic){
+                        ?>
+                        <label>รายละเอียกใลสั่งงาน</label>
+                        <?php echo $graphic['detail'] ?>
+                        <div class="card">
+
+                            <div class="card-content">
+                                <div class="card-header">ไฟล์งาน / ตัวอย่างงาน</div>
+                                <div class="card-body">
+                                   <?php foreach($filegraphic as $files): 
+                                        $img = Url::to('@web/photolibrarys/').$graphic['ref_graphic'].'/thumbnail/'.$files['real_filename'];
+                                    ?>
+                                    <img src="<?php echo $img ?>" style=" height: 100px;">
+                                   <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } else { ?>
+                            ยังไม่มีข้อมูลในส่วนนี้
+                        <?php } ?>
+                        
                     </div>
                 </div>
             </div>

@@ -67,7 +67,7 @@ class Account extends \yii\db\ActiveRecord {
 
     public function upload($model,$attribute)
     {
-        $file  = UploadedFile::getInstance($model, $attribute);
+        $file = UploadedFile::getInstance($model, $attribute);
           $path = $this->getUploadPath();
         if ($this->validate() && $file !== null) {
 
@@ -76,8 +76,12 @@ class Account extends \yii\db\ActiveRecord {
             if($file->saveAs($path.$fileName)){
               return $fileName;
             }
+            return $fileName;
+        } else {
+            return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
         }
-        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+        
+        
     }
 
     public function getUploadPath(){

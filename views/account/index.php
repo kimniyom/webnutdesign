@@ -82,7 +82,7 @@ $this->title = 'Accounts';
                             </div>
                         <?php endforeach; ?>
                     <?php } else { ?>
-                        ไม่มีข้อมูล
+                        <div style="text-align: center;">ไม่มีข้อมูล</div>
                     <?php } ?>
                 </div>
             </div>
@@ -91,10 +91,29 @@ $this->title = 'Accounts';
             <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px;">
                 <div class="card-content" >
                     <div class="card-header">
-                        <i class="fa fa-check text-success"></i> ตรวจสอบยืนยัน
+                        <i class="fa fa-check text-success"></i> ตรวจสอบยืนยัน(งานถึงมือลูกค้าแล้ว)
                     </div>
-                    <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 5px;">
-
+                    <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 0px;">
+                        <ul class="list-group" style=" padding: 0px; margin: 0px;">
+                            <?php foreach($job as $jobs): ?>
+                            <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee;">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <h4>งาน: <?php echo $jobs['project_name'] ?><h4/>
+                                        <p>ลูกค้า:<?php echo $jobs['customer'] ?></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6">
+                                        <button type="button" class="btn btn-success btn-block btn-sm" onclick="javascript:alert('กำลังดำเนินการในส่วนนี้อยู่');"><i class="fa fa-check"></i> CONFIRM</button>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <button type="button" class="btn btn-info btn-block btn-sm" onclick="getViews('<?php echo $jobs['ref'] ?>')"><i class="fa fa-eye"></i> CHECK</button>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -120,13 +139,15 @@ $this->title = 'Accounts';
                         <?php //endforeach; ?>
                         </ul>
                         -->
+                        <div style="text-align: center;">อยู่ระหว่างการดำเนินงาน</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- เอาคิวข้าว -->
+   <!-- เอาคิวข้าว -->
     <div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="position: relative;">
@@ -143,7 +164,6 @@ $this->title = 'Accounts';
             </div>
         </div>
     </div>
-</div>
 
 <?php
 $this->registerJs('

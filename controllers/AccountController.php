@@ -37,10 +37,12 @@ class AccountController extends Controller {
         $searchModel = new AccountSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $quoTation = $this->getQuotation();
+        $jobApprove = $this->getWorkNonApprove();
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'dataList' => $quoTation
+                    'dataList' => $quoTation,
+                    'job' => $jobApprove
         ]);
     }
 
@@ -48,6 +50,13 @@ class AccountController extends Controller {
         $sql = "SELECT c.*
                     FROM account a INNER JOIN customer c ON a.ref = c.ref
                     WHERE a.`status` = '0' AND c.flag = '0'";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getWorkNonApprove() {
+        $sql = "SELECT c.* 
+                FROM customer c 
+                WHERE c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -112,13 +121,37 @@ class AccountController extends Controller {
                      return $this->render('update', [
                         'model' => $model,
                         'error' => $error,
-                        'modelCustomer' =>  $modelCustomer,
+                        'modelCustomer' => $modelCustomer,
                         'file' => $file
                     ]);
             } else {
                     $model->file = $model->upload($model,'file');
+
+                    $model->user_id = Yii::$app->user->identity->id;
+                    $model->status = 1;
+                    $model->create_date = date("Y-m-d H:i:s");
+
                     $model->save();
-                    return $this->redirect(['view', 'ref' => $model->ref]);
+
+                    //Time Line
+                    $culumns = array(
+                        "department" => 4,
+                        "ref" => $model->ref,
+                        "user_id" => Yii::$app->user->identity->id,
+                        "log" => "รับงาน",
+                        "todep" => "กราฟิก / ออกแบบ",
+                        "d_update" => date("Y-m-d H:i:s")
+                    );
+                    \Yii::$app->db->createCommand()
+                            ->insert("timeline", $culumns)
+                            ->execute();
+
+                    //ส่งไปแผนก
+                    $depVal = array('3');
+                    $this->sendDepartment($depVal , $model->ref);
+
+                    return $this->redirect(['index']);
+                    //return $this->redirect(['view', 'ref' => $model->ref]);
             }
         }
         
@@ -180,5 +213,34 @@ class AccountController extends Controller {
         $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
+
+    private function sendDepartment($dep, $ref) {
+        if (in_array("4", $dep)) {//แผนกบัญชี
+            $res = \app\models\Account::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("account", $columns)
+                        ->execute();
+            }
+        } else if (in_array("3", $dep)) {//แผนกกราฟิก
+            $res = \app\models\Graphic::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("graphic", $columns)
+                        ->execute();
+            }
+        } else { //แผนกการตลาดลูกค้าสัมพันธ์
+            $columns = array(
+                "ref" => $ref
+            );
+        }
+    }
+
 
 }
