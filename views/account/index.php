@@ -131,7 +131,7 @@ $this->title = 'Accounts';
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="position: relative;">
                 <div class="modal-header">
-                    <h5 class="modal-title">ข้อมูลรายละเอียด(* ต้องมี)</h5>
+                    <h5 class="modal-title">ข้อมูลรายละเอียด</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
                         <span aria-hidden="true">&times;</span>
                     </button>

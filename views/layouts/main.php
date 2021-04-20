@@ -201,20 +201,6 @@ $menuList = $configWeb->getPrivilege();
                     <!-- Sidebar navigation-->
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
-                            <!--
-                            <li>
-                                <a class="waves-effect waves-dark" href="#" aria-expanded="false">
-                                    <i class="fa fa-tachometer"></i>
-                                    <span class="hide-menu">Dashboard</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="index.html">Minimal </a></li>
-                                    <li><a href="index2.html">Analytical</a></li>
-                                    <li><a href="index3.html">Demographical</a></li>
-                                    <li><a href="index4.html">Modern</a></li>
-                                </ul>
-                            </li>
-                            -->
                             <li>
                                 <a class="waves-effect waves-dark" href="index.html" aria-expanded="false">
                                     <i class="fas fa-tachometer-alt"></i><span class="hide-menu">Dashboard</span>

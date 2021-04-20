@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
-use yii\helpers\html;
+use yii\helpers\Html;
 use yii\web\UploadedFile;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
@@ -382,6 +382,36 @@ class CustomerController extends Controller {
                     'filelist' => $file,
                     'timeline' => $timeline
         ]);
+    }
+
+    public function actionCancelwork(){
+        $ref = Yii::$app->request->post('ref');
+        //Update Customer
+        Yii::$app->db->createCommand()
+            ->update("customer",array("flag" => 2),"ref = '$ref'")
+            ->execute();
+
+        //Update Account
+        Yii::$app->db->createCommand()
+            ->update("account",array("status" => 2),"ref = '$ref'")
+            ->execute();
+
+        //Time Line
+        $culumns = array(
+            "department" => 1,
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ยกเลิกงาน",
+            "flag" => 2,
+            "todep" => "ยกเลิกงาน",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+        $rs = \Yii::$app->db->createCommand()
+                        ->insert("timeline", $culumns)
+                        ->execute();
+        if($rs){
+            echo 1;
+        }
     }
 
 }

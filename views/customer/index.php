@@ -55,7 +55,7 @@ $this->title = 'รับงาน';
                             <hr>
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">แก้ไข <i class="fas fa-pencil-alt"></i></a>
-                            <a href="javascript:confirmCancel()" class="btn btn-rounded btn-danger">ยกเลิก <i class="fa fa-remove"></i></a>
+                            <a href="javascript:confirmCancel('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger">ยกเลิก <i class="fa fa-remove"></i></a>
                             <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref'])?></p>
                         </div>
                     <?php endforeach; ?>
@@ -170,6 +170,31 @@ $this->registerJs('
             $(".my-box-search").css({"background": "#111111"});
         }
     }
+
+    function confirmCancel(ref) {
+      Swal.fire({
+        icon: 'warning',
+                                    title: 'ยืนยันรายการ...?',
+                                    text: 'คุณแน่ใจหรือไม่ที่จะดำเนินรายการต่อ...?',
+                                    showDenyButton: false,
+                                    showCancelButton: true,
+                                    confirmButtonText: `ตกลง`,
+                                    //denyButtonText: `Don't save`,
+                                }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                      //Swal.fire('Success!', '', 'success');
+                                      var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/cancelwork']) ?>";
+                                      var data = {ref: ref};
+                                      $.post(url,data,function(res){
+                                        if(res == 1){
+                                          window.location.reload();
+                                        }
+                                      });
+                                        
+                                    }
+                                });
+                            }
 </script>
 
 
