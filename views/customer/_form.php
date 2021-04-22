@@ -177,6 +177,7 @@ use kartik\select2\Select2;
                                      *
                                      */
                                     ?>
+                                    <div class="alert alert-warning" id="showaccountalert" style="display: none;">ต้องส่งแผนกบัญชีด้วยทุกครั้ง</div>
                                 </div>
                             </div>
                         </div>
@@ -242,10 +243,11 @@ $this->registerJs('
     function setQuotation() {
         var channel = $('input[name="Customer[quotation]"]:checked').val();
         if (channel == 1) {
-            $("#customer-cur_dep").select2("val", "4");
+            //$("#customer-cur_dep").select2("val", "4");
             //$("#customer-cur_dep").attr("readonly", "readonly");
+            $("#showaccountalert").show();
         } else {
-            $("#customer-cur_dep").select2("val", "0");
+            //$("#customer-cur_dep").select2("val", "0");
             //$("#customer-cur_dep").prop("readonly", false);
         }
     }

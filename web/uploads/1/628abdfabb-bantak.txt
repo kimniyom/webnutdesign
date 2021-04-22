@@ -1,0 +1,63 @@
+socket-เรียกจากข้างนอก
+http://122.154.193.66:8669
+
+api-ข้างนอก
+http://122.154.193.66:8088/rawq/service
+
+
+13:15 apicharti Rodsaweng 556809868//win-mb1j8ab04hu/administrator
+13:15 apicharti Rodsaweng pass: bantak11238
+
+IP: 192.168.200.245
+DB. bantak_hosxp
+User: bantak
+Pass:11238
+
+DB_HOST=127.0.0.1
+DB_USER=root
+DB_PASS=root
+DB_NAME=queuedb
+DB_PORT=3333
+
+Is70SyvJ
+
+ความต้องการของระบบในการทำ Realtime
+Config Mysql ให้เปิด binary logging ที่ my.cnf หรือ my.ini
+
+สร้างฐานไว้เก็บค่าเหตุการการส่งคนไข้
+ฐานชื่อ queuedb
+สร้าง table ชื่อ event_queue 
+script
+======================================
+CREATE TABLE event_queue (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  department varchar(100) DEFAULT NULL,
+  hn varchar(100) DEFAULT NULL,
+  vn varchar(100) DEFAULT NULL,
+  create_date timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+สร้าง triger ในตารง event_queue
+script 
+=========================================
+CREATE TRIGGER `checkqueue` AFTER INSERT ON `event_queue` FOR EACH ROW 
+BEGIN
+END
+=========================================
+
+//สร้าง Trigger ฐาน hosxp
+CREATE TRIGGER sendqueue AFTER UPDATE ON ovst FOR EACH ROW 
+BEGIN
+   IF(new.vstdate = CURRENT_DATE() AND (new.cur_dep IN('030') OR new.last_dep IN('007'))) THEN
+      INSERT INTO queuedb.event_queue (department,lastdepartment,hn,vn,create_date) VALUES (new.cur_dep,new.last_dep,new.hn,new.vn,NOW());
+   END IF;
+END
+
+=========================================
+สร้าง view ตาราง patientและovst จากฐาน hosxp มาไว้ฐาน queuedb เพื่อสะดวกต่อการใช้งาน
+หรือถ้ามีเครื่อง backup ให้ connect ใช้ฐานนั้นแทน
+
+
+
+

@@ -21,12 +21,12 @@ use yii\widgets\ActiveForm;
  */
 
 $this->title = Yii::t('user', 'Sign in');
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row">
+<div class="row" style="margin-top: 50px;">
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -69,19 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'password',
                         ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])
                         ->passwordInput()
-                        ->label(
-                            Yii::t('user', 'Password')
-                            . ($module->enablePasswordRecovery ?
-                                ' (' . Html::a(
-                                    Yii::t('user', 'Forgot password?'),
-                                    ['/user/recovery/request'],
-                                    ['tabindex' => '5']
-                                )
-                                . ')' : '')
-                        ) ?>
+                        ->label() ?>
                 <?php endif ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '3']) ?>
+                
 
                 <?= Html::submitButton(
                     Yii::t('user', 'Sign in'),
@@ -89,20 +80,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ) ?>
 
                 <?php ActiveForm::end(); ?>
+
             </div>
         </div>
-        <?php if ($module->enableConfirmation): ?>
-            <p class="text-center">
-                <?= Html::a(Yii::t('user', 'Didn\'t receive confirmation message?'), ['/user/registration/resend']) ?>
-            </p>
-        <?php endif ?>
-        <?php if ($module->enableRegistration): ?>
-            <p class="text-center">
-                <?= Html::a(Yii::t('user', 'Don\'t have an account? Sign up!'), ['/user/registration/register']) ?>
-            </p>
-        <?php endif ?>
+        
         <?= Connect::widget([
             'baseAuthUrl' => ['/user/security/auth'],
         ]) ?>
+        <p class="text-center">Demo Version Build 2021.04.20</p>
     </div>
+
 </div>

@@ -37,12 +37,20 @@ class Graphic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'user_id', 'last_dep', 'status', 'approve'], 'integer'],
+            [['flagsend'],'required'],
+            [['customer_id', 'user_id', 'last_dep', 'status', 'approve','flagsend'], 'integer'],
             [['detail'], 'string'],
             [['create_date', 'update_date'], 'safe'],
             [['ref'], 'string', 'max' => 50],
             [['link'], 'string', 'max' => 255],
             [['ref_graphic'], 'string', 'max' => 100],
+            ['todep', 'required', 'when' => function ($model) {
+                    return $model->flagsend == 2;
+                }, 'whenClient' => "function (attribute, value) {
+                    var channel = $('input[name=\"Graphic[flagsend]\"]:checked').val();
+                    return channel == 2;
+                }",
+            ],
         ];
     }
 
@@ -60,11 +68,12 @@ class Graphic extends \yii\db\ActiveRecord
             'ref_graphic' => 'รหัสอ้างอิงอัพโหลดไฟล์ตัวอย่างงาน / แบบงาน',
             'user_id' => 'ผู้บันทึกงาน',
             'last_dep' => 'แผนกที่ส่งมา',
-            'status' => '0 = ยังไม่รับงาน 1 = รับงาน 2 = งานถูกยกเลิก',
+            'status' => '1 = ยังไม่รับงาน 2 = รับงาน 3 = งานถูกยกเลิก',
             'approve' => '0 = งานยังไม่approve 1 = งาน approve แล้ว',
             'create_date' => 'วันที่รับบงาน',
             'update_date' => 'วันที่แก้ไขล่าสุด',
-            'flagsend' => 'การส่งต่อแผนกอื่น'
+            'flagsend' => 'การส่งต่อแผนกอื่น',
+            'todep' => 'ส่งต่อแผนก'
         ];
     }
 
@@ -73,10 +82,10 @@ class Graphic extends \yii\db\ActiveRecord
         $user_id = Yii::$app->user->identity->id;
         if ($status == "A" || $status == "M") {
             $sql = "select c.* from graphic g INNER JOIN customer c ON g.ref = c.ref 
-                    where g.approve = '0' and g.`flagsend` = '0' and status != 2";
+                    where g.approve = '0' and g.`flagsend` = '1' and status != 2";
         } else {
             $sql = "select c.* from graphic g INNER JOIN customer c ON g.ref = c.ref 
-                    where g.approve = '0' and g.`flagsend` = '0' and status != 2";
+                    where g.approve = '0' and g.`flagsend` = '1' and status != 2";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
@@ -101,5 +110,21 @@ class Graphic extends \yii\db\ActiveRecord
             ];
         }
         return $preview;
+    }
+    
+    function searchJob($customer = "",$project = "") {
+        $where = "";
+        if($customer != "" && $project == "") {
+            $where .= "WHERE c.customer LIKE '%".$customer."%'";
+        } else if($customer == "" && $project != ""){
+            $where .= "WHERE c.project_name LIKE '%".$project."%'";
+        } else if($customer != "" && $project != ""){
+            $where .= "WHERE customer LIKE '%".$customer."%' AND project_name LIKE '%".$project."%'";
+        }
+        
+        $sql = "select c.* from graphic g INNER JOIN customer c ON g.ref = c.ref $where";
+                
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
     }
 }

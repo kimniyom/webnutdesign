@@ -538,20 +538,21 @@ class AdminController extends Controller {
         }
         return $this->render('_privilege', [
                     'user' => $user,
-                    'department' => $department,
+                    'departments' => $department,
                     'profile' => $profile,
                     'privilege' => $privilege
         ]);
     }
 
     function getPrivilegeDepartment($userId) {
-        $sql = "SELECT d.id,d.department,Q.rule_id,Q.dep
+        $sql = "SELECT d.id,d.department,Q.rule_id,Q.dep,d.active
                 FROM `department` d
                 LEFT JOIN(
                 SELECT r.id AS rule_id,r.`department_id`,r.`department_id` AS dep
                 FROM `rule` r
                 WHERE r.`user_id` = '$userId'
-                ) Q ON d.id = Q.department_id";
+                ) Q ON d.id = Q.department_id 
+                ORDER BY d.active DESC";
         $rs = Yii::$app->db->createCommand($sql)->queryAll();
         return $rs;
     }

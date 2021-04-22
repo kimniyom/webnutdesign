@@ -25,6 +25,21 @@
         border-right: 0px;
     }
 
+    .customer-view .card-header{
+        border-radius: 0px;
+    }
+
+
+
+    @media(max-width:768px) {
+        .card-body{
+            padding: 20px;
+        }
+
+        #box-popup-right{
+            padding: 20px;
+        }
+    }
   
 </style>
 <?php
@@ -44,7 +59,7 @@ $this->title = $model->customer;
 $ConfigModel = new ConfigWeb();
 ?>
 <div class="customer-view">
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
@@ -62,8 +77,8 @@ $ConfigModel = new ConfigWeb();
     </div>
 
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
-        <div class="col-md-3 col-lg-3" style="padding-right: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px;">
+        <div class="col-md-4 col-lg-4" style="padding-right: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left: 0px;">
                 <div class="card-header">
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
@@ -100,14 +115,14 @@ $ConfigModel = new ConfigWeb();
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-6" style=" padding-left: 0px; padding-right: 0px;">
+        <div class="col-md-5 col-lg-5" style=" padding-left: 0px; padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px;">
                 <div class="card-content" >
                     <div class="card-header">
                         <i class="fa fa-briefcase"></i> รายละเอียดงาน
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 5px;">
-                        <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;">ข้อมูลรับงาน</h3>
+                        
                         <?=
                         DetailView::widget([
                             'model' => $model,
@@ -143,7 +158,7 @@ $ConfigModel = new ConfigWeb();
                         ])
                         ?>
                         <div class="panel panel-default">
-                            <div class="panel-body">
+                            <div class="panel-body" style="padding: 10px;">
                                 รูปภาพแนบ
                                 <?= dosamigos\gallery\Gallery::widget(['items' => $model->getThumbnails($model->ref, 'รายละเอียดการคุยงาน')]); ?>
                                 ไฟล์แนบ
@@ -198,9 +213,13 @@ $this->registerJs('
         var h = window.innerHeight;
         var w = window.innerWidth;
         if (w > 768) {
-            $("#box-popup-left").css({"height": h - 193});
-            $("#box-popup-right").css({"height": h - 193});
-            $("#box-timeline").css({"height": h - 193});
+            $("#box-popup-left").css({"height": h - 190});
+            $("#box-popup-right").css({"height": h - 190});
+            $("#box-timeline").css({"height": h - 190});
+        } else {
+            $("#box-popup-left").css({"padding-right": "10px"});
+            $("#box-popup-right").css({"padding-left": "15px","padding-right": "15px"});
+            $(".card").css({"margin-top": "0px","margin-bottom": "0px"});
         }
     }
 

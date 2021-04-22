@@ -1,7 +1,4 @@
 <?php
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -60,7 +57,7 @@ $menuList = $configWeb->getPrivilege();
 
         </style>
     </head>
-    <body class="skin-default-dark fixed-layout">
+    <body class="skin-default-dark fixed-layout" style=" background: #ffffff;">
         <?php $this->beginBody() ?>
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
@@ -74,11 +71,11 @@ $menuList = $configWeb->getPrivilege();
         <!-- ============================================================== -->
         <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <div id="main-wrapper">
+        <div id="main-wrapper" style=" background: #ffffff;">
             <!-- ============================================================== -->
             <!-- Topbar header - style you can find in pages.scss -->
             <!-- ============================================================== -->
-            <header class="topbar" style=" background: #1e2128">
+            <header class="topbar" style=" background: #1e2128; z-index: 1000;">
                 <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                     <!-- ============================================================== -->
                     <!-- Logo -->
@@ -184,7 +181,7 @@ $menuList = $configWeb->getPrivilege();
             <!-- ============================================================== -->
             <!-- Left Sidebar - style you can find in sidebar.scss  -->
             <!-- ============================================================== -->
-            <aside class="left-sidebar">
+            <aside class="left-sidebar" style="z-index: 1000;">
                 <div class="d-flex no-block nav-text-box align-items-center">
                     <span>
                         <img src="<?php echo Url::to('@web/images/logo-nat-design.png') ?>" alt="nutdesign" style="width:39px;">
@@ -315,7 +312,7 @@ $menuList = $configWeb->getPrivilege();
             </div>
 
         </div>
-        <div style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
+        <div style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666; background: #ffffff; border-top:solid 1px #eeeeee;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
         <!-- ============================================================== -->
         <!-- End Wrapper -->
         <!-- ============================================================== -->

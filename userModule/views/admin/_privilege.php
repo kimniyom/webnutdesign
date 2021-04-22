@@ -26,7 +26,8 @@ use yii\helpers\Html;
         <h4>สิทธิ์เข้าถึงแผนก</h4>
         <table class="table">
             <tbody>
-                <?php foreach ($department as $rs): ?>
+                <?php foreach ($departments as $rs): ?>
+                    <?php if($rs['active'] == 1) { ?>
                     <?php if ($rs['dep'] != "") { ?>
                         <tr>
                             <td style="width: 20px; text-align: center;"><input type="checkbox" checked="checked" onclick="delPrivilege('<?php echo $rs['rule_id'] ?>')"/></td>
@@ -38,6 +39,12 @@ use yii\helpers\Html;
                             <td><?php echo $rs['department'] ?></td>
                         </tr>
                     <?php } ?>
+                <?php } else { ?>
+                    <tr>
+                            <td style="width: 20px; text-align: center; color: #eeeeee;"><input type="checkbox" disabled="disabled" /></td>
+                            <td style="color: #eeeeee;"><?php echo $rs['department'] ?></td>
+                        </tr>
+                <?php } ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

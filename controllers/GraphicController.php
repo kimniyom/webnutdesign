@@ -19,13 +19,12 @@ use yii\helpers\ArrayHelper;
 /**
  * GraphicController implements the CRUD actions for Graphic model.
  */
-class GraphicController extends Controller
-{
+class GraphicController extends Controller {
+
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -40,16 +39,15 @@ class GraphicController extends Controller
      * Lists all Graphic models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $ModelGraphic = new Graphic();
         $searchModel = new GraphicSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataList = $ModelGraphic->getJob();
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'dataList' => $dataList
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'dataList' => $dataList
         ]);
     }
 
@@ -59,10 +57,9 @@ class GraphicController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($ref)
-    {
+    public function actionView($ref) {
         return $this->render('view', [
-            'model' => $this->findModel($ref),
+                    'model' => $this->findModel($ref),
         ]);
     }
 
@@ -71,8 +68,7 @@ class GraphicController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Graphic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -80,7 +76,7 @@ class GraphicController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -91,34 +87,50 @@ class GraphicController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($ref)
-    {
+    public function actionUpdate($ref) {
         $model = $this->findModel($ref);
-        
+        $model->todep = explode(',', $model->todep);
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref_graphic);
             $model->user_id = Yii::$app->user->identity->id;
             //$model->cur_dep = implode(", ", $model->cur_dep);
             $model->create_date = date("Y-m-d H:i:s");
-            $model->status = 1;//รับงาน
-            $model->save();
+            $model->status = 1; //รับงาน
+            if ($model->todep) {
+                $model->todep = implode(",", $_POST['Graphic']['todep']);
+            } else {
+                $model->todep = "";
+            }
 
             //Time Line
-            $culumns = array(
-                    "department" => 3,
-                    "ref" => $model->ref,
-                    "user_id" => Yii::$app->user->identity->id,
-                    "log" => "กราฟิกรับงาน",
-                    "todep" => "กราฟิก(รับงาน)",
-                    "d_update" => date("Y-m-d H:i:s")
-                );
-                \Yii::$app->db->createCommand()
-                        ->insert("timeline", $culumns)
-                        ->execute();
-
+            if ($model->flagsend == "1") {
+                $this->addTimeline(3, $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
+            } else if($model->flagsend == "2"){//ส่งตาอ
+                $depStr = "'" . str_replace(",", "','", $model->todep) . "'";
+                $sql = "select id,department from department where id in ($depStr)";
+                $result = \Yii::$app->db->createCommand($sql)->queryAll();
+                $depArr = [];
+                $depVal = [];
+                foreach ($result as $r):
+                    $depArr[] = $r['department'];
+                    $depVal[] = $r['id'];
+                endforeach;
+                $curdep = implode(",", $depArr);
+                //Time Line
+                $this->addTimeline(3, $model->ref, $curdep, "กราฟิก / ออกปบบ");
+                //ส่งไปแผนก
+                $this->sendDepartment($depVal, $model->ref);
+            } else if($model->flagsend == "3"){ //จบงานที่นี้
+                //Time Line
+                $this->addTimeline(3, $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+            } else {
+                $this->addTimeline(3, $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+            }
+            
+            $model->save();
             return $this->redirect(['view', 'ref' => $model->ref]);
         } else {
-            if($model->ref_graphic == ""){
+            if ($model->ref_graphic == "") {
                 $model->ref_graphic = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             } else {
                 $model->ref_graphic = $model->ref_graphic;
@@ -126,9 +138,9 @@ class GraphicController extends Controller
         }
         list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref_graphic);
         return $this->render('update', [
-            'model' => $model,
-            'initialPreview' => $initialPreview,
-            'initialPreviewConfig' => $initialPreviewConfig
+                    'model' => $model,
+                    'initialPreview' => $initialPreview,
+                    'initialPreviewConfig' => $initialPreviewConfig
         ]);
     }
 
@@ -139,8 +151,7 @@ class GraphicController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -153,8 +164,7 @@ class GraphicController extends Controller
      * @return Graphic the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($ref)
-    {
+    protected function findModel($ref) {
         if (($model = Graphic::findOne(['ref' => $ref])) !== null) {
             return $model;
         }
@@ -162,15 +172,15 @@ class GraphicController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionGetjob(){
+    public function actionGetjob() {
         $ModelGraphic = new Graphic();
         $dataList = $ModelGraphic->getJob();
         return $this->renderPartial('job', [
-            'dataList' => $dataList
+                    'dataList' => $dataList
         ]);
     }
 
-        private function Uploads($isAjax = false, $ref_graphic = "") {
+    private function Uploads($isAjax = false, $ref_graphic = "") {
         if (Yii::$app->request->isPost) {
             $images = UploadedFile::getInstancesByName('upload_ajax');
             if ($images) {
@@ -283,7 +293,7 @@ class GraphicController extends Controller
         $this->Uploads(true, $ref_graphic);
     }
 
-       private function CreateDir($folderName) {
+    private function CreateDir($folderName) {
         if ($folderName != NULL) {
             $basePath = Graphic::getUploadPath();
             if (BaseFileHelper::createDirectory($basePath . $folderName, 0777)) {
@@ -291,6 +301,89 @@ class GraphicController extends Controller
             }
         }
         return;
+    }
+
+    function addTimeline($department, $ref, $log, $todep) {
+        $rs = \app\models\Timeline::findOne(['ref' => $ref,'department' => $department]);
+        if ($rs['ref']) {
+            $culumns = array(
+                "department" => $department,
+                "ref" => $ref,
+                "user_id" => Yii::$app->user->identity->id,
+                "log" => $log,
+                "todep" => $todep,
+                "d_update" => date("Y-m-d H:i:s")
+            );
+            \Yii::$app->db->createCommand()
+                    ->update("timeline", $culumns, "ref = '$ref' AND department = '$department'")
+                    ->execute();
+        } else {
+            $culumns = array(
+                "department" => $department,
+                "ref" => $ref,
+                "user_id" => Yii::$app->user->identity->id,
+                "log" => $log,
+                "todep" => $todep,
+                "d_update" => date("Y-m-d H:i:s")
+            );
+            \Yii::$app->db->createCommand()
+                    ->insert("timeline", $culumns)
+                    ->execute();
+        }
+    }
+
+    private function sendDepartment($dep, $ref) {
+        if (in_array("4", $dep)) {//แผนกบัญชี
+            $res = \app\models\Account::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("account", $columns)
+                        ->execute();
+            }
+        } else if (in_array("3", $dep)) {//แผนกกราฟิก
+            $res = \app\models\Graphic::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("graphic", $columns)
+                        ->execute();
+            }
+        } else if(in_array("5", $dep)){ //งานพิทพ์
+            $columns = array(
+                "ref" => $ref
+            );
+        } else if(in_array("6", $dep)){//cnc
+            $columns = array(
+                "ref" => $ref
+            );
+        } else if(in_array("7", $dep)){//ผลิตทั่วไป
+            $columns = array(
+                "ref" => $ref
+            );
+        } else if(in_array("8", $dep)){//ช่าง / ติดตั้ง
+            $columns = array(
+                "ref" => $ref
+            );
+        } else if(in_array("9", $dep)){//จัดส่ง
+            $columns = array(
+                "ref" => $ref
+            );
+        }
+    }
+    
+    public function actionSearchjob(){
+        $customer = Yii::$app->request->post('customer');
+        $project = Yii::$app->request->post('project');
+        $Model = new Graphic();
+        $dataList = $Model->searchJob($customer, $project);
+        return $this->renderPartial('searchjob', [
+                    'dataList' => $dataList
+        ]);
     }
 
 }

@@ -15,6 +15,10 @@ $GraphicLog = new GraphicLog();
 //$this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
+<a href="<?php echo Yii::$app->urlManager->createUrl(['graphic']) ?>" style=" text-decoration: none;">
+    <button type="button" class="btn btn-rounded btn-dark btn-outline" style=" margin-left: 30px;">
+        <i class="fa fa-arrow-circle-left"></i> ออกจากหน้าค้นหา
+    </button></a>
 <?php if ($dataList) { ?>
     <?php
     foreach ($dataList as $rs):
@@ -29,13 +33,15 @@ $GraphicLog = new GraphicLog();
             <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
             <hr>
             <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-            <a href="<?php echo Yii::$app->urlManager->createUrl(['graphic/update', 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-warning">รับงาน / แก้ไขงาน<i class="fas fa-pencil-alt"></i></a>
+            <?php if (Yii::$app->user->identity->status == 'A' || Yii::$app->user->identity->id == $rs['user_id']) { ?>
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['graphic/update', 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-warning">รับงาน / แก้ไขงาน<i class="fas fa-pencil-alt"></i></a>
+            <?php } ?>
             <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
         </div>
     <?php endforeach; ?>
 <?php } else { ?>
-    <div class="container">
-        <div class="alert alert-primary" style="text-align: center">ไม่มีงานค้าง</div>
+    <div class="container" style=" padding-top: 10%;">
+        <div class="alert alert-warning" style="text-align: center">ไม่พบข้อมูล</div>
     </div>
 <?php } ?>
 

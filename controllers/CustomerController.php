@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
+use app\models\LoginForm;
 use app\models\Customer;
 use app\models\CustomerSearch;
 use app\models\Uploads;
@@ -34,6 +36,22 @@ class CustomerController extends Controller {
             ],
         ];
     }
+    
+    public function actions()
+    {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->response->redirect(\Yii::$app->urlManager->createUrl(['site']), 301);
+            Yii::$app->end();
+            exit();
+        }
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            
+        ];
+    }
+    
 
     /**
      * Lists all Customer models.
@@ -90,7 +108,6 @@ class CustomerController extends Controller {
      */
     public function actionCreate() {
         $model = new Customer();
-
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
             $model->user_id = Yii::$app->user->identity->id;
@@ -146,11 +163,13 @@ class CustomerController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-
+        //echo $model->cur_dep;
+        $model->cur_dep = explode(",", $model->cur_dep);
         list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref);
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
-            $model->cur_dep = implode(",", $model->cur_dep);
+            //$model->cur_dep = implode(",", $model->cur_dep);
+            $model->cur_dep = implode(",", $_POST['Customer']['cur_dep']);
             $ref = $model->ref;
             $model->confirm = $model->confirm;
             if ($model->confirm = 1) {
@@ -245,7 +264,6 @@ class CustomerController extends Controller {
                         }
 
                         //$type = pathinfo($realFileName, PATHINFO_EXTENSION);
-
                         $model = new Uploads;
                         $model->ref = $ref;
                         $model->file_name = $fileName;
@@ -316,7 +334,6 @@ class CustomerController extends Controller {
     }
 
     public function actionDeletefileAjax() {
-
         $model = Uploads::findOne(Yii::$app->request->post('key'));
         if ($model !== NULL) {
             $filename = Customer::getUploadPath() . $model->ref . '/' . $model->real_filename;
@@ -354,7 +371,7 @@ class CustomerController extends Controller {
     private function sendDepartment($dep, $ref) {
         if (in_array("4", $dep)) {//แผนกบัญชี
             $res = \app\models\Account::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!$res['ref']) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -362,14 +379,18 @@ class CustomerController extends Controller {
                         ->insert("account", $columns)
                         ->execute();
             }
-        } else if (in_array("3", $dep)) {//แผนกกราฟิก
-            $columns = array(
-                "ref" => $ref
-            );
-        } else { //แผนกการตลาดลูกค้าสัมพันธ์
-            $columns = array(
-                "ref" => $ref
-            );
+        }
+
+        if (in_array("3", $dep)) {//แผนกกราฟิก
+            $res = \app\models\Graphic::findOne(['ref' => $ref]);
+            if (!$res['ref']) {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("graphic", $columns)
+                        ->execute();
+            }
         }
     }
 
@@ -384,23 +405,23 @@ class CustomerController extends Controller {
         ]);
     }
 
-    public function actionCancelwork(){
+    public function actionCancelwork() {
         $ref = Yii::$app->request->post('ref');
         //Update Customer
         Yii::$app->db->createCommand()
-            ->update("customer",array("flag" => 2),"ref = '$ref'")
-            ->execute();
+                ->update("customer", array("flag" => 2), "ref = '$ref'")
+                ->execute();
 
         //Update Account
         Yii::$app->db->createCommand()
-            ->update("account",array("status" => 2),"ref = '$ref'")
-            ->execute();
+                ->update("account", array("status" => 2), "ref = '$ref'")
+                ->execute();
 
         //Update Graphic
         Yii::$app->db->createCommand()
-            ->update("graphic",array("status" => 2),"ref = '$ref'")
-            ->execute();
-        
+                ->update("graphic", array("status" => 2), "ref = '$ref'")
+                ->execute();
+
 
         //Time Line
         $culumns = array(
@@ -413,9 +434,9 @@ class CustomerController extends Controller {
             "d_update" => date("Y-m-d H:i:s")
         );
         $rs = \Yii::$app->db->createCommand()
-                        ->insert("timeline", $culumns)
-                        ->execute();
-        if($rs){
+                ->insert("timeline", $culumns)
+                ->execute();
+        if ($rs) {
             echo 1;
         }
     }
