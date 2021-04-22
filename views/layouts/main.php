@@ -137,6 +137,7 @@ $menuList = $configWeb->getPrivilege();
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">Acount</a>
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">จัดการผู้ใช้งาน</a>
+                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['mascancel/index']) ?>">ตั้งค่าสาเหตุยกเลิกงาน</a>
                                         </div>
                                     </li>
                                 <?php } else { ?>

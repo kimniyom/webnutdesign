@@ -81,10 +81,10 @@ class Graphic extends \yii\db\ActiveRecord
         $status = Yii::$app->user->identity->status;
         $user_id = Yii::$app->user->identity->id;
         if ($status == "A" || $status == "M") {
-            $sql = "select c.* from graphic g INNER JOIN customer c ON g.ref = c.ref 
+            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref 
                     where g.approve = '0' and g.`flagsend` = '1' and status != 2";
         } else {
-            $sql = "select c.* from graphic g INNER JOIN customer c ON g.ref = c.ref 
+            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref 
                     where g.approve = '0' and g.`flagsend` = '1' and status != 2";
         }
 
@@ -122,7 +122,7 @@ class Graphic extends \yii\db\ActiveRecord
             $where .= "WHERE customer LIKE '%".$customer."%' AND project_name LIKE '%".$project."%'";
         }
         
-        $sql = "select c.* from graphic g INNER JOIN customer c ON g.ref = c.ref $where";
+        $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref $where";
                 
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;

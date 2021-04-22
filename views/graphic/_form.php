@@ -39,7 +39,7 @@ use kartik\select2\Select2;
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
                 </a>
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['graphic']) ?>" style="text-decoration: none;">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['graphic/index']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
                 </a>
                 <div class="pull-right">

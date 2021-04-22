@@ -42,11 +42,11 @@ class Customer extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'channel_etc', 'cur_dep', 'transport', 'setup', 'fast', 'confirm', 'quotation'], 'required'],
-            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation'], 'integer'],
+            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation','mascancel'], 'integer'],
             [['detail'], 'string'],
             [['cur_dep'], 'safe'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
-            [['project_name', 'channel_etc', 'address', 'ref'], 'string', 'max' => 255],
+            [['project_name', 'channel_etc', 'address', 'ref','canceletc'], 'string', 'max' => 255],
             [['customer', 'tel'], 'string', 'max' => 100]
                 // 'file'
                 // 'cur_dep'
@@ -113,6 +113,22 @@ class Customer extends \yii\db\ActiveRecord {
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function searchJob($customer = "",$project = "") {
+        $where = "";
+        if($customer != "" && $project == "") {
+            $where .= "WHERE c.customer LIKE '%".$customer."%'";
+        } else if($customer == "" && $project != ""){
+            $where .= "WHERE c.project_name LIKE '%".$project."%'";
+        } else if($customer != "" && $project != ""){
+            $where .= "WHERE แใcustomer LIKE '%".$customer."%' AND แใproject_name LIKE '%".$project."%'";
+        }
+        
+        $sql = "select c.* from customer c $where";
+                
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
     }
 
 }

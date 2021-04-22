@@ -43,11 +43,11 @@ class GraphicController extends Controller {
         $ModelGraphic = new Graphic();
         $searchModel = new GraphicSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataList = $ModelGraphic->getJob();
+        //$dataList = $ModelGraphic->getJob();
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'dataList' => $dataList
+                    //'dataList' => $dataList
         ]);
     }
 

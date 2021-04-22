@@ -3,9 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use app\models\LoginForm;
 use app\models\Customer;
+use app\models\Mascancel;
 use app\models\CustomerSearch;
 use app\models\Uploads;
 use yii\web\Controller;
@@ -26,6 +25,7 @@ class CustomerController extends Controller {
     /**
      * {@inheritdoc}
      */
+
     public function behaviors() {
         return [
             'verbs' => [
@@ -37,6 +37,7 @@ class CustomerController extends Controller {
         ];
     }
     
+
     public function actions()
     {
         if (Yii::$app->user->isGuest) {
@@ -51,7 +52,7 @@ class CustomerController extends Controller {
             
         ];
     }
-    
+
 
     /**
      * Lists all Customer models.
@@ -62,11 +63,12 @@ class CustomerController extends Controller {
         $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataList = $ModelCustomer->getJob();
-
+        $mascancel = Mascancel::find()->all();
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'dataList' => $dataList
+                    'dataList' => $dataList,
+                    'mascancel' => $mascancel
         ]);
     }
 
@@ -84,6 +86,14 @@ class CustomerController extends Controller {
                     'model' => $model,
                     'filelist' => $file,
                     'timeline' => $timeline
+        ]);
+    }
+
+    public function actionGetjob() {
+        $ModelCustomer = new Customer();
+        $dataList = $ModelCustomer->getJob();
+        return $this->renderPartial('job', [
+                    'dataList' => $dataList
         ]);
     }
 
@@ -407,9 +417,15 @@ class CustomerController extends Controller {
 
     public function actionCancelwork() {
         $ref = Yii::$app->request->post('ref');
+        $typecancel = Yii::$app->request->post('typecancel');
+        $typeetc = Yii::$app->request->post('typeetc');
         //Update Customer
         Yii::$app->db->createCommand()
-                ->update("customer", array("flag" => 2), "ref = '$ref'")
+                ->update("customer", array(
+                    "flag" => 2,
+                    "mascancel" => $typecancel,
+                    "canceletc" => $typeetc
+                ), "ref = '$ref'")
                 ->execute();
 
         //Update Account
@@ -439,6 +455,16 @@ class CustomerController extends Controller {
         if ($rs) {
             echo 1;
         }
+    }
+
+    public function actionSearchjob(){
+        $customer = Yii::$app->request->post('customer');
+        $project = Yii::$app->request->post('project');
+        $Model = new Customer();
+        $dataList = $Model->searchJob($customer, $project);
+        return $this->renderPartial('searchjob', [
+                    'dataList' => $dataList
+        ]);
     }
 
 }
