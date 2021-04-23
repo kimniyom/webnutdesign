@@ -65,7 +65,7 @@ $ConfigModel = new ConfigWeb();
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
                 </a>
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer']) ?>" style="text-decoration: none;">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
                 </a>
 
@@ -153,13 +153,18 @@ $ConfigModel = new ConfigWeb();
                                     'label' => 'ใบเสนอราคา',
                                     'value' => ($model->quotation == 1) ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา"
                                 ],
-                                'detail:ntext',
+                                [
+                                    'format' => 'html',
+                                    'label' => 'รายละเอียด',
+                                    'value' => $model->detail
+                                ],
                             ],
                         ])
                         ?>
                         <div class="panel panel-default">
                             <div class="panel-body" style="padding: 10px;">
                                 รูปภาพแนบ
+
                                 <?= dosamigos\gallery\Gallery::widget(['items' => $model->getThumbnails($model->ref, 'รายละเอียดการคุยงาน')]); ?>
                                 ไฟล์แนบ
                                 <ul>

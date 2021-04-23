@@ -63,7 +63,21 @@ use kartik\select2\Select2;
                         <?= $form->field($model, 'project_name')->textInput(['maxlength' => true]) ?>
                         <?php $form->field($model, 'typework')->textInput() ?>
 
-                        <?= $form->field($model, 'detail')->textarea(['rows' => 6]) ?>
+                        <?php //$form->field($model, 'detail')->textarea(['rows' => 6]) ?>
+                            <label for="">รายละเอียดข้อมูลใบสั่งงาน</label>
+                        <?=
+                            $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
+                                'clientOptions' => [
+                                            //'imageManagerJson' => ['/redactor/upload/image-json'],
+                                            //'imageUpload' => ['/redactor/upload/image'],
+                                            //'fileUpload' => ['/redactor/upload/file'],
+                                            'lang' => 'th',
+                                            'plugins' => ['fontcolor', 'fullscreen'], //'clips',
+                                            'buttonsHide' => ['deleted', 'image', 'file', 'html', 'format'],
+                                            'minHeight' => '300px'
+                                        ]
+                                    ])->label(false)
+                                    ?>
 
                         <?php ///$form->field($model, 'file')->textInput(['maxlength' => true])  ?>
 

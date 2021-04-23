@@ -282,7 +282,15 @@ $CustomerModel = new Customer();
                                 <li class="list-group-item" style="border-left: 0px; border-right: 0px; border-top: 0px;">
                                     <div class="btn btn-rounded btn-danger" style=" padding: 0px 5px;"><?php echo$ConfigModel->thaidate($tm['d_update']) ?></div>
                                     <ul>
-                                        <li>แผนก: <?php echo $tm['curdep'] ?></li>
+                                        <li>
+                                            แผนกรับ: <?php echo $tm['curdep'] ?>
+                                            <ul>
+                                                <li>
+                                                    <?php echo $tm['log'] ?>
+                                                </li>
+                                            </ul>        
+                                        </li>
+
                                         <li>ส่งต่อแผนก: <?php echo $tm['todep'] ?></li>
                                         <li>โดย: <?php echo $tm['name'] ?></li>
                                     </ul>

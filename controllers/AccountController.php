@@ -38,11 +38,13 @@ class AccountController extends Controller {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $quoTation = $this->getQuotation();
         $jobApprove = $this->getWorkNonApprove();
+        $jobOutside = $this->getWorkOutside();
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                     'dataList' => $quoTation,
-                    'job' => $jobApprove
+                    'job' => $jobApprove,
+                    'outside' => $jobOutside
         ]);
     }
 
@@ -56,7 +58,14 @@ class AccountController extends Controller {
     function getWorkNonApprove() {
         $sql = "SELECT c.* 
                 FROM customer c 
-                WHERE c.flag = '0'";
+                WHERE c.flag = '0' AND c.outside = '0'";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getWorkOutside() {
+        $sql = "SELECT c.* 
+                FROM customer c 
+                WHERE c.flag = '0' AND c.outside = '1'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 

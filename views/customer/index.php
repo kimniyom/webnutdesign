@@ -34,6 +34,14 @@ $this->title = 'รับงาน';
         }
     }
 
+    @media(max-width:767px) {
+    #popupaddwork .modal-dialog{
+            min-width: 100% !important;
+            margin-right:-10px;
+
+        }
+    }
+
 
 
 </style>
@@ -54,8 +62,8 @@ $this->title = 'รับงาน';
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
-                            <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
-                            <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" style="border-radius: 20px; border:0px;">
+                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
+                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" style="border-radius: 20px; border:0px;">
                             <button class="btn btn-info my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
@@ -206,7 +214,7 @@ $this->registerJs('
         } else {
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
-            $(".my-box-search").css({"background": "#111111"});
+            $(".my-box-search").css({"background": "#111111","margin-right": "10px"});
         }
     }
 

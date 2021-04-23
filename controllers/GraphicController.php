@@ -105,7 +105,7 @@ class GraphicController extends Controller {
             //Time Line
             if ($model->flagsend == "1") {
                 $this->addTimeline(3, $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
-            } else if($model->flagsend == "2"){//ส่งตาอ
+            } else if($model->flagsend == "2"){//ส่งต่อ
                 $depStr = "'" . str_replace(",", "','", $model->todep) . "'";
                 $sql = "select id,department from department where id in ($depStr)";
                 $result = \Yii::$app->db->createCommand($sql)->queryAll();
@@ -117,7 +117,7 @@ class GraphicController extends Controller {
                 endforeach;
                 $curdep = implode(",", $depArr);
                 //Time Line
-                $this->addTimeline(3, $model->ref, $curdep, "กราฟิก / ออกปบบ");
+                $this->addTimeline(3, $model->ref, "สั่งผลิต", $curdep);
                 //ส่งไปแผนก
                 $this->sendDepartment($depVal, $model->ref);
             } else if($model->flagsend == "3"){ //จบงานที่นี้
@@ -125,6 +125,10 @@ class GraphicController extends Controller {
                 $this->addTimeline(3, $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
             } else {
                 $this->addTimeline(3, $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+                $columns = array("outside" => 1);
+                Yii::$app->db->createCommand()
+                    ->update("customer",$columns,"ref = '$ref'")
+                    ->execute();
             }
             
             $model->save();
