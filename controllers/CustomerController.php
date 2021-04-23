@@ -26,6 +26,7 @@ class CustomerController extends Controller {
      * {@inheritdoc}
      */
 
+
     public function behaviors() {
         return [
             'verbs' => [
@@ -37,22 +38,6 @@ class CustomerController extends Controller {
         ];
     }
     
-
-    public function actions()
-    {
-        if (Yii::$app->user->isGuest) {
-            Yii::$app->response->redirect(\Yii::$app->urlManager->createUrl(['site']), 301);
-            Yii::$app->end();
-            exit();
-        }
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            
-        ];
-    }
-
 
     /**
      * Lists all Customer models.
@@ -179,7 +164,7 @@ class CustomerController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
             //$model->cur_dep = implode(",", $model->cur_dep);
-            $model->cur_dep = implode(",", $_POST['Customer']['cur_dep']);
+            $model->cur_dep = implode(",", $model->cur_dep);
             $ref = $model->ref;
             $model->confirm = $model->confirm;
             if ($model->confirm = 1) {

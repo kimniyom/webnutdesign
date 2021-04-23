@@ -154,6 +154,10 @@ use kartik\select2\Select2;
                             </div>
                         </div>
 
+                        <!--
+                            ##### เมื่อมีการส่งไปยังแผนกอื่นจะไม่สามารถแก้ไขข้อมูลบ้างส่วนได้ ###########
+                        -->
+                        <?php if($model->confirm == "0" || empty($model->confirm)){ ?>
                         <hr/>
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
@@ -206,6 +210,8 @@ use kartik\select2\Select2;
                             !..หมายเหตุ<br/>
                             เมื่อยังไม่มีการยืนยันตกลงซื้อขายข้อมูลจะยังไม่ถูกส่งไปยังแผนกอื่น
                         </div>
+
+                    <?php } ?>
                     </div>
                 </div>
             </div>
