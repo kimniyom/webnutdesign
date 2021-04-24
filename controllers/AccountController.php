@@ -56,15 +56,15 @@ class AccountController extends Controller {
     }
 
     function getWorkNonApprove() {
-        $sql = "SELECT c.* 
-                FROM customer c 
+        $sql = "SELECT c.*
+                FROM customer c
                 WHERE c.flag = '0' AND c.outside = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function getWorkOutside() {
-        $sql = "SELECT c.* 
-                FROM customer c 
+        $sql = "SELECT c.*
+                FROM customer c
                 WHERE c.flag = '0' AND c.outside = '1'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
@@ -90,17 +90,16 @@ class AccountController extends Controller {
         $model = new Account();
         $error = "กรุณาแนบลิงค์หรืออัพโหลดใบเสนอราคา";
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if($model->file == null && $model->link == ""){
-                     return $this->render('create', [
-                        'model' => $model,
-                        'error' => $error
-                    ]);
+            if ($model->file == null && $model->link == "") {
+                return $this->render('create', [
+                            'model' => $model,
+                            'error' => $error
+                ]);
             } else {
-                    $model->file = $model->upload($model,'file');
-                    $model->save();
-                    return $this->redirect(['view', 'ref' => $model->ref]);
+                $model->file = $model->upload($model, 'file');
+                $model->save();
+                return $this->redirect(['view', 'ref' => $model->ref]);
             }
-            
         }
 
         return $this->render('create', [
@@ -119,51 +118,61 @@ class AccountController extends Controller {
     public function actionUpdate($ref) {
         $model = $this->findModel($ref);
 
-        /*รายละเอียดงาน*/
+        /* รายละเอียดงาน */
         $modelCustomer = \app\models\Customer::findOne(['ref' => $ref]);
         $file = $this->getFile($ref);
 
         $error = "กรุณาแนบลิงค์หรืออัพโหลดใบเสนอราคา";
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            //if(empty($model->upload($model,'file')) && empty($model->link)){
+            // return $this->render('update', [
+            // 'model' => $model,
+            //'error' => $error,
+            //'modelCustomer' => $modelCustomer,
+            //'file' => $file
+            //]);
+            //} else {
+            $model->file = $model->upload($model, 'file');
+            $model->user_id = Yii::$app->user->identity->id;
+            $model->status = 1;
+            $model->create_date = date("Y-m-d H:i:s");
+            $model->save();
 
-           if(empty($model->upload($model,'file')) && empty($model->link)){
-                     return $this->render('update', [
-                        'model' => $model,
-                        'error' => $error,
-                        'modelCustomer' => $modelCustomer,
-                        'file' => $file
-                    ]);
+            //Time Line
+            $rs = \app\models\Timeline::findOne(['ref' => $ref]);
+            if (!$rs['ref']) {
+                $culumns = array(
+                    "department" => 4,
+                    "ref" => $model->ref,
+                    "user_id" => Yii::$app->user->identity->id,
+                    "log" => "รับงาน",
+                    "todep" => "กราฟิก / ออกแบบ",
+                    "d_update" => date("Y-m-d H:i:s")
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("timeline", $culumns)
+                        ->execute();
             } else {
-                    $model->file = $model->upload($model,'file');
-
-                    $model->user_id = Yii::$app->user->identity->id;
-                    $model->status = 1;
-                    $model->create_date = date("Y-m-d H:i:s");
-
-                    $model->save();
-
-                    //Time Line
-                    $culumns = array(
-                        "department" => 4,
-                        "ref" => $model->ref,
-                        "user_id" => Yii::$app->user->identity->id,
-                        "log" => "รับงาน",
-                        "todep" => "กราฟิก / ออกแบบ",
-                        "d_update" => date("Y-m-d H:i:s")
-                    );
-                    \Yii::$app->db->createCommand()
-                            ->insert("timeline", $culumns)
-                            ->execute();
-
-                    //ส่งไปแผนก
-                    $depVal = array('3');
-                    $this->sendDepartment($depVal , $model->ref);
-
-                    return $this->redirect(['index']);
-                    //return $this->redirect(['view', 'ref' => $model->ref]);
+                $culumns = array(
+                    "department" => 4,
+                    "user_id" => Yii::$app->user->identity->id,
+                    "log" => "รับงาน",
+                    "todep" => "กราฟิก / ออกแบบ",
+                    "d_update" => date("Y-m-d H:i:s")
+                );
+                \Yii::$app->db->createCommand()
+                        ->update("timeline", $culumns, "ref = '$ref'")
+                        ->execute();
             }
+            //ส่งไปแผนก
+            $depVal = array('3');
+            $this->sendDepartment($depVal, $model->ref);
+
+            return $this->redirect(['index']);
+            //return $this->redirect(['view', 'ref' => $model->ref]);
+            //}
         }
-        
+
         return $this->render('update', [
                     'model' => $model,
                     'error' => '',
@@ -183,9 +192,9 @@ class AccountController extends Controller {
         $model = $this->findModel($ref);
         $file = $model->file;
         //echo $file;
-        $path = Url::to('./uploads/account/'.$model->file);
-        if($file){
-            if(file_exists($path)){
+        $path = Url::to('./uploads/account/' . $model->file);
+        if ($file) {
+            if (file_exists($path)) {
                 unlink($path);
             }
         }
@@ -251,5 +260,14 @@ class AccountController extends Controller {
         }
     }
 
+    public function actionSearchjob() {
+        $customer = Yii::$app->request->post('customer');
+        $project = Yii::$app->request->post('project');
+        $Model = new Account();
+        $dataList = $Model->searchJob($customer, $project);
+        return $this->renderPartial('searchjob', [
+                    'dataList' => $dataList
+        ]);
+    }
 
 }

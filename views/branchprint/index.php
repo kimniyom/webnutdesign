@@ -11,7 +11,7 @@ use app\models\Timeline;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
-$this->title = 'กราฟิก / ออกแบบ';
+$this->title = "งานพิมพ์";
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css" media="screen">
@@ -41,35 +41,7 @@ $this->title = 'กราฟิก / ออกแบบ';
     }
 
 </style>
-<div class="graphic-index">
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
-
-    <?php
-    /*
-      GridView::widget([
-      'dataProvider' => $dataProvider,
-      'filterModel' => $searchModel,
-      'columns' => [
-      ['class' => 'yii\grid\SerialColumn'],
-
-      'id',
-      'ref',
-      'customer_id',
-      'detail:ntext',
-      'link',
-      'ref_graphic',
-      'user_id',
-      'last_dep',
-      'status',
-      'approve',
-      'create_date',
-      'update_date',
-      ['class' => 'yii\grid\ActionColumn'],
-      ],
-      ]);
-     */
-    ?>
+<div class="branchprint-index">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
@@ -162,7 +134,7 @@ $this->registerJs('
     }
 
     function getJob() {
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['graphic/getjob']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['branchprint/getjob']) ?>";
         var data = {};
         $.post(url, data, function(res) {
             $("#job").html(res);
@@ -188,10 +160,11 @@ $this->registerJs('
             return false;
         }
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['graphic/searchjob']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['branchprint/searchjob']) ?>";
         var data = {customer: customer, project: project};
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
     }
 </script>
+

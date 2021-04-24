@@ -7,13 +7,8 @@ use app\models\Timeline;
 
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
-//$this->title = 'รับงาน';
-//$this->params['breadcrumbs'][] = $this->title;
 ?>
-<a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index']) ?>" style=" text-decoration: none;">
-    <button type="button" class="btn btn-rounded btn-dark btn-outline" style=" margin-left: 30px;">
-        <i class="fa fa-arrow-circle-left"></i> ออกจากหน้าค้นหา
-    </button></a>
+
 <?php if ($dataList) { ?>
     <?php
     foreach ($dataList as $rs):
@@ -27,9 +22,9 @@ $TimeLineModel = new Timeline();
 
             <?php if ($rs['flag'] != "2") { //ถ้าไม่ยกเลิก?>
                 <?php if (Yii::$app->user->identity->id == $rs['user_id'] || Yii::$app->user->identity->status == "A") { ?>
-                    <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">รับงาน / แก้ไขงาน <i class="fas fa-pencil-alt"></i></a>
+                    <a href="<?php echo Yii::$app->urlManager->createUrl(['account/update', 'ref' => $rs['ref']]) ?>" class="btn btn-rounded btn-warning">รับงาน / แก้ไขงาน <i class="fas fa-pencil-alt"></i></a>
                 <?php } else { ?>
-                    <button type="button" class="btn btn-rounded btn-warning disabled">รับงาน / แก้ไขงาน <i class="fas fa-pencil-alt"></i></button>
+                    <button type="button" class="btn btn-rounded btn-warning disabled">แก้ไขใบเสนอราคา<i class="fas fa-pencil-alt"></i></button>
                 <?php } ?>
             <?php } else { ?>
                 <button type="button" class="btn btn-rounded btn-outline-danger disabled">งานถูกยกเลิก</button>
@@ -39,7 +34,7 @@ $TimeLineModel = new Timeline();
     <?php endforeach; ?>
 <?php } else { ?>
     <div class="container">
-        <div class="alert alert-primary" style="text-align: center">ไม่มีงานค้าง</div>
+        <div class="alert alert-primary" style="text-align: center">ไม่พบข้อมูล</div>
     </div>
 <?php } ?>
 

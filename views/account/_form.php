@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Account */
@@ -10,18 +11,21 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="account-form">
-    <?php $form = ActiveForm::begin([
-        'options' => ['enctype' => 'multipart/form-data']
-        ]); ?>
+    <?php
+    $form = ActiveForm::begin([
+                'options' => ['enctype' => 'multipart/form-data']
+    ]);
+    ?>
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
                 </a>
-               <a href="<?php echo Yii::$app->urlManager->createUrl(['account/index']) ?>" style="text-decoration: none;">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['account/index']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
                 </a>
+
                 <div class="pull-right">
                     <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-success btn-rounded']) ?>
                 </div>
@@ -35,17 +39,33 @@ use yii\widgets\ActiveForm;
                     <i class="fa fa-user"></i> แนบหรืออัพโหลดใบเสนอราคา
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto;">
-                    <?php if($error){ ?>
+                    <?php if ($error) { ?>
                         <br/><div class="alert alert-danger"><?php echo $error ?></div>
                     <?php } ?>
-                    <?= $form->field($model, 'ref')->HiddenInput(['maxlength' => true])->label(false) ?>
-                    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
-                    <label>แนบใบเสนอราคา</label>
-                    <?= $form->field($model, 'file')->fileInput()->label(false) ?>
-                      <?= $form->field($model, 'detail')->textarea(['rows' => 5]) ?>     
+
+                    <?php //$form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+                    <?php //$form->field($model, 'file')->fileInput()->label(false) ?>
+                    <label for="">รายละเอียด / ใบเสนอราคา</label>
+                    <em>
+                        *วิธีแนบลิงค์ คลิกที่ icon <img src="<?php echo Url::to('@web/images/link-icon.jpg') ?>" alt="" style="width: 36px;">
+                    </em>
+                    <?=
+                    $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
+                        'clientOptions' => [
+                            //'imageManagerJson' => ['/redactor/upload/image-json'],
+                            //'imageUpload' => ['/redactor/upload/image'],
+                            //'fileUpload' => ['/redactor/upload/file'],
+                            'lang' => 'th',
+                            'plugins' => ['fontcolor', 'fullscreen'], //'clips',
+                            'buttonsHide' => ['deleted', 'image', 'html', 'format'],
+                            'minHeight' => '300px'
+                        ]
+                    ])->label(false)
+                    ?>
                     <label>บันทึกข้อมูลโดย</label>
                     <?php echo dektrium\user\models\Profile::findOne(['user_id' => Yii::$app->user->id])['name'] ?>
                     <div class="alert alert-info">หมายเหตุ.. เมื่อท่านกดบันทึกข้อมูล ข้อมูลจะถูกส่งไปยังแผนกกราฟิกอัตโนมัติ</div>
+                    <?= $form->field($model, 'ref')->HiddenInput(['maxlength' => true])->label(false) ?>
                 </div>
             </div>
         </div>
@@ -57,17 +77,17 @@ use yii\widgets\ActiveForm;
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 0px;">
                         <?php
-                            echo $this->render('//customer/viewpage', [
-                                        'model' => $modelCustomer,
-                                        'filelist' => $file
-                            ]); 
+                        echo $this->render('//customer/viewpage', [
+                            'model' => $modelCustomer,
+                            'filelist' => $file
+                        ]);
                         ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-     <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
 

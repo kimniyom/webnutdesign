@@ -12,11 +12,11 @@ class ConfigWeb {
         } else {
             $userId = "";
         }
-        $sql = "select * 
-            from rule r inner join department m on r.department_id = m.id 
-            where r.user_id = '$userId' 
-            and m.active = 1 
-            order by m.active desc";
+        $sql = "select *
+            from rule r inner join department m on r.department_id = m.id
+            where r.user_id = '$userId'
+            and m.active = 1
+            order by m.id asc";
         $result = Yii::$app->db->createCommand($sql)->queryAll();
         return $result;
     }

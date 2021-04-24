@@ -37,13 +37,14 @@ use kartik\select2\Select2;
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
+                    <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                 </a>
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['graphic/index']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
+                    <button type="button" class="btn btn-dark btn-rounded text-info"><i class="fa fa-chevron-left"></i></button>
                 </a>
+                <button type="button" class="btn btn-dark btn-rounded" onclick="getViews('<?php echo $model->ref ?>')"><i class="fa fa-eye"></i> ดูข้อมูล</button>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-dark btn-rounded" onclick="getViews('<?php echo $model->ref ?>')"><i class="fa fa-eye"></i> ดูข้อมูล</button>
+
                     <?= Html::submitButton('บันทึกข้อมูล / สั่งผลิต <i class="fa fa-save"></i>', ['class' => 'btn btn-success btn-rounded']) ?>
                 </div>
             </div>
@@ -196,7 +197,7 @@ $this->registerJs('
     function getViews(ref) {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
         var data = {ref: ref};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
@@ -208,26 +209,26 @@ $this->registerJs('
             $("#graphic-todep").select2("val", "0");
             $('#graphic-todep').prop('disabled', 'disabled');
         } else {
-            $('#graphic-todep').prop('disabled', false); 
+            $('#graphic-todep').prop('disabled', false);
         }
-        
-        if(channel == 4){
+
+        if (channel == 4) {
             $("#outside").show();
         } else {
             $("#outside").hide();
         }
     }
-    
+
     function setLoad() {
         var channel = "<?php echo $model->flagsend ?>";
         if (channel != 2) {
             $("#graphic-todep").select2("val", "0");
             $('#graphic-todep').prop('disabled', 'disabled');
         } else {
-            $('#graphic-todep').prop('disabled', false); 
+            $('#graphic-todep').prop('disabled', false);
         }
-        
-        if(channel == 4){
+
+        if (channel == 4) {
             $("#outside").show();
         } else {
             $("#outside").hide();

@@ -34,15 +34,19 @@ $this->title = 'รับงาน';
         }
     }
 
+    .my-box-search input[type='search']{
+        background: #000000;
+        border-radius: 20px; border:0px;
+        color: #FFFFFF;
+    }
+
     @media(max-width:767px) {
-    #popupaddwork .modal-dialog{
+        #popupaddwork .modal-dialog{
             min-width: 100% !important;
             margin-right:-10px;
 
         }
     }
-
-
 
 </style>
 <div class="customer-index">
@@ -51,20 +55,20 @@ $this->title = 'รับงาน';
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
                 <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
-                        <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
+                        <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['customer/create']) ?>">
-                        <button type="button" class="btn btn-success btn-rounded "><i class="fa fa-plus"></i> สร้างใหม่</button>
+                        <button type="button" class="btn btn-dark btn-rounded text-success"><i class="fa fa-plus"></i> สร้างใหม่</button>
                     </a>
-                    <button class="navbar-toggler bg-white btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="btn btn-sm btn-rounded" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
+                    <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
-                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
-                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" style="border-radius: 20px; border:0px;">
-                            <button class="btn btn-info my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
+                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer">
+                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" >
+                            <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
                 </nav>
@@ -176,15 +180,15 @@ $this->title = 'รับงาน';
                 <h3><i class="fa fa-info fa-2x"></i> ระบุสาเหตุ</h3>
                 <input type="hidden" name="" id="ref_cancel">
                 <ul class="list-group">
-                    <?php foreach($mascancel as $cl): ?>
-                    <li class="list-group-item" style="font-size: 18px;">
-                        <input type="radio" name="typecancel" value="<?php echo $cl['id'] ?>" onclick="setVal()"> <?php echo $cl['name'] ?>
+                    <?php foreach ($mascancel as $cl): ?>
+                        <li class="list-group-item" style="font-size: 18px;">
+                            <input type="radio" name="typecancel" value="<?php echo $cl['id'] ?>" onclick="setVal()"> <?php echo $cl['name'] ?>
+                        </li>
+                    <?php endforeach; ?>
+                    <li class="list-group-item" style="font-size: 18px;" onclick="setVal()">
+                        <input type="radio" name="typecancel" value="99" > อื่น ๆ
+                        <textarea class="form-control" rows="5" placeholder="ระบุสาเหตุ..." style="display: none;" id="etc"></textarea>
                     </li>
-                <?php endforeach; ?>
-                <li class="list-group-item" style="font-size: 18px;" onclick="setVal()">
-                    <input type="radio" name="typecancel" value="99" > อื่น ๆ
-                    <textarea class="form-control" rows="5" placeholder="ระบุสาเหตุ..." style="display: none;" id="etc"></textarea>
-                </li>
                 </ul>
             </div>
             <div class="modal-footer">
@@ -214,11 +218,11 @@ $this->registerJs('
         } else {
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
-            $(".my-box-search").css({"background": "#111111","margin-right": "10px"});
+            $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
         }
     }
 
-    function cancelJob(ref){
+    function cancelJob(ref) {
         $("#ref_cancel").val(ref);
         $("#popupcancel").modal();
     }
@@ -229,13 +233,13 @@ $this->registerJs('
         //alert(type);
         var etc = $("#etc").val();
         if (type == 99) {
-            if(etc == ""){
+            if (etc == "") {
                 Swal.fire('Warning!', 'กรุณาระบุสาเหตุ...', 'warning');
                 return false;
             }
-        } 
+        }
 
-        if(!type){
+        if (!type) {
             Swal.fire('Warning!', 'กรุณาเลืกสาเหตุ...', 'warning');
             return false;
         }
@@ -251,19 +255,19 @@ $this->registerJs('
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 //Swal.fire('Success!', '', 'success');
-                
+
                 var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/cancelwork']) ?>";
                 var data = {
                     ref: ref,
                     typecancel: type,
                     typeetc: etc
                 };
-                $.post(url, data, function (res) {
+                $.post(url, data, function(res) {
                     if (res == 1) {
                         window.location.reload();
                     }
                 });
-                
+
             }
         });
     }
@@ -271,7 +275,7 @@ $this->registerJs('
     function getViews(ref) {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
         var data = {ref: ref};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
@@ -280,7 +284,7 @@ $this->registerJs('
     function getJob() {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getjob']) ?>";
         var data = {};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#job").html(res);
         });
     }
@@ -288,8 +292,8 @@ $this->registerJs('
     function searchJob() {
         var customer = $("#txtcustomer").val();
         var project = $("#txtproject").val();
-        
-        if(customer == "" && project == ""){
+
+        if (customer == "" && project == "") {
             $("#txtcustomer").focus();
             Swal.fire('Warning!', 'กรุณาเลือกอย่างน้อย 1 ตัวเลือก', 'warning');
             return false;
@@ -297,7 +301,7 @@ $this->registerJs('
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/searchjob']) ?>";
         var data = {customer: customer, project: project};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#job").html(res);
         });
     }

@@ -47,7 +47,7 @@ class GraphicController extends Controller {
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    //'dataList' => $dataList
+                        //'dataList' => $dataList
         ]);
     }
 
@@ -105,7 +105,7 @@ class GraphicController extends Controller {
             //Time Line
             if ($model->flagsend == "1") {
                 $this->addTimeline(3, $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
-            } else if($model->flagsend == "2"){//ส่งต่อ
+            } else if ($model->flagsend == "2") {//ส่งต่อ
                 $depStr = "'" . str_replace(",", "','", $model->todep) . "'";
                 $sql = "select id,department from department where id in ($depStr)";
                 $result = \Yii::$app->db->createCommand($sql)->queryAll();
@@ -120,17 +120,17 @@ class GraphicController extends Controller {
                 $this->addTimeline(3, $model->ref, "สั่งผลิต", $curdep);
                 //ส่งไปแผนก
                 $this->sendDepartment($depVal, $model->ref);
-            } else if($model->flagsend == "3"){ //จบงานที่นี้
+            } else if ($model->flagsend == "3") { //จบงานที่นี้
                 //Time Line
                 $this->addTimeline(3, $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
             } else {
                 $this->addTimeline(3, $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
                 $columns = array("outside" => 1);
                 Yii::$app->db->createCommand()
-                    ->update("customer",$columns,"ref = '$ref'")
-                    ->execute();
+                        ->update("customer", $columns, "ref = '$ref'")
+                        ->execute();
             }
-            
+
             $model->save();
             return $this->redirect(['view', 'ref' => $model->ref]);
         } else {
@@ -308,7 +308,7 @@ class GraphicController extends Controller {
     }
 
     function addTimeline($department, $ref, $log, $todep) {
-        $rs = \app\models\Timeline::findOne(['ref' => $ref,'department' => $department]);
+        $rs = \app\models\Timeline::findOne(['ref' => $ref, 'department' => $department]);
         if ($rs['ref']) {
             $culumns = array(
                 "department" => $department,
@@ -357,30 +357,63 @@ class GraphicController extends Controller {
                         ->insert("graphic", $columns)
                         ->execute();
             }
-        } else if(in_array("5", $dep)){ //งานพิทพ์
+        } else if (in_array("5", $dep)) { //งานพิทพ์
+            $res = \app\models\Branchprint::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("branchprint", $columns)
+                        ->execute();
+
+                //Update customer
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("print_status" => 1), "ref = '$ref'")
+                        ->execute();
+            }
+        } else if (in_array("6", $dep)) {//cnc
+            $res = \app\models\Branchlaser::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("branchlaser", $columns)
+                        ->execute();
+
+                //Update customer
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("cnc_status" => 1), "ref = '$ref'")
+                        ->execute();
+            }
+        } else if (in_array("7", $dep)) {//ผลิตทั่วไป
+            $res = \app\models\Branchfacture::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("branchfacture", $columns)
+                        ->execute();
+
+                //Update customer
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("manufacture_status" => 1), "ref = '$ref'")
+                        ->execute();
+            }
+        } else if (in_array("8", $dep)) {//ช่าง / ติดตั้ง
             $columns = array(
                 "ref" => $ref
             );
-        } else if(in_array("6", $dep)){//cnc
-            $columns = array(
-                "ref" => $ref
-            );
-        } else if(in_array("7", $dep)){//ผลิตทั่วไป
-            $columns = array(
-                "ref" => $ref
-            );
-        } else if(in_array("8", $dep)){//ช่าง / ติดตั้ง
-            $columns = array(
-                "ref" => $ref
-            );
-        } else if(in_array("9", $dep)){//จัดส่ง
+        } else if (in_array("9", $dep)) {//จัดส่ง
             $columns = array(
                 "ref" => $ref
             );
         }
     }
-    
-    public function actionSearchjob(){
+
+    public function actionSearchjob() {
         $customer = Yii::$app->request->post('customer');
         $project = Yii::$app->request->post('project');
         $Model = new Graphic();

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use \yii\web\UploadedFile;
+
 /**
  * This is the model class for table "account".
  *
@@ -19,7 +20,9 @@ use \yii\web\UploadedFile;
  * @property string|null $update_date วันที่แก้ไขล่าสุด
  */
 class Account extends \yii\db\ActiveRecord {
-    public $upload_foler ='uploads/account';
+
+    public $upload_foler = 'uploads/account';
+
     /**
      * {@inheritdoc}
      */
@@ -32,16 +35,16 @@ class Account extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            [['detail'], 'required'],
             [['customer_id', 'user_id', 'last_dep', 'status', 'approve'], 'integer'],
             [['create_date', 'update_date'], 'safe'],
             [['detail', 'ref'], 'string'],
             [['link'], 'string', 'max' => 255],
             [['ref_account'], 'string', 'max' => 100],
             [['file'], 'file',
-              'skipOnEmpty' => true,
-              'extensions' => 'pdf,doc,docx'
+                'skipOnEmpty' => true,
+                'extensions' => 'pdf,doc,docx'
             ],
-            
         ];
     }
 
@@ -65,34 +68,48 @@ class Account extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function upload($model,$attribute)
-    {
+    public function upload($model, $attribute) {
         $file = UploadedFile::getInstance($model, $attribute);
-          $path = $this->getUploadPath();
+        $path = $this->getUploadPath();
         if ($this->validate() && $file !== null) {
 
-            $fileName = md5($file->baseName.time()) . '.' . $file->extension;
+            $fileName = md5($file->baseName . time()) . '.' . $file->extension;
             //$fileName = $photo->baseName . '.' . $photo->extension;
-            if($file->saveAs($path.$fileName)){
-              return $fileName;
+            if ($file->saveAs($path . $fileName)) {
+                return $fileName;
             }
             return $fileName;
         } else {
             return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
         }
-        
-        
     }
 
-    public function getUploadPath(){
-      return Yii::getAlias('@webroot').'/'.$this->upload_foler.'/';
+    public function getUploadPath() {
+        return Yii::getAlias('@webroot') . '/' . $this->upload_foler . '/';
     }
 
-    public function getUploadUrl(){
-      return Yii::getAlias('@web').'/'.$this->upload_foler.'/';
+    public function getUploadUrl() {
+        return Yii::getAlias('@web') . '/' . $this->upload_foler . '/';
     }
 
-    public function getPhotoViewer(){
-      return empty($this->file) ? Yii::getAlias('@web').'/images/none.png' : $this->getUploadUrl().$this->file;
+    public function getPhotoViewer() {
+        return empty($this->file) ? Yii::getAlias('@web') . '/images/none.png' : $this->getUploadUrl() . $this->file;
     }
+
+    function searchJob($customer = "", $project = "") {
+        $where = "";
+        if ($customer != "" && $project == "") {
+            $where .= "WHERE c.customer LIKE '%" . $customer . "%'";
+        } else if ($customer == "" && $project != "") {
+            $where .= "WHERE c.project_name LIKE '%" . $project . "%'";
+        } else if ($customer != "" && $project != "") {
+            $where .= "WHERE customer LIKE '%" . $customer . "%' AND project_name LIKE '%" . $project . "%'";
+        }
+
+        $sql = "select c.*,g.status from account g INNER JOIN customer c ON g.ref = c.ref $where";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
     }
+
+}
