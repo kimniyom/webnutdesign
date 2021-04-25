@@ -100,15 +100,11 @@ $this->title = 'รับงาน';
                                     </div>
                                     <div class="desc">
                                         ประเภทงาน: CNC<br/>
-                                        <a href="javascript:popupdetail()"
-                                           class="btn m-t-10 m-r-5 btn-rounded btn-outline-success btn-sm">ดูรายละเอียด</a>
-                                        <a
-                                            class="btn m-t-10 btn-rounded btn-outline-danger btn-sm disabled">สถานะล่าสุก กราฟิก</a>
+                                        <a href="javascript:popupdetail()" class="btn m-t-10 m-r-5 btn-rounded btn-outline-success btn-sm">ดูรายละเอียด</a>
+                                        <a class="btn m-t-10 btn-rounded btn-outline-danger btn-sm disabled">สถานะล่าสุด กราฟิก</a>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -167,7 +163,7 @@ $this->title = 'รับงาน';
 
 <!-- Popup Cancel -->
 <div class="modal fade" tabindex="-1" role="dialog" id="popupcancel" data-backdrop="static">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="position: relative;">
             <div class="modal-header bg-danger">
                 <h5 class="modal-title text-white">ยกเลิกงาน</h5>

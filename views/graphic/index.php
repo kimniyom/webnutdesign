@@ -77,6 +77,7 @@ $this->title = 'กราฟิก / ออกแบบ';
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
+
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
@@ -136,7 +137,6 @@ $this->title = 'กราฟิก / ออกแบบ';
     </div>
 </div>
 
-
 <?php
 $this->registerJs('
         $(document).ready(function(){
@@ -146,7 +146,7 @@ $this->registerJs('
             ');
 ?>
 
-<script>
+<script type="text/javascript">
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;

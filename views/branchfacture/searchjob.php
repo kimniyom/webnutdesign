@@ -15,46 +15,13 @@ $TimeLineModel = new Timeline();
 //$this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<!--
-งานที่รับเห็นเฉพาะของ User
--->
-<?php if (Yii::$app->user->identity->status == "U") { ?>
-    <?php if ($dataListjob) { ?>
-        <?php
-        foreach ($dataListjob as $rss):
-            ?>
-            <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff;">
-                <div class="row">
-                    <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                        <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rss['project_name'] ?></h2>
-                        <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rss['date_getjob']) ?> <?php echo $rss['time_getjob'] ?></h3>
-                        <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rss['customer'] ?></h4>
-                    </div>
-                    <div class="col-md-4 col-lg-4 col-sm-4 col-6">
-
-                        <div class="btn-work-nut-success" onclick="updateStatus('<?php echo $rss['ref'] ?>', '4')" >
-                            <div class="vertical-center">
-                                ยืนยันการผลิต
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <a href="javascript:getViews('<?php echo $rss['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rss['ref']) ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php } else { ?>
-        <div class="container">
-            <div class="alert alert-danger" style="text-align: center">ไม่มีงานค้าง</div>
-        </div>
-    <?php } ?>
-<?php } ?>
-
 <!--
 งานที่ส่งมาจากแผนกอื่นยังไม่มีคนรับ
 -->
+<a href="<?php echo Yii::$app->urlManager->createUrl(['branchfacture/index']) ?>" style=" text-decoration: none;">
+    <button type="button" class="btn btn-rounded btn-dark btn-outline" style=" margin-left: 30px;">
+        <i class="fa fa-arrow-circle-left"></i> ออกจากหน้าค้นหา
+    </button></a>
 <?php if ($dataList) { ?>
     <?php
     foreach ($dataList as $rs):
@@ -158,7 +125,7 @@ $TimeLineModel = new Timeline();
             allowOutsideClick: false
         }).then((result) => {
             if (result.isConfirmed) {
-                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchprint/updatestatus']) ?>";
+                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchfacture/updatestatus']) ?>";
                 var data = {status: status, ref: ref};
                 $.post(url, data, function(res) {
                     getJob();
@@ -201,7 +168,7 @@ $TimeLineModel = new Timeline();
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 //Swal.fire('Success!', '', 'success');
-                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchprint/editwork']) ?>";
+                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchfacture/editwork']) ?>";
                 var data = {
                     ref: ref,
                     type: type,

@@ -158,7 +158,7 @@ $TimeLineModel = new Timeline();
             allowOutsideClick: false
         }).then((result) => {
             if (result.isConfirmed) {
-                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchprint/updatestatus']) ?>";
+                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchfacture/updatestatus']) ?>";
                 var data = {status: status, ref: ref};
                 $.post(url, data, function(res) {
                     getJob();
@@ -201,7 +201,7 @@ $TimeLineModel = new Timeline();
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 //Swal.fire('Success!', '', 'success');
-                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchprint/editwork']) ?>";
+                var url = "<?php echo Yii::$app->urlManager->createUrl(['branchfacture/editwork']) ?>";
                 var data = {
                     ref: ref,
                     type: type,

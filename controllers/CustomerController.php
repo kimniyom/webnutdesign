@@ -25,8 +25,6 @@ class CustomerController extends Controller {
     /**
      * {@inheritdoc}
      */
-
-
     public function behaviors() {
         return [
             'verbs' => [
@@ -37,7 +35,6 @@ class CustomerController extends Controller {
             ],
         ];
     }
-    
 
     /**
      * Lists all Customer models.
@@ -410,7 +407,7 @@ class CustomerController extends Controller {
                     "flag" => 2,
                     "mascancel" => $typecancel,
                     "canceletc" => $typeetc
-                ), "ref = '$ref'")
+                        ), "ref = '$ref'")
                 ->execute();
 
         //Update Account
@@ -423,6 +420,25 @@ class CustomerController extends Controller {
                 ->update("graphic", array("status" => 2), "ref = '$ref'")
                 ->execute();
 
+        //Update BranchPrint
+        Yii::$app->db->createCommand()
+                ->update("branchprint", array("status" => 2), "ref = '$ref'")
+                ->execute();
+
+        //Update branchlaser
+        Yii::$app->db->createCommand()
+                ->update("branchlaser", array("status" => 2), "ref = '$ref'")
+                ->execute();
+
+        //Update branchfacture
+        Yii::$app->db->createCommand()
+                ->update("branchfacture", array("status" => 2), "ref = '$ref'")
+                ->execute();
+
+        //Update branchtechnician
+        Yii::$app->db->createCommand()
+                ->update("branchtechnician", array("status" => 2), "ref = '$ref'")
+                ->execute();
 
         //Time Line
         $culumns = array(
@@ -442,7 +458,7 @@ class CustomerController extends Controller {
         }
     }
 
-    public function actionSearchjob(){
+    public function actionSearchjob() {
         $customer = Yii::$app->request->post('customer');
         $project = Yii::$app->request->post('project');
         $Model = new Customer();

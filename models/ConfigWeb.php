@@ -216,4 +216,11 @@ class ConfigWeb {
         return $str;
     }
 
+    //สาเหตุการส่งแก้ไข
+    function getReturnWork() {
+        $str = array(
+            "1" => "งานไม่ถูกต้อง"
+        );
+    }
+
 }

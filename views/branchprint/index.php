@@ -101,7 +101,7 @@ $this->title = "งานพิมพ์";
                 </button>
 
             </div>
-            <div class="modal-body" id="box-popup">
+            <div class="modal-body" id="box-popup" style=" border-radius:10px;">
                 <div id="view-customer"></div>
             </div>
         </div>

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\Url;
+
 /**
  * This is the model class for table "graphic".
  *
@@ -20,25 +21,24 @@ use yii\helpers\Url;
  * @property string|null $create_date วันที่รับบงาน
  * @property string|null $update_date วันที่แก้ไขล่าสุด
  */
-class Graphic extends \yii\db\ActiveRecord
-{
+class Graphic extends \yii\db\ActiveRecord {
+
     const UPLOAD_FOLDER = 'photolibrarys';
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'graphic';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['flagsend'],'required'],
-            [['customer_id', 'user_id', 'last_dep', 'status', 'approve','flagsend'], 'integer'],
+            [['flagsend'], 'required'],
+            [['customer_id', 'user_id', 'last_dep', 'status', 'approve', 'flagsend'], 'integer'],
             [['detail'], 'string'],
             [['create_date', 'update_date'], 'safe'],
             [['ref'], 'string', 'max' => 50],
@@ -57,8 +57,7 @@ class Graphic extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'ref' => 'ref อ้างอิงลูกค้า',
@@ -81,11 +80,11 @@ class Graphic extends \yii\db\ActiveRecord
         $status = Yii::$app->user->identity->status;
         $user_id = Yii::$app->user->identity->id;
         if ($status == "A" || $status == "M") {
-            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref 
-                    where g.approve = '0' and g.`flagsend` = '1' and status != 2";
+            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve = '0' and g.`flagsend` = '1' and g.status != 2";
         } else {
-            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref 
-                    where g.approve = '0' and g.`flagsend` = '1' and status != 2";
+            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve = '0' and g.`flagsend` = '1' and g.status != 2";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
@@ -111,20 +110,21 @@ class Graphic extends \yii\db\ActiveRecord
         }
         return $preview;
     }
-    
-    function searchJob($customer = "",$project = "") {
+
+    function searchJob($customer = "", $project = "") {
         $where = "";
-        if($customer != "" && $project == "") {
-            $where .= "WHERE c.customer LIKE '%".$customer."%'";
-        } else if($customer == "" && $project != ""){
-            $where .= "WHERE c.project_name LIKE '%".$project."%'";
-        } else if($customer != "" && $project != ""){
-            $where .= "WHERE customer LIKE '%".$customer."%' AND project_name LIKE '%".$project."%'";
+        if ($customer != "" && $project == "") {
+            $where .= "WHERE c.customer LIKE '%" . $customer . "%'";
+        } else if ($customer == "" && $project != "") {
+            $where .= "WHERE c.project_name LIKE '%" . $project . "%'";
+        } else if ($customer != "" && $project != "") {
+            $where .= "WHERE c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
         }
-        
+
         $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref $where";
-                
+
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;
     }
+
 }

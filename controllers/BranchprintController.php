@@ -45,8 +45,12 @@ class BranchprintController extends Controller {
     public function actionGetjob() {
         $Model = new Branchprint();
         $dataList = $Model->getJob();
+        $dataListjob = $Model->getJobForUser();
+        $maseditwork = \app\models\Maseditwork::find()->all();
         return $this->renderPartial('job', [
-                    'dataList' => $dataList
+                    'dataList' => $dataList,
+                    'dataListjob' => $dataListjob,
+                    'maseditwork' => $maseditwork
         ]);
     }
 
@@ -124,6 +128,113 @@ class BranchprintController extends Controller {
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUpdatestatus() {
+        $ref = Yii::$app->request->post('ref');
+        $status = Yii::$app->request->post('status');
+        if ($status == "2") {//รับงาน
+            $columns = array(
+                "status" => $status,
+                "user_id" => Yii::$app->user->identity->id,
+                "create_date" => date("Y-m-d H:i:s")
+            );
+
+            \Yii::$app->db->createCommand()
+                    ->update("branchprint", $columns, "ref = '$ref'")
+                    ->execute();
+
+            $culumnstimeline = array(
+                "department" => 5,
+                "ref" => $ref,
+                "user_id" => Yii::$app->user->identity->id,
+                "log" => "รับงาน",
+                "todep" => "งานพิมพ์(รับงาน)",
+                "d_update" => date("Y-m-d H:i:s")
+            );
+        } else if ($status == "4") {//ยืนยันการผลิต
+            $columns = array(
+                "status" => $status,
+                "user_id" => Yii::$app->user->identity->id,
+                "confirm_date" => date("Y-m-d H:i:s")
+            );
+
+            \Yii::$app->db->createCommand()
+                    ->update("branchprint", $columns, "ref = '$ref'")
+                    ->execute();
+
+            $culumnstimeline = array(
+                "department" => 5,
+                "ref" => $ref,
+                "user_id" => Yii::$app->user->identity->id,
+                "log" => "ยืนยันการผลิต",
+                "todep" => "งานพิมพ์(งานผลิตเสร็จแล้ว)",
+                "d_update" => date("Y-m-d H:i:s")
+            );
+        }
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnstimeline)
+                ->execute();
+
+        //อัพเดทสถานะงาน
+        \Yii::$app->db->createCommand()
+                ->update("customer", array("print_status" => 2), "ref = '$ref'")
+                ->execute();
+    }
+
+    public function actionEditwork() {
+        $ref = Yii::$app->request->post('ref');
+        $type = Yii::$app->request->post('type');
+        $typeetc = Yii::$app->request->post('typeetc');
+        //Update Graphic
+        Yii::$app->db->createCommand()
+                ->update("graphic", array("status" => 3, "flagsend" => 1), "ref = '$ref'")
+                ->execute();
+
+        //Update GraphicLog
+        $columns = array(
+            "ref" => $ref,
+            "type_edit" => $type,
+            "edit_etc" => $typeetc,
+            "department" => "งานพิมพ์ส่งแก้ไข",
+            "flag" => 1,
+            "d_update" => date("Y-m-d H:i:s")
+        );
+        \Yii::$app->db->createCommand()
+                ->insert("graphic_log", $columns)
+                ->execute();
+
+        //สั่งลบคิวงานออกจากแผนก
+        \Yii::$app->db->createCommand()
+                ->delete("branchprint", "ref='$ref'")
+                ->execute();
+        //timeline
+        $culumnstimeline = array(
+            "department" => 5,
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ส่งแก้ไขงาน",
+            "todep" => "งานพิมพ์(ส่งแก้ไข กราฟิก / ออกแบบ)",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+
+        Yii::$app->db->createCommand()
+                ->update("timeline", $culumnstimeline, "ref = '$ref'")
+                ->execute();
+
+        return 1;
+    }
+
+    public function actionSearchjob() {
+        $customer = Yii::$app->request->post('customer');
+        $project = Yii::$app->request->post('project');
+        $Model = new Branchprint();
+        $dataList = $Model->searchJob($customer, $project);
+        $maseditwork = \app\models\Maseditwork::find()->all();
+        return $this->renderPartial('searchjob', [
+                    'dataList' => $dataList,
+                    'maseditwork' => $maseditwork
+        ]);
     }
 
 }

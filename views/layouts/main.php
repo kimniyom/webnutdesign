@@ -139,6 +139,7 @@ $menuList = $configWeb->getPrivilege();
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">Acount</a>
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">จัดการผู้ใช้งาน</a>
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['mascancel/index']) ?>">ตั้งค่าสาเหตุยกเลิกงาน</a>
+                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['maseditwork/index']) ?>">ตั้งค่าสาเหตุส่งกลับแก้ไข</a>
                                         </div>
                                     </li>
                                 <?php } else { ?>
@@ -166,7 +167,7 @@ $menuList = $configWeb->getPrivilege();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                    ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                     ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -349,8 +350,8 @@ $menuList = $configWeb->getPrivilege();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                       ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                       ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                        ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                        ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('

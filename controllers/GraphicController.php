@@ -123,13 +123,18 @@ class GraphicController extends Controller {
             } else if ($model->flagsend == "3") { //จบงานที่นี้
                 //Time Line
                 $this->addTimeline(3, $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
-            } else {
+            } else { //ส่งผลิตนอกร้าน
                 $this->addTimeline(3, $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
                 $columns = array("outside" => 1);
                 Yii::$app->db->createCommand()
                         ->update("customer", $columns, "ref = '$ref'")
                         ->execute();
             }
+
+            //สั่งอัพเดทถ้ามีการแก้ไข
+            \Yii::$app->db->createCommand()
+                    ->update("graphic_log", array("flag" => 0), "ref = '$ref'")
+                    ->execute();
 
             $model->save();
             return $this->redirect(['view', 'ref' => $model->ref]);
@@ -347,7 +352,9 @@ class GraphicController extends Controller {
                         ->insert("account", $columns)
                         ->execute();
             }
-        } else if (in_array("3", $dep)) {//แผนกกราฟิก
+        }
+
+        if (in_array("3", $dep)) {//แผนกกราฟิก
             $res = \app\models\Graphic::findOne(['ref' => $ref]);
             if ($res['ref'] == "") {
                 $columns = array(
@@ -357,7 +364,9 @@ class GraphicController extends Controller {
                         ->insert("graphic", $columns)
                         ->execute();
             }
-        } else if (in_array("5", $dep)) { //งานพิทพ์
+        }
+
+        if (in_array("5", $dep)) { //งานพิมพ์
             $res = \app\models\Branchprint::findOne(['ref' => $ref]);
             if ($res['ref'] == "") {
                 $columns = array(
@@ -372,7 +381,9 @@ class GraphicController extends Controller {
                         ->update("customer", array("print_status" => 1), "ref = '$ref'")
                         ->execute();
             }
-        } else if (in_array("6", $dep)) {//cnc
+        }
+
+        if (in_array("6", $dep)) {//cnc
             $res = \app\models\Branchlaser::findOne(['ref' => $ref]);
             if ($res['ref'] == "") {
                 $columns = array(
@@ -387,7 +398,9 @@ class GraphicController extends Controller {
                         ->update("customer", array("cnc_status" => 1), "ref = '$ref'")
                         ->execute();
             }
-        } else if (in_array("7", $dep)) {//ผลิตทั่วไป
+        }
+
+        if (in_array("7", $dep)) {//ผลิตทั่วไป
             $res = \app\models\Branchfacture::findOne(['ref' => $ref]);
             if ($res['ref'] == "") {
                 $columns = array(
@@ -402,11 +415,15 @@ class GraphicController extends Controller {
                         ->update("customer", array("manufacture_status" => 1), "ref = '$ref'")
                         ->execute();
             }
-        } else if (in_array("8", $dep)) {//ช่าง / ติดตั้ง
+        }
+
+        if (in_array("8", $dep)) {//ช่าง / ติดตั้ง
             $columns = array(
                 "ref" => $ref
             );
-        } else if (in_array("9", $dep)) {//จัดส่ง
+        }
+
+        if (in_array("9", $dep)) {//จัดส่ง
             $columns = array(
                 "ref" => $ref
             );
