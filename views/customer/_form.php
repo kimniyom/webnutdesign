@@ -111,7 +111,10 @@ use kartik\select2\Select2;
                                 <?=
                                 $form->field($model, 'date_getjob')->widget(DatePicker::ClassName(), [
                                     'name' => 'date_getjob',
-                                    'options' => ['placeholder' => 'Select date ...'],
+                                    'options' => [
+                                        'placeholder' => 'Select date ...',
+                                        'readonly' => 'readonly'
+                                    ],
                                     'pluginOptions' => [
                                         'format' => 'yyyy-mm-dd',
                                         'todayHighlight' => true,
@@ -269,6 +272,7 @@ $this->registerJs('
         } else {
             //$("#customer-cur_dep").select2("val", "0");
             //$("#customer-cur_dep").prop("readonly", false);
+            $("#showaccountalert").hide();
         }
     }
 </script>

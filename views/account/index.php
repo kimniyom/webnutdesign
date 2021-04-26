@@ -19,6 +19,15 @@
         }
     }
 
+    @media(max-width:767px) {
+        #popupaddwork .modal-dialog{
+            min-width: 99% !important;
+            margin-top: 5px !important;
+            margin: auto;
+        }
+
+    }
+
     .account-index .card-header{
         background-image: linear-gradient(to right, #16222A 0%, #3A6073  100%);
         border-radius: 0px;
@@ -115,7 +124,7 @@ $this->title = 'Accounts';
                                 </div>
 
                                 <!--
-                                <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']])                                                                                                            ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
+                                <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']])                                                                                                                       ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
                                 -->
                                 <div class="row" style=" margin: 0px; padding: 0px;">
                                     <div class="col-md-6 col-lg-6" style=" padding: 0px;">
@@ -205,7 +214,7 @@ $this->title = 'Accounts';
                 </button>
 
             </div>
-            <div class="modal-body" id="box-popup">
+            <div class="modal-body" id="box-popup" >
                 <div id="view-customer"></div>
             </div>
         </div>
@@ -219,8 +228,8 @@ $this->title = 'Accounts';
             <div class="modal-body">
                 <input type="hidden" name="" id="ref">
                 <h4 style=" text-align: center; margin-bottom: 10px;">คุณต้องการทำอะไร ...?</h4>
-                <button type="button" class="btn btn-success btn-block btn-rounded" onclick="javascript:alert('กำลังดำเนินการในส่วนนี้อยู่');"><i class="fa fa-check"></i> CONFIRM</button>
-                <button type="button" class="btn btn-info btn-block btn-rounded" onclick="getViewsPopup()"><i class="fa fa-eye"></i> CHECK</button>
+                <button type="button" class="btn btn-success btn-block btn-rounded" onclick="javascript:alert('กำลังดำเนินการในส่วนนี้อยู่');"><i class="fa fa-check"></i> ยืนยัน</button>
+                <button type="button" class="btn btn-info btn-block btn-rounded" onclick="getViewsPopup()"><i class="fa fa-eye"></i> ตรวจสอบ</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-block btn-rounded" data-dismiss="modal" aria-label="Close" id="btn-exit">ปิด</button>
@@ -247,6 +256,7 @@ $this->registerJs('
             $("#box-timeline").css({"height": h - 184});
             $("#box-content").css({"height": h - 184});
         } else {
+            $(".modal-dialog").addClass("modal-dialog-scrollable");
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px", "margin-left": "10px"});

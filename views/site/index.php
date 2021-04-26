@@ -20,7 +20,6 @@ $menuList = $configWeb->getPrivilege();
 $this->title = 'หจก.ณัฐดีไซน์ แอนด์ มีเดีย';
 ?>
 <div class="site-index">
-
     <div class="jumbotron">
         <h1 style=" text-align: center">หจก.ณัฐดีไซน์ แอนด์ มีเดีย</h1>
     </div>

@@ -77,7 +77,7 @@ $this->title = 'รับงาน';
         </div>
     </div>
     <div class="row" style="margin-bottom: 0px;">
-        <div class="col-lg-8 col-md-8">
+        <div class="col-lg-12 col-md-12">
             <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
                 !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
             </div>
@@ -87,7 +87,7 @@ $this->title = 'รับงาน';
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px;" >
+        <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px; display: none;" >
             <div class="card" >
                 <div class="card-body" style=" padding-left:0px; padding-right: 10px; padding-bottom: 0px;">
                     <div class="card-title" style=" font-weight: bold;">ประวัติการรับงาน</div>

@@ -43,7 +43,7 @@ $menuList = $configWeb->getPrivilege();
 
             /* Works on Chrome, Edge, and Safari */
             *::-webkit-scrollbar {
-                width: 12px;
+                width: 10px;
             }
 
             *::-webkit-scrollbar-track {
@@ -51,9 +51,10 @@ $menuList = $configWeb->getPrivilege();
             }
 
             *::-webkit-scrollbar-thumb {
-                background-color: #eeeeee;
+                width: 10px;
+                background-color: #999999;
                 border-radius: 20px;
-                border: 3px solid white;
+                border: 2px solid white;
             }
 
         </style>
@@ -167,7 +168,7 @@ $menuList = $configWeb->getPrivilege();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                     ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                      ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -222,71 +223,6 @@ $menuList = $configWeb->getPrivilege();
                                     ยังไม่ได้กำหนดสิทธิ์กรุณาติดต่อ Admin
                                 </li>
                             <?php } ?>
-                            <!--
-                            <li>
-                                <a class="waves-effect waves-dark" href="home.html" aria-expanded="false">
-                                    <i class="fa fa-users"></i><span class="hide-menu">รับงาน</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="marketing.html" aria-expanded="false">
-                                    <i class="fa fa-tags"></i><span class="hide-menu">การตลาด</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="account.html" aria-expanded="false">
-                                    <i class="fa fa-usd"></i><span class="hide-menu">บัญชี / ใบเสนอราคา</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="graphy.html" aria-expanded="false">
-                                    <i class="fa fa-paint-brush"></i><span class="hide-menu">กราฟิก</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="menager.html" aria-expanded="false">
-                                    <i class="fa fa-user-secret"></i><span class="hide-menu">ผู้อนุมัติสั่งผลิต / ตรวจสอบงาน</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="branch-print.html" aria-expanded="false">
-                                    <i class="fa fa-print"></i><span class="hide-menu">งานพิมพ์</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="branch-cnc.html" aria-expanded="false">
-                                    <i class="fa fa-magnet"></i><span class="hide-menu">งาน CNC</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="branch-manufacture.html" aria-expanded="false">
-                                    <i class="fa fa-codepen"></i><span class="hide-menu">ผลิตทั่วไป</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="technician.html" aria-expanded="false">
-                                    <i class="fa fa-wrench"></i><span class="hide-menu">ช่าง</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="transport.html" aria-expanded="false">
-                                    <i class="fa fa-truck"></i><span class="hide-menu">ฝ่ายจัดส่ง</span>
-                                </a>
-                            </li>
-                            <hr/>
-                            <li>
-                                <a class="waves-effect waves-warning" href="backend.html" aria-expanded="false">
-                                    <i class="fa fa-cogs text-warning"></i>
-                                    <span class="hide-menu text-warning">ตั้งค่า</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="login.html" aria-expanded="false">
-                                    <i class="fa fa-sign-out text-danger"></i>
-                                    <span class="hide-menu text-danger">Log Out</span>
-                                </a>
-                            </li>
-                            -->
                         </ul>
                     </nav>
                     <!-- End Sidebar navigation -->
@@ -350,8 +286,8 @@ $menuList = $configWeb->getPrivilege();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                        ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                        ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                         ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                         ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('
