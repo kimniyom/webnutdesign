@@ -21,6 +21,17 @@ class ConfigWeb {
         return $result;
     }
 
+    function getRule(){
+        if (!Yii::$app->user->isGuest) {
+            $userId = Yii::$app->user->identity->id;
+        } else {
+            $userId = "";
+        }
+
+        $sql = "select * from privilege where user_id = '$userId' ";
+        return Yii::$app->db->createCommand($sql)->queryOne();
+    }
+
     function thaidate($dateformat = "") {
         $year = substr($dateformat, 0, 4);
         $month = substr($dateformat, 5, 2);

@@ -12,6 +12,7 @@ use app\models\ConfigWeb;
 //AppAsset::register($this);
 $configWeb = new ConfigWeb();
 $menuList = $configWeb->getPrivilege();
+$rule = $configWeb->getRule();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -218,6 +219,14 @@ $menuList = $configWeb->getPrivilege();
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
+                                <?php if($rule['queue'] == 1 || Yii::$app->user->identity->status == "A"){ ?>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl(['queue/index']) ?>" aria-expanded="false">
+                                            <i class="fa fa-sitemap"></i><span class="hide-menu">ลงคิวติดตั้ง</span>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                    
                             <?php } else { ?>
                                 <li style=" text-align: center;">
                                     ยังไม่ได้กำหนดสิทธิ์กรุณาติดต่อ Admin

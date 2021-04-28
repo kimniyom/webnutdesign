@@ -30,7 +30,7 @@ class Privilege extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'edit_project', 'notify_customer', 'edit_tranfer', 'approve'], 'integer'],
+            [['user_id', 'edit_project', 'notify_customer', 'edit_tranfer', 'approve','queue'], 'integer'],
         ];
     }
 
@@ -46,6 +46,7 @@ class Privilege extends \yii\db\ActiveRecord
             'notify_customer' => 'Notify Customer',
             'edit_tranfer' => 'Edit Tranfer',
             'approve' => 'Approve',
+            'queue' => 'queue'
         ];
     }
 }

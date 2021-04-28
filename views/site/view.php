@@ -35,6 +35,10 @@
 
     }
 
+    .customer-view-all{
+        font-size: 18px;
+    }
+
     .customer-view-all table tr th{
         padding: 5px;
         border-top: 0px;
@@ -158,7 +162,7 @@ $CustomerModel = new Customer();
                 <div class="card-body" id="box-popup-left-view-all" style="overflow: auto; padding: 10px; background: #eeeeee;">
                     <div class="view-content-left bg-white" style=" padding: 10px; border-radius: 10px;">
                         <label class="head-title-view">ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</label>
-                        <p class="txt-customer"><?php echo $model['customer'] ?></p>
+                        <p class="txt-customer"><i class="fa fa-user-circle text-danger"></i> <?php echo $model['customer'] ?></p>
                         <label class="head-title-view">เบอร์โทรศัพท์</label>
                         <p class="txt-customer"><?php echo $model['tel'] ?></p>
                         <label class="head-title-view">ช่องทางลูกค้าติดต่อมา</label>
@@ -176,7 +180,7 @@ $CustomerModel = new Customer();
         <div class="col-md-5 col-lg-5 card-responsive-content" style=" padding-left: 0px; padding-right: 0px;">
             <div class="card" style=" border-top:0px; background: #d9e0df;">
                 <div class="card-content" >
-                    <div class="card-header" >
+                    <div class="card-header" style="border-bottom: 0px; border-left: 0px; border-right: 0px;">
                         <i class="fa fa-briefcase"></i> รายละเอียดงาน
                     </div>
                     <div class="card-body" id="box-popup-right-view-all" style="overflow: auto; padding: 10px;">
@@ -218,13 +222,26 @@ $CustomerModel = new Customer();
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         รูปภาพแนบ
-                                        <?php echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]); ?>
-                                        ไฟล์แนบ
+                                        <?php
+                                            $ref = $model['ref'];
+                                            $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+                                            $count = Yii::$app->db->createCommand($sql)->queryScalar();
+                                            if($count > 0){
+                                            echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]); 
+                                        } else {
+                                            echo "-";
+                                        }
+                                        ?>
+                                        <br/>ไฟล์แนบ
+                                        <?php if($filelist ){ ?>
                                         <ul>
                                             <?php foreach ($filelist as $f): ?>
                                                 <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
                                             <?php endforeach; ?>
                                         </ul>
+                                    <?php } else { ?>
+                                        -
+                                    <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -297,44 +314,93 @@ $CustomerModel = new Customer();
                             </div>
                         </div>
 
-                        <!-- กราฟิก -->
+                        <!-- แผนกผลิต -->
                         <div class="box-production">
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">ส่งผลิต</h3>
                                 <div class="row">
-                                    <div class="col-md-4 col-lg-4">
+                                    <div class="col-md-6 col-lg-6 col-sm-6" style="margin-bottom: 10px;">
                                         <div class="list-group">
-                                            <div class=" list-group-item active">
+                                            <div class=" list-group-item active" style="text-align: center;">
                                                 งานพิมพ์
                                             </div>
-                                            <div class=" list-group-item">
-                                                <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
+                                            <div class=" list-group-item" tyle="text-align: center;">
+                                                <?php if($model['print_status'] != "0"){ ?>
+                                                    <?php if($model['print_status'] == 1){ ?>
+                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    ไม่มีการผลิต
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-lg-4">
+                                    <div class="col-md-6 col-lg-6 col-sm-6" style="margin-bottom: 10px;">
                                         <div class="list-group">
-                                            <div class=" list-group-item active">
-                                                CNC / LASER
+                                            <div class=" list-group-item active" style="text-align: center;">
+                                                CNC/LASER
                                             </div>
-                                            <div class=" list-group-item">
-                                                <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                            <div class=" list-group-item" tyle="text-align: center;">
+                                                <?php if($model['cnc_status'] != "0"){ ?>
+                                                    <?php if($model['cnc_status'] == 1){ ?>
+                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    ไม่มีการผลิต
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-lg-4">
+                                    <div class="col-md-12 col-lg-12 col-sm-12" style="margin-bottom: 10px;">
                                         <div class="list-group">
-                                            <div class=" list-group-item active">
+                                            <div class=" list-group-item active" style="text-align: center;">
                                                 ผลิตทั่วไป
                                             </div>
-                                            <div class=" list-group-item">
-                                                <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                            <div class=" list-group-item" style="text-align: center;">
+                                                <?php if($model['manufacture_status'] != "0"){ ?>
+                                                    <?php if($model['manufacture_status'] == 1){ ?>
+                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div><!-- End box product -->
+
+                        <!-- แผนกติดตั้ง -->
+                        <div class="box-setup">
+                            <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
+                                <h3 class="head-title-view">ช่างติดตั้ง</h3>
+                                <div class="col-md-12 col-lg-12 col-sm-12" style="margin-bottom: 10px;">
+                                        <div class="list-group">
+                                            <div class=" list-group-item" style="text-align: center;">
+                                                <?php if($model['setup'] == "1"){ ?>
+                                                    <?php if($model['technician_status'] == 1){ ?>
+                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการดำเนินงาน
+                                                    <?php } else if($model['technician_status'] == 2) { ?>
+                                                        <i class="fa fa-check text-success"></i> ติดตั้งเสร็จแล้ว
+                                                    <?php } else { ?>
+                                                        <i class="fa fa-info"></i> ยังไม่รับงาน
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <span style="text-align:center; color:#d1d1d1;">ไม่มีการติดตั้ง</span>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
                         </div>
+                        <!-- ​End Box Setup -->
                     </div>
                 </div>
             </div>
