@@ -65,7 +65,7 @@ and open the template in the editor.
 }
 
 .queue-view #head-toolbar{
-    border: solid #cccccc 1px;
+    border: 0px;
     border-radius: 0px;
 }
 
@@ -79,7 +79,7 @@ and open the template in the editor.
 
 
 .queue-index #head-toolbar{
-    border: solid #cccccc 1px;
+    border: none;
     border-radius: 0px;
 }
 

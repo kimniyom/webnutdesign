@@ -93,7 +93,7 @@ use kartik\select2\Select2;
                     <?php
                     echo $form->field($model, 'todep')->widget(Select2::classname(), [
                         'language' => 'th',
-                        'data' => ArrayHelper::map(app\models\Department::find()->where(['IN', 'id', ['2', '5', '6', '7', '8']])->all(), 'id', 'department'),
+                        'data' => ArrayHelper::map(app\models\Department::find()->where(['IN', 'id', ['5', '6', '7']])->all(), 'id', 'department'),
                         'options' => ['placeholder' => '... เลือกแผนกส่งต่อ ...'],
                         'pluginOptions' => [
                             'allowClear' => true,

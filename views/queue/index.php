@@ -10,7 +10,7 @@ $this->title = 'Queue';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="queue-index">
-    <div class="card" id="head-toolbar">
+    <div class="card" id="head-toolbar" style="border:0px; padding-left: 5px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left:0px;">
                 <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
@@ -35,12 +35,12 @@ $this->title = 'Queue';
 
 
     <div class="row" style="margin-top: 0px; padding-top: 0px;" id="box-default">
-        <div class="col-md-4 col-lg-4" style="padding-right: 0px;">
+        <div class="col-md-8 col-lg-8" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border:0px; margin-bottom: 0px;">
                 <div class="card-header">
-                    <i class="far fa-file-alt text-info"></i> ออกใบเสนอราคา / แนบใบเสนอราคา
+                    <i class="far fa-file-alt text-info"></i> ลงคิวงานติดตั้ง
                 </div>
-                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #eeeeee;">
+                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #ffffff;">
                     <?php if ($listData) { ?>
                         <?php foreach ($listData as $rs): ?>
                             <div class="alert alert-dark box-list-work" role="alert" style="background: none; padding: 0px;">
@@ -77,19 +77,23 @@ $this->title = 'Queue';
             <div class="card" style="border-radius: 0px; border:0px;">
                 <div class="card-content">
                     <div class="card-header">
-                        <i class="fas fa-truck-pickup text-danger"></i> ส่งผลิตนอกร้าน
+                        <i class="fas fa-legal text-danger"></i> คิวงาน
                     </div>
                     <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px; background: #eeeeee;">
                         <ul class="list-group" style=" padding: 0px; margin: 0px;">
-                            <?php foreach ($outside as $outsides):
+                            <?php if($listQueue){ ?>
+                            <?php foreach ($listQueue as $queue):
                                 ?>
-                                <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="popupMenu('<?php echo $outsides['ref'] ?>')">
+                                <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="popupMenu('<?php echo $queue['ref'] ?>')">
                                     <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px;">
-                                        <h4>งาน: <?php echo $outsides['project_name'] ?></h4>
-                                        <p>ลูกค้า:<?php echo $outsides['customer'] ?></p>
+                                        <h4>งาน: <?php echo $queue['project_name'] ?></h4>
+                                        <p>ลูกค้า:<?php echo $queue['customer'] ?></p>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
+                        <?php } else { ?>
+                            == ไม่มีคิวงาน ==
+                        <?php } ?>
                         </ul>
                     </div>
                 </div>
