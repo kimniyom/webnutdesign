@@ -26,15 +26,12 @@ $this->title = Yii::t('user', 'Sign in');
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row" style="margin-top: 50px;">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-            </div>
-            <div class="panel-body">
-                <?php $form = ActiveForm::begin([
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('<?php echo Yii::$app->urlManager->baseUrl ?>/templatelogin/images/bg-01.jpg');">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                 <?php $form = ActiveForm::begin([
                     'id' => 'login-form',
+                    'class' => 'login100-form validate-form',
                     'enableAjaxValidation' => true,
                     'enableClientValidation' => false,
                     'validateOnBlur' => false,
@@ -42,24 +39,32 @@ $this->title = Yii::t('user', 'Sign in');
                     'validateOnChange' => false,
                 ]) ?>
 
-                <?php if ($module->debug): ?>
-                    <?= $form->field($model, 'login', [
-                        'inputOptions' => [
-                            'autofocus' => 'autofocus',
-                            'class' => 'form-control',
-                            'tabindex' => '1']])->dropDownList(LoginForm::loginList());
-                    ?>
+                    <span class="login100-form-title p-b-49">
+                        Login
+                    </span>
 
-                <?php else: ?>
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Username</span>
+                            <?php if ($module->debug): ?>
+                            <?= $form->field($model, 'login', [
+                                'inputOptions' => [
+                                    'autofocus' => 'autofocus',
+                                    'class' => 'input100',
+                                    'tabindex' => '1']])->dropDownList(LoginForm::loginList())->label(false);
+                            ?>
 
-                    <?= $form->field($model, 'login',
-                        ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control', 'tabindex' => '1']]
-                    );
-                    ?>
+                            <?php else: ?>
 
-                <?php endif ?>
+                                <?= $form->field($model, 'login',
+                                    ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'input100', 'tabindex' => '1']]
+                                )->label(false);
+                                ?>
+                            <?php endif ?>
+                    </div>
 
-                <?php if ($module->debug): ?>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <?php if ($module->debug): ?>
                     <div class="alert alert-warning">
                         <?= Yii::t('user', 'Password is not necessary because the module is in DEBUG mode.'); ?>
                     </div>
@@ -67,27 +72,27 @@ $this->title = Yii::t('user', 'Sign in');
                     <?= $form->field(
                         $model,
                         'password',
-                        ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])
+                        ['inputOptions' => ['class' => 'input100', 'tabindex' => '2']])
                         ->passwordInput()
-                        ->label() ?>
+                        ->label(false) ?>
                 <?php endif ?>
-
-                
-
-                <?= Html::submitButton(
-                    Yii::t('user', 'Sign in'),
-                    ['class' => 'btn btn-primary btn-block', 'tabindex' => '4']
-                ) ?>
+                    </div>
+                    
+                    <br/>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                             <?= Html::submitButton(
+                            Yii::t('user', 'Sign in'),
+                            ['class' => 'login100-form-btn', 'tabindex' => '4']
+                        ) ?>
+                        </div>
+                    </div>
 
                 <?php ActiveForm::end(); ?>
-
+                <?= Connect::widget([
+                    'baseAuthUrl' => ['/user/security/auth'],
+                ]) ?>
             </div>
         </div>
-        
-        <?= Connect::widget([
-            'baseAuthUrl' => ['/user/security/auth'],
-        ]) ?>
-        <p class="text-center">Demo Version Build 2021.04.20</p>
     </div>
-
-</div>

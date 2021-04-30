@@ -35,6 +35,7 @@ use yii\web\Response;
  */
 class SecurityController extends Controller
 {
+
     use AjaxValidationTrait;
     use EventTrait;
 
@@ -145,6 +146,7 @@ class SecurityController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = "template_login";
         if (!\Yii::$app->user->isGuest) {
             $this->goHome();
         }
