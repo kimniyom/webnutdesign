@@ -8,6 +8,7 @@ use app\models\Mascancel;
 use app\models\CustomerSearch;
 use app\models\Uploads;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -25,12 +26,36 @@ class CustomerController extends Controller {
     /**
      * {@inheritdoc}
      */
+    /*
     public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+    */
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['login', 'logout', 'signup'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['login', 'signup'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['Index','View','Getjob','Create','Update','Viewpage'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];

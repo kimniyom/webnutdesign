@@ -104,8 +104,13 @@ class Customer extends \yii\db\ActiveRecord {
     }
 
     function getJob() {
-        $status = Yii::$app->user->identity->status;
-        $user_id = Yii::$app->user->identity->id;
+        if (!Yii::$app->user->isGuest){
+            $status = Yii::$app->user->identity->status;
+            $user_id = Yii::$app->user->identity->id;
+        } else {
+            $status = "";
+            $user_id = "";
+        }
         if ($status == "A" || $status == "M") {
             $sql = "select * from customer where flag = '0'";
         } else {

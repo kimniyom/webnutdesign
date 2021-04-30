@@ -77,8 +77,13 @@ class Graphic extends \yii\db\ActiveRecord {
     }
 
     function getJob() {
+        if (!Yii::$app->user->isGuest){
         $status = Yii::$app->user->identity->status;
         $user_id = Yii::$app->user->identity->id;
+    } else {
+        $status = "";
+        $user_id = "";
+    }
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
                     where g.approve = '0' and g.`flagsend` = '1' and g.status != 2";

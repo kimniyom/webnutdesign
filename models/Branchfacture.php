@@ -46,7 +46,11 @@ class Branchfacture extends \yii\db\ActiveRecord {
     }
 
     function getJob() {
+        if (!Yii::$app->user->isGuest){
         $status = Yii::$app->user->identity->status;
+    } else {
+        $status = "";
+    }
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
                     where g.flag = '0' and g.status != 4";
@@ -59,7 +63,11 @@ class Branchfacture extends \yii\db\ActiveRecord {
     }
 
     function getJobForUser() {
+        if (!Yii::$app->user->isGuest){
         $user_id = Yii::$app->user->identity->id;
+    } else {
+        $user_id = "";
+    }
         $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
                     where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3')";
         return Yii::$app->db->createCommand($sql)->queryAll();

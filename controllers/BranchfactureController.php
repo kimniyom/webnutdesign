@@ -219,7 +219,7 @@ class BranchfactureController extends Controller {
         );
 
         Yii::$app->db->createCommand()
-                ->update("timeline", $culumnstimeline, "ref = '$ref'")
+                ->insert("timeline", $culumnstimeline)
                 ->execute();
 
         return 1;
