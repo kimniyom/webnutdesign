@@ -34,11 +34,12 @@ $CustomerModel = new Customer();
 ?>
 <div class="customer-viewpage">
     <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;"><i class="fa fa-user"></i> ข้อมูลลูกค้า</h3>
-    <table class="table">
-        <tr>
-            <th>ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</th>
-            <td><?php echo $model['customer'] ?></td>
-        </tr>
+    <div style="margin:10px;">
+        <table class="table">
+            <tr>
+                <th>ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</th>
+                <td><?php echo $model['customer'] ?></td>
+            </tr>
                         <tr>
                             <th>เบอร์โทรศัพท์</th>
                             <td><?php echo $model['tel'] ?></td>
@@ -59,8 +60,10 @@ $CustomerModel = new Customer();
                             <th>วันที่ทำรายการ</th>
                             <td><?php echo $ConfigModel->thaidate($model['create_date']) ?></td>
                         </tr>
-                    </table>
+            </table>
+        </div>
                     <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;"><i class="fa fa-briefcase"></i> รายละเอียด</h3>
+                        <div style="margin:10px;">
                         <table class="table">
                             <tr>
                                 <th>ชื่องาน</th>
@@ -91,6 +94,7 @@ $CustomerModel = new Customer();
                                 <td><?php echo $model['detail'] ?></td>
                             </tr>
                         </table>
+</div>
                         <div class="panel panel-default">
                             <div class="panel-body" style=" padding: 10px;">
                                 รูปภาพแนบ
@@ -103,6 +107,7 @@ $CustomerModel = new Customer();
                                 </ul>
                             </div>
                         </div>
+                   
                         <!-- Account -->
 </div>
 

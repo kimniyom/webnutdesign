@@ -32,8 +32,10 @@ class Queue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uset_id', 'approve', 'confirm','usersetup'], 'integer'],
+            [['queuedate','timesetup'], 'required'],
+            [['user_id', 'approve', 'confirm','usersetup'], 'integer'],
             [['queuedate', 'timesetup', 'dupdate'], 'safe'],
+            [['detail'], 'string'],
             [['ref'], 'string', 'max' => 50],
         ];
     }
@@ -46,13 +48,14 @@ class Queue extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'ref' => 'รหัสอ้างอิง',
-            'uset_id' => 'คนรับงาน',
+            'user_id' => 'คนรับงาน',
             'queuedate' => 'วันที่ติดตั้ง',
             'timesetup' => 'เวลาเเข้าติดตั้ง',
             'approve' => 'สถานะติดตั้งรับงาน 0 = ยังไม่ลงติดตั้ง 1 = ลงรับงาน 2 = ติดตั้งแล้ว',
             'confirm' => '0 = ยังไม่ลงคิวงาน 1 = ลงคิวงานติดตั้งแล้ว',
             'dupdate' => 'วันที่บันทึกข้อมูล',
             'usersetup' => 'ช่างติดตั้ง',
+            'detail' => 'ข้อความอื่น ๆ'
         ];
     }
 }

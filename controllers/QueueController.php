@@ -72,7 +72,7 @@ class QueueController extends Controller
     function getQueue() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`confirm` = '1'";
+                    WHERE a.`confirm` = '1' AND a.approve != '2'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -101,17 +101,45 @@ class QueueController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($ref)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($ref);
+        /* รายละเอียดงาน */
+        $modelCustomer = \app\models\Customer::findOne(['ref' => $ref]);
+        $file = $this->getFile($ref);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->confirm = 1;
+            $model->dupdate = date("Y-m-d H:i:s");
+            $model->user_id = Yii::$app->user->identity->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //Insert Timeline
+            $culumns = array(
+                    "department" => 2,
+                    "ref" => $ref,
+                    "user_id" => Yii::$app->user->identity->id,
+                    "log" => "ลงคิวงานติดตั้ง",
+                    "todep" => 8,
+                    "d_update" => date("Y-m-d H:i:s")
+                );
+            \Yii::$app->db->createCommand()
+                        ->insert("timeline", $culumns)
+                        ->execute();
+        
+
+            $model->save();
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelCustomer' => $modelCustomer,
+            'file' => $file
         ]);
+    }
+
+    function getFile($ref) {
+        $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
+        return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     /**
@@ -135,12 +163,101 @@ class QueueController extends Controller
      * @return Queue the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($ref)
     {
-        if (($model = Queue::findOne($id)) !== null) {
+        if (($model = Queue::findOne(['ref' => $ref])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function sendDepartment($dep, $ref) {
+        if (in_array("4", $dep)) {//แผนกบัญชี
+            $res = \app\models\Account::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("account", $columns)
+                        ->execute();
+            }
+        }
+
+        if (in_array("3", $dep)) {//แผนกกราฟิก
+            $res = \app\models\Graphic::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("graphic", $columns)
+                        ->execute();
+            }
+        }
+
+        if (in_array("5", $dep)) { //งานพิมพ์
+            $res = \app\models\Branchprint::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("branchprint", $columns)
+                        ->execute();
+
+                //Update customer
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("print_status" => 1), "ref = '$ref'")
+                        ->execute();
+            }
+        }
+
+        if (in_array("6", $dep)) {//cnc
+            $res = \app\models\Branchlaser::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("branchlaser", $columns)
+                        ->execute();
+
+                //Update customer
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("cnc_status" => 1), "ref = '$ref'")
+                        ->execute();
+            }
+        }
+
+        if (in_array("7", $dep)) {//ผลิตทั่วไป
+            $res = \app\models\Branchfacture::findOne(['ref' => $ref]);
+            if ($res['ref'] == "") {
+                $columns = array(
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("branchfacture", $columns)
+                        ->execute();
+
+                //Update customer
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("manufacture_status" => 1), "ref = '$ref'")
+                        ->execute();
+            }
+        }
+
+        if (in_array("8", $dep)) {//ช่าง / ติดตั้ง
+            $columns = array(
+                "ref" => $ref
+            );
+        }
+
+        if (in_array("9", $dep)) {//จัดส่ง
+            $columns = array(
+                "ref" => $ref
+            );
+        }
     }
 }

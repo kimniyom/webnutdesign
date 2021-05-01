@@ -17,8 +17,9 @@ class QueueSearch extends Queue
     public function rules()
     {
         return [
-            [['id', 'uset_id', 'approve', 'confirm'], 'integer'],
+            [['id', 'user_id', 'approve', 'confirm'], 'integer'],
             [['ref', 'queuedate', 'timesetup', 'dupdate'], 'safe'],
+            [['detail'],'string']
         ];
     }
 
@@ -59,7 +60,7 @@ class QueueSearch extends Queue
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'uset_id' => $this->uset_id,
+            'user_id' => $this->user_id,
             'queuedate' => $this->queuedate,
             'timesetup' => $this->timesetup,
             'approve' => $this->approve,

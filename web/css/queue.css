@@ -9,11 +9,11 @@ and open the template in the editor.
 */
 
 .queue-form input[type='text']{
-    border: #f4f4f4 solid 1px;
+    border: #c8c8c8 solid 1px;
     background: #ffffff;
 }
 .queue-form textarea{
-    border: #f4f4f4 solid 1px;
+    border: #c8c8c8 solid 1px;
     background: #ffffff;
 }
 .queue-form label{
@@ -22,7 +22,7 @@ and open the template in the editor.
 .queue-form .card-header{
     font-weight: bold;
     color: #000000;
-    background: #f4f4f4;
+    background: #ffffff;
     border-radius: 4px 4px 0px 0px;
     border-bottom: solid 1px #cccccc;
 }
@@ -38,12 +38,12 @@ and open the template in the editor.
 }
 
 .queue-index input[type='text']{
-    border: #cccccc solid 1px;
+    border: #c8c8c8 solid 1px;
     background: #f4f4f4;
 }
 
 .queue-index input[type='text']{
-    border: #cccccc solid 1px;
+    border: #c8c8c8 solid 1px;
     background: #f4f4f4;
 }
 .box-list-work{

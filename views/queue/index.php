@@ -62,7 +62,7 @@ $this->title = 'Queue';
                                         <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-dark btn-block" style="border-radius: 0px;">ดูรายละเอียด <i class="fa fa-eye"></i></a>
                                     </div>
                                     <div class="col-md-6 col-lg-6" style="padding:0px;">
-                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['account/update', 'ref' => $rs['ref']]) ?>" class="btn btn-success btn-block" style="border-radius: 0px;">ใบเสนอราคา <i class="fas fa-pencil-alt"></i></a>
+                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['queue/update', 'ref' => $rs['ref']]) ?>" class="btn btn-success btn-block" style="border-radius: 0px;">ลงคิวติดตั้งงาน <i class="fas fa-pencil-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -85,9 +85,10 @@ $this->title = 'Queue';
                             <?php foreach ($listQueue as $queue):
                                 ?>
                                 <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="popupMenu('<?php echo $queue['ref'] ?>')">
-                                    <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px;">
+                                    <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px; padding-bottom: 25px;">
                                         <h4>งาน: <?php echo $queue['project_name'] ?></h4>
                                         <p>ลูกค้า:<?php echo $queue['customer'] ?></p>
+                                        <p class="pull-right"><?php echo ($queue['approve'] == 0) ? "ช่างยังไม่รับงาน" : "ช่างรับงานแล้ว"; ?></p>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
