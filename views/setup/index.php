@@ -1,3 +1,4 @@
+<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/graphic.css" rel="stylesheet">
 <?php
 
 use yii\helpers\Html;
@@ -6,12 +7,11 @@ use app\models\ConfigWeb;
 use app\models\Timeline;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\TransportSearch */
+/* @var $searchModel app\models\CustomerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
-
-$this->title = 'จัดส่ง';
+$this->title = "ช่างติดตั้ง";
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css" media="screen">
@@ -41,7 +41,7 @@ $this->title = 'จัดส่ง';
     }
 
 </style>
-<div class="transport-index">
+<div class="branchlaser-index">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
@@ -67,7 +67,7 @@ $this->title = 'จัดส่ง';
     </div>
 
     <div class="row" style="margin-bottom: 0px;">
-        <div class="col-lg-8 col-md-8">
+        <div class="col-lg-12 col-md-12">
             <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
                 !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
             </div>
@@ -77,10 +77,10 @@ $this->title = 'จัดส่ง';
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px;" >
+        <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px; display: none;" >
             <div class="card" >
                 <div class="card-body" style=" padding-left:0px; padding-right: 10px; padding-bottom: 0px;">
-                    <div class="card-title" style=" font-weight: bold;">จัดส่งแล้วรอยืนยัน</div>
+                    <div class="card-title" style=" font-weight: bold;">ประวัติการรับงาน</div>
                     <div id="body-history" style="overflow: auto; padding: 0px;">
 
                     </div>
@@ -108,6 +108,7 @@ $this->title = 'จัดส่ง';
     </div>
 </div>
 
+
 <?php
 $this->registerJs('
         $(document).ready(function(){
@@ -134,7 +135,7 @@ $this->registerJs('
     }
 
     function getJob() {
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['transport/job']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['setup/job']) ?>";
         var data = {};
         $.post(url, data, function(res) {
             $("#job").html(res);
@@ -160,10 +161,11 @@ $this->registerJs('
             return false;
         }
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['transport/searchjob']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['setup/searchjob']) ?>";
         var data = {customer: customer, project: project};
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
     }
 </script>
+

@@ -27,20 +27,19 @@ class CustomerController extends Controller {
      * {@inheritdoc}
      */
     /*
-    public function behaviors() {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-    */
+      public function behaviors() {
+      return [
+      'verbs' => [
+      'class' => VerbFilter::className(),
+      'actions' => [
+      'delete' => ['POST'],
+      ],
+      ],
+      ];
+      }
+     */
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -53,7 +52,7 @@ class CustomerController extends Controller {
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['Index','View','Getjob','Create','Update','Viewpage'],
+                        'actions' => ['Index', 'View', 'Getjob', 'Create', 'Update', 'Viewpage'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -465,6 +464,10 @@ class CustomerController extends Controller {
                 ->update("branchtechnician", array("status" => 2), "ref = '$ref'")
                 ->execute();
 
+        //ลบออกจากตารางคิว
+        Yii::$app->db->createCommand()
+                ->delete("queue", "ref = '$ref'")
+                ->execute();
         //Time Line
         $culumns = array(
             "department" => 1,

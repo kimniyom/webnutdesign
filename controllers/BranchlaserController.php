@@ -171,14 +171,14 @@ class BranchlaserController extends Controller {
                 "todep" => "CNC / Laser(งานผลิตเสร็จแล้ว)",
                 "d_update" => date("Y-m-d H:i:s")
             );
+
+            //อัพเดทสถานะงาน
+            \Yii::$app->db->createCommand()
+                    ->update("customer", array("cnc_status" => 2), "ref = '$ref'")
+                    ->execute();
         }
         \Yii::$app->db->createCommand()
                 ->insert("timeline", $culumnstimeline)
-                ->execute();
-
-        //อัพเดทสถานะงาน
-        \Yii::$app->db->createCommand()
-                ->update("customer", array("cnc_status" => 2), "ref = '$ref'")
                 ->execute();
     }
 

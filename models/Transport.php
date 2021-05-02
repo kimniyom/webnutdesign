@@ -17,21 +17,19 @@ use Yii;
  * @property string|null $address ที่อยู่จัดส่ง
  * @property resource|null $tagnumber เลขติดตามสินค้า
  */
-class Transport extends \yii\db\ActiveRecord
-{
+class Transport extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'transport';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'status', 'flag'], 'integer'],
             [['create_date', 'confirm_date'], 'safe'],
@@ -44,8 +42,7 @@ class Transport extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'ref' => 'รหัสอ้างอิง',
@@ -58,4 +55,22 @@ class Transport extends \yii\db\ActiveRecord
             'tagnumber' => 'เลขติดตามสินค้า',
         ];
     }
+
+    function searchJob($customer = "", $project = "") {
+        $where = "";
+        if ($customer != "" && $project == "") {
+            $where .= "AND c.customer LIKE '%" . $customer . "%'";
+        } else if ($customer == "" && $project != "") {
+            $where .= "AND c.project_name LIKE '%" . $project . "%'";
+        } else if ($customer != "" && $project != "") {
+            $where .= "AND c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
+        }
+
+        $sql = "select g.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
+                    from transport g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag = '0' $where";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
+    }
+
 }

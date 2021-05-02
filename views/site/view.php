@@ -1,6 +1,6 @@
 
 <!--
-<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                         ?>/css/account.css" rel="stylesheet">
+<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                   ?>/css/account.css" rel="stylesheet">
 -->
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
@@ -9,6 +9,11 @@
 <script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
 <style>
+    @font-face {
+        font-family: sarabun;
+        src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sarabun/THSarabun Bold.ttf');
+    }
+
     .box-work-detail img{
         border-radius: 10px;
         margin: 10px;
@@ -81,9 +86,11 @@
     }
 
     .head-title-view{
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         color: rgb(184, 0, 153);
+        letter-spacing: 1px;
+        font-family: sarabun;
     }
     .txt-customer{
         padding-left: 10px;
@@ -152,7 +159,7 @@ use app\models\Customer;
 $ConfigModel = new ConfigWeb();
 $CustomerModel = new Customer();
 ?>
-<div class="customer-view-all" style=" padding-top: 0px; margin-top: 0px;">
+<div class="customer-view-all" style=" padding-top: 0px; margin-top: 0px; font-family: sarabun;">
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
         <div class="col-md-4 col-lg-4 card-responsive" style="padding-right: 0px;">
             <div class="card" style=" border-top:0px;   background: #eeeeee;">
@@ -190,7 +197,7 @@ $CustomerModel = new Customer();
                                 <h3 class="head-title-view">ข้อมูลรับงาน</h3>
                                 <table class="table table-bordered">
                                     <tr>
-                                        <th>ชื่องาน</th>
+                                        <th style=" width: 120px;">ชื่องาน</th>
                                         <td><?php echo $model['project_name'] ?></td>
                                     </tr>
                                     <tr>
@@ -223,25 +230,25 @@ $CustomerModel = new Customer();
                                     <div class="panel-body">
                                         รูปภาพแนบ
                                         <?php
-                                            $ref = $model['ref'];
-                                            $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
-                                            $count = Yii::$app->db->createCommand($sql)->queryScalar();
-                                            if($count > 0){
-                                            echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]); 
+                                        $ref = $model['ref'];
+                                        $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+                                        $count = Yii::$app->db->createCommand($sql)->queryScalar();
+                                        if ($count > 0) {
+                                            echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
                                         } else {
                                             echo "-";
                                         }
                                         ?>
                                         <br/>ไฟล์แนบ
-                                        <?php if($filelist ){ ?>
-                                        <ul>
-                                            <?php foreach ($filelist as $f): ?>
-                                                <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php } else { ?>
-                                        -
-                                    <?php } ?>
+                                        <?php if ($filelist) { ?>
+                                            <ul>
+                                                <?php foreach ($filelist as $f): ?>
+                                                    <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php } else { ?>
+                                            -
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +259,7 @@ $CustomerModel = new Customer();
                         <div class="box-account">
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">บัญชี</h3>
-                                <div style="padding: 0px 10px;">
+                                <div style="">
                                     <?php if ($account) { ?>
                                         <label style="font-weight: bold;">รายละเอียด</label>
                                         <div class="alert alert-warning">
@@ -263,10 +270,10 @@ $CustomerModel = new Customer();
                                         <label style="font-weight: bold;">ใบเสนอราคา</label>
                                         <ul>
                                         <?php // if ($account['link']) { ?>
-                                                <li><a href="<?php //echo $account['link']                                                                                        ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
+                                                <li><a href="<?php //echo $account['link']                                                                                                                                  ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
                                         <?php //} ?>
                                         <?php //if ($account['file']) { ?>
-                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                        ?>" target="_back">ใบเสนอราคา</a></li>
+                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                  ?>" target="_back">ใบเสนอราคา</a></li>
                                         <?php //} ?>
                                         </ul>
                                         -->
@@ -324,9 +331,10 @@ $CustomerModel = new Customer();
                                             <div class=" list-group-item active" style="text-align: center;">
                                                 งานพิมพ์
                                             </div>
-                                            <div class=" list-group-item" tyle="text-align: center;">
-                                                <?php if($model['print_status'] != "0"){ ?>
-                                                    <?php if($model['print_status'] == 1){ ?>
+                                            <div class=" list-group-item" style="text-align: center;">
+                                                <img src="<?php echo Url::to('@web/icon/printers.png') ?>" class=" img-responsive" style=" width: 48px;"/><br/>
+                                                <?php if ($model['print_status'] != "0") { ?>
+                                                    <?php if ($model['print_status'] == 1) { ?>
                                                         <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
                                                     <?php } else { ?>
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
@@ -342,9 +350,10 @@ $CustomerModel = new Customer();
                                             <div class=" list-group-item active" style="text-align: center;">
                                                 CNC/LASER
                                             </div>
-                                            <div class=" list-group-item" tyle="text-align: center;">
-                                                <?php if($model['cnc_status'] != "0"){ ?>
-                                                    <?php if($model['cnc_status'] == 1){ ?>
+                                            <div class=" list-group-item" style="text-align: center;">
+                                                <img src="<?php echo Url::to('@web/icon/laser-cutting-machine.png') ?>" class=" img-responsive" style=" width: 48px;"/><br/>
+                                                <?php if ($model['cnc_status'] != "0") { ?>
+                                                    <?php if ($model['cnc_status'] == 1) { ?>
                                                         <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
                                                     <?php } else { ?>
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
@@ -361,8 +370,9 @@ $CustomerModel = new Customer();
                                                 ผลิตทั่วไป
                                             </div>
                                             <div class=" list-group-item" style="text-align: center;">
-                                                <?php if($model['manufacture_status'] != "0"){ ?>
-                                                    <?php if($model['manufacture_status'] == 1){ ?>
+                                                <img src="<?php echo Url::to('@web/icon/engineer.png') ?>" class=" img-responsive" style=" width: 48px;"/><br/>
+                                                <?php if ($model['manufacture_status'] != "0") { ?>
+                                                    <?php if ($model['manufacture_status'] == 1) { ?>
                                                         <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
                                                     <?php } else { ?>
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
@@ -382,22 +392,36 @@ $CustomerModel = new Customer();
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">ช่างติดตั้ง</h3>
                                 <div class="col-md-12 col-lg-12 col-sm-12" style="margin-bottom: 10px;">
-                                        <div class="list-group">
-                                            <div class=" list-group-item" style="text-align: center;">
-                                                <?php if($model['setup'] == "1"){ ?>
-                                                    <?php if($model['technician_status'] == 1){ ?>
-                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการดำเนินงาน
-                                                    <?php } else if($model['technician_status'] == 2) { ?>
-                                                        <i class="fa fa-check text-success"></i> ติดตั้งเสร็จแล้ว
-                                                    <?php } else { ?>
-                                                        <i class="fa fa-info"></i> ยังไม่รับงาน
-                                                    <?php } ?>
+                                    <div class="list-group">
+                                        <div class=" list-group-item" style="text-align: center;">
+                                            <?php if ($model['setup'] == "1") { ?>
+                                                <?php if ($model['technician_status'] == 1) { ?>
+                                                    <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการดำเนินงาน
+                                                <?php } else if ($model['technician_status'] == 2) { ?>
+                                                    <i class="fa fa-check text-success"></i> ติดตั้งเสร็จแล้ว
+                                                    <br/>รูปภาพการติดตั้งงาน
+                                                    <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
+                                                        <?php
+                                                        $refsetup = app\models\Queue::findOne(['ref' => $model['ref']])['refsetup'];
+                                                        $filesetups = \app\models\Uploads::findAll(['ref' => $refsetup]);
+                                                        foreach ($filesetups as $file):
+                                                            $imgsetup = Url::to('@web/photolibrarys/') . $refsetup . '/thumbnail/' . $file['real_filename'];
+                                                            $imgfullsetup = Url::to('@web/photolibrarys/') . $refsetup . '/' . $file['real_filename'];
+                                                            ?>
+                                                            <a class="fancybox" rel="gallery1" href="<?php echo $imgfullsetup ?>" title="รูปงานติดตั้ง">
+                                                                <div class="img-crop" style="background-image: url('<?php echo $imgsetup ?>');"></div>
+                                                            </a>
+                                                        <?php endforeach; ?>
+                                                    </div>
                                                 <?php } else { ?>
-                                                    <span style="text-align:center; color:#d1d1d1;">ไม่มีการติดตั้ง</span>
+                                                    <i class="fa fa-info"></i> ยังไม่รับงาน
                                                 <?php } ?>
-                                            </div>
+                                            <?php } else { ?>
+                                                <span style="text-align:center; color:#d1d1d1;">ไม่มีการติดตั้ง</span>
+                                            <?php } ?>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <!-- ​End Box Setup -->
@@ -451,6 +475,10 @@ $this->registerJs('
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
+            openEffect: "elastic",
+            closeEffect: "none"
+        });
+        $(".fancyboxsetup").fancybox({
             openEffect: "elastic",
             closeEffect: "none"
         });

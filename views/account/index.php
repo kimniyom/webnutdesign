@@ -124,7 +124,7 @@ $this->title = 'Accounts';
                                 </div>
 
                                 <!--
-                                <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']])                                                                                                                       ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
+                                <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']])                                                                                                                           ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
                                 -->
                                 <div class="row" style=" margin: 0px; padding: 0px;">
                                     <div class="col-md-6 col-lg-6" style=" padding: 0px;">

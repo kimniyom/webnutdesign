@@ -89,7 +89,6 @@ class GraphicController extends Controller {
      */
     public function actionUpdate($ref) {
         $model = $this->findModel($ref);
-        ;
 
         $model->todep = explode(',', $model->todep);
         if ($model->load(Yii::$app->request->post())) {
@@ -126,15 +125,15 @@ class GraphicController extends Controller {
                 //Time Line
                 $this->addTimeline(3, $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
                 //ส่งการตลาดแจ้งลูกค้า
-                    $res = \app\models\Branchmarketing::findOne(['ref' => $ref]);
-                    if ($res['ref'] == "") {
-                        $columns = array(
-                            "ref" => $ref
-                        );
-                        \Yii::$app->db->createCommand()
-                                ->insert("branchmarketing", $columns)
-                                ->execute();
-                    }
+                $res = \app\models\Branchmarketing::findOne(['ref' => $ref]);
+                if ($res['ref'] == "") {
+                    $columns = array(
+                        "ref" => $ref
+                    );
+                    \Yii::$app->db->createCommand()
+                            ->insert("branchmarketing", $columns)
+                            ->execute();
+                }
             } else { //ส่งผลิตนอกร้าน
                 $this->addTimeline(3, $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
                 $columns = array("outside" => 1);
@@ -152,25 +151,25 @@ class GraphicController extends Controller {
             //ดึงข้อมูลลูกค้า
             $customer = \app\models\Customer::findOne(['ref' => $ref]);
             //ส่งจัดคิวติดตั้ง
-            if($customer['setup'] == 1){
+            if ($customer['setup'] == 1) {
                 \Yii::$app->db->createCommand()
-                    ->delete("queue","ref = '$ref'")
-                    ->execute();
+                        ->delete("queue", "ref = '$ref'")
+                        ->execute();
 
                 \Yii::$app->db->createCommand()
-                    ->insert("queue",array("ref" => $ref))
-                    ->execute();
+                        ->insert("queue", array("ref" => $ref))
+                        ->execute();
             }
 
             //ส่งต่อแผนกจัดส่ง
-            if($customer['transport'] == 1){
+            if ($customer['transport'] == 1) {
                 \Yii::$app->db->createCommand()
-                    ->delete("transport","ref = '$ref'")
-                    ->execute();
+                        ->delete("transport", "ref = '$ref'")
+                        ->execute();
 
                 \Yii::$app->db->createCommand()
-                    ->insert("transport",array("ref" => $ref))
-                    ->execute();
+                        ->insert("transport", array("ref" => $ref))
+                        ->execute();
             }
             $model->save();
             return $this->redirect(['view', 'ref' => $model->ref]);

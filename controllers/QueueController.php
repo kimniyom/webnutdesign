@@ -12,13 +12,12 @@ use yii\filters\VerbFilter;
 /**
  * QueueController implements the CRUD actions for Queue model.
  */
-class QueueController extends Controller
-{
+class QueueController extends Controller {
+
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,17 +32,16 @@ class QueueController extends Controller
      * Lists all Queue models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new QueueSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $listData = $this->getWork();
+
         $listQueue = $this->getQueue();
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'listData' => $listData,
-            'listQueue' => $listQueue
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    //'listData' => $listData,
+                    'listQueue' => $listQueue
         ]);
     }
 
@@ -53,10 +51,9 @@ class QueueController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -72,7 +69,7 @@ class QueueController extends Controller
     function getQueue() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`confirm` = '1' AND a.approve != '2'";
+                    WHERE a.`confirm` = '1' AND a.approve != '2' order by a.queuedate ASC";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -81,8 +78,7 @@ class QueueController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Queue();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -90,7 +86,7 @@ class QueueController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -101,8 +97,7 @@ class QueueController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($ref)
-    {
+    public function actionUpdate($ref) {
         $model = $this->findModel($ref);
         /* รายละเอียดงาน */
         $modelCustomer = \app\models\Customer::findOne(['ref' => $ref]);
@@ -114,26 +109,26 @@ class QueueController extends Controller
 
             //Insert Timeline
             $culumns = array(
-                    "department" => 2,
-                    "ref" => $ref,
-                    "user_id" => Yii::$app->user->identity->id,
-                    "log" => "ลงคิวงานติดตั้ง",
-                    "todep" => 8,
-                    "d_update" => date("Y-m-d H:i:s")
-                );
+                "department" => 2,
+                "ref" => $ref,
+                "user_id" => Yii::$app->user->identity->id,
+                "log" => "ลงคิวงานติดตั้ง",
+                "todep" => "การตลาด(ลงคิวงาน)",
+                "d_update" => date("Y-m-d H:i:s")
+            );
             \Yii::$app->db->createCommand()
-                        ->insert("timeline", $culumns)
-                        ->execute();
-        
+                    ->insert("timeline", $culumns)
+                    ->execute();
+
 
             $model->save();
             return $this->redirect(['index']);
         }
 
         return $this->render('update', [
-            'model' => $model,
-            'modelCustomer' => $modelCustomer,
-            'file' => $file
+                    'model' => $model,
+                    'modelCustomer' => $modelCustomer,
+                    'file' => $file
         ]);
     }
 
@@ -149,8 +144,7 @@ class QueueController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -163,8 +157,7 @@ class QueueController extends Controller
      * @return Queue the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($ref)
-    {
+    protected function findModel($ref) {
         if (($model = Queue::findOne(['ref' => $ref])) !== null) {
             return $model;
         }
@@ -260,4 +253,22 @@ class QueueController extends Controller
             );
         }
     }
+
+    public function actionJob() {
+        $dataList = $this->getWork();
+        return $this->renderPartial('searchjob', [
+                    'dataList' => $dataList
+        ]);
+    }
+
+    public function actionSearchjob() {
+        $customer = Yii::$app->request->post('customer');
+        $project = Yii::$app->request->post('project');
+        $Model = new Queue();
+        $dataList = $Model->searchJob($customer, $project);
+        return $this->renderPartial('searchjob', [
+                    'dataList' => $dataList
+        ]);
+    }
+
 }

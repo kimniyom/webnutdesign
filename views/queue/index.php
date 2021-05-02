@@ -35,66 +35,41 @@ $this->title = 'Queue';
 
 
     <div class="row" style="margin-top: 0px; padding-top: 0px;" id="box-default">
-        <div class="col-md-8 col-lg-8" style="padding-right: 0px;">
+        <div class="col-md-7 col-lg-7" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border:0px; margin-bottom: 0px;">
                 <div class="card-header">
-                    <i class="far fa-file-alt text-info"></i> ลงคิวงานติดตั้ง
+                    <ion-icon name="albums-outline" style=" font-size: 20px; float: left;"></ion-icon> ลงคิวงานติดตั้ง
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #ffffff;">
-                    <?php if ($listData) { ?>
-                        <?php foreach ($listData as $rs): ?>
-                            <div class="alert alert-dark box-list-work" role="alert" style="background: none; padding: 0px;">
-                                <div class="row" style=" margin: 0px;">
-                                    <div class="col-md-12 col-lg-12">
-                                        <div style=" padding:10px;">
-                                            <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
-                                            <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
-                                            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--
-                                <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/view', 'id' => $rs['id'], 'ref' => $rs['ref']])                                                                                                                       ?>" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                                -->
-                                <div class="row" style=" margin: 0px; padding: 0px;">
-                                    <div class="col-md-6 col-lg-6" style=" padding: 0px;">
-                                        <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-dark btn-block" style="border-radius: 0px;">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6" style="padding:0px;">
-                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['queue/update', 'ref' => $rs['ref']]) ?>" class="btn btn-success btn-block" style="border-radius: 0px;">ลงคิวติดตั้งงาน <i class="fas fa-pencil-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php } else { ?>
-                        <div style="text-align: center;">ไม่มีข้อมูล</div>
-                    <?php } ?>
+                    <div id="job"></div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4" style=" padding-left: 0px;">
+        <div class="col-md-5 col-lg-5" style=" padding-left: 0px;">
             <div class="card" style="border-radius: 0px; border:0px;">
                 <div class="card-content">
                     <div class="card-header">
-                        <i class="fas fa-legal text-danger"></i> คิวงาน
+                        <ion-icon name="construct-outline" style=" font-size: 20px; float: left;"></ion-icon> คิวงาน
                     </div>
                     <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px; background: #eeeeee;">
                         <ul class="list-group" style=" padding: 0px; margin: 0px;">
-                            <?php if($listQueue){ ?>
-                            <?php foreach ($listQueue as $queue):
-                                ?>
-                                <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="popupMenu('<?php echo $queue['ref'] ?>')">
-                                    <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px; padding-bottom: 25px;">
-                                        <h4>งาน: <?php echo $queue['project_name'] ?></h4>
-                                        <p>ลูกค้า:<?php echo $queue['customer'] ?></p>
-                                        <p class="pull-right"><?php echo ($queue['approve'] == 0) ? "ช่างยังไม่รับงาน" : "ช่างรับงานแล้ว"; ?></p>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php } else { ?>
-                            == ไม่มีคิวงาน ==
-                        <?php } ?>
+                            <?php if ($listQueue) { ?>
+                                <?php foreach ($listQueue as $queue):
+                                    ?>
+                                    <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="getViews('<?php echo $queue['ref'] ?>')">
+                                        <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px; padding-bottom: 25px;">
+                                            <h4>งาน: <?php echo $queue['project_name'] ?></h4>
+                                            <p>
+                                            <ion-icon name="people-circle-outline"></ion-icon> ลูกค้า:<?php echo $queue['customer'] ?>
+                                            <ion-icon name="calendar-outline"></ion-icon> วันที่ติดตั้ง: <?php echo $ConfigWeb->thaidate($queue['queuedate']) ?>
+                                            </p>
+                                            <p class="pull-right text-danger"> <?php echo ($queue['approve'] == 0) ? "ช่างยังไม่รับงาน" : "ช่างรับงานแล้ว"; ?></p>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php } else { ?>
+                                == ไม่มีคิวงาน ==
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -159,6 +134,7 @@ $this->title = 'Queue';
 $this->registerJs('
         $(document).ready(function(){
             setScreens();
+            getJob();
         });
             ');
 ?>
@@ -206,6 +182,15 @@ $this->registerJs('
         $("#ref").val(ref);
     }
 
+    function getJob() {
+        $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['queue/job']) ?>";
+        var data = {};
+        $.post(url, data, function(res) {
+            $("#job").html(res);
+        });
+    }
+
     function searchJob() {
         var customer = $("#txtcustomer").val();
         var project = $("#txtproject").val();
@@ -216,18 +201,15 @@ $this->registerJs('
             return false;
         }
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['account/searchjob']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['queue/searchjob']) ?>";
         var data = {customer: customer, project: project};
         $.post(url, data, function(res) {
-            $("#box-search").show();
-            $("#box-default").hide();
-            $("#box-content").html(res);
+            $("#job").html(res);
         });
     }
 
     function closeResult() {
-        $("#box-search").hide();
-        $("#box-default").show();
+        getJob();
     }
 </script>
 

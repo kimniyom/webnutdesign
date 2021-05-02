@@ -40,7 +40,7 @@
             padding: 20px;
         }
     }
-  
+
 </style>
 <?php
 
@@ -58,7 +58,7 @@ $this->title = $model->customer;
 \yii\web\YiiAsset::register($this);
 $ConfigModel = new ConfigWeb();
 ?>
-<div class="customer-view">
+<div class="customer-view" >
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
@@ -122,7 +122,7 @@ $ConfigModel = new ConfigWeb();
                         <i class="fa fa-briefcase"></i> รายละเอียดงาน
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 5px;">
-                        
+
                         <?=
                         DetailView::widget([
                             'model' => $model,
@@ -174,7 +174,7 @@ $ConfigModel = new ConfigWeb();
                                 </ul>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -223,8 +223,8 @@ $this->registerJs('
             $("#box-timeline").css({"height": h - 190});
         } else {
             $("#box-popup-left").css({"padding-right": "10px"});
-            $("#box-popup-right").css({"padding-left": "15px","padding-right": "15px"});
-            $(".card").css({"margin-top": "0px","margin-bottom": "0px"});
+            $("#box-popup-right").css({"padding-left": "15px", "padding-right": "15px"});
+            $(".card").css({"margin-top": "0px", "margin-bottom": "0px"});
         }
     }
 

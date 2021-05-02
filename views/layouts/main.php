@@ -169,7 +169,7 @@ $rule = $configWeb->getRule();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                      ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                         ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -219,14 +219,15 @@ $rule = $configWeb->getRule();
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                                <?php if($rule['queue'] == 1 || Yii::$app->user->identity->status == "A"){ ?>
+                                <?php if ($rule['queue'] == 1 || Yii::$app->user->identity->status == "A") { ?>
                                     <li>
                                         <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl(['queue/index']) ?>" aria-expanded="false">
-                                            <i class="fa fa-sitemap"></i><span class="hide-menu">ลงคิวติดตั้ง</span>
+                                            <span class="hide-menu">ลงคิวติดตั้ง</span>
+                                            <ion-icon name="albums-outline" size="small" class="pull-right" style="margin-right: 5px;"></ion-icon>
                                         </a>
                                     </li>
                                 <?php } ?>
-                    
+
                             <?php } else { ?>
                                 <li style=" text-align: center;">
                                     ยังไม่ได้กำหนดสิทธิ์กรุณาติดต่อ Admin
@@ -244,6 +245,7 @@ $rule = $configWeb->getRule();
                     <div class="row page-titles" style="margin-bottom: 0px; padding-top: 0px;">
                         <div class="col-md-12 align-self-center text-right">
                             <div class="d-flex justify-content-end align-items-center">
+
                                 <?php
                                 echo Breadcrumbs::widget([
                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -268,6 +270,7 @@ $rule = $configWeb->getRule();
         <!-- All Jquery -->
         <!-- ============================================================== -->
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery/jquery-3.2.1.min.js"></script>
+        <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
         <!---->
         <?php $this->endBody() ?>
 
@@ -295,8 +298,8 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                         ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                         ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                            ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                            ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('
