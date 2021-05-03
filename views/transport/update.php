@@ -14,6 +14,8 @@ $this->title = 'Update Transport: ' . $model->id;
     <?=
     $this->render('_form', [
         'model' => $model,
+        'modelCustomer' => $modelCustomer,
+        'file' => $file
     ])
     ?>
 

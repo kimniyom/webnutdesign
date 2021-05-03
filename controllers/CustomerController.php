@@ -496,4 +496,12 @@ class CustomerController extends Controller {
         ]);
     }
 
+    public function actionAll(){
+        $ModelCustomer = new Customer();
+        $dataList = $ModelCustomer->getJobAll();
+        return $this->render('viewall', [
+                    'dataList' => $dataList
+        ]);
+    }
+
 }

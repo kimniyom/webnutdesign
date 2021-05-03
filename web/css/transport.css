@@ -9,12 +9,12 @@ and open the template in the editor.
 */
 
 .transport-form input[type='text']{
-    border: #cccccc solid 1px;
-    background: #f4f4f4;
+    border: #bfbfbf solid 1px;
+    background: #ffffff;
 }
 .transport-form textarea{
-    border: #cccccc solid 1px;
-    background: #f4f4f4;
+    border: #bfbfbf solid 1px;
+    background: #ffffff;
 }
 .transport-form label{
     color: #0066ff;

@@ -139,7 +139,10 @@ class AccountController extends Controller {
             $model->save();
 
             //Time Line
-            $rs = \app\models\Timeline::findOne(['ref' => $ref]);
+            $rs = \app\models\Timeline::find()
+            ->where(['ref' => $ref])
+            ->andWhere(['department' => 4])
+            ->One();
             if (!$rs['ref']) {
                 $culumns = array(
                     "department" => 4,

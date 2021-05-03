@@ -20,6 +20,16 @@
     .customer-viewpage table{
         border-right: 0px;
     }
+
+    @media(max-width:768px) {
+        .head-title{
+            margin-left: 20px;
+        }
+
+        .content-view{
+            padding: 20px;
+        }
+    }
 </style>
 <?php
 
@@ -34,10 +44,10 @@ $CustomerModel = new Customer();
 ?>
 <div class="customer-viewpage">
     <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;"><i class="fa fa-user"></i> ข้อมูลลูกค้า</h3>
-    <div style="margin:10px;">
+    <div style="margin:10px;" class="content-view">
         <table class="table">
             <tr>
-                <th>ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</th>
+                <th style="width: 150px;">ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</th>
                 <td><?php echo $model['customer'] ?></td>
             </tr>
                         <tr>
@@ -63,10 +73,10 @@ $CustomerModel = new Customer();
             </table>
         </div>
                     <h3 class="head-title text-info" style=" padding: 10px; padding-left: 5px;"><i class="fa fa-briefcase"></i> รายละเอียด</h3>
-                        <div style="margin:10px;">
+                        <div style="margin:10px;" class="content-view">
                         <table class="table">
                             <tr>
-                                <th>ชื่องาน</th>
+                                <th style="width: 150px;">ชื่องาน</th>
                                 <td><?php echo $model['project_name'] ?></td>
                             </tr>
                             <tr>
@@ -94,7 +104,7 @@ $CustomerModel = new Customer();
                                 <td><?php echo $model['detail'] ?></td>
                             </tr>
                         </table>
-</div>
+
                         <div class="panel panel-default">
                             <div class="panel-body" style=" padding: 10px;">
                                 รูปภาพแนบ
@@ -107,6 +117,8 @@ $CustomerModel = new Customer();
                                 </ul>
                             </div>
                         </div>
+</div>
+
                    
                         <!-- Account -->
 </div>

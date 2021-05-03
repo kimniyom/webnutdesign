@@ -136,4 +136,9 @@ class Customer extends \yii\db\ActiveRecord {
         //return $sql;
     }
 
+    function getJobAll(){
+        $sql = "select * from customer";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
 }

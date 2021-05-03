@@ -1,3 +1,4 @@
+<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/customer.css" rel="stylesheet">
 <?php
 
 use yii\helpers\Html;
@@ -5,14 +6,9 @@ use yii\grid\GridView;
 use app\models\ConfigWeb;
 use app\models\Timeline;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\TransportSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
-
-$this->title = 'จัดส่ง';
-//$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'งานทั้งหมด';
 ?>
 <style type="text/css" media="screen">
     @media(min-width:767px) {
@@ -40,8 +36,16 @@ $this->title = 'จัดส่ง';
         color: #FFFFFF;
     }
 
+    @media(max-width:767px) {
+        #popupaddwork .modal-dialog{
+            min-width: 100% !important;
+            margin-right:-10px;
+
+        }
+    }
+
 </style>
-<div class="transport-index">
+<div class="customer-index">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
@@ -55,11 +59,13 @@ $this->title = 'จัดส่ง';
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
-                            <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
-                            <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" style="border-radius: 20px; border:0px;">
+                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer">
+                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" >
                             <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
+
+                    <div class="text-default" style="margin-right: 10px; font-size: 20px;">งานทั้งหมด</div>
                 </nav>
 
             </div>
@@ -67,35 +73,46 @@ $this->title = 'จัดส่ง';
     </div>
 
     <div class="row" style="margin-bottom: 0px;">
-        <div class="col-lg-8 col-md-8">
-            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
-                !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
+        <div class="col-lg-12 col-md-12">
+            <div style=" top: 0px; font-weight: bold; margin-left: 10px; margin-top: 10px;">
+                <span class="badge bg-dark">ทั้งหมด <?php echo count($dataList) ?> </span>
+                <span class="badge bg-success">ยืนยันแล้ว 0 </span>
+                <span class="badge bg-warning">กำลังผลิต 0 </span>
+                <span class="badge bg-danger">ยกเลิก 0 </span>
             </div>
             <div id="body-work" style="margin-top: 10px; overflow: auto;">
                 <div id="job">
-                    <div style="text-align: center; margin-top: 10%;">Loading...</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px;" >
-            <div class="card" >
-                <div class="card-body" style=" padding-left:0px; padding-right: 10px; padding-bottom: 0px;">
-                    <div class="card-title" style=" font-weight: bold;">จัดส่งแล้วรอยืนยัน</div>
-                    <div id="body-history" style="overflow: auto; padding: 0px;">
-                        <table class="table">
-                            <?php foreach($transportTag as $tag): ?>
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td><?php echo $tag['customer'] ?></td>
-                                <td><?php echo $tag['tagnumber'] ?></td>
-                                <td><a onclick="confirmTranfer('<?php echo $tag['ref'] ?>') " style="cursor: pointer; color: #57c4df">ยืนยัน</a></td>
+                                <th>#</th>
+                                <th>ลูกค้า</th>
+                                <th>งาน</th>
+                                <th>กำหนดส่ง</th>
+                                <th>สถานะ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=0; foreach($dataList as $rs): $i++;?>
+                            <tr>
+                                <td><?php echo $i ?></td>
+                                <td><?php echo $rs['customer'] ?></td>
+                                <td><?php echo $rs['project_name'] ?></td>
+                                <td><?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></td>
+                                <td>
+                                    <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 </div>
 
 <!-- Popup Detail -->
@@ -109,20 +126,22 @@ $this->title = 'จัดส่ง';
                 </button>
 
             </div>
-            <div class="modal-body" id="box-popup" style=" border-radius:10px;">
+            <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
             </div>
         </div>
     </div>
 </div>
 
+
+
+
 <?php
 $this->registerJs('
         $(document).ready(function(){
             setScreens();
-            getJob();
         });
-            ');
+    ');
 ?>
 
 <script>
@@ -133,21 +152,13 @@ $this->registerJs('
             $("#body-work").css({"height": h - 170});
             $("#body-history").css({"height": h - 210});
         } else {
-            $(".modal-dialog").addClass("modal-dialog-scrollable");
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
-
         }
     }
 
-    function getJob() {
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['transport/job']) ?>";
-        var data = {};
-        $.post(url, data, function(res) {
-            $("#job").html(res);
-        });
-    }
+
 
     function getViews(ref) {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
@@ -155,6 +166,14 @@ $this->registerJs('
         $.post(url, data, function(res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
+        });
+    }
+
+    function getJob() {
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getjob']) ?>";
+        var data = {};
+        $.post(url, data, function(res) {
+            $("#job").html(res);
         });
     }
 
@@ -168,32 +187,14 @@ $this->registerJs('
             return false;
         }
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['transport/searchjob']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/searchjob']) ?>";
         var data = {customer: customer, project: project};
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
     }
 
-    function confirmTranfer(ref){
-        var title = "ยืนยันการจัดส่งงาน..?";
-        
-        Swal.fire({
-            icon: 'info',
-            title: title,
-            showDenyButton: true,
-            //showCancelButton: true,
-            confirmButtonText: `ตกลง`,
-            denyButtonText: `cancel`,
-            allowOutsideClick: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var url = "<?php echo Yii::$app->urlManager->createUrl(['transport/updatestatus']) ?>";
-                var data = {ref: ref};
-                $.post(url, data, function(res) {
-                    window.location.reload();
-                });
-            }
-        });
-    }
 </script>
+
+
+

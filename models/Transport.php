@@ -31,6 +31,7 @@ class Transport extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            [['tagnumber'], 'required'],
             [['user_id', 'status', 'flag'], 'integer'],
             [['create_date', 'confirm_date'], 'safe'],
             [['address'], 'string'],

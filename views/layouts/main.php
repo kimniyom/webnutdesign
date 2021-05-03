@@ -35,6 +35,7 @@ $rule = $configWeb->getRule();
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
         <style>
             /* Works on Firefox */
             * {
@@ -205,7 +206,7 @@ $rule = $configWeb->getRule();
                         <ul id="sidebarnav">
                             <li>
                                 <a class="waves-effect waves-dark" href="#" aria-expanded="false">
-                                    <i class="fas fa-tachometer-alt"></i><span class="hide-menu">Dashboard</span>
+                                    <span class="lnr lnr-home pull-right" style="margin-right: 5px; font-size: 24px;"></span><span class="hide-menu">Dashboard</span>
                                 </a>
                             </li>
                             <?php
@@ -215,19 +216,17 @@ $rule = $configWeb->getRule();
                                     ?>
                                     <li>
                                         <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl([$url]) ?>" aria-expanded="false">
-                                            <i class="<?php echo $rs['icon'] ?>"></i><span class="hide-menu"><?php echo $rs['department'] ?></span>
+                                            <?php if($rs['type'] == "lnr"){ ?>
+                                                <span class="<?php echo $rs['icon'] ?> pull-right" style="margin-right: 5px; font-size: 24px;"></span>
+                                            <?php } else if($rs['type'] == "ion") { ?>
+                                                <ion-icon name="<?php echo $rs['icon'] ?>" class="pull-right" style="margin-right: 5px; font-size: 24px;"></ion-icon>
+                                            <?php } else { ?>
+                                                <i class="<?php echo $rs['icon'] ?>" style="font-size: 20px;"></i><span class="hide-menu">
+                                            <?php } ?>
+                                                <?php echo $rs['department'] ?></span>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                                <?php if ($rule['queue'] == 1 || Yii::$app->user->identity->status == "A") { ?>
-                                    <li>
-                                        <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl(['queue/index']) ?>" aria-expanded="false">
-                                            <span class="hide-menu">ลงคิวติดตั้ง</span>
-                                            <ion-icon name="albums-outline" size="small" class="pull-right" style="margin-right: 5px;"></ion-icon>
-                                        </a>
-                                    </li>
-                                <?php } ?>
-
                             <?php } else { ?>
                                 <li style=" text-align: center;">
                                     ยังไม่ได้กำหนดสิทธิ์กรุณาติดต่อ Admin
@@ -271,6 +270,7 @@ $rule = $configWeb->getRule();
         <!-- ============================================================== -->
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery/jquery-3.2.1.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+        <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
         <!---->
         <?php $this->endBody() ?>
 
