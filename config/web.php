@@ -6,6 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'language' => 'th_TH', // Set the language here
+    'timeZone' => 'Asia/Bangkok',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -70,7 +71,7 @@ $config = [
             'uploadDir' => '@webroot/uploads',
             'uploadUrl' => '@web/uploads',
             'imageAllowExtensions' => ['jpg', 'png', 'gif']
-            //['jpg', 'png', 'gif']
+        //['jpg', 'png', 'gif']
         ],
     //...
     ],

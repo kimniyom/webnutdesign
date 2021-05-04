@@ -21,11 +21,11 @@ use kartik\select2\Select2;
                     <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                 </a>
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
+                    <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-chevron-left text-info"></i> กลับ</button>
                 </a>
                 <div class="pull-right">
 
-                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-success btn-rounded']) ?>
+                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-outline-success btn-rounded']) ?>
                 </div>
             </div>
         </div>
@@ -241,6 +241,8 @@ $this->registerJs('
             $("#box-popup-left").css({"height": h - 193});
             $("#box-popup-right").css({"height": h - 193});
         }
+
+        $("#menu1").addClass("active");
     }
 
     function setChannel() {

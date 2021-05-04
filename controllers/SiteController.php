@@ -141,9 +141,9 @@ class SiteController extends Controller {
         $model = Customer::findOne(['ref' => $ref]);
         $file = $this->getFile($model['ref']);
         $timeline = $this->getTimeline($model['ref']);
-        //Account 
+        //Account
         $account = Account::findOne(['ref' => $ref]);
-        //กราฟฟิก 
+        //กราฟฟิก
         $graphic = Graphic::findOne(['ref' => $ref]);
         $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
         return $this->renderPartial('view', [
@@ -176,6 +176,9 @@ class SiteController extends Controller {
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-
+    function actionSetmenu() {
+        $menuId = \Yii::$app->request->post('menuId');
+        Yii::$app->session->set("menu", $menuId);
+    }
 
 }

@@ -63,10 +63,10 @@ $ConfigModel = new ConfigWeb();
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-primary btn-rounded"><i class="fa fa-home"></i> Home</button>
+                    <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-home text-warning"></i></button>
                 </a>
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-info btn-rounded"><i class="fa fa-chevron-left"></i> กลับ</button>
+                    <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-chevron-left text-info"></i></button>
                 </a>
 
                 <div class="pull-right">
@@ -217,6 +217,7 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
+        $("#menu1").addClass("active");
         if (w > 768) {
             $("#box-popup-left").css({"height": h - 190});
             $("#box-popup-right").css({"height": h - 190});

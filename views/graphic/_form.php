@@ -45,7 +45,7 @@ use kartik\select2\Select2;
                 <button type="button" class="btn btn-dark btn-rounded" onclick="getViews('<?php echo $model->ref ?>')"><i class="fa fa-eye"></i> ดูข้อมูล</button>
                 <div class="pull-right">
 
-                    <?= Html::submitButton('บันทึกข้อมูล / สั่งผลิต <i class="fa fa-save"></i>', ['class' => 'btn btn-success btn-rounded']) ?>
+                    <?= Html::submitButton('บันทึกข้อมูล / สั่งผลิต <i class="fa fa-save"></i>', ['class' => 'btn btn-outline-success btn-rounded']) ?>
                 </div>
             </div>
         </div>
@@ -192,6 +192,8 @@ $this->registerJs('
             $("#box-popup-left").css({"height": h - 189});
             $("#box-popup-right").css({"height": h - 189});
         }
+
+        $("#menu3").addClass("active");
     }
 
     function getViews(ref) {

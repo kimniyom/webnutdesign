@@ -20,11 +20,13 @@ $rule = $configWeb->getRule();
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo Yii::$app->urlManager->baseUrl ?>/images/logo-icon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
         <!--c3 plugins CSS -->
+
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/template.css" rel="stylesheet">
@@ -37,6 +39,7 @@ $rule = $configWeb->getRule();
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
         <style>
+
             /* Works on Firefox */
             * {
                 scrollbar-width: thin;
@@ -58,7 +61,29 @@ $rule = $configWeb->getRule();
                 border-radius: 20px;
                 border: 2px solid white;
             }
+            #sidebarnav .active{
+                border-right: #ffbc34 solid 0px;
+                color: #ffbc34;
+            }
 
+            @font-face {
+                font-family: skvl;
+                src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sukhumvit/SukhumvitSet-Light.ttf');
+            }
+            @font-face {
+                font-family: skv;
+                src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sukhumvit/SukhumvitSet-Medium.ttf');
+            }
+
+            @font-face {
+                font-family: skvb;
+                src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sukhumvit/SukhumvitSet-Bold.ttf');
+            }
+
+            @font-face {
+                font-family: sarabun;
+                src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sarabun/THSarabun Bold.ttf');
+            }
         </style>
     </head>
     <body class="skin-default-dark fixed-layout" style=" background: #ffffff;">
@@ -107,7 +132,11 @@ $rule = $configWeb->getRule();
                                 </a>
                             </li>
                             <li style="padding-top:10px;font-size:20px;" class="text-head">
-                                <a class="nav-link"><span class="text-head"><b>หจก.ณัฐดีไซน์ แอนด์ มีเดีย</b></span></a>
+                                <a class="nav-link"><span class="text-head">
+                                        <b style=" font-family: skv; background: -webkit-linear-gradient(#C850C0, #FFFFFF);
+                                           -webkit-background-clip: text;
+                                           -webkit-text-fill-color: transparent; font-size: 24px;">
+                                            หจก.ณัฐดีไซน์ แอนด์ มีเดีย</b></span></a>
                             </li>
                             <!-- ============================================================== -->
                             <!-- Search -->
@@ -170,7 +199,7 @@ $rule = $configWeb->getRule();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                         ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                    ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -193,7 +222,7 @@ $rule = $configWeb->getRule();
                         <img src="<?php echo Url::to('@web/images/logo-nat-design.png') ?>" alt="nutdesign" style="width:39px;">
                     </span>
                     <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)">
-                        <i class="ti-menu"></i>
+                        <i class="ti-menu text-danger"></i>
                     </a>
                     <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)">
                         <i class="ti-menu ti-close"></i>
@@ -204,25 +233,34 @@ $rule = $configWeb->getRule();
                     <!-- Sidebar navigation-->
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
-                            <li>
+                            <li onclick="setMenu(0)">
                                 <a class="waves-effect waves-dark" href="#" aria-expanded="false">
-                                    <span class="lnr lnr-home pull-right" style="margin-right: 5px; font-size: 24px;"></span><span class="hide-menu">Dashboard</span>
+                                    <span class="lnr lnr-home pull-right" style="margin-right: 5px; font-size: 24px;"></span><span class="hide-menu">
+                                        Dashboard
+                                    </span>
                                 </a>
                             </li>
                             <?php
                             if ($menuList) {
                                 foreach ($menuList as $rs):
                                     $url = $rs['url'];
+                                    $menu = \Yii::$app->session->get('menu');
+
+                                    if ($rs['id'] == $menu) {
+                                        $class = "active";
+                                    } else {
+                                        $class = "";
+                                    }
                                     ?>
-                                    <li>
-                                        <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl([$url]) ?>" aria-expanded="false">
-                                            <?php if($rs['type'] == "lnr"){ ?>
+                                    <li onclick="setMenu('<?php echo $rs['id'] ?>')">
+                                        <a id="menu<?php echo $rs['id'] ?>" class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl([$url]) ?>" aria-expanded="false" style="font-family: skvb;">
+                                            <?php if ($rs['type'] == "lnr") { ?>
                                                 <span class="<?php echo $rs['icon'] ?> pull-right" style="margin-right: 5px; font-size: 24px;"></span>
-                                            <?php } else if($rs['type'] == "ion") { ?>
+                                            <?php } else if ($rs['type'] == "ion") { ?>
                                                 <ion-icon name="<?php echo $rs['icon'] ?>" class="pull-right" style="margin-right: 5px; font-size: 24px;"></ion-icon>
                                             <?php } else { ?>
                                                 <i class="<?php echo $rs['icon'] ?>" style="font-size: 20px;"></i><span class="hide-menu">
-                                            <?php } ?>
+                                                <?php } ?>
                                                 <?php echo $rs['department'] ?></span>
                                         </a>
                                     </li>
@@ -283,7 +321,9 @@ $rule = $configWeb->getRule();
         <!--Wave Effects -->
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/waves.js"></script>
         <!--Menu sidebar -->
+
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/sidebarmenu.js"></script>
+
         <!--Custom JavaScript -->
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/custom.min.js"></script>
         <!-- ============================================================== -->
@@ -298,8 +338,8 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                            ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                            ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                       ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                       ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('
@@ -310,34 +350,42 @@ $rule = $configWeb->getRule();
          ');
         ?>
         <script>
-            function setScreen() {
-                var w = window.innerWidth;
-                if (w < 700) {
-                    $(".text-head").hide();
-                } else {
-                    $(".text-head").show();
-                }
+                                function setScreen() {
+                                    var w = window.innerWidth;
+                                    if (w < 768) {
+                                        $(".text-head").hide();
+                                    } else {
+                                        $(".text-head").show();
+                                    }
 
-                $(".breadcrumb li").addClass("breadcrumb-item");
-            }
+                                    $(".breadcrumb li").addClass("breadcrumb-item");
+                                }
 
-            function logOut() {
-                var r = confirm("Are you sure ...");
-                if (r == true) {
-                    var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
-                    $.post(url, {}, function(res) {
-                        window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
-                    });
-                }
-            }
+                                function logOut() {
+                                    var r = confirm("Are you sure ...");
+                                    if (r == true) {
+                                        var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
+                                        $.post(url, {}, function(res) {
+                                            window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
+                                        });
+                                    }
+                                }
 
-            function checkLogin() {
-                var user = "<?php echo Yii::$app->user->isGuest ?>";
-                var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
-                if (user) {
-                    window.location = url;
-                }
-            }
+                                function checkLogin() {
+                                    var user = "<?php echo Yii::$app->user->isGuest ?>";
+                                    var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
+                                    if (user) {
+                                        window.location = url;
+                                    }
+                                }
+
+                                function setMenu(menuId) {
+                                    var url = "<?php echo Yii::$app->urlManager->createUrl(['site/setmenu']) ?>";
+                                    var data = {menuId: menuId};
+                                    $.post(url, data, function(res) {
+
+                                    });
+                                }
         </script>
     </body>
 </html>

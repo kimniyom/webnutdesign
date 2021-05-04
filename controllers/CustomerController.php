@@ -496,10 +496,18 @@ class CustomerController extends Controller {
         ]);
     }
 
-    public function actionAll(){
+    public function actionAll() {
         $ModelCustomer = new Customer();
         $dataList = $ModelCustomer->getJobAll();
         return $this->render('viewall', [
+                    'dataList' => $dataList
+        ]);
+    }
+
+    public function actionExport() {
+        $ModelCustomer = new Customer();
+        $dataList = $ModelCustomer->getJobAll();
+        return $this->renderPartial('export', [
                     'dataList' => $dataList
         ]);
     }

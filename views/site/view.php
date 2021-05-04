@@ -1,6 +1,6 @@
 
 <!--
-<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                   ?>/css/account.css" rel="stylesheet">
+<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                             ?>/css/account.css" rel="stylesheet">
 -->
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
@@ -41,7 +41,7 @@
     }
 
     .customer-view-all{
-        font-size: 18px;
+
     }
 
     .customer-view-all table tr th{
@@ -86,11 +86,11 @@
     }
 
     .head-title-view{
-        font-size: 20px;
+        font-size:20px;
         font-weight: bold;
         color: rgb(184, 0, 153);
         letter-spacing: 1px;
-        font-family: sarabun;
+        font-family: skvl;
     }
     .txt-customer{
         padding-left: 10px;
@@ -109,7 +109,7 @@
             border:none;
             border-radius: 0px;
             margin: 0px;
-            font-size: 20px;
+
             font-weight: bold;
             padding-left: 0px;
         }
@@ -143,7 +143,7 @@
 
         .head-title{
             color: #00cccc;
-            font-size: 18px;
+
         }
 
     }
@@ -159,7 +159,7 @@ use app\models\Customer;
 $ConfigModel = new ConfigWeb();
 $CustomerModel = new Customer();
 ?>
-<div class="customer-view-all" style=" padding-top: 0px; margin-top: 0px; font-family: sarabun;">
+<div class="customer-view-all" style=" padding-top: 0px; margin-top: 0px; font-family: skvb;">
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
         <div class="col-md-4 col-lg-4 card-responsive" style="padding-right: 0px;">
             <div class="card" style=" border-top:0px;   background: #eeeeee;">
@@ -270,10 +270,10 @@ $CustomerModel = new Customer();
                                         <label style="font-weight: bold;">ใบเสนอราคา</label>
                                         <ul>
                                         <?php // if ($account['link']) { ?>
-                                                <li><a href="<?php //echo $account['link']                                                                                                                                  ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
+                                                <li><a href="<?php //echo $account['link']                                                                                                                                            ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
                                         <?php //} ?>
                                         <?php //if ($account['file']) { ?>
-                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                  ?>" target="_back">ใบเสนอราคา</a></li>
+                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                            ?>" target="_back">ใบเสนอราคา</a></li>
                                         <?php //} ?>
                                         </ul>
                                         -->
