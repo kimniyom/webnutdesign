@@ -46,44 +46,44 @@ class Branchfacture extends \yii\db\ActiveRecord {
     }
 
     function getJob() {
-        if (!Yii::$app->user->isGuest){
-        $status = Yii::$app->user->identity->status;
-    } else {
-        $status = "";
-    }
+        if (!Yii::$app->user->isGuest) {
+            $status = Yii::$app->user->identity->status;
+        } else {
+            $status = "";
+        }
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status != 4";
+                    where g.flag = '0' and g.status != 4 and c.flag != 2";
         } else {
             $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status ='1'";
+                    where g.flag = '0' and g.status ='1' and c.flag != 2";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function getJobForUser() {
-        if (!Yii::$app->user->isGuest){
-        $user_id = Yii::$app->user->identity->id;
-    } else {
-        $user_id = "";
-    }
+        if (!Yii::$app->user->isGuest) {
+            $user_id = Yii::$app->user->identity->id;
+        } else {
+            $user_id = "";
+        }
         $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3')";
+                    where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3') and c.flag != 2";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function searchJob($customer = "", $project = "") {
         $where = "";
         if ($customer != "" && $project == "") {
-            $where .= "WHERE c.customer LIKE '%" . $customer . "%'";
+            $where .= "and c.customer LIKE '%" . $customer . "%' and c.flag != 2";
         } else if ($customer == "" && $project != "") {
-            $where .= "WHERE c.project_name LIKE '%" . $project . "%'";
+            $where .= "and c.project_name LIKE '%" . $project . "%' and c.flag != 2";
         } else if ($customer != "" && $project != "") {
-            $where .= "WHERE c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
+            $where .= "and c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%' and c.flag != 2";
         }
 
-        $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref $where";
+        $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag != 2 $where";
 
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;

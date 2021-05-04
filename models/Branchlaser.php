@@ -49,10 +49,10 @@ class Branchlaser extends \yii\db\ActiveRecord {
         $status = Yii::$app->user->identity->status;
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status != 4";
+                    where g.flag = '0' and g.status != 4 and c.flag != 2";
         } else {
             $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status ='1'";
+                    where g.flag = '0' and g.status ='1' and c.flag != 2";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
@@ -61,21 +61,21 @@ class Branchlaser extends \yii\db\ActiveRecord {
     function getJobForUser() {
         $user_id = Yii::$app->user->identity->id;
         $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3')";
+                    where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3') and c.flag != 2";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function searchJob($customer = "", $project = "") {
         $where = "";
         if ($customer != "" && $project == "") {
-            $where .= "WHERE c.customer LIKE '%" . $customer . "%'";
+            $where .= "and c.customer LIKE '%" . $customer . "%'";
         } else if ($customer == "" && $project != "") {
-            $where .= "WHERE c.project_name LIKE '%" . $project . "%'";
+            $where .= "and c.project_name LIKE '%" . $project . "%'";
         } else if ($customer != "" && $project != "") {
-            $where .= "WHERE c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
+            $where .= "and c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
         }
 
-        $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref $where";
+        $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag != 2 $where";
 
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;
