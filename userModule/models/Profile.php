@@ -66,7 +66,7 @@ class Profile extends ActiveRecord
     public function rules()
     {
         return [
-            [['name','tel','nickname'],'required'],
+            [['name','tel','nickname','department'],'required'],
             'bioString'            => ['bio', 'string'],
             'timeZoneValidation'   => ['timezone', 'validateTimeZone'],
             'publicEmailPattern'   => ['public_email', 'email'],
@@ -79,7 +79,8 @@ class Profile extends ActiveRecord
             'websiteLength'        => ['website', 'string', 'max' => 255],
             [['tel'], 'string', 'min'=>10,'max' => 10],
             ['tel','match','pattern'=>'/^([+]?[0-9 ]+)$/'],
-            ['nickname','string']
+            ['nickname','string'],
+            ['department','integer']
         ];
     }
 
@@ -98,6 +99,7 @@ class Profile extends ActiveRecord
             'timezone'       => \Yii::t('user', 'Time zone'),
             'tel'       => \Yii::t('user', 'โทรศัพท์'),
             'nickname' => \Yii::t('user', 'ชื่อเล่น'),
+            'department' => \Yii::t('user', 'แผนก'),
         ];
     }
 

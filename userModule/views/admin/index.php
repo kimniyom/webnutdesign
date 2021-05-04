@@ -8,14 +8,13 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
-
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\Pjax;
-
-
+use app\models\Department;
+use dektrium\user\models\Profile;
 /**
  * @var \yii\web\View $this
  * @var \yii\data\ActiveDataProvider $dataProvider
@@ -26,15 +25,17 @@ $this->title = Yii::t('user', 'Manage users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
+<?php //$this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<?= $this->render('/admin/_menu') ?>
+<?php //echo $this->render('/admin/_menu') ?>
+<a href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/create']) ?>">
+<button type="button" class="btn btn-default" style="border-radius: 0px; border-bottom: 0px;">+ เพิ่มผู้ใช้งาน</button></a>
 
 <?php Pjax::begin() ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel'  => $searchModel,
+    //'filterModel'  => $searchModel,
     'layout'       => "{items}\n{pager}",
     'columns' => [
         /*
@@ -44,6 +45,32 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         */
         'username',
+        [
+            'label' => 'ชื่อ - สกุล',
+            'value' => function($model){
+                $profile = Profile::findOne(['user_id' => $model->id]);
+                return $profile['name'];
+            },
+            'format' => 'html',
+        ],
+        [
+            'label' => 'ชื่อเล่น',
+            'value' => function($model){
+                $profile = Profile::findOne(['user_id' => $model->id]);
+                return $profile['nickname'];
+            },
+            'format' => 'html',
+        ],
+
+        [
+            'label' => 'แผนก',
+            'value' => function($model){
+                $department = Profile::findOne(['user_id' => $model->id])['department'];
+                return Department::findOne(['id' => $department])['department'];
+            },
+            'format' => 'html',
+        ],
+        //'department',
         //'email:email',
         /*
         [
@@ -98,28 +125,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'visible' => Yii::$app->getModule('user')->enableConfirmation,
         ],
         [
-            'header' => Yii::t('user', 'Block status'),
-            'value' => function ($model) {
-                if ($model->isBlocked) {
-                    return Html::a(Yii::t('user', 'Unblock'), ['block', 'id' => $model->id], [
-                        'class' => 'btn btn-xs btn-success btn-block',
-                        'data-method' => 'post',
-                        'data-confirm' => Yii::t('user', 'Are you sure you want to unblock this user?'),
-                    ]);
-                } else {
-                    return Html::a(Yii::t('user', 'Block'), ['block', 'id' => $model->id], [
-                        'class' => 'btn btn-xs btn-danger btn-block',
-                        'data-method' => 'post',
-                        'data-confirm' => Yii::t('user', 'Are you sure you want to block this user?'),
-                    ]);
-                }
-            },
-            'format' => 'raw',
-        ],
-        [
             //{switch} {resend_password}
             'class' => 'yii\grid\ActionColumn',
-            'template' => ' {update} {delete}',
+            'template' => ' {update} ',
             'buttons' => [
                 'resend_password' => function ($url, $model, $key) {
                     if (\Yii::$app->user->identity->isAdmin && !$model->isAdmin) {

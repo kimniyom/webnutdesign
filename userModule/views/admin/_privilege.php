@@ -23,7 +23,7 @@ use yii\helpers\Html;
 <h4 style="border-bottom: #666666 solid 1px; padding-bottom: 15px;">ชื่อผู้ใช้งาน(<?php echo $profile->name ?>)</h4>
 <div class="row">
     <div class="col-md-6 col-lg-6">
-        <h4>สิทธิ์เข้าถึงแผนก</h4>
+        <h4>สิทธิ์เข้าถึงเมนู</h4>
         <table class="table">
             <tbody>
                 <?php foreach ($departments as $rs): ?>
@@ -50,7 +50,7 @@ use yii\helpers\Html;
         </table>
     </div>
     <div class="col-md-6 col-lg-6">
-        <h4>สิทธิ์การใช้งาน</h4>
+        <h4>สิทธิ์การใช้งาน อื่น ๆ</h4>
         <table class="table">
             <tbody>
                 <tr>

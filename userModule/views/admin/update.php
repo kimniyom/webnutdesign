@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<?= $this->render('_menu') ?>
+<?php //$this->render('_menu') ?>
 
 <div class="row">
     <div class="col-md-3">
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'label' => Yii::t('user', 'Profile details'),
                             'url' => ['/user/admin/update-profile', 'id' => $user->id]
                         ],
-                        ['label' => Yii::t('user', 'Information'), 'url' => ['/user/admin/info', 'id' => $user->id]],
+                        //['label' => Yii::t('user', 'Information'), 'url' => ['/user/admin/info', 'id' => $user->id]],
                         [
                             'label' => Yii::t('user', 'Assignments'),
                             'url' => ['/user/admin/assignments', 'id' => $user->id],

@@ -11,6 +11,10 @@
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+use app\models\Department;
 
 /**
  * @var yii\web\View $this
@@ -18,6 +22,16 @@ use yii\helpers\Html;
  * @var dektrium\user\models\Profile $profile
  */
 ?>
+
+<style>
+    .select2-selection{
+        height: 40px !important;
+        padding: 5px;
+        font-size: 14px;
+        border:solid #eeeeee 1px;
+        border-radius: 15px;
+    }
+</style>
 
 <?php $this->beginContent('@dektrium/user/views/admin/update.php', ['user' => $user]) ?>
 
@@ -38,7 +52,20 @@ use yii\helpers\Html;
 <?php //$form->field($profile, 'website') ?>
 <?php //$form->field($profile, 'location') ?>
 <?php //$form->field($profile, 'gravatar_email') ?>
+<?php
+    $departmentList = ArrayHelper::map(Department::find()->where(['isshow' => 1])->all(), 'id', 'department');
+                                        echo $form->field($profile, 'department')->widget(Select2::classname(), [
+                                            'language' => 'th',
+                                            'data' => $departmentList,
+                                            'options' => ['placeholder' => '... เลือกแผนก ...'],
+                                            'pluginOptions' => [
+                                                'allowClear' => true,
+                                                'multiple' => false
+                                            ],
+                                        ])->label();
+                                        ?>
 <?= $form->field($profile, 'tel') ?>
+
 <?= $form->field($profile, 'bio')->textarea() ?>
 
 <div class="form-group">
