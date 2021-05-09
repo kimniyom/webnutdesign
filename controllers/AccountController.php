@@ -273,4 +273,24 @@ class AccountController extends Controller {
         ]);
     }
 
+    public function actionConfirmwork(){
+        $ref = Yii::$app->request->post('ref');
+        $comment = Yii::$app->request->post('comment');
+
+        $columns = array(
+            "flag" => 1,
+            "comment" => $comment,
+            "confirmdate" => date("Y-m-d H:i:s")
+        );
+        //update customer
+        $rs = Yii::$app->db->createCommand()
+            ->update("customer",$columns,"ref = '$ref'")
+            ->execute();
+            if($rs){
+                return 0;
+            } else {
+                return 1;
+            }
+    }
+
 }

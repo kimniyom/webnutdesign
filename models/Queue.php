@@ -59,7 +59,7 @@ class Queue extends \yii\db\ActiveRecord {
         }
 
         $sql = "select g.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
-                    from queue g INNER JOIN customer c ON g.ref = c.ref WHERE g.`confirm` = '1' and c.flag != 2 AND g.approve = '0' $where";
+                    from queue g INNER JOIN customer c ON g.ref = c.ref WHERE g.`confirm` = '1' and c.flag = 0 AND g.approve = '0' $where";
 
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;

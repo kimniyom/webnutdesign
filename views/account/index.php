@@ -103,7 +103,7 @@ $this->title = 'Accounts';
     </div>
 
 
-    <div class="row" style="margin-top: 0px; padding-top: 0px;" id="box-default">
+    <div class="row" style="margin-top: 0px; padding-top: 0px; font-family: skv;" id="box-default">
         <div class="col-md-4 col-lg-4" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border:0px; margin-bottom: 0px;">
                 <div class="card-header">
@@ -227,13 +227,13 @@ $this->title = 'Accounts';
         <div class="modal-content" style="position: relative;">
             <div class="modal-body">
                 <input type="hidden" name="" id="ref">
-                <h4 style=" text-align: center; margin-bottom: 10px;">คุณต้องการทำอะไร ...?</h4>
-                <button type="button" class="btn btn-success btn-block btn-rounded" onclick="javascript:alert('กำลังดำเนินการในส่วนนี้อยู่');"><i class="fa fa-check"></i> ยืนยัน</button>
+                <button class="btn btn-danger btn-rounded pull-right" data-dismiss="modal" aria-label="Close" id="btn-exit" style="padding:0px 5px;"><i class="fa fa-remove"></i></button>
+                <label>Comment ถ้ามี</label>
+                <textarea class="form-control" rows="8" id="comment"></textarea>
+                <button type="button" class="btn btn-success btn-block btn-rounded" onclick="confirmWork()"><i class="fa fa-check"></i> ยืนยัน</button>
                 <button type="button" class="btn btn-info btn-block btn-rounded" onclick="getViewsPopup()"><i class="fa fa-eye"></i> ตรวจสอบ</button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-block btn-rounded" data-dismiss="modal" aria-label="Close" id="btn-exit">ปิด</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -312,5 +312,22 @@ $this->registerJs('
         $("#box-search").hide();
         $("#box-default").show();
     }
+
+    function confirmWork(){
+        var ref = $("#ref").val();
+        var comment = $("#comment").val();
+        var data = {ref: ref,comment: comment};
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['account/confirmwork']) ?>";
+        $.post(url, data, function(res) {
+            if(res == 0){
+                $("#popupmenu").modal("hide");
+                window.location.reload();
+            } else {
+                Swal.fire('Warning!', 'เกิดข้อผิดพลาด...', 'warning');
+            }
+        });
+        
+    }
+
 </script>
 

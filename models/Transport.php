@@ -68,7 +68,7 @@ class Transport extends \yii\db\ActiveRecord {
         }
 
         $sql = "select g.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
-                    from transport g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag = '0' and c.flag != 2 $where ";
+                    from transport g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag = '0' and c.flag = 0 $where ";
 
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;
