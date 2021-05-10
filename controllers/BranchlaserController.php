@@ -120,7 +120,8 @@ class BranchlaserController extends Controller {
 
     public function actionGetjob() {
         $Model = new Branchlaser();
-        $dataList = $Model->getJob();
+        $type = Yii::$app->request->post("type");
+        $dataList = $Model->getJob($type);
         $dataListjob = $Model->getJobForUser();
         $maseditwork = \app\models\Maseditwork::find()->all();
         return $this->renderPartial('job', [
@@ -235,6 +236,39 @@ class BranchlaserController extends Controller {
                     'dataList' => $dataList,
                     'maseditwork' => $maseditwork
         ]);
+    }
+
+    public function actionConfirmwork() {
+        $ref = Yii::$app->request->post('ref');
+        $comment = Yii::$app->request->post('comment');
+        $columns = array(
+            "status" => 4,
+            "user_id" => Yii::$app->user->identity->id,
+            "comment" => $comment,
+            "confirm_date" => date("Y-m-d H:i:s")
+        );
+
+        \Yii::$app->db->createCommand()
+                ->update("branchlaser", $columns, "ref = '$ref'")
+                ->execute();
+
+        $culumnstimeline = array(
+            "department" => 6,
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ส่งแก้ไขงาน",
+            "todep" => "cnc / laser(ส่งแก้ไข กราฟิก / ออกแบบ)",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+
+        //อัพเดทสถานะงาน
+        \Yii::$app->db->createCommand()
+                ->update("customer", array("cnc_status" => 2), "ref = '$ref'")
+                ->execute();
+
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnstimeline)
+                ->execute();
     }
 
 }

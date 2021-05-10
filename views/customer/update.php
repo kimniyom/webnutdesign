@@ -21,6 +21,6 @@ $this->title = 'Update Customer: ' . $model->id;
      */
     ?>
 
-    <?= $this->render('_form', ['model' => $model, 'initialPreview' => $initialPreview, 'initialPreviewConfig' => $initialPreviewConfig]) ?>
+    <?= $this->render('_form', ['model' => $model, 'initialPreview' => $initialPreview, 'initialPreviewConfig' => $initialPreviewConfig, "flag" => "u"]) ?>
 
 </div>

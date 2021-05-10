@@ -15,23 +15,15 @@ $this->title = "cnc / laser";
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css" media="screen">
-    @media(min-width:767px) {
-        #popupaddwork .modal-dialog{
-            min-width: 99% !important;
-            margin-top: 10px !important;
-            margin: auto;
-        }
+    html,body{
+        background: #535353;
+    }
+    #main-wrapper{
+        background: #535353;
+    }
 
-        #detail-q{
-            position: relative;
-            overflow: auto;
-        }
-
-        #box-popup{
-            background: #ffffff;
-            padding:0px;
-            padding-bottom: 0px;
-        }
+    .page-wrapper{
+        background: #535353 !important;
     }
 
     .my-box-search input[type='search']{
@@ -41,7 +33,7 @@ $this->title = "cnc / laser";
     }
 
 </style>
-<div class="branchlaser-index">
+<div class="branchlaser-index" style=" background: #535353;">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
@@ -60,6 +52,12 @@ $this->title = "cnc / laser";
                             <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
+
+                    <select class="form-control" style=" width: 200px; margin-right: 10px; border: 0px; background: #eeeeee;" onchange="getJob()" id="souredata">
+                        <option value="1">เรียงตามความเร่งด่วน</option>
+                        <option value="2">เรียงตามวันที่จัดส่ง</option>
+                        <option value="3">เรียงตามงานที่รับล่าสุด</option>
+                    </select>
                 </nav>
 
             </div>
@@ -68,9 +66,6 @@ $this->title = "cnc / laser";
 
     <div class="row" style="margin-bottom: 0px;">
         <div class="col-lg-12 col-md-12">
-            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
-                !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
-            </div>
             <div id="body-work" style="margin-top: 10px; overflow: auto;">
                 <div id="job">
                     <div style="text-align: center; margin-top: 10%;">Loading...</div>
@@ -91,22 +86,47 @@ $this->title = "cnc / laser";
 </div>
 
 <!-- Popup Detail -->
-<div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="position: relative;">
-            <div class="modal-header">
-                <h5 class="modal-title">ข้อมูลรายละเอียด</h5>
+<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content  bg-dark" style="position: relative;">
+            <div class="modal-header border-dark">
+                <h5 class="modal-title text-white">ข้อมูลรายละเอียด</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
             </div>
-            <div class="modal-body" id="box-popup" style=" border-radius:10px;">
+            <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
+            </div>
+            <div class="modal-footer border-dark">
+                <button type=" button" class="btn btn-primary btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Popup Confirm -->
+<div class="modal fade " tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content  bg-dark" style="position: relative;">
+            <div class="modal-header border-dark">
+                <h5 class="modal-title text-white">รายละเอียด ถ้ามี...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="box-popup">
+                <input type="hidden" id="_ref_confirm"/>
+                <textarea id="comment" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="modal-footer border-dark">
+                <button type=" button" class="btn btn-primary btn-block btn-rounded" onclick="updateConfirmStatus()">SEND</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <?php
@@ -122,34 +142,47 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
+        $(".tab-bottom").css({"background": "#535353", "border-top": "0px", "color": "#ffffff"});
         if (w > 768) {
-            $("#body-work").css({"height": h - 170});
+            $("#body-work").css({"height": h - 150});
             $("#body-history").css({"height": h - 210});
         } else {
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
+            $(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
+            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+            $("#title-head").hide();
+            $("#icon-menu-ham").css({"margin-left": "20px"});
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("CNC / LASER");
 
         }
     }
 
     function getJob() {
+        var type = $("#souredata").val();
         var url = "<?php echo Yii::$app->urlManager->createUrl(['branchlaser/getjob']) ?>";
-        var data = {};
+        var data = {type: type};
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
     }
 
-    function getViews(ref) {
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
+    function getViews(ref, status) {
+        if (status == 1) {
+            $("#btnSendWork").show();
+        } else {
+            $("#btnSendWork").hide();
+        }
+        $("#_ref").val(ref);
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
         var data = {ref: ref};
         $.post(url, data, function(res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
     }
-
     function searchJob() {
         var customer = $("#txtcustomer").val();
         var project = $("#txtproject").val();
@@ -164,6 +197,22 @@ $this->registerJs('
         var data = {customer: customer, project: project};
         $.post(url, data, function(res) {
             $("#job").html(res);
+        });
+    }
+
+    function popupConfirm(ref) {
+        $("#_ref_confirm").val(ref);
+        $("#popupConfirmwork").modal();
+    }
+
+    function updateConfirmStatus() {
+        var ref = $("#_ref_confirm").val();
+        var comment = $("#comment").val();
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['branchlaser/confirmwork']) ?>";
+        var data = {comment: comment, ref: ref};
+        $.post(url, data, function(res) {
+            $("#popupConfirmwork").modal("hide");
+            getJob();
         });
     }
 </script>

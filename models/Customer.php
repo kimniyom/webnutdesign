@@ -41,8 +41,8 @@ class Customer extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'channel_etc', 'cur_dep', 'transport', 'setup', 'fast', 'confirm', 'quotation'], 'required'],
-            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel'], 'integer'],
+            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'channel_etc', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment'], 'required'],
+            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel', 'level', 'payment'], 'integer'],
             [['detail'], 'string'],
             [['cur_dep'], 'safe'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
@@ -76,9 +76,11 @@ class Customer extends \yii\db\ActiveRecord {
             'user_id' => 'ผู้บันทึกข้อมูล',
             'transport' => 'การจัดส่ง',
             'setup' => 'การติดตั้ง',
-            'fast' => 'ความเร่งด่วน',
+            'fast' => 'ความสำคัญ',
             'confirm' => 'สถานะการซื้อ',
-            'quotation' => 'ใบเสนอราคา'
+            'quotation' => 'ใบเสนอราคา',
+            'level' => 'ระดับความเร่งด่วน 5 = ด่วนมาก',
+            'payment' => 'การชำระเงิน'
         ];
     }
 
@@ -104,13 +106,14 @@ class Customer extends \yii\db\ActiveRecord {
     }
 
     function getJob() {
-        if (!Yii::$app->user->isGuest){
+        if (!Yii::$app->user->isGuest) {
             $status = Yii::$app->user->identity->status;
             $user_id = Yii::$app->user->identity->id;
         } else {
             $status = "";
             $user_id = "";
         }
+
         if ($status == "A" || $status == "M") {
             $sql = "select * from customer where flag = '0'";
         } else {
@@ -136,7 +139,7 @@ class Customer extends \yii\db\ActiveRecord {
         //return $sql;
     }
 
-    function getJobAll(){
+    function getJobAll() {
         $sql = "select * from customer";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }

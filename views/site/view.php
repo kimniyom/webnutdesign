@@ -1,6 +1,6 @@
 
 <!--
-<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                             ?>/css/account.css" rel="stylesheet">
+<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                  ?>/css/account.css" rel="stylesheet">
 -->
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
@@ -220,11 +220,13 @@ $CustomerModel = new Customer();
                                         <th>ใบเสนอราคา</th>
                                         <td><?php echo ($model['quotation'] == 1) ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา" ?></td>
                                     </tr>
-                                    <tr>
-                                        <th>รายละเอียดงาน</th>
-                                        <td><?php echo $model['detail'] ?></td>
-                                    </tr>
+
                                 </table>
+
+                                <label>รายละเอียดงาน</label>
+                                <div style=" position: relative; word-wrap: break-word;">
+                                    <?php echo $model['detail'] ?>
+                                </div>
 
                                 <div class="panel panel-default">
                                     <div class="panel-body">
@@ -270,10 +272,10 @@ $CustomerModel = new Customer();
                                         <label style="font-weight: bold;">ใบเสนอราคา</label>
                                         <ul>
                                         <?php // if ($account['link']) { ?>
-                                                <li><a href="<?php //echo $account['link']                                                                                                                                            ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
+                                                <li><a href="<?php //echo $account['link']                                                                                                                                                 ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
                                         <?php //} ?>
                                         <?php //if ($account['file']) { ?>
-                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                            ?>" target="_back">ใบเสนอราคา</a></li>
+                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                                 ?>" target="_back">ใบเสนอราคา</a></li>
                                         <?php //} ?>
                                         </ul>
                                         -->

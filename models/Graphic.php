@@ -76,22 +76,32 @@ class Graphic extends \yii\db\ActiveRecord {
         ];
     }
 
-    function getJob() {
-        if (!Yii::$app->user->isGuest){
-        $status = Yii::$app->user->identity->status;
-        $user_id = Yii::$app->user->identity->id;
-    } else {
-        $status = "";
-        $user_id = "";
-    }
-        if ($status == "A" || $status == "M") {
-            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
-                    where g.approve = '0' and g.`flagsend` = '1' and g.status != 2 and c.flag = 0";
+    function getJob($type) {
+        if (!Yii::$app->user->isGuest) {
+            $status = Yii::$app->user->identity->status;
+            $user_id = Yii::$app->user->identity->id;
         } else {
-            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
-                    where g.approve = '0' and g.`flagsend` = '1' and g.status != 2 and c.flag = 0";
+            $status = "";
+            $user_id = "";
         }
 
+        if ($type == 1) {
+            $order = "order by c.fast desc,c.level desc";
+        } else if ($type == 2) {
+            $order = "order by c.date_getjob asc";
+        } else {
+            $order = "order by c.create_date desc";
+        }
+
+        if ($status == "A" || $status == "M") {
+            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve != '1' and g.status != 2 and c.flag = 0 $order";
+        } else {
+            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve != '1' and g.status != 2 and c.flag = 0  $order";
+        }
+
+        //echo $sql;
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 

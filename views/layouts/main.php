@@ -84,9 +84,25 @@ $rule = $configWeb->getRule();
                 font-family: sarabun;
                 src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sarabun/THSarabun Bold.ttf');
             }
+
+            @media (min-width: 1024px) {
+                .left-sidebar{
+                    left:0px;
+                    border-left:0px;
+                    width:200px;
+                }
+
+                .page-wrapper{
+                    padding-left:140px;
+                }
+
+                .topbar{
+                    padding-left:230px;
+                }
+            }
         </style>
     </head>
-    <body class="skin-default-dark fixed-layout" style=" background: #ffffff;">
+    <body class="skin-default-dark fixed-layout" >
         <?php $this->beginBody() ?>
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
@@ -100,7 +116,7 @@ $rule = $configWeb->getRule();
         <!-- ============================================================== -->
         <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <div id="main-wrapper" style=" background: #ffffff;">
+        <div id="main-wrapper">
             <!-- ============================================================== -->
             <!-- Topbar header - style you can find in pages.scss -->
             <!-- ============================================================== -->
@@ -109,15 +125,18 @@ $rule = $configWeb->getRule();
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-header" style=" border-right:none;">
+                    <!--
+                    <div class="navbar-header" style=" border-right:none;" id="logo-home">
                         <a class="navbar-brand" >
                             <b style="color: #cc0066;">
-                                <img src="<?php echo Url::to('@web/images/logo-nat-design.png') ?>" alt="homepage" class="dark-logo" style="width:39px;"/>
-                                <img src="<?php echo Url::to('@web/images/logo-nat-design.png') ?>" alt="homepage" class="light-logo" style="width:39px;"/>
+                                <img src="<?php //echo Url::to('@web/images/logo-nat-design.png')                ?>" alt="homepage" class="dark-logo" style="width:39px;"/>
+                                <img src="<?php //echo Url::to('@web/images/logo-nat-design.png')                ?>" alt="homepage" class="light-logo" style="width:39px;"/>
+
                             </b>
                         </a>
 
                     </div>
+                    -->
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -127,9 +146,12 @@ $rule = $configWeb->getRule();
                         <!-- ============================================================== -->
                         <ul class="navbar-nav mr-auto">
                             <!-- This is  -->
-                            <li class="nav-item hidden-sm-up">
-                                <a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)"><i class="ti-menu"></i>
+                            <li class="nav-item hidden-sm-up" style=" padding-left: 0px;">
+                                <a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)" id="icon-menu-ham" style=" color: #FFFFFF;"><i class="ti-menu"></i>
                                 </a>
+                            </li>
+                            <li style="padding-top:10px;font-size:30px;  font-family: skv; padding-left: 20px; font-weight: bold; display: none;" class="text-head-mobile">
+                                <div class="head-mobile"></div>
                             </li>
                             <li style="padding-top:10px;font-size:20px;" class="text-head">
                                 <a class="nav-link"><span class="text-head">
@@ -141,19 +163,13 @@ $rule = $configWeb->getRule();
                             <!-- ============================================================== -->
                             <!-- Search -->
                             <!-- ============================================================== -->
-                            <li class="nav-item search-box">
-                                <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-search"></i></a>
-                                <form class="app-search">
-                                    <input type="text" class="form-control" placeholder="ค้นหาด้วยชื่อลูกค้า ..."> <a
-                                        class="srh-btn"><i class="fa fa-times"></i></a>
-                                </form>
-                            </li>
+
                         </ul>
                         <ul class="navbar-nav my-lg-0">
                             <?php if (!Yii::$app->user->isGuest) { ?>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Report <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #FFFFFF;">
+                                        รายงาน <i class="fa fa-chevron-down" aria-hidden="true"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="#">Report 1</a>
@@ -164,8 +180,8 @@ $rule = $configWeb->getRule();
                                 </li>
                                 <?php if (Yii::$app->user->identity->status == "A") { ?>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Setting <i class="fa fa-cog" aria-hidden="true"></i>
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #FFFFFF;">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">Acount</a>
@@ -176,14 +192,14 @@ $rule = $configWeb->getRule();
                                     </li>
                                 <?php } else { ?>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link text-info" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">
+                                        <a class="nav-link text-info" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>" style=" color: #FFFFFF;">
                                             <?php echo Yii::$app->user->identity->username ?> <i class="fas fa-cog"></i>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link text-danger" href="<?php echo Yii::$app->urlManager->createUrl(['site/logout']) ?>">
-                                        Sign Out <i class="fas fa-sign-out-alt text-danger"></i>
+                                    <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['site/logout']) ?>" style=" color: #FFFFFF;">
+                                        Sign Out <i class="fas fa-sign-out-alt"></i>
                                     </a>
                                 </li>
 
@@ -199,7 +215,7 @@ $rule = $configWeb->getRule();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                    ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                         ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -218,10 +234,11 @@ $rule = $configWeb->getRule();
             <!-- ============================================================== -->
             <aside class="left-sidebar" style="z-index: 1000;">
                 <div class="d-flex no-block nav-text-box align-items-center">
-                    <span>
-                        <img src="<?php echo Url::to('@web/images/logo-nat-design.png') ?>" alt="nutdesign" style="width:39px;">
+                    <span style=" text-align: center; padding-left: 0px;">
+                        <img src="<?php echo Url::to('@web/images/logo-banner.png') ?>" alt="nutdesign" style="height:39px;">
                     </span>
-                    <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)">
+
+                    <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)" style=" display: none;">
                         <i class="ti-menu text-danger"></i>
                     </a>
                     <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)">
@@ -277,7 +294,7 @@ $rule = $configWeb->getRule();
                 <!-- End Sidebar scroll-->
             </aside>
 
-            <div class="page-wrapper" style="padding-top:35px;background: #FFFFFF !important;">
+            <div class="page-wrapper" style="padding-top:35px;">
                 <div class="container-fluid" style="padding-bottom: 0px; padding-top:0px;">
                     <div class="row page-titles" style="margin-bottom: 0px; padding-top: 0px;">
                         <div class="col-md-12 align-self-center text-right">
@@ -299,7 +316,7 @@ $rule = $configWeb->getRule();
             </div>
 
         </div>
-        <div style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666; background: #ffffff; border-top:solid 1px #eeeeee;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
+        <div class="tab-bottom" style="width: 100%; height: 20px; position: fixed; bottom: 0px; left: 0px; text-align: center; color: #666666; background: #ffffff; border-top:solid 1px #eeeeee;">&copy;2021 หจก.ณัฐดีไซน์ แอนด์ มีเดีย</div>
         <!-- ============================================================== -->
         <!-- End Wrapper -->
         <!-- ============================================================== -->
@@ -338,8 +355,8 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                       ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                       ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                            ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                            ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('
@@ -350,42 +367,66 @@ $rule = $configWeb->getRule();
          ');
         ?>
         <script>
-                                function setScreen() {
-                                    var w = window.innerWidth;
-                                    if (w < 768) {
-                                        $(".text-head").hide();
-                                    } else {
-                                        $(".text-head").show();
-                                    }
+                                        window.onscroll = function() {
+                                            fixheader();
+                                        };
 
-                                    $(".breadcrumb li").addClass("breadcrumb-item");
-                                }
+                                        var header = document.getElementById("head-toolbar");
+                                        var sticky = header.offsetTop;
 
-                                function logOut() {
-                                    var r = confirm("Are you sure ...");
-                                    if (r == true) {
-                                        var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
-                                        $.post(url, {}, function(res) {
-                                            window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
-                                        });
-                                    }
-                                }
+                                        function fixheader() {
+                                            var w = window.innerWidth;
+                                            if (w <= 768) {
+                                                if (window.pageYOffset > sticky) {
+                                                    $("#head-toolbar").css({"position": "fixed", "width": "100%", "margin-top": "0px", "z-index": "100"});
+                                                } else {
+                                                    $("#head-toolbar").css({"position": "relative", "width": "100%", "margin-top": "0px"});
+                                                }
+                                            }
+                                        }
 
-                                function checkLogin() {
-                                    var user = "<?php echo Yii::$app->user->isGuest ?>";
-                                    var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
-                                    if (user) {
-                                        window.location = url;
-                                    }
-                                }
+                                        function setScreen() {
+                                            var w = window.innerWidth;
+                                            if (w <= 768) {
+                                                $(".page-wrapper").css({"padding-left": "0px"});
+                                                $(".page-wrapper").css({"margin-left": "0px"});
+                                                $(".text-head").hide();
+                                                $(".navbar-header").show();
+                                            } else {
+                                                //$(".left-sidebar").css({"left": "0px"});
+                                                //$(".page-wrapper").css({"padding-left": "200px"});
+                                                $(".text-head").show();
+                                                $(".navbar-header").hide();
+                                            }
 
-                                function setMenu(menuId) {
-                                    var url = "<?php echo Yii::$app->urlManager->createUrl(['site/setmenu']) ?>";
-                                    var data = {menuId: menuId};
-                                    $.post(url, data, function(res) {
+                                            $(".breadcrumb li").addClass("breadcrumb-item");
+                                        }
 
-                                    });
-                                }
+                                        function logOut() {
+                                            var r = confirm("Are you sure ...");
+                                            if (r == true) {
+                                                var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
+                                                $.post(url, {}, function(res) {
+                                                    window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
+                                                });
+                                            }
+                                        }
+
+                                        function checkLogin() {
+                                            var user = "<?php echo Yii::$app->user->isGuest ?>";
+                                            var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
+                                            if (user) {
+                                                window.location = url;
+                                            }
+                                        }
+
+                                        function setMenu(menuId) {
+                                            var url = "<?php echo Yii::$app->urlManager->createUrl(['site/setmenu']) ?>";
+                                            var data = {menuId: menuId};
+                                            $.post(url, data, function(res) {
+
+                                            });
+                                        }
         </script>
     </body>
 </html>

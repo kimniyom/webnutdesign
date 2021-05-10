@@ -124,14 +124,28 @@ class CustomerController extends Controller {
      */
     public function actionCreate() {
         $model = new Customer();
+        $model->setup = 0;
+        $model->transport = 1;
+        $model->quotation = 1;
+        $model->fast = 0;
+        $model->level = 1;
+        $model->confirm = 1;
+
         if ($model->load(Yii::$app->request->post())) {
+            //print_r($_POST['cur_dep']);
             $this->Uploads(false, $model->ref);
             $model->user_id = Yii::$app->user->identity->id;
-            $model->cur_dep = implode(", ", $model->cur_dep);
+
             $model->create_date = date("Y-m-d H:i:s");
-            $model->confirm = $model->confirm;
+            $model->confirm = 1;
             if ($model->confirm = 1) {
-                $depStr = "'" . str_replace(",", "','", $model->cur_dep) . "'";
+                if (isset($_POST['cur_dep'])) {
+                    $cur_dep = implode(", ", $_POST['cur_dep']);
+                } else {
+                    $cur_dep = "4";
+                }
+                $model->cur_dep = $cur_dep;
+                $depStr = "'" . str_replace(",", "','", $cur_dep) . "'";
                 $sql = "select id,department from department where id in ($depStr)";
                 $result = \Yii::$app->db->createCommand($sql)->queryAll();
                 $depArr = [];
@@ -142,6 +156,8 @@ class CustomerController extends Controller {
                 endforeach;
                 $curdep = implode(",", $depArr);
                 //Time Line
+
+
                 $culumns = array(
                     "department" => 1,
                     "ref" => $model->ref,
@@ -180,44 +196,48 @@ class CustomerController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         //echo $model->cur_dep;
-        $model->cur_dep = explode(",", $model->cur_dep);
+        //$cur_dep = implode(", ", $_POST['cur_dep']);
         list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref);
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
             //$model->cur_dep = implode(",", $model->cur_dep);
-            $model->cur_dep = implode(",", $model->cur_dep);
-            $ref = $model->ref;
-            $model->confirm = $model->confirm;
-            if ($model->confirm = 1) {
-                \Yii::$app->db->createCommand()
-                        ->delete("timeline", "ref = '$ref'")
-                        ->execute();
-                $depStr = "'" . str_replace(",", "','", $model->cur_dep) . "'";
-                $sql = "select id,department from department where id in ($depStr)";
-                $result = \Yii::$app->db->createCommand($sql)->queryAll();
-                $depArr = [];
-                $depVal = [];
-                foreach ($result as $r):
-                    $depArr[] = $r['department'];
-                    $depVal[] = $r['id'];
-                endforeach;
-                $curdep = implode(",", $depArr);
-                //Time Line
-                $culumns = array(
-                    "department" => 1,
-                    "ref" => $model->ref,
-                    "user_id" => Yii::$app->user->identity->id,
-                    "log" => "บันทึกข้อมูลการรับงาน",
-                    "todep" => $curdep,
-                    "d_update" => date("Y-m-d H:i:s")
-                );
-                \Yii::$app->db->createCommand()
-                        ->insert("timeline", $culumns)
-                        ->execute();
+            //$model->cur_dep = $cur_dep;
+            //$ref = $model->ref;
+            //$model->confirm = $model->confirm;
+            //if ($model->confirm = 1) {
+            //\Yii::$app->db->createCommand()
+            //->delete("timeline", "ref = '$ref'")
+            //->execute();
+            //$depStr = "'" . str_replace(",", "','", $cur_dep) . "'";
+            //$sql = "select id,department from department where id in ($depStr)";
+            //$result = \Yii::$app->db->createCommand($sql)->queryAll();
+            //$depArr = [];
+            //$depVal = [];
+            //foreach ($result as $r):
+            //$depArr[] = $r['department'];
+            //$depVal[] = $r['id'];
+            // endforeach;
+            //$curdep = implode(",", $depArr);
+            //Time Line
+            /*
+              $culumns = array(
+              "department" => 1,
+              "ref" => $model->ref,
+              "user_id" => Yii::$app->user->identity->id,
+              "log" => "บันทึกข้อมูลการรับงาน",
+              "todep" => $curdep,
+              "d_update" => date("Y-m-d H:i:s")
+              );
+              \Yii::$app->db->createCommand()
+              ->insert("timeline", $culumns)
+              ->execute();
+             *
+             */
 
-                //ส่งไปแผนก
-                $this->sendDepartment($depVal, $model->ref);
-            }
+            //ส่งไปแผนก
+            //$this->sendDepartment($depVal, $model->ref);
+            //}
+
 
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -510,6 +530,47 @@ class CustomerController extends Controller {
         return $this->renderPartial('export', [
                     'dataList' => $dataList
         ]);
+    }
+
+    //Approve Function ####################
+    public function actionApprove() {
+        return $this->render('approve');
+    }
+
+    public function actionApproveload() {
+        $data['dataList'] = Customer::find()->where(['approve' => 0])->andWhere(['flag' => 0])->all();
+        return $this->renderPartial('approveload', $data);
+    }
+
+    public function actionApproveconfirm() {
+        $ref = Yii::$app->request->post('ref');
+        $user = Yii::$app->user->identity->id;
+
+        $columns = array(
+            "userapprove" => $user,
+            "approve" => 1
+        );
+
+        $rs = \Yii::$app->db->createCommand()
+                ->update("customer", $columns, "ref = '$ref'")
+                ->execute();
+
+        $culumnsTimeline = array(
+            "department" => 12,
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ส่งมอบงานลูกค้า",
+            "todep" => "ส่งมอบงานลูกค้า",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnsTimeline)
+                ->execute();
+        if ($rs) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

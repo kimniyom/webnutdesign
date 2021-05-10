@@ -1,4 +1,7 @@
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/customer.css" rel="stylesheet">
+<style type="text/css">
+
+</style>
 <?php
 
 use yii\helpers\Html;
@@ -12,7 +15,7 @@ use kartik\widgets\FileInput;
 use kartik\select2\Select2;
 ?>
 
-<div class="customer-form">
+<div class="customer-form" >
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
         <div class="card-content">
@@ -31,7 +34,7 @@ use kartik\select2\Select2;
         </div>
     </div>
 
-    <div class="row" style="margin-top: 0px; padding-top: 0px;">
+    <div class="row" style="margin-top: 0px; padding-top: 0px; font-family: skv;">
         <div class="col-md-6 col-lg-6" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px;">
                 <div class="card-header">
@@ -49,6 +52,10 @@ use kartik\select2\Select2;
                         <?= $form->field($model, 'channel_etc')->textInput(['maxlength' => true]) ?>
                     </div>
                     <?= $form->field($model, 'address')->textarea(['rows' => 5]) ?>
+
+                    <?=
+                    $form->field($model, 'payment')->radioList([1 => "ยังไม่ชำระเงิน", 2 => "วางมัดจำ", 3 => "ชำระ้งินแล้ว"]);
+                    ?>
                 </div>
 
             </div>
@@ -92,6 +99,8 @@ use kartik\select2\Select2;
                                     'pluginOptions' => [
                                         'overwriteInitial' => false,
                                         'showCaption' => true,
+                                        'showUpload' => false,
+                                        'showRemove' => false,
                                         'initialPreviewShowDelete' => true,
                                         'initialPreview' => $initialPreview,
                                         'initialPreviewConfig' => $initialPreviewConfig,
@@ -111,9 +120,11 @@ use kartik\select2\Select2;
                                 <?=
                                 $form->field($model, 'date_getjob')->widget(DatePicker::ClassName(), [
                                     'name' => 'date_getjob',
+                                    'language' => 'th',
                                     'options' => [
                                         'placeholder' => 'Select date ...',
-                                        'readonly' => 'readonly'
+                                        'readonly' => 'readonly',
+                                        'value' => date("Y-m-d")
                                     ],
                                     'pluginOptions' => [
                                         'format' => 'yyyy-mm-dd',
@@ -142,17 +153,25 @@ use kartik\select2\Select2;
                         <div class="row">
                             <div class="col-md-4 col-lg-4">
                                 <?=
-                                $form->field($model, 'transport')->radioList([0 => "ไม่ต้องจัดส่ง", 1 => "ต้องจัดส่ง"])
+                                $form->field($model, 'transport')->radioList(['0' => "ไม่ต้องจัดส่ง", '1' => "ต้องจัดส่ง"])
                                 ?>
                             </div>
                             <div class="col-md-4 col-lg-4">
                                 <?=
-                                $form->field($model, 'setup')->radioList([0 => "ไม่ติดตั้ง", 1 => "ติดตั้ง"])
+                                $form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])
                                 ?>
                             </div>
                             <div class="col-md-4 col-lg-4">
                                 <?=
-                                $form->field($model, 'fast')->radioList([0 => "ทั่วไป", 1 => "เร่งด่วน"])
+                                $form->field($model, 'fast')->radioList(['0' => "ทั่วไป", '1' => "ด่วนสำคัญ"])
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <?=
+                                $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
                                 ?>
                             </div>
                         </div>
@@ -160,7 +179,7 @@ use kartik\select2\Select2;
                         <!--
                             ##### เมื่อมีการส่งไปยังแผนกอื่นจะไม่สามารถแก้ไขข้อมูลบ้างส่วนได้ ###########
                         -->
-                        <?php if ($model->confirm == "0" || empty($model->confirm)) { ?>
+                        <?php if ($flag == "c") { ?>
                             <hr/>
                             <div class="row">
                                 <div class="col-md-12 col-lg-12">
@@ -181,15 +200,18 @@ use kartik\select2\Select2;
                                         <?php
 //echo $form->field($model, 'cur_dep')->textInput()
                                         $departmentList = ArrayHelper::map(Department::find()->where(['active' => 1])->andWhere(["IN", "id", ['2', '3', '4']])->all(), 'id', 'department');
-                                        echo $form->field($model, 'cur_dep')->widget(Select2::classname(), [
-                                            'language' => 'th',
-                                            'data' => $departmentList,
-                                            'options' => ['placeholder' => '... เลือกแผนกส่งต่อ ...'],
-                                            'pluginOptions' => [
-                                                'allowClear' => true,
-                                                'multiple' => true
-                                            ],
-                                        ])->label(false);
+                                        /*
+                                          $form->field($model, 'cur_dep')->widget(Select2::classname(), [
+                                          'language' => 'th',
+                                          'data' => $departmentList,
+                                          'options' => ['placeholder' => '... เลือกแผนกส่งต่อ ...'],
+                                          'pluginOptions' => [
+                                          'allowClear' => true,
+                                          'multiple' => true
+                                          ],
+                                          ])->label(false);
+                                         *
+                                         */
                                         ?>
                                         <?php
                                         /*
@@ -198,18 +220,34 @@ use kartik\select2\Select2;
                                          *
                                          */
                                         ?>
+                                        <div class="row">
+                                            <div class="col-md-3 col-lg-3 col-6">
+                                                <label class="dupcheckbox">กราฟิก
+                                                    <input type="checkbox" value="3" name="cur_dep[]">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-6">
+                                                <label class="dupcheckbox">บัญชี
+                                                    <input type="checkbox" value="4" name="cur_dep[]">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
                                         <div class="alert alert-warning" id="showaccountalert" style="display: none;">ต้องส่งแผนกบัญชีด้วยทุกครั้ง</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+
+                            <div class="row" style=" display: none;">
                                 <div class="col-md-6 col-lg-6">
-                                    <?=
-                                    $form->field($model, 'confirm')->radioList([0 => "ยังไม่ตกลงซื้อ", 1 => "ตกลงซื้อ"])
+                                    <?php
+                                    //$form->field($model, 'confirm')->radioList([0 => "ยังไม่ตกลงซื้อ", 1 => "ตกลงซื้อ"])
                                     ?>
                                 </div>
                             </div>
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger" style=" display: none;">
                                 !..หมายเหตุ<br/>
                                 เมื่อยังไม่มีการยืนยันตกลงซื้อขายข้อมูลจะยังไม่ถูกส่งไปยังแผนกอื่น
                             </div>

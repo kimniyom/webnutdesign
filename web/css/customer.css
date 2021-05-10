@@ -29,11 +29,9 @@ and open the template in the editor.
 
 .customer-form input[type='text']{
     border: #cccccc solid 1px;
-    background: #f4f4f4;
 }
 .customer-form textarea{
     border: #cccccc solid 1px;
-    background: #f4f4f4;
 }
 .customer-form label{
     color: #0066ff;
@@ -62,7 +60,6 @@ and open the template in the editor.
 
 .customer-index input[type='text']{
     border: #cccccc solid 1px;
-    background: #f4f4f4;
 }
 
 .box-list-work{
@@ -93,5 +90,73 @@ and open the template in the editor.
     background: #f4f4f4;
     border-radius: 4px 4px 0px 0px;
     border-bottom: solid 1px #cccccc;
+}
+
+.dupcheckbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.dupcheckbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #ffffff;
+    border: solid #cccccc 1px;
+    border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.dupcheckbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.dupcheckbox input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.dupcheckbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.dupcheckbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 

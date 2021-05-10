@@ -37,13 +37,13 @@ class AccountController extends Controller {
         $searchModel = new AccountSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $quoTation = $this->getQuotation();
-        $jobApprove = $this->getWorkNonApprove();
+        //$jobApprove = $this->getWorkNonApprove();
         $jobOutside = $this->getWorkOutside();
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                     'dataList' => $quoTation,
-                    'job' => $jobApprove,
+                    //'job' => $jobApprove,
                     'outside' => $jobOutside
         ]);
     }
@@ -140,9 +140,9 @@ class AccountController extends Controller {
 
             //Time Line
             $rs = \app\models\Timeline::find()
-            ->where(['ref' => $ref])
-            ->andWhere(['department' => 4])
-            ->One();
+                    ->where(['ref' => $ref])
+                    ->andWhere(['department' => 4])
+                    ->One();
             if (!$rs['ref']) {
                 $culumns = array(
                     "department" => 4,
@@ -273,24 +273,47 @@ class AccountController extends Controller {
         ]);
     }
 
-    public function actionConfirmwork(){
+    public function actionConfirmwork() {
         $ref = Yii::$app->request->post('ref');
         $comment = Yii::$app->request->post('comment');
 
         $columns = array(
             "flag" => 1,
             "comment" => $comment,
+            "approve" => 1,
             "confirmdate" => date("Y-m-d H:i:s")
         );
         //update customer
         $rs = Yii::$app->db->createCommand()
-            ->update("customer",$columns,"ref = '$ref'")
-            ->execute();
-            if($rs){
-                return 0;
-            } else {
-                return 1;
-            }
+                ->update("customer", $columns, "ref = '$ref'")
+                ->execute();
+
+        $culumnsTimeline = array(
+            "department" => 4,
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "งาน Approve",
+            "todep" => "งาน Approve",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnsTimeline)
+                ->execute();
+        if ($rs) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public function actionJob() {
+        $data['dataList'] = $this->getQuotation();
+        return $this->renderPartial('job', $data);
+    }
+
+    public function actionLoadjob() {
+        $data['job'] = $this->getWorkNonApprove();
+        return $this->renderPartial('jobconfirm', $data);
     }
 
 }

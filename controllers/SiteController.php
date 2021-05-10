@@ -157,6 +157,39 @@ class SiteController extends Controller {
         //return $this->renderPartial("views");
     }
 
+    public function actionViewmini() {
+        $ref = \Yii::$app->request->post('ref');
+
+        $model = Customer::findOne(['ref' => $ref]);
+        $file = $this->getFile($model['ref']);
+        //กราฟฟิก
+        $graphic = Graphic::findOne(['ref' => $ref]);
+        $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
+        return $this->renderPartial('viewmini', [
+                    'model' => $model,
+                    'filelist' => $file,
+                    'graphic' => $graphic,
+                    'filegraphic' => $fileGraphic
+        ]);
+        //return $this->renderPartial("views");
+    }
+
+    public function actionViewmobile() {
+        $ref = \Yii::$app->request->post('ref');
+        $model = Customer::findOne(['ref' => $ref]);
+        $file = $this->getFile($model['ref']);
+        //กราฟฟิก
+        $graphic = Graphic::findOne(['ref' => $ref]);
+        $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
+        return $this->renderPartial('viewmobile', [
+                    'model' => $model,
+                    'filelist' => $file,
+                    'graphic' => $graphic,
+                    'filegraphic' => $fileGraphic
+        ]);
+        //return $this->renderPartial("views");
+    }
+
     function getFile($ref) {
         $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
         return \Yii::$app->db->createCommand($sql)->queryAll();

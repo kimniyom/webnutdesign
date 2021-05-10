@@ -89,25 +89,25 @@ class GraphicController extends Controller {
      */
     public function actionUpdate($ref) {
         $model = $this->findModel($ref);
-
-        $model->todep = explode(',', $model->todep);
+        //$model->todep = explode(',', $model->todep);
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref_graphic);
             $model->user_id = Yii::$app->user->identity->id;
             //$model->cur_dep = implode(", ", $model->cur_dep);
             $model->create_date = date("Y-m-d H:i:s");
             $model->status = 1; //รับงาน
-            if ($model->todep) {
-                $model->todep = implode(",", $_POST['Graphic']['todep']);
-            } else {
-                $model->todep = "";
-            }
-
             //Time Line
             if ($model->flagsend == "1") {
                 $this->addTimeline(3, $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
             } else if ($model->flagsend == "2") {//ส่งต่อ
-                $depStr = "'" . str_replace(",", "','", $model->todep) . "'";
+                if (isset($_POST['todep'])) {
+                    $todep = implode(", ", $_POST['todep']);
+                } else {
+                    $todep = "";
+                }
+                $model->todep = $todep;
+                $depStr = "'" . str_replace(",", "','", $todep) . "'";
+
                 $sql = "select id,department from department where id in ($depStr)";
                 $result = \Yii::$app->db->createCommand($sql)->queryAll();
                 $depArr = [];
@@ -172,7 +172,8 @@ class GraphicController extends Controller {
                         ->execute();
             }
             $model->save();
-            return $this->redirect(['view', 'ref' => $model->ref]);
+            //return $this->redirect(['view', 'ref' => $model->ref]);
+            return $this->redirect(['index']);
         } else {
             if ($model->ref_graphic == "") {
                 $model->ref_graphic = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
@@ -217,8 +218,9 @@ class GraphicController extends Controller {
     }
 
     public function actionGetjob() {
+        $type = Yii::$app->request->post("type");
         $ModelGraphic = new Graphic();
-        $dataList = $ModelGraphic->getJob();
+        $dataList = $ModelGraphic->getJob($type);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);
@@ -473,6 +475,34 @@ class GraphicController extends Controller {
         return $this->renderPartial('searchjob', [
                     'dataList' => $dataList
         ]);
+    }
+
+    public function actionFormupdate() {
+        $ref = Yii::$app->request->post('ref');
+        $model = $this->findModel($ref);
+
+        $model->todep = explode(',', $model->todep);
+
+        if ($model->ref_graphic == "") {
+            $model->ref_graphic = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
+        } else {
+            $model->ref_graphic = $model->ref_graphic;
+        }
+
+        list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref_graphic);
+        return $this->renderPartial('updatepopup', [
+                    'model' => $model,
+                    'initialPreview' => $initialPreview,
+                    'initialPreviewConfig' => $initialPreviewConfig
+        ]);
+    }
+
+    public function actionSendwork() {
+        //สั่ง อัพเดทตาราง graphic
+        $ref = Yii::$app->request->post('ref');
+        \Yii::$app->db->createCommand()
+                ->update("graphic", array("approve" => 1), "ref = '$ref'")
+                ->execute();
     }
 
 }

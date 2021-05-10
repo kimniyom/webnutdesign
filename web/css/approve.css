@@ -1,0 +1,237 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Apr 15, 2021, 3:12:00 PM
+    Author     : kimniyom
+*/
+@font-face {
+    font-family: skv-txt;
+    src: url('sukhumvit/SukhumvitSet-Text.ttf');
+}
+@font-face {
+    font-family: skv;
+    src: url('sukhumvit/SukhumvitSet-Medium.ttf');
+}
+
+@font-face {
+    font-family: skvb;
+    src: url('sukhumvit/SukhumvitSet-Bold.ttf');
+}
+
+@font-face {
+    font-family: sarabun;
+    src: url('sarabun/THSarabun Bold.ttf');
+}
+.transport-form input[type='text']{
+    border: #bfbfbf solid 1px;
+    background: #ffffff;
+}
+.transport-form textarea{
+    border: #bfbfbf solid 1px;
+    background: #ffffff;
+}
+.transport-form label{
+    color: #0066ff;
+}
+.transport-form .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.transport-form #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.help-block {
+    color: red;
+}
+
+.transport-form .card{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.transport-index input[type='text']{
+    border: #cccccc solid 1px;
+    background: #f4f4f4;
+}
+
+.box-list-work{
+    box-shadow: 0px 5px 20px 10px #cccccc;
+    margin: 30px;
+    border: none;
+}
+
+.transport-view label{
+    color: #0066ff;
+}
+
+.transport-view .card{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.transport-view #head-toolbar{
+    border: solid #cccccc 1px;
+    border-radius: 0px;
+}
+
+.transport-view .card-header{
+    font-weight: bold;
+    color: #000000;
+    background: #f4f4f4;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+
+
+
+.btn-work-nut-send {background-image: linear-gradient(to right, #41295a 0%, #2F0743  51%, #41295a  100%)}
+.btn-work-nut-send{
+    width: 97%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    border-radius: 10px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    float: left;
+    font-size:20px;
+}
+.btn-work-nut-send:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-work-nut-edit {background-image: linear-gradient(to right, #EB5757 0%, #000000  51%, #EB5757  100%)}
+.btn-work-nut-edit{
+    width: 97%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    border-radius: 10px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+
+    right: 5px;
+    font-size:2vw;
+}
+.btn-work-nut-edit:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.btn-work-nut-success{
+    background-image: linear-gradient(to right, #00bf8f 0%, #001510  51%, #00bf8f  100%)
+}
+
+.btn-work-nut-success{
+    width: 97%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    border-radius: 10px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    right: 5px;
+    font-size:2vw;
+}
+
+.btn-work-nut-success:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+@media(max-width:768px) {
+    .btn-work-nut-send {background-image: linear-gradient(to right, #41295a 0%, #2F0743  51%, #41295a  100%)}
+    .btn-work-nut-send{
+        width: 97%;
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        border-radius: 10px;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: white;
+
+        float: left;
+        font-size:20px;
+    }
+    .btn-work-nut-send:hover {
+        background-position: right center; /* change the direction of the change here */
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-work-nut-edit {background-image: linear-gradient(to right, #EB5757 0%, #000000  51%, #EB5757  100%)}
+    .btn-work-nut-edit{
+        width: 97%;
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        border-radius: 10px;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: white;
+
+        right: 5px;
+        font-size:20px;
+    }
+
+    .btn-work-nut-edit:hover {
+        background-position: right center; /* change the direction of the change here */
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-work-nut-success{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        border-radius: 10px;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: white;
+        right: 5px;
+        font-size:20px;
+    }
+}
+
+
+
