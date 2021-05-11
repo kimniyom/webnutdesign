@@ -59,10 +59,10 @@ class Branchprint extends \yii\db\ActiveRecord {
 
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from branchprint g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status in('1','2') and c.flag = 0 $order";
+                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
         } else {
             $sql = "select c.*,g.status from branchprint g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status in('1','2') and c.flag = 0 $order";
+                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
@@ -71,7 +71,7 @@ class Branchprint extends \yii\db\ActiveRecord {
     function getJobForUser() {
         $user_id = Yii::$app->user->identity->id;
         $sql = "select c.*,g.status from branchprint g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3') and c.flag = 0";
+                    where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3') and c.flag = '0'";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -85,7 +85,7 @@ class Branchprint extends \yii\db\ActiveRecord {
             $where .= "AND c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
         }
 
-        $sql = "select c.*,g.status from branchprint g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag = 0 $where";
+        $sql = "select c.*,g.status from branchprint g INNER JOIN customer c ON g.ref = c.ref WHERE c.flag = '0' $where";
 
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;

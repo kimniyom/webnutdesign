@@ -98,7 +98,7 @@ class GraphicController extends Controller {
             $model->status = 1; //รับงาน
             //Time Line
             if ($model->flagsend == "1") {
-                $this->addTimeline(3, $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
+                $this->addTimeline('3', $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
             } else if ($model->flagsend == "2") {//ส่งต่อ
                 if (isset($_POST['todep'])) {
                     $todep = implode(", ", $_POST['todep']);
@@ -118,12 +118,12 @@ class GraphicController extends Controller {
                 endforeach;
                 $curdep = implode(",", $depArr);
                 //Time Line
-                $this->addTimeline(3, $model->ref, "สั่งผลิต", $curdep);
+                $this->addTimeline('3', $model->ref, "สั่งผลิต", $curdep);
                 //ส่งไปแผนก
                 $this->sendDepartment($depVal, $model->ref);
             } else if ($model->flagsend == "3") { //จบงานที่นี้
                 //Time Line
-                $this->addTimeline(3, $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+                $this->addTimeline('3', $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
                 //ส่งการตลาดแจ้งลูกค้า
                 $res = \app\models\Branchmarketing::findOne(['ref' => $ref]);
                 if ($res['ref'] == "") {
@@ -135,8 +135,8 @@ class GraphicController extends Controller {
                             ->execute();
                 }
             } else { //ส่งผลิตนอกร้าน
-                $this->addTimeline(3, $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
-                $columns = array("outside" => 1);
+                $this->addTimeline('3', $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+                $columns = array("outside" => '1');
                 Yii::$app->db->createCommand()
                         ->update("customer", $columns, "ref = '$ref'")
                         ->execute();
@@ -144,7 +144,7 @@ class GraphicController extends Controller {
 
             //สั่งอัพเดทถ้ามีการแก้ไข
             \Yii::$app->db->createCommand()
-                    ->update("graphic_log", array("flag" => 0), "ref = '$ref'")
+                    ->update("graphic_log", array("flag" => '0'), "ref = '$ref'")
                     ->execute();
 
 
@@ -415,7 +415,7 @@ class GraphicController extends Controller {
 
                 //Update customer
                 \Yii::$app->db->createCommand()
-                        ->update("customer", array("print_status" => 1), "ref = '$ref'")
+                        ->update("customer", array("print_status" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }
@@ -432,7 +432,7 @@ class GraphicController extends Controller {
 
                 //Update customer
                 \Yii::$app->db->createCommand()
-                        ->update("customer", array("cnc_status" => 1), "ref = '$ref'")
+                        ->update("customer", array("cnc_status" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }
@@ -449,7 +449,7 @@ class GraphicController extends Controller {
 
                 //Update customer
                 \Yii::$app->db->createCommand()
-                        ->update("customer", array("manufacture_status" => 1), "ref = '$ref'")
+                        ->update("customer", array("manufacture_status" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }
@@ -501,7 +501,7 @@ class GraphicController extends Controller {
         //สั่ง อัพเดทตาราง graphic
         $ref = Yii::$app->request->post('ref');
         \Yii::$app->db->createCommand()
-                ->update("graphic", array("approve" => 1), "ref = '$ref'")
+                ->update("graphic", array("approve" => '1'), "ref = '$ref'")
                 ->execute();
     }
 

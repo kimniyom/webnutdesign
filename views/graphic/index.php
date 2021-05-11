@@ -28,10 +28,6 @@ $this->title = 'กราฟิก / ออกแบบ';
         color: #FFFFFF;
     }
 
-
-
-
-
 </style>
 <div class="graphic-index" style=" background: #535353;">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">

@@ -159,7 +159,7 @@ class CustomerController extends Controller {
 
 
                 $culumns = array(
-                    "department" => 1,
+                    "department" => '1',
                     "ref" => $model->ref,
                     "user_id" => Yii::$app->user->identity->id,
                     "log" => "บันทึกข้อมูลการรับงาน",
@@ -448,7 +448,7 @@ class CustomerController extends Controller {
         //Update Customer
         Yii::$app->db->createCommand()
                 ->update("customer", array(
-                    "flag" => 2,
+                    "flag" => '2',
                     "mascancel" => $typecancel,
                     "canceletc" => $typeetc
                         ), "ref = '$ref'")
@@ -456,32 +456,32 @@ class CustomerController extends Controller {
 
         //Update Account
         Yii::$app->db->createCommand()
-                ->update("account", array("status" => 2), "ref = '$ref'")
+                ->update("account", array("status" => '2'), "ref = '$ref'")
                 ->execute();
 
         //Update Graphic
         Yii::$app->db->createCommand()
-                ->update("graphic", array("status" => 2), "ref = '$ref'")
+                ->update("graphic", array("status" => '2'), "ref = '$ref'")
                 ->execute();
 
         //Update BranchPrint
         Yii::$app->db->createCommand()
-                ->update("branchprint", array("status" => 2), "ref = '$ref'")
+                ->update("branchprint", array("status" => '2'), "ref = '$ref'")
                 ->execute();
 
         //Update branchlaser
         Yii::$app->db->createCommand()
-                ->update("branchlaser", array("status" => 2), "ref = '$ref'")
+                ->update("branchlaser", array("status" => '2'), "ref = '$ref'")
                 ->execute();
 
         //Update branchfacture
         Yii::$app->db->createCommand()
-                ->update("branchfacture", array("status" => 2), "ref = '$ref'")
+                ->update("branchfacture", array("status" => '2'), "ref = '$ref'")
                 ->execute();
 
         //Update branchtechnician
         Yii::$app->db->createCommand()
-                ->update("branchtechnician", array("status" => 2), "ref = '$ref'")
+                ->update("branchtechnician", array("status" => '2'), "ref = '$ref'")
                 ->execute();
 
         //ลบออกจากตารางคิว
@@ -490,11 +490,11 @@ class CustomerController extends Controller {
                 ->execute();
         //Time Line
         $culumns = array(
-            "department" => 1,
+            "department" => '1',
             "ref" => $ref,
             "user_id" => Yii::$app->user->identity->id,
             "log" => "ยกเลิกงาน",
-            "flag" => 2,
+            "flag" => '2',
             "todep" => "ยกเลิกงาน",
             "d_update" => date("Y-m-d H:i:s")
         );
@@ -538,7 +538,7 @@ class CustomerController extends Controller {
     }
 
     public function actionApproveload() {
-        $data['dataList'] = Customer::find()->where(['approve' => 0])->andWhere(['flag' => 0])->all();
+        $data['dataList'] = Customer::find()->where(['approve' => '0'])->andWhere(['flag' => '0'])->all();
         return $this->renderPartial('approveload', $data);
     }
 
@@ -548,7 +548,7 @@ class CustomerController extends Controller {
 
         $columns = array(
             "userapprove" => $user,
-            "approve" => 1
+            "approve" => '1'
         );
 
         $rs = \Yii::$app->db->createCommand()
@@ -556,7 +556,7 @@ class CustomerController extends Controller {
                 ->execute();
 
         $culumnsTimeline = array(
-            "department" => 12,
+            "department" => '12',
             "ref" => $ref,
             "user_id" => Yii::$app->user->identity->id,
             "log" => "ส่งมอบงานลูกค้า",

@@ -224,7 +224,7 @@ $CustomerModel = new Customer();
                                 </table>
 
                                 <label>รายละเอียดงาน</label>
-                                <div style=" position: relative; word-wrap: break-word;">
+                                <div style=" position: relative; word-wrap: break-word;" class="boxdetailgf">
                                     <?php echo $model['detail'] ?>
                                 </div>
 
@@ -296,7 +296,9 @@ $CustomerModel = new Customer();
                                     ?>
                                     <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
                                     <div class="alert alert-success">
-                                        <?php echo $graphic['detail'] ?>
+                                        <div class="boxdetailgf">
+                                            <?php echo $graphic['detail'] ?>
+                                        </div>
                                         <label><i class="fa fa-user text-warning"></i>โดย <?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
                                     </div>
                                     <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
@@ -484,7 +486,9 @@ $this->registerJs('
             openEffect: "elastic",
             closeEffect: "none"
         });
+
         setScreensView();
+        setImg();
         function setScreensView() {
             var h = window.innerHeight;
             var w = window.innerWidth;
@@ -495,4 +499,9 @@ $this->registerJs('
             }
         }
     });
+
+    function setImg(){
+        
+        $(".boxdetailgf img").addClass("img img-responsive");
+    }
 </script>

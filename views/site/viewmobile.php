@@ -181,7 +181,9 @@ $CustomerModel = new Customer();
                 ?>
                 <label style="margin-left: 10px; font-weight: bold; color: #FFFFFF;">รายละเอียดใบสั่งงาน</label>
                 <div class="alert alert-success">
-                    <?php echo $graphic['detail'] ?>
+                    <div class="boxdetailgf">
+                        <?php echo $graphic['detail'] ?>
+                    </div>
                     <label><i class="fa fa-user text-warning"></i> โดย::<?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
                 </div>
                 <label style="margin-left: 10px; font-weight: bold; color: #FFFFFF;">ไฟล์งาน / ตัวอย่างงาน</label>
@@ -229,6 +231,8 @@ $this->registerJs('
 ?>
 
 <script type="text/javascript">
+    
+    setImg();
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
@@ -250,4 +254,9 @@ $this->registerJs('
             }
         }
     });
+
+
+    function setImg(){
+        $(".boxdetailgf img").addClass("img img-responsive");
+    }
 </script>

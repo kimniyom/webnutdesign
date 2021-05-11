@@ -186,7 +186,7 @@ $CustomerModel = new Customer();
 
             </table>
             <label>รายละเอียดงาน</label>
-            <div style=" position: relative; word-wrap: break-word;">
+            <div style=" position: relative; word-wrap: break-word;" class="boxdetailgf">
                 <?php echo $model['detail'] ?>
             </div>
             <div class="panel panel-default">
@@ -269,11 +269,13 @@ $CustomerModel = new Customer();
 $this->registerJs('
         $(document).ready(function(){
             setScreensView();
+            
         });
     ');
 ?>
 
 <script type="text/javascript">
+    setImg();
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
@@ -295,4 +297,9 @@ $this->registerJs('
             }
         }
     });
+
+    function setImg(){
+        
+        $(".boxdetailgf img").addClass("img img-responsive");
+    }
 </script>

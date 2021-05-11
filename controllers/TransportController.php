@@ -93,7 +93,7 @@ class TransportController extends Controller {
                 ->update("customer",$columns,"ref = '$ref'")
                 ->execute();
 
-            $model->status = 2;
+            $model->status = '2';
             $model->user_id = Yii::$app->user->identity->id;
             $model->create_date = date("Y-m-d H:i:s");   
             $model->save();
@@ -153,7 +153,7 @@ class TransportController extends Controller {
     function getWork() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM transport a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.status = 1 AND c.flag = 0";
+                    WHERE a.status = '1' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -182,7 +182,7 @@ class TransportController extends Controller {
     function getTeansportTagnumber(){
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM transport a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.status = 2 AND c.flag = 0";
+                    WHERE a.status = '2' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -198,7 +198,7 @@ class TransportController extends Controller {
                     ->execute();
 
         $culumnstimeline = array(
-                    "department" => 9,
+                    "department" => '9',
                     "ref" => $ref,
                     "user_id" => Yii::$app->user->identity->id,
                     "log" => "ลูกค้าได้รับสินค้าแล้ว",

@@ -175,7 +175,7 @@ class BranchfactureController extends Controller {
 
             //อัพเดทสถานะงาน
             \Yii::$app->db->createCommand()
-                    ->update("customer", array("manufacture_status" => 2), "ref = '$ref'")
+                    ->update("customer", array("manufacture_status" => '2'), "ref = '$ref'")
                     ->execute();
         }
         \Yii::$app->db->createCommand()
@@ -189,7 +189,7 @@ class BranchfactureController extends Controller {
         $typeetc = Yii::$app->request->post('typeetc');
         //Update Graphic
         Yii::$app->db->createCommand()
-                ->update("graphic", array("status" => 3, "flagsend" => 1), "ref = '$ref'")
+                ->update("graphic", array("status" => '3', "flagsend" => '1'), "ref = '$ref'")
                 ->execute();
 
         //Update GraphicLog
@@ -198,7 +198,7 @@ class BranchfactureController extends Controller {
             "type_edit" => $type,
             "edit_etc" => $typeetc,
             "department" => "ผลิตทั่วไป ส่งแก้ไข",
-            "flag" => 1,
+            "flag" => '1',
             "d_update" => date("Y-m-d H:i:s")
         );
         \Yii::$app->db->createCommand()
@@ -211,7 +211,7 @@ class BranchfactureController extends Controller {
                 ->execute();
         //timeline
         $culumnstimeline = array(
-            "department" => 6,
+            "department" => '6',
             "ref" => $ref,
             "user_id" => Yii::$app->user->identity->id,
             "log" => "ส่งแก้ไขงาน",
@@ -242,7 +242,7 @@ class BranchfactureController extends Controller {
         $ref = Yii::$app->request->post('ref');
         $comment = Yii::$app->request->post('comment');
         $columns = array(
-            "status" => 4,
+            "status" => '4',
             "user_id" => Yii::$app->user->identity->id,
             "comment" => $comment,
             "confirm_date" => date("Y-m-d H:i:s")
@@ -253,7 +253,7 @@ class BranchfactureController extends Controller {
                 ->execute();
 
         $culumnstimeline = array(
-            "department" => 6,
+            "department" => '6',
             "ref" => $ref,
             "user_id" => Yii::$app->user->identity->id,
             "log" => "ยืนยันการผลิต",
@@ -263,7 +263,7 @@ class BranchfactureController extends Controller {
 
         //อัพเดทสถานะงาน
         \Yii::$app->db->createCommand()
-                ->update("customer", array("manufacture_status" => 2), "ref = '$ref'")
+                ->update("customer", array("manufacture_status" => '2'), "ref = '$ref'")
                 ->execute();
 
         \Yii::$app->db->createCommand()

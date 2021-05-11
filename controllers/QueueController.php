@@ -103,13 +103,13 @@ class QueueController extends Controller {
         $modelCustomer = \app\models\Customer::findOne(['ref' => $ref]);
         $file = $this->getFile($ref);
         if ($model->load(Yii::$app->request->post())) {
-            $model->confirm = 1;
+            $model->confirm = '1';
             $model->dupdate = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
 
             //Insert Timeline
             $culumns = array(
-                "department" => 2,
+                "department" => '2',
                 "ref" => $ref,
                 "user_id" => Yii::$app->user->identity->id,
                 "log" => "ลงคิวงานติดตั้ง",
@@ -202,7 +202,7 @@ class QueueController extends Controller {
 
                 //Update customer
                 \Yii::$app->db->createCommand()
-                        ->update("customer", array("print_status" => 1), "ref = '$ref'")
+                        ->update("customer", array("print_status" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }
@@ -219,7 +219,7 @@ class QueueController extends Controller {
 
                 //Update customer
                 \Yii::$app->db->createCommand()
-                        ->update("customer", array("cnc_status" => 1), "ref = '$ref'")
+                        ->update("customer", array("cnc_status" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }
@@ -236,7 +236,7 @@ class QueueController extends Controller {
 
                 //Update customer
                 \Yii::$app->db->createCommand()
-                        ->update("customer", array("manufacture_status" => 1), "ref = '$ref'")
+                        ->update("customer", array("manufacture_status" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }

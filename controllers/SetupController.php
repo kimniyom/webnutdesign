@@ -84,12 +84,12 @@ class SetupController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->refsetup);
-            $model->approve = 2;
+            $model->approve = '2';
             $model->dupdate = date("Y-m-d H:i:s");
             $model->save();
 
             $culumnstimeline = array(
-                "department" => 8,
+                "department" => '8',
                 "ref" => $ref,
                 "user_id" => Yii::$app->user->identity->id,
                 "log" => "ติดตั้งงานลูกค้า",
@@ -102,7 +102,7 @@ class SetupController extends Controller {
                     ->execute();
             //อัพเดทสถานะงาน
             \Yii::$app->db->createCommand()
-                    ->update("customer", array("technician_status" => 2), "ref = '$ref'")
+                    ->update("customer", array("technician_status" => '2'), "ref = '$ref'")
                     ->execute();
 
             return $this->redirect(['index']);
@@ -128,7 +128,7 @@ class SetupController extends Controller {
     function getWork() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`confirm` = '1' AND a.approve != 2 AND c.flag = 0";
+                    WHERE a.`confirm` = '1' AND a.approve != '2' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -148,7 +148,7 @@ class SetupController extends Controller {
                 ->execute();
 
         $culumnstimeline = array(
-            "department" => 8,
+            "department" => '8',
             "ref" => $ref,
             "user_id" => Yii::$app->user->identity->id,
             "log" => "รับงาน",
@@ -161,7 +161,7 @@ class SetupController extends Controller {
                 ->execute();
         //อัพเดทสถานะงาน
         \Yii::$app->db->createCommand()
-                ->update("customer", array("technician_status" => 1), "ref = '$ref'")
+                ->update("customer", array("technician_status" => '1'), "ref = '$ref'")
                 ->execute();
     }
 

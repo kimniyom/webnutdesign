@@ -8,6 +8,7 @@ use kartik\widgets\FileInput;
 use kartik\editors\Summernote;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use dosamigos\ckeditor\CKEditor;
 
 //use app\assets\AppAsset;
 //AppAsset::register($this);
@@ -27,8 +28,7 @@ $rule = $configWeb->getRule();
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        
         <style type="text/css" media="screen">
             .dupcheckbox {
                 display: block;
@@ -120,22 +120,31 @@ $rule = $configWeb->getRule();
 
 
         </style>
+    </head>
+    <body>
         <?php $this->beginBody() ?>
     <div class="graphic-form-1" style=" padding: 20px; font-family: skv; font-size: 18px;">
         <?php $form = ActiveForm::begin(['action' => ['graphic/update', 'ref' => $model->ref], 'options' => ['enctype' => 'multipart/form-data']]); ?>
         <label for="" style=" font-family: skv; color: #ffffff;">รายละเอียดข้อมูลใบสั่งงาน</label>
-        <?=
+        <?= $form->field($model, 'detail')->widget(CKEditor::className(), [
+            'options' => ['rows' => 6],
+            'preset' => 'basic'
+        ])->label(false); ?>
+
+        <?php
+        /*
         $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
             'clientOptions' => [
-                //'imageManagerJson' => ['/redactor/upload/image-json'],
-                //'imageUpload' => ['/redactor/upload/image'],
-                //'fileUpload' => ['/redactor/upload/file'],
                 'lang' => 'th',
                 'plugins' => ['fontcolor', 'fullscreen'], //'clips',
                 'buttonsHide' => ['deleted', 'image', 'file', 'html', 'format'],
                 'minHeight' => '100px'
             ]
         ])->label(false)
+    */
+        //'imageManagerJson' => ['/redactor/upload/image-json'],
+                //'imageUpload' => ['/redactor/upload/image'],
+                //'fileUpload' => ['/redactor/upload/file'],
         ?>
 
         <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => true])->label(false) ?>
@@ -221,34 +230,15 @@ $rule = $configWeb->getRule();
         <?php ActiveForm::end(); ?>
     </div>
     <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery/jquery-3.2.1.min.js"></script>
-    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    
 
     <?php $this->endBody() ?>
     <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/sweetalert2.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/popper/popper.min.js"></script>
     <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/waves.js"></script>
-    <!--Menu sidebar -->
-
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/sidebarmenu.js"></script>
-
-    <!--Custom JavaScript -->
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/js/custom.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <!--morris JavaScript -->
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/raphael/raphael-min.js"></script>
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/morrisjs/morris.min.js"></script>
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!--c3 JavaScript -->
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/d3/d3.min.js"></script>
-    <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
+    
+    
     <?php
     $this->registerJs('
         $(document).ready(function(){
@@ -320,3 +310,5 @@ $rule = $configWeb->getRule();
                             }
     </script>
     <?php $this->endPage() ?>
+</body>
+</html>
