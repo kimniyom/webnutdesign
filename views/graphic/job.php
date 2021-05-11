@@ -130,7 +130,7 @@ $GraphicLog = new GraphicLog();
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h2 class="alert-heading" >
-                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['project_name'] ?></span>
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['customer'] ?></span>
                                 </h2>
                             </div>
                         </div>
@@ -141,7 +141,7 @@ $GraphicLog = new GraphicLog();
                                     <span  style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
                                 </a>
                             <?php } else { ?>
-                                <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right active-false" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
+                                <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
                             <?php } ?>
                             <!-- ส่งผลิตต้องออกแบบก่อน -->
                             <?php if ($rs['status'] == 1) { ?>
@@ -150,7 +150,7 @@ $GraphicLog = new GraphicLog();
                                         <span  style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
                                     </a>
                                 <?php } else { ?>
-                                    <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-false" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;" onclick="popupSendWork('<?php echo $rs['ref'] ?>')">ส่งผลิต </a>
+                                    <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;" onclick="popupSendWork('<?php echo $rs['ref'] ?>')">ส่งผลิต </a>
                                 <?php } ?>
                             <?php } else { ?>
                                 <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right disabled" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;">ส่งผลิต </a>

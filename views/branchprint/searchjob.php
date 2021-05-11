@@ -129,7 +129,7 @@ $TimeLineModel = new Timeline();
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h2 class="alert-heading" >
-                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['project_name'] ?></span>
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['customer'] ?></span>
                                 </h2>
                             </div>
                         </div>

@@ -174,13 +174,16 @@ $this->registerJs('
     }
 
     function getViews(ref, status) {
+        $("#_ref").val(ref);
+        
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
+        
         if (status == 1) {
             $("#btnSendWork").show();
         } else {
             $("#btnSendWork").hide();
         }
-        $("#_ref").val(ref);
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
+
         var data = {ref: ref};
         $.post(url, data, function(res) {
             $("#view-customer").html(res);

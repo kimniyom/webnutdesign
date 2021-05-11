@@ -29,6 +29,7 @@ class Branchprint extends \yii\db\ActiveRecord {
         return [
             [['user_id', 'status', 'flag'], 'integer'],
             [['ref'], 'string', 'max' => 50],
+            [['comment'], 'string', 'max' => 255],
         ];
     }
 
@@ -55,6 +56,7 @@ class Branchprint extends \yii\db\ActiveRecord {
         } else {
             $order = "order by c.create_date desc";
         }
+
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from branchprint g INNER JOIN customer c ON g.ref = c.ref
                     where g.flag = '0' and g.status in('1','2') and c.flag = 0 $order";

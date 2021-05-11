@@ -120,7 +120,8 @@ class BranchfactureController extends Controller {
 
     public function actionGetjob() {
         $Model = new Branchfacture();
-        $dataList = $Model->getJob();
+        $type = Yii::$app->request->post("type");
+        $dataList = $Model->getJob($type);
         $dataListjob = $Model->getJobForUser();
         $maseditwork = \app\models\Maseditwork::find()->all();
         return $this->renderPartial('job', [
@@ -236,5 +237,39 @@ class BranchfactureController extends Controller {
                     'maseditwork' => $maseditwork
         ]);
     }
+
+    public function actionConfirmwork() {
+        $ref = Yii::$app->request->post('ref');
+        $comment = Yii::$app->request->post('comment');
+        $columns = array(
+            "status" => 4,
+            "user_id" => Yii::$app->user->identity->id,
+            "comment" => $comment,
+            "confirm_date" => date("Y-m-d H:i:s")
+        );
+
+        \Yii::$app->db->createCommand()
+                ->update("branchfacture", $columns, "ref = '$ref'")
+                ->execute();
+
+        $culumnstimeline = array(
+            "department" => 6,
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ยืนยันการผลิต",
+            "todep" => "ผลิตทั่วไป(งานผลิตเสร็จแล้ว)",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+
+        //อัพเดทสถานะงาน
+        \Yii::$app->db->createCommand()
+                ->update("customer", array("manufacture_status" => 2), "ref = '$ref'")
+                ->execute();
+
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnstimeline)
+                ->execute();
+    }
+
 
 }

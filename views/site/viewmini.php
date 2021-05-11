@@ -217,6 +217,35 @@ $CustomerModel = new Customer();
         </div>
     </div>
 
+        <!-- กราฟิก -->
+    <div class="box-graphic">
+        <div style=" background: #ffffff; padding: 10px; border-radius: 10px; position: relative; margin-top: 20px;">
+            <h3 class="head-title-view">กราฟิก / ใบสั่งงาน</h3>
+            <?php
+            if ($graphic) {
+                ?>
+                <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
+                <div class="alert alert-success">
+                    <?php echo $graphic['detail'] ?>
+                    <label><i class="fa fa-user text-warning"></i> โดย::<?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
+                </div>
+                <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
+                <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
+                    <?php
+                    foreach ($filegraphic as $files):
+                        $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/thumbnail/' . $files['real_filename'];
+                        $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                        ?>
+                        <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
+                            <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+
+
     <div class="view-content-left bg-white" style=" padding: 10px; border-radius: 10px; margin-top: 20px; box-shadow: #333333 0px 10px 10px 0px;">
         <h3 class="head-title-view">ข้อมูลลูกค้า</h3>
         <label class="head-title-view">ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</label>
