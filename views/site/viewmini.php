@@ -217,7 +217,7 @@ $CustomerModel = new Customer();
         </div>
     </div>
 
-        <!-- กราฟิก -->
+    <!-- กราฟิก -->
     <div class="box-graphic">
         <div style=" background: #ffffff; padding: 10px; border-radius: 10px; position: relative; margin-top: 20px;">
             <h3 class="head-title-view">กราฟิก / ใบสั่งงาน</h3>
@@ -269,7 +269,7 @@ $CustomerModel = new Customer();
 $this->registerJs('
         $(document).ready(function(){
             setScreensView();
-            
+
         });
     ');
 ?>
@@ -298,8 +298,8 @@ $this->registerJs('
         }
     });
 
-    function setImg(){
-        
+    function setImg() {
+
         $(".boxdetailgf img").addClass("img img-responsive");
     }
 </script>

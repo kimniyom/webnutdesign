@@ -89,7 +89,7 @@ $this->title = "งานพิมพ์";
 </div>
 
 <!-- Popup Detail -->
-<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+<div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">
@@ -103,14 +103,14 @@ $this->title = "งานพิมพ์";
                 <div id="view-customer"></div>
             </div>
             <div class="modal-footer border-dark">
-                <button type=" button" class="btn btn-primary btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
+                <button type=" button" class="btn btn-danger btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Popup Confirm -->
-<div class="modal fade " tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static">
+<div class="modal fade" tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">
@@ -175,9 +175,9 @@ $this->registerJs('
 
     function getViews(ref, status) {
         $("#_ref").val(ref);
-        
+
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
-        
+
         if (status == 1) {
             $("#btnSendWork").show();
         } else {

@@ -7,7 +7,24 @@ and open the template in the editor.
     Created on : Apr 15, 2021, 3:12:00 PM
     Author     : kimniyom
 */
+@font-face {
+    font-family: skv-txt;
+    src: url('sukhumvit/SukhumvitSet-Text.ttf');
+}
+@font-face {
+    font-family: skv;
+    src: url('sukhumvit/SukhumvitSet-Medium.ttf');
+}
 
+@font-face {
+    font-family: skvb;
+    src: url('sukhumvit/SukhumvitSet-Bold.ttf');
+}
+
+@font-face {
+    font-family: sarabun;
+    src: url('sarabun/THSarabun Bold.ttf');
+}
 .branchprint-form input[type='text']{
     border: #cccccc solid 1px;
     background: #f4f4f4;

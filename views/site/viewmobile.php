@@ -88,7 +88,7 @@
     }
     .txt-customer{
         padding-left: 10px;
-        border-bottom:solid 1px #eeeeee;
+        border-bottom:solid 0px #eeeeee;
     }
     @media(max-width:767px) {
         .customer-view-all .card{
@@ -158,7 +158,7 @@ $CustomerModel = new Customer();
     <div class="box-work-detail">
         <div style=" background: #333333; padding: 10px; border-radius: 10px;position: relative;">
             <h3 class="head-title-view">ข้อมูลรับงาน</h3>
-            <table class="table table-bordered" style="color:#FFFFFF;">
+            <table class="table" style="color:#FFFFFF;">
                 <tr>
                     <th style=" width: 120px;">ชื่องาน</th>
                     <td><?php echo $model['project_name'] ?></td>
@@ -231,7 +231,7 @@ $this->registerJs('
 ?>
 
 <script type="text/javascript">
-    
+
     setImg();
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
@@ -256,7 +256,7 @@ $this->registerJs('
     });
 
 
-    function setImg(){
+    function setImg() {
         $(".boxdetailgf img").addClass("img img-responsive");
     }
 </script>

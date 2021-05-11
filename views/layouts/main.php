@@ -59,7 +59,7 @@ $rule = $configWeb->getRule();
                 width: 10px;
                 background-color: #999999;
                 border-radius: 20px;
-                border: 2px solid white;
+                border: 2px solid #999999;
             }
             #sidebarnav .active{
                 border-right: #ffbc34 solid 0px;
@@ -129,8 +129,8 @@ $rule = $configWeb->getRule();
                     <div class="navbar-header" style=" border-right:none;" id="logo-home">
                         <a class="navbar-brand" >
                             <b style="color: #cc0066;">
-                                <img src="<?php //echo Url::to('@web/images/logo-nat-design.png')                ?>" alt="homepage" class="dark-logo" style="width:39px;"/>
-                                <img src="<?php //echo Url::to('@web/images/logo-nat-design.png')                ?>" alt="homepage" class="light-logo" style="width:39px;"/>
+                                <img src="<?php //echo Url::to('@web/images/logo-nat-design.png')                   ?>" alt="homepage" class="dark-logo" style="width:39px;"/>
+                                <img src="<?php //echo Url::to('@web/images/logo-nat-design.png')                   ?>" alt="homepage" class="light-logo" style="width:39px;"/>
 
                             </b>
                         </a>
@@ -215,7 +215,7 @@ $rule = $configWeb->getRule();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                         ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                            ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -355,8 +355,8 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
 
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                            ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                            ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                               ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                               ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('
@@ -367,66 +367,66 @@ $rule = $configWeb->getRule();
          ');
         ?>
         <script>
-                                        window.onscroll = function() {
-                                            fixheader();
-                                        };
+                                window.onscroll = function() {
+                                    fixheader();
+                                };
 
-                                        var header = document.getElementById("head-toolbar");
-                                        var sticky = header.offsetTop;
+                                var header = document.getElementById("head-toolbar");
+                                var sticky = header.offsetTop;
 
-                                        function fixheader() {
-                                            var w = window.innerWidth;
-                                            if (w <= 768) {
-                                                if (window.pageYOffset > sticky) {
-                                                    $("#head-toolbar").css({"position": "fixed", "width": "100%", "margin-top": "0px", "z-index": "100"});
-                                                } else {
-                                                    $("#head-toolbar").css({"position": "relative", "width": "100%", "margin-top": "0px"});
-                                                }
-                                            }
+                                function fixheader() {
+                                    var w = window.innerWidth;
+                                    if (w <= 768) {
+                                        if (window.pageYOffset > sticky) {
+                                            $("#head-toolbar").css({"position": "fixed", "width": "100%", "margin-top": "0px", "z-index": "100"});
+                                        } else {
+                                            $("#head-toolbar").css({"position": "relative", "width": "100%", "margin-top": "0px"});
                                         }
+                                    }
+                                }
 
-                                        function setScreen() {
-                                            var w = window.innerWidth;
-                                            if (w <= 768) {
-                                                $(".page-wrapper").css({"padding-left": "0px"});
-                                                $(".page-wrapper").css({"margin-left": "0px"});
-                                                $(".text-head").hide();
-                                                $(".navbar-header").show();
-                                            } else {
-                                                //$(".left-sidebar").css({"left": "0px"});
-                                                //$(".page-wrapper").css({"padding-left": "200px"});
-                                                $(".text-head").show();
-                                                $(".navbar-header").hide();
-                                            }
+                                function setScreen() {
+                                    var w = window.innerWidth;
+                                    if (w <= 768) {
+                                        $(".page-wrapper").css({"padding-left": "0px"});
+                                        $(".page-wrapper").css({"margin-left": "0px"});
+                                        $(".text-head").hide();
+                                        $(".navbar-header").show();
+                                    } else {
+                                        //$(".left-sidebar").css({"left": "0px"});
+                                        //$(".page-wrapper").css({"padding-left": "200px"});
+                                        $(".text-head").show();
+                                        $(".navbar-header").hide();
+                                    }
 
-                                            $(".breadcrumb li").addClass("breadcrumb-item");
-                                        }
+                                    $(".breadcrumb li").addClass("breadcrumb-item");
+                                }
 
-                                        function logOut() {
-                                            var r = confirm("Are you sure ...");
-                                            if (r == true) {
-                                                var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
-                                                $.post(url, {}, function(res) {
-                                                    window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
-                                                });
-                                            }
-                                        }
+                                function logOut() {
+                                    var r = confirm("Are you sure ...");
+                                    if (r == true) {
+                                        var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/logout']) ?>";
+                                        $.post(url, {}, function(res) {
+                                            window.location = "<?php echo Yii::$app->urlManager->createUrl(['site']) ?>";
+                                        });
+                                    }
+                                }
 
-                                        function checkLogin() {
-                                            var user = "<?php echo Yii::$app->user->isGuest ?>";
-                                            var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
-                                            if (user) {
-                                                window.location = url;
-                                            }
-                                        }
+                                function checkLogin() {
+                                    var user = "<?php echo Yii::$app->user->isGuest ?>";
+                                    var url = "<?php echo Yii::$app->urlManager->createUrl(['user/security/login']) ?>";
+                                    if (user) {
+                                        window.location = url;
+                                    }
+                                }
 
-                                        function setMenu(menuId) {
-                                            var url = "<?php echo Yii::$app->urlManager->createUrl(['site/setmenu']) ?>";
-                                            var data = {menuId: menuId};
-                                            $.post(url, data, function(res) {
+                                function setMenu(menuId) {
+                                    var url = "<?php echo Yii::$app->urlManager->createUrl(['site/setmenu']) ?>";
+                                    var data = {menuId: menuId};
+                                    $.post(url, data, function(res) {
 
-                                            });
-                                        }
+                                    });
+                                }
         </script>
     </body>
 </html>

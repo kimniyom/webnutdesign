@@ -4,7 +4,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-
 use app\models\Customer;
 
 $address = Customer::findOne(['ref' => $model->ref])['address'];
@@ -37,8 +36,9 @@ $address = Customer::findOne(['ref' => $model->ref])['address'];
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto;">
                     <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => true])->label(false) ?>
-                    <?= $form->field($model, 'address')->textarea(['rows' => 6,'value' => $address]) ?>
+                    <?= $form->field($model, 'address')->textarea(['rows' => 6, 'value' => $address]) ?>
                     <?= $form->field($model, 'tagnumber')->textInput() ?>
+                    <?= $form->field($model, 'link')->textInput() ?>
                 </div>
             </div>
         </div>

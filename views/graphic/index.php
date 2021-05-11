@@ -88,20 +88,19 @@ $this->title = 'กราฟิก / ออกแบบ';
 </div>
 
 <!-- Popup Detail -->
-<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">
-                <h5 class="modal-title text-white">ข้อมูลรายละเอียด</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title text-white" style=" text-align: center;">ข้อมูลรายละเอียด</h5>
 
             </div>
             <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
             </div>
-
+            <div class=" modal-footer border-dark">
+                <button type="button" class="btn btn-danger btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">อ่านทำความเข้าใจแล้ว</button>
+            </div>
         </div>
     </div>
 </div>

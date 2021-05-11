@@ -477,8 +477,9 @@ class GraphicController extends Controller {
         ]);
     }
 
-    public function actionFormupdate() {
-        $ref = Yii::$app->request->post('ref');
+    public function actionFormupdate($ref) {
+        $this->layout = "graphic";
+        //$ref = Yii::$app->request->post('ref');
         $model = $this->findModel($ref);
 
         $model->todep = explode(',', $model->todep);
@@ -490,7 +491,7 @@ class GraphicController extends Controller {
         }
 
         list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref_graphic);
-        return $this->renderPartial('updatepopup', [
+        return $this->render('updatepopup', [
                     'model' => $model,
                     'initialPreview' => $initialPreview,
                     'initialPreviewConfig' => $initialPreviewConfig

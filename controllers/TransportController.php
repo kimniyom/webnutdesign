@@ -39,7 +39,7 @@ class TransportController extends Controller {
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'transportTag' =>$transportTag
+                    'transportTag' => $transportTag
         ]);
     }
 
@@ -90,22 +90,22 @@ class TransportController extends Controller {
             //อัพเดทที่อยู่ใหม่
             $columns = array("address" => $model->address);
             Yii::$app->db->createCommand()
-                ->update("customer",$columns,"ref = '$ref'")
-                ->execute();
+                    ->update("customer", $columns, "ref = '$ref'")
+                    ->execute();
 
             $model->status = '2';
             $model->user_id = Yii::$app->user->identity->id;
-            $model->create_date = date("Y-m-d H:i:s");   
+            $model->create_date = date("Y-m-d H:i:s");
             $model->save();
 
 
             $culumnstimeline = array(
-                    "department" => 9,
-                    "ref" => $model->ref,
-                    "user_id" => Yii::$app->user->identity->id,
-                    "log" => "ลงบันทึกเลขจัดส่ง",
-                    "todep" => "จัดส่ง(รับเข้าระบบ)",
-                    "d_update" => date("Y-m-d H:i:s")
+                "department" => 9,
+                "ref" => $model->ref,
+                "user_id" => Yii::$app->user->identity->id,
+                "log" => "ลงบันทึกเลขจัดส่ง",
+                "todep" => "จัดส่ง(รับเข้าระบบ)",
+                "d_update" => date("Y-m-d H:i:s")
             );
             \Yii::$app->db->createCommand()
                     ->insert("timeline", $culumnstimeline)
@@ -179,14 +179,14 @@ class TransportController extends Controller {
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-    function getTeansportTagnumber(){
+    function getTeansportTagnumber() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM transport a INNER JOIN customer c ON a.ref = c.ref
                     WHERE a.status = '2' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-    public function actionUpdatestatus(){
+    public function actionUpdatestatus() {
         $ref = Yii::$app->request->post('ref');
 
         $columns = array(
@@ -194,20 +194,20 @@ class TransportController extends Controller {
             "confirm_date" => date("Y-m-d H:i:s")
         );
         \Yii::$app->db->createCommand()
-                    ->update("transport", $columns,"ref = '$ref'")
-                    ->execute();
+                ->update("transport", $columns, "ref = '$ref'")
+                ->execute();
 
         $culumnstimeline = array(
-                    "department" => '9',
-                    "ref" => $ref,
-                    "user_id" => Yii::$app->user->identity->id,
-                    "log" => "ลูกค้าได้รับสินค้าแล้ว",
-                    "todep" => "จัดส่ง(ยืนยันการจัดส่ง)",
-                    "d_update" => date("Y-m-d H:i:s")
-            );
-            \Yii::$app->db->createCommand()
-                    ->insert("timeline", $culumnstimeline)
-                    ->execute();
+            "department" => '9',
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ลูกค้าได้รับสินค้าแล้ว",
+            "todep" => "จัดส่ง(ยืนยันการจัดส่ง)",
+            "d_update" => date("Y-m-d H:i:s")
+        );
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnstimeline)
+                ->execute();
     }
 
 }

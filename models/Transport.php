@@ -31,10 +31,10 @@ class Transport extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['tagnumber'], 'required'],
+            [['tagnumber', 'link'], 'required'],
             [['user_id', 'status', 'flag'], 'integer'],
             [['create_date', 'confirm_date'], 'safe'],
-            [['address'], 'string'],
+            [['address', 'link'], 'string'],
             [['ref'], 'string', 'max' => 50],
             [['tagnumber'], 'string', 'max' => 100],
         ];
@@ -54,6 +54,7 @@ class Transport extends \yii\db\ActiveRecord {
             'confirm_date' => 'Confirm Date',
             'address' => 'ที่อยู่จัดส่ง',
             'tagnumber' => 'เลขติดตามสินค้า',
+            'link' => 'ลิงค์ติดตามพัสดุ'
         ];
     }
 

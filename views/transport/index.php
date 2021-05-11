@@ -68,9 +68,6 @@ $this->title = 'จัดส่ง';
 
     <div class="row" style="margin-bottom: 0px;">
         <div class="col-lg-8 col-md-8">
-            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
-                !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
-            </div>
             <div id="body-work" style="margin-top: 10px; overflow: auto;">
                 <div id="job">
                     <div style="text-align: center; margin-top: 10%;">Loading...</div>
@@ -80,16 +77,16 @@ $this->title = 'จัดส่ง';
         <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px;" >
             <div class="card" >
                 <div class="card-body" style=" padding-left:0px; padding-right: 10px; padding-bottom: 0px;">
-                    <div class="card-title" style=" font-weight: bold;">จัดส่งแล้วรอยืนยัน</div>
+                    <div class="card-title" style=" font-weight: bold; margin-left: 10px;">จัดส่งแล้วรอยืนยัน</div>
                     <div id="body-history" style="overflow: auto; padding: 0px;">
                         <table class="table">
-                            <?php foreach($transportTag as $tag): ?>
-                            <tr>
-                                <td><?php echo $tag['customer'] ?></td>
-                                <td><?php echo $tag['tagnumber'] ?></td>
-                                <td><a onclick="confirmTranfer('<?php echo $tag['ref'] ?>') " style="cursor: pointer; color: #57c4df">ยืนยัน</a></td>
-                            </tr>
-                        <?php endforeach; ?>
+                            <?php foreach ($transportTag as $tag): ?>
+                                <tr>
+                                    <td style="white-space: nowrap;"><?php echo $tag['customer'] ?></td>
+                                    <td><a href="<?php echo $tag['link'] ?>" target="_blank"><?php echo $tag['tagnumber'] ?></a></td>
+                                    <td><a onclick="confirmTranfer('<?php echo $tag['ref'] ?>')" style="cursor: pointer; color: #57c4df">ยืนยัน</a></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </table>
                     </div>
                 </div>
@@ -130,8 +127,8 @@ $this->registerJs('
         var h = window.innerHeight;
         var w = window.innerWidth;
         if (w > 768) {
-            $("#body-work").css({"height": h - 170});
-            $("#body-history").css({"height": h - 210});
+            $("#body-work").css({"height": h - 155});
+            $("#body-history").css({"height": h - 195});
         } else {
             $(".modal-dialog").addClass("modal-dialog-scrollable");
             $(".mr-sm-2").css({"margin-top": "10px"});
@@ -175,9 +172,9 @@ $this->registerJs('
         });
     }
 
-    function confirmTranfer(ref){
+    function confirmTranfer(ref) {
         var title = "ยืนยันการจัดส่งงาน..?";
-        
+
         Swal.fire({
             icon: 'info',
             title: title,

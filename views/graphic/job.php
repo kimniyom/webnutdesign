@@ -97,7 +97,13 @@
     }
 
     .active-true{
-        background-image:linear-gradient(to right, #ffff00, #cf1b76);
+        background:#ffff00;
+        color: #ffff00;
+    }
+
+    .active-true:hover{
+        background:#ffff00;
+        color: #ffff00;
     }
 
 </style>
@@ -137,24 +143,35 @@ $GraphicLog = new GraphicLog();
                         <div style="float: right; position: absolute; top: 5px; right: 15px;">
                             <!-- ถ้ามีการรับงานแล้ว -->
                             <?php if ($rs['status'] == 1) { ?>
-                                <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
-                                    <span  style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
+                                <a class="btn btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; height: 20px; cursor: default;">
+                                    เสร็จแล้ว
+                                    <div style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px; "></div>
                                 </a>
                             <?php } else { ?>
-                                <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
+
+                                <a href="<?php echo \yii\helpers\Url::to(['graphic/formupdate', 'ref' => $rs['ref']]) ?>" id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;">เสร็จแล้ว </a>
+                                <!--
+                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']       ?>')">เสร็จแล้ว </a>
+                                -->
                             <?php } ?>
+
+
                             <!-- ส่งผลิตต้องออกแบบก่อน -->
-                            <?php if ($rs['status'] == 1) { ?>
-                                <?php if ($rs['approve'] == 1) { ?>
-                                    <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
-                                        <span  style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
-                                    </a>
+                            <div style=" clear: both; position: relative;">
+                                <?php if ($rs['status'] == 1) { ?>
+                                    <?php if ($rs['approver'] == 1) { ?>
+                                        <a class="btn btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;  height: 20px; cursor: default; margin-top: 5px;">
+                                            เสร็จแล้ว
+                                            <div style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 5px; "></div>
+                                        </a>
+                                    <?php } else { ?>
+                                        <a class="btn btn-rounded btn-dark btn-sm pull-right" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;" onclick="popupSendWork('<?php echo $rs['ref'] ?>')">ส่งผลิต </a>
+                                    <?php } ?>
                                 <?php } else { ?>
-                                    <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;" onclick="popupSendWork('<?php echo $rs['ref'] ?>')">ส่งผลิต </a>
+                                    <a class="btn btn-rounded btn-dark btn-sm pull-right disabled" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;">ส่งผลิต </a>
                                 <?php } ?>
-                            <?php } else { ?>
-                                <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right disabled" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; clear: both; width: 100%; margin-top: 5px;">ส่งผลิต </a>
-                            <?php } ?>
+                            </div>
+
                         </div>
                     </div>
                     <div style=" clear: both; border-top: solid 3px #8a8a8a; padding-top: 10px;">

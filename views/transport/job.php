@@ -1,4 +1,53 @@
-<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/transport.css" rel="stylesheet">
+<style>
+    .text-tran-head{
+        font-size: 26px;
+    }
+
+    .send-heading{
+        font-size: 18px;
+    }
+    @media screen and (max-width: 768px) {
+        /* STYLES HERE */
+        .text-tran-head{
+            font-size: 20px;
+        }
+
+        .alert-heading{
+            margin-top: -10px;
+        }
+
+        .send-heading{
+            font-size: 16px;
+        }
+
+        .box-title-tran{
+            height: 20px;
+        }
+    }
+
+
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        /* STYLES HERE */
+        .text-tran-head{
+            font-size: 20px;
+            line-height: 10pt;
+        }
+
+        .alert-heading{
+            margin-top: -10px;
+        }
+
+        .send-heading{
+            font-size: 16px;
+        }
+
+        .box-title-tran{
+            height: 30px;
+        }
+
+
+    }
+</style>
 <?php
 
 use yii\helpers\Html;
@@ -13,36 +62,45 @@ $TimeLineModel = new Timeline();
 <!--
 คิวติดตั้ง
 -->
-<?php if ($dataList) { ?>
-    <?php
-    foreach ($dataList as $rs):
-        ?>
-        <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff;">
-            <div class="row">
-                <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                    <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
-                    <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
-                    <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
-                </div>
-                <div class="col-md-4 col-lg-4 col-sm-4 col-6">
-                    <a href="<?php echo Yii::$app->urlManager->createUrl(['transport/update', 'ref' => $rs['ref']]) ?>">
-                        <div class="btn-work-nut-send">
-                            <div class="vertical-center">
-                                <ion-icon name="color-wand-outline" style="float: left;"></ion-icon> บันทึกจัดส่ง
+<div class="row" style=" margin: 0px;">
+    <?php if ($dataList) { ?>
+        <?php
+        foreach ($dataList as $rs):
+            ?>
+            <div class="col-md-6 col-lg-6" style="margin: 0px; padding: 0px;">
+                <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff; font-family: skv; margin: 10px;">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-9 col-sm-9 col-9">
+                            <div style=" width: 100%; float: left;">
+                                <div class="box-title-tran" style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
+                                    <div class="alert-heading" >
+                                        <div class="text-tran-head"  style=" font-weight: bold; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['customer'] ?></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div></a>
+                            <div class="send-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-3">
+                            <a href="<?php echo Yii::$app->urlManager->createUrl(['transport/update', 'ref' => $rs['ref']]) ?>" class="pull-right">
+                                <button type=" button" class="btn btn-dark"> บันทึกจัดส่ง</button>
+                            </a>
+                        </div>
+                    </div>
+                    <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px;">
+                    <div style=" overflow: hidden;">
+                        <p class="mb-0 status-work" style="text-align: center; white-space: nowrap;"><?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-            <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
+        <?php endforeach; ?>
+    <?php } else { ?>
+        <div class="col-md-12 col-lg-12">
+            <div class="container">
+                <div class="alert alert-primary" style="text-align: center">ไม่มีงานส่งมา</div>
+            </div>
         </div>
-    <?php endforeach; ?>
-<?php } else { ?>
-    <div class="container">
-        <div class="alert alert-primary" style="text-align: center">ไม่มีงานส่งมา</div>
-    </div>
-<?php } ?>
+    <?php } ?>
+</div>
 
 
 <script type="text/javascript">

@@ -40,7 +40,7 @@ $this->title = 'Queue';
                 <div class="card-header">
                     <ion-icon name="albums-outline" style=" font-size: 20px; float: left;"></ion-icon> ลงคิวงานติดตั้ง
                 </div>
-                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #ffffff;">
+                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #ffffff; font-family: skv;">
                     <div id="job"></div>
                 </div>
             </div>
@@ -51,7 +51,7 @@ $this->title = 'Queue';
                     <div class="card-header">
                         <ion-icon name="construct-outline" style=" font-size: 20px; float: left;"></ion-icon> คิวงาน
                     </div>
-                    <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px; background: #eeeeee;">
+                    <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px; background: #eeeeee; font-family: skv;">
                         <ul class="list-group" style=" padding: 0px; margin: 0px;">
                             <?php if ($listQueue) { ?>
                                 <?php foreach ($listQueue as $queue):

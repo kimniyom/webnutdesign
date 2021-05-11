@@ -22,7 +22,7 @@ $TimeLineModel = new Timeline();
     <?php
     foreach ($dataList as $rs):
         ?>
-        <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff;">
+        <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff; font-family: skv;">
             <div class="row">
                 <div class="col-md-8 col-lg-8 col-sm-8 col-6">
                     <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>

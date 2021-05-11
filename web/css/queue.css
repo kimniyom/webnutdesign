@@ -7,7 +7,24 @@ and open the template in the editor.
     Created on : Apr 15, 2021, 3:12:00 PM
     Author     : kimniyom
 */
+@font-face {
+    font-family: skv-txt;
+    src: url('sukhumvit/SukhumvitSet-Text.ttf');
+}
+@font-face {
+    font-family: skv;
+    src: url('sukhumvit/SukhumvitSet-Medium.ttf');
+}
 
+@font-face {
+    font-family: skvb;
+    src: url('sukhumvit/SukhumvitSet-Bold.ttf');
+}
+
+@font-face {
+    font-family: sarabun;
+    src: url('sarabun/THSarabun Bold.ttf');
+}
 .queue-form input[type='text']{
     border: #c8c8c8 solid 1px;
     background: #ffffff;
@@ -90,75 +107,75 @@ and open the template in the editor.
 
 
 /*Queue Css*/
-    @media(min-width:767px) {
-        #popupaddwork .modal-dialog{
-            min-width: 99% !important;
-            margin-top: 10px !important;
-            margin: auto;
-        }
-
-        #detail-q{
-            position: relative;
-            overflow: auto;
-        }
-
-        #box-popup{
-            background: #ffffff;
-            padding:0px;
-            padding-bottom: 0px;
-        }
+@media(min-width:767px) {
+    #popupaddwork .modal-dialog{
+        min-width: 99% !important;
+        margin-top: 10px !important;
+        margin: auto;
     }
 
-    @media(max-width:767px) {
-        #popupaddwork .modal-dialog{
-            min-width: 99% !important;
-            margin-top: 5px !important;
-            margin: auto;
-        }
-
+    #detail-q{
+        position: relative;
+        overflow: auto;
     }
 
-    .queue-index .card-header{
-        background-image: linear-gradient(to right, #16222A 0%, #3A6073  100%);
-        border-radius: 0px;
-        border:0px;
-        color:#ffffff;
-    }
-    .queue-list-group{
+    #box-popup{
+        background: #ffffff;
+        padding:0px;
         padding-bottom: 0px;
     }
+}
 
-    .queue-list-group{
-        transition: 0.5s;
+@media(max-width:767px) {
+    #popupaddwork .modal-dialog{
+        min-width: 99% !important;
+        margin-top: 5px !important;
+        margin: auto;
     }
 
-    .queue-list-group:hover{
-        background-image: linear-gradient(to right, #16222A 0%, #3A6073  100%);
-        color: #ffffff;
-    }
+}
 
-    .list-out-side{
-        background: #ffffff;
-        color:#000000;
-        transition: 0.5s;
-    }
+.queue-index .card-header{
+    background-image: linear-gradient(to right, #16222A 0%, #3A6073  100%);
+    border-radius: 0px;
+    border:0px;
+    color:#ffffff;
+}
+.queue-list-group{
+    padding-bottom: 0px;
+}
 
-    .list-out-side:hover{
-        color: #FFFFFF;
-        cursor: pointer;
-        background: #16222A;
-        box-shadow: 0px 0px 20px 0px #16222A;
-    }
+.queue-list-group{
+    transition: 0.5s;
+}
 
-    .my-box-search input[type='search']{
-        background: #000000;
-        border-radius: 20px; border:0px;
-        color:#ffffff;
-    }
+.queue-list-group:hover{
+    background-image: linear-gradient(to right, #16222A 0%, #3A6073  100%);
+    color: #ffffff;
+}
 
-    #head-toolbar{
-        border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border:0px;
-    }
+.list-out-side{
+    background: #ffffff;
+    color:#000000;
+    transition: 0.5s;
+}
+
+.list-out-side:hover{
+    color: #FFFFFF;
+    cursor: pointer;
+    background: #16222A;
+    box-shadow: 0px 0px 20px 0px #16222A;
+}
+
+.my-box-search input[type='search']{
+    background: #000000;
+    border-radius: 20px; border:0px;
+    color:#ffffff;
+}
+
+#head-toolbar{
+    border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border:0px;
+}
 
 
 

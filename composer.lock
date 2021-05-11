@@ -669,16 +669,16 @@
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
-            "version": "v5.1.5",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "a9cdc1fae34919a85e295ca38607441b2e6c7869"
+                "reference": "26e3161293c15c97c679a70699f333935132c06b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/a9cdc1fae34919a85e295ca38607441b2e6c7869",
-                "reference": "a9cdc1fae34919a85e295ca38607441b2e6c7869",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/26e3161293c15c97c679a70699f333935132c06b",
+                "reference": "26e3161293c15c97c679a70699f333935132c06b",
                 "shasum": ""
             },
             "type": "library",
@@ -724,7 +724,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-03-02T18:44:42+00:00"
+            "time": "2021-05-06T16:42:31+00:00"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
@@ -2536,16 +2536,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.41.1",
+            "version": "2.0.42.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2ad0894a2ccbd3912b33de4419ad1ae3df0595c4"
+                "reference": "976e2e892af4df933831b5e0a05d0acf4b173d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2ad0894a2ccbd3912b33de4419ad1ae3df0595c4",
-                "reference": "2ad0894a2ccbd3912b33de4419ad1ae3df0595c4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/976e2e892af4df933831b5e0a05d0acf4b173d98",
+                "reference": "976e2e892af4df933831b5e0a05d0acf4b173d98",
                 "shasum": ""
             },
             "require": {
@@ -2646,20 +2646,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-04T15:45:04+00:00"
+            "time": "2021-05-06T11:44:35+00:00"
         },
         {
             "name": "yiisoft/yii2-authclient",
-            "version": "2.2.9",
+            "version": "2.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "f38a0c931c1ae6459a8e221fc693ee31a4c1bab6"
+                "reference": "07c4b35e365beda0cd237dc144fb7268f3bec37c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/f38a0c931c1ae6459a8e221fc693ee31a4c1bab6",
-                "reference": "f38a0c931c1ae6459a8e221fc693ee31a4c1bab6",
+                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/07c4b35e365beda0cd237dc144fb7268f3bec37c",
+                "reference": "07c4b35e365beda0cd237dc144fb7268f3bec37c",
                 "shasum": ""
             },
             "require": {
@@ -2731,7 +2731,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-13T10:11:46+00:00"
+            "time": "2021-05-05T21:52:22+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2798,16 +2798,16 @@
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
-                "reference": "a75555e4a888508416fadfd0a2b94881342cdd45"
+                "reference": "e6d0e58f43d3910129d554ac183aac17f65be639"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/a75555e4a888508416fadfd0a2b94881342cdd45",
-                "reference": "a75555e4a888508416fadfd0a2b94881342cdd45",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/e6d0e58f43d3910129d554ac183aac17f65be639",
+                "reference": "e6d0e58f43d3910129d554ac183aac17f65be639",
                 "shasum": ""
             },
             "require": {
@@ -2887,7 +2887,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-10T12:37:27+00:00"
+            "time": "2021-05-05T21:56:41+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -3088,7 +3088,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yurkinx/yii2-image.git",
+                "url": "git@github.com:yurkinx/yii2-image.git",
                 "reference": "590795d0e94c909c636cba1007a619012e118ac9"
             },
             "dist": {
@@ -3331,16 +3331,16 @@
         },
         {
             "name": "codeception/lib-innerbrowser",
-            "version": "1.4.2",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-innerbrowser.git",
-                "reference": "4ffb91c18e4cacd073ff2914c07e5ccaf5efe449"
+                "reference": "4b0d89b37fe454e060a610a85280a87ab4f534f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-innerbrowser/zipball/4ffb91c18e4cacd073ff2914c07e5ccaf5efe449",
-                "reference": "4ffb91c18e4cacd073ff2914c07e5ccaf5efe449",
+                "url": "https://api.github.com/repos/Codeception/lib-innerbrowser/zipball/4b0d89b37fe454e060a610a85280a87ab4f534f1",
+                "reference": "4b0d89b37fe454e060a610a85280a87ab4f534f1",
                 "shasum": ""
             },
             "require": {
@@ -3383,7 +3383,7 @@
             "keywords": [
                 "codeception"
             ],
-            "time": "2021-04-06T05:26:49+00:00"
+            "time": "2021-04-23T06:18:29+00:00"
         },
         {
             "name": "codeception/module-asserts",
@@ -3817,16 +3817,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.8.1",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "35ea11d335fd638b5882ff1725228b3d35496ab1"
+                "reference": "dc960a912984efb74d0a90222870c72c87f10c91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/35ea11d335fd638b5882ff1725228b3d35496ab1",
-                "reference": "35ea11d335fd638b5882ff1725228b3d35496ab1",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/dc960a912984efb74d0a90222870c72c87f10c91",
+                "reference": "dc960a912984efb74d0a90222870c72c87f10c91",
                 "shasum": ""
             },
             "require": {
@@ -3884,7 +3884,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2021-03-21T16:25:00+00:00"
+            "time": "2021-04-26T09:17:50+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -5641,16 +5641,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v5.2.6",
+            "version": "v5.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "35f039df40a3b335ebf310f244cb242b3a83ac8d"
+                "reference": "90374b8ed059325b49a29b55b3f8bb4062c87629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/35f039df40a3b335ebf310f244cb242b3a83ac8d",
-                "reference": "35f039df40a3b335ebf310f244cb242b3a83ac8d",
+                "url": "https://api.github.com/repos/symfony/console/zipball/90374b8ed059325b49a29b55b3f8bb4062c87629",
+                "reference": "90374b8ed059325b49a29b55b3f8bb4062c87629",
                 "shasum": ""
             },
             "require": {
@@ -5731,20 +5731,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-28T09:42:18+00:00"
+            "time": "2021-04-19T14:07:32+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v5.2.4",
+            "version": "v5.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "f65f217b3314504a1ec99c2d6ef69016bb13490f"
+                "reference": "59a684f5ac454f066ecbe6daecce6719aed283fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f65f217b3314504a1ec99c2d6ef69016bb13490f",
-                "reference": "f65f217b3314504a1ec99c2d6ef69016bb13490f",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/59a684f5ac454f066ecbe6daecce6719aed283fb",
+                "reference": "59a684f5ac454f066ecbe6daecce6719aed283fb",
                 "shasum": ""
             },
             "require": {
@@ -5793,7 +5793,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:01:46+00:00"
+            "time": "2021-04-07T16:07:52+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -6613,16 +6613,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v5.2.5",
+            "version": "v5.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "298a08ddda623485208506fcee08817807a251dd"
+                "reference": "76546cbeddd0a9540b4e4e57eddeec3e9bb444a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/298a08ddda623485208506fcee08817807a251dd",
-                "reference": "298a08ddda623485208506fcee08817807a251dd",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/76546cbeddd0a9540b4e4e57eddeec3e9bb444a5",
+                "reference": "76546cbeddd0a9540b4e4e57eddeec3e9bb444a5",
                 "shasum": ""
             },
             "require": {
@@ -6681,7 +6681,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-06T07:59:01+00:00"
+            "time": "2021-04-29T20:47:09+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -6785,16 +6785,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.1.16",
+            "version": "2.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "0d8ce76b2dd036a5fc38b26434e1c672ad8975a9"
+                "reference": "21a259c27dacedf19ac1e00d4a7180e3043d7859"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/0d8ce76b2dd036a5fc38b26434e1c672ad8975a9",
-                "reference": "0d8ce76b2dd036a5fc38b26434e1c672ad8975a9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/21a259c27dacedf19ac1e00d4a7180e3043d7859",
+                "reference": "21a259c27dacedf19ac1e00d4a7180e3043d7859",
                 "shasum": ""
             },
             "require": {
@@ -6864,7 +6864,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-23T16:36:12+00:00"
+            "time": "2021-05-05T22:02:36+00:00"
         },
         {
             "name": "yiisoft/yii2-faker",

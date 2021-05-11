@@ -8,6 +8,25 @@ and open the template in the editor.
     Author     : kimniyom
 */
 
+@font-face {
+    font-family: skv-txt;
+    src: url('sukhumvit/SukhumvitSet-Text.ttf');
+}
+@font-face {
+    font-family: skv;
+    src: url('sukhumvit/SukhumvitSet-Medium.ttf');
+}
+
+@font-face {
+    font-family: skvb;
+    src: url('sukhumvit/SukhumvitSet-Bold.ttf');
+}
+
+@font-face {
+    font-family: sarabun;
+    src: url('sarabun/THSarabun Bold.ttf');
+}
+
 .transport-form input[type='text']{
     border: #bfbfbf solid 1px;
     background: #ffffff;
