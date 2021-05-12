@@ -49,6 +49,9 @@ $this->title = 'จัดส่ง';
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
+                    <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
+                        จัดส่ง
+                    </div>
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>

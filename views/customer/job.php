@@ -1,3 +1,54 @@
+
+<style>
+    .text-tran-head{
+        font-size: 26px;
+    }
+
+    .send-heading{
+        font-size: 18px;
+    }
+    @media screen and (max-width: 768px) {
+        /* STYLES HERE */
+        .text-tran-head{
+            font-size: 20px;
+        }
+
+        .alert-heading{
+            margin-top: -10px;
+        }
+
+        .send-heading{
+            font-size: 16px;
+        }
+
+        .box-title-tran{
+            height: 20px;
+        }
+    }
+
+
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        /* STYLES HERE */
+        .text-tran-head{
+            font-size: 20px;
+            line-height: 10pt;
+        }
+
+        .alert-heading{
+            margin-top: -10px;
+        }
+
+        .send-heading{
+            font-size: 16px;
+        }
+
+        .box-title-tran{
+            height: 30px;
+        }
+
+
+    }
+</style>
 <?php
 
 use yii\helpers\Html;
@@ -10,35 +61,43 @@ $TimeLineModel = new Timeline();
 //$this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="row" style=" margin: 0px; margin-bottom: 20px;">
 <?php if ($dataList) { ?>
     <?php
     foreach ($dataList as $rs):
         ?>
-        <div class="alert alert-dark box-list-work" role="alert" style="background: none; font-family: skv;">
-            <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
-            <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
-            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
-            <hr>
-            <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-            <?php if ($rs['flag'] != "2") { //ถ้าไม่ยกเลิก?>
-                <?php if (Yii::$app->user->identity->id == $rs['user_id'] || Yii::$app->user->identity->status == "A") { ?>
-                    <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-warning">รับงาน / แก้ไขงาน <i class="fas fa-pencil-alt"></i></a>
-                <?php } else { ?>
-                    <button type="button" class="btn btn-rounded btn-warning disabled">รับงาน / แก้ไขงาน <i class="fas fa-pencil-alt"></i></button>
-                <?php } ?>
-            <?php } else { ?>
-                <button type="button" class="btn btn-rounded btn-danger disabled">ยกเลิกงาน <i class="fas fa-remove"></i></button>
-            <?php } ?>
-            <a href="javascript:cancelJob('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger">ยกเลิก <i class="fa fa-remove"></i></a>
-            <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
+        <div class="col-md-6 col-lg-4 col-sm-6" style="margin: 0px; padding: 0px;">
+        <div class="alert alert-dark box-list-work" role="alert" style="background: #FFFFFF; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #c4c4c4 10px 10px 10px 0px;">
+            <div style=" float: left; width: 80%;">
+                <div style="height: 35px; overflow: hidden;">
+                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')">
+                        <div class="text-tran-head" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['customer'] ?></div>
+                    </a>
+                </div>
+                <div class="send-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+            </div>
+            <div style=" position: absolute; right: 10px; top: 10px;">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-dark btn-sm" style="padding: 0px 5px; width: 60px;">แก้ไข <i class="fas fa-pencil-alt"></i></a>
+                <br/>
+                <a href="javascript:cancelJob('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger btn-sm" style="margin-top: 5px;padding: 0px 5px; width: 60px;">ยกเลิก <i class="fa fa-remove"></i></a>
+            </div>
+            <div style=" clear: both;">
+                <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px;">
+                <div style=" overflow: hidden;">
+                    <p class="mb-0 status-work" style="text-align: center; white-space: nowrap;"><?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
+                </div>
+            </div>
         </div>
+    </div>
     <?php endforeach; ?>
 <?php } else { ?>
+    <div class="col-md-12 col-lg-12">
     <div class="container">
         <div class="alert alert-primary" style="text-align: center">ไม่มีงานค้าง</div>
     </div>
+</div>
 <?php } ?>
-
+</div>
 <script type="text/javascript">
     setStatusWork();
     function setStatusWork() {

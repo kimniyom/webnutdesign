@@ -71,6 +71,12 @@ $this->title = 'รับงาน';
                             <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
+
+                    <select class="form-control" style=" width: 200px; margin-right: 10px; border: 0px; background: #eeeeee;" onchange="getJob()" id="souredata">
+                        <option value="1">เรียงตามความเร่งด่วน</option>
+                        <option value="2">เรียงตามวันที่จัดส่ง</option>
+                        <option value="3">เรียงตามงานที่รับล่าสุด</option>
+                    </select>
                 </nav>
 
             </div>
@@ -278,8 +284,9 @@ $this->registerJs('
     }
 
     function getJob() {
+        var type = $("#souredata").val();
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getjob']) ?>";
-        var data = {};
+        var data = {type: type};
         $.post(url, data, function(res) {
             $("#job").html(res);
         });

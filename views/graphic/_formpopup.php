@@ -77,16 +77,11 @@ $configWeb = new ConfigWeb();
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-
-
-
-
-
 </style>
 <!-- Popup Detail -->
 
 <div class="modal fade" tabindex="-1" role="dialog" id="popupOrder" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog odal-dialog-centered" role="document">
 
         <?php $form = ActiveForm::begin(['action' => ['graphic/update', 'ref' => $model->ref], 'options' => ['enctype' => 'multipart/form-data']]); ?>
         <div class="modal-content bg-dark border-dark" style="position: relative;">
@@ -96,7 +91,7 @@ $configWeb = new ConfigWeb();
                     <div class="btn btn-danger" style=" border-radius: 15px;"><i class="fa fa-remove fa-2x"></i></div></a>
             </div>
             <div class="modal-body bg-dark" id="box-popup">
-                <div class="graphic-form-1" style=" padding: 20px; font-family: skv; font-size: 18px;">
+                <div class="graphic-form-1" style=" padding: 0px; font-family: skv; font-size: 18px;">
 
                     <label for="" style=" font-family: skv; color: #ffffff;">รายละเอียดข้อมูลใบสั่งงาน</label>
                     <?=
@@ -105,10 +100,7 @@ $configWeb = new ConfigWeb();
                         'preset' => 'basic'
                     ])->label(false);
                     ?>
-
-
                     <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => true])->label(false) ?>
-
                     <?php //$form->field($model, 'link')->textInput(['maxlength' => true])       ?>
                     <div class="form-group field-upload_files">
                         <label class="control-label" for="upload_files[]" style=" margin-bottom: 0px; padding-bottom: 0px; color: #ffffff;"> แนบไฟล์รูปภาพ </label>

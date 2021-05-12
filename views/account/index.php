@@ -86,6 +86,11 @@ $this->title = 'Accounts';
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
+
+<div class="navbar-brand" style=" color: #ffffff;" id="title-head">
+                        บัญชี
+                    </div>
+
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
@@ -141,8 +146,8 @@ $this->title = 'Accounts';
                                 ?>
                                 <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="popupMenu('<?php echo $outsides['ref'] ?>')">
                                     <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px;">
-                                        <h4>งาน: <?php echo $outsides['project_name'] ?></h4>
-                                        <p>ลูกค้า:<?php echo $outsides['customer'] ?></p>
+                                        <h4><?php echo $outsides['customer'] ?></h4>
+                                        <p>กำหนดส่ง: <?php echo $ConfigWeb->thaidate($outsides['date_getjob']) ?></p>
                                     </div>
                                 </li>
                             <?php endforeach; ?>

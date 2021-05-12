@@ -18,16 +18,17 @@ $TimeLineModel = new Timeline();
 <!--
 คิวติดตั้ง
 -->
+<div class="row" style=" margin: 0px;">
 <?php if ($dataList) { ?>
     <?php
     foreach ($dataList as $rs):
         ?>
+        <div class="col-md-6 col-lg-6" style="margin: 0px; padding: 0px;">
         <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff; font-family: skv;">
             <div class="row">
                 <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                    <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
-                    <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
-                    <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
+                    <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['customer'] ?></h2>
+                    <h3 class="alert-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4 col-6">
                     <?php if ($rs['approve'] == "0") { ?>
@@ -40,7 +41,7 @@ $TimeLineModel = new Timeline();
                         <a href="<?php echo Yii::$app->urlManager->createUrl(['setup/update', 'ref' => $rs['ref']]) ?>">
                             <div class="btn-work-nut-success">
                                 <div class="vertical-center">
-                                    <ion-icon name="bulb-outline" style="float: left;"></ion-icon> ยืนยันการติดตั้ง
+                                    เสร็จแล้ว
                                 </div>
                             </div></a>
                     <?php } ?>
@@ -50,6 +51,7 @@ $TimeLineModel = new Timeline();
             <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
             <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
         </div>
+    </div>
     <?php endforeach; ?>
 <?php } else { ?>
     <div class="container">
@@ -57,7 +59,7 @@ $TimeLineModel = new Timeline();
     </div>
 <?php } ?>
 
-
+</div>
 <script type="text/javascript">
     setStatusWork();
     function setStatusWork() {

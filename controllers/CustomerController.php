@@ -68,12 +68,12 @@ class CustomerController extends Controller {
         $ModelCustomer = new Customer();
         $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataList = $ModelCustomer->getJob();
+        //$dataList = $ModelCustomer->getJob();
         $mascancel = Mascancel::find()->all();
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'dataList' => $dataList,
+                    //'dataList' => $dataList,
                     'mascancel' => $mascancel
         ]);
     }
@@ -97,7 +97,10 @@ class CustomerController extends Controller {
 
     public function actionGetjob() {
         $ModelCustomer = new Customer();
-        $dataList = $ModelCustomer->getJob();
+
+        $type = Yii::$app->request->post("type");
+
+        $dataList = $ModelCustomer->getJob($type);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);

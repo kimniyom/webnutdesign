@@ -18,22 +18,21 @@ lส่งมอบงาน
         <?php
         foreach ($dataList as $rs):
             ?>
-            <div class="col-md-12 col-lg-6 col-12" style=" padding: 0px;">
+            <div class="col-md-6 col-lg-4 col-12" style=" padding: 0px;">
                 <div class="alert alert-dark box-list-work" role="alert"  style=" background: #ffffff; font-family: skv; margin:10px 20px;">
                     <div class="row" style=" margin: 0px;">
                         <div class="col-md-9 col-lg-9 col-sm-9 col-9">
-                            <div style="height: 39px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
-                                <h2 class="alert-heading">
-                                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></a>
-                                </h2>
+                            <div style="height: 35px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
+                                <h3 class="alert-heading">
+                                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" style=" font-weight: bold; color: rgb(184, 0, 153); line-height: 10pt;"><?php echo $rs['customer'] ?></a>
+                                </h3>
                             </div>
-                            <h3 class="alert-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></h3>
-                            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
+                            <h4 class="alert-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></h4>
                         </div>
                         <div class="col-md-3 col-lg-3 col-sm-3 col-3">
                             <div class="btn-work-nut-send" onclick="updateStatus('<?php echo $rs['ref'] ?>')">
                                 <div class="vertical-center">
-                                    <ion-icon name="color-wand-outline" style="float: left;"></ion-icon> ส่งมอบงาน
+                                    ส่งงาน
                                 </div>
                             </div>
                         </div>

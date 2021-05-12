@@ -251,7 +251,7 @@ $rule = $configWeb->getRule();
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li onclick="setMenu(0)">
-                                <a class="waves-effect waves-dark" href="#" aria-expanded="false">
+                                <a class="waves-effect waves-dark" href="<?php echo Yii::$app->urlManager->createUrl('dashboard/index') ?>" aria-expanded="false">
                                     <span class="lnr lnr-home pull-right" style="margin-right: 5px; font-size: 24px;"></span><span class="hide-menu">
                                         Dashboard
                                     </span>

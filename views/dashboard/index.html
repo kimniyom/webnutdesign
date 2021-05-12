@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="robots" content="noindex,nofollow">
+        <title>หจก.ณัฐดีไซน์ แอนด์ มีเดีย</title>
+        <style type="text/css" media="screen">
+            #popupaddwork .modal-dialog{
+                min-width: 99% !important;
+                margin-top: 10px !important;
+                margin: auto;
+            }
+
+            #detail-q{
+                position: relative;
+                overflow: auto;
+            }
+
+            #box-popup{
+                background: #eeeeee;
+            }
+
+
+            #box-popup label{
+                margin-top: 10px;
+                color: #1E90FF;
+            }
+
+
+            #popupqueue .modal-dialog{
+                min-width: 99% !important;
+                margin-top: 10px !important;
+                margin: auto;
+            }
+
+            #box-popup-graphy{
+                background: #eeeeee;
+            }
+        </style>
+        <!--
+        <link rel="canonical" href="https://www.wrappixel.com/templates/elegant-admin-lite/" />
+        -->
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo-icon.png">
+        <!-- This page CSS -->
+        <!-- chartist CSS -->
+        <link href="../assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+        <!--c3 plugins CSS -->
+        <link href="../assets/node_modules/c3-master/c3.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="dist/css/style.css" rel="stylesheet">
+        <!-- Dashboard 1 Page CSS -->
+        <link href="dist/css/pages/dashboard1.css" rel="stylesheet">
+    </head>
+
+    <body class="skin-default-dark fixed-layout">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="loader">
+                <div class="loader__figure"></div>
+                <p class="loader__label">Loading ...</p>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+            <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <!-- ============================================================== -->
+            <header class="topbar">
+                <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand">
+                            <b style=" color: #cc0066;">
+                                <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <img src="../assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+                                <span class="text-head">หจก.ณัฐดีไซน์ แอนด์ มีเดีย</span>
+                            </b>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-collapse">
+                        <!-- ============================================================== -->
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav mr-auto">
+                            <!-- This is  -->
+                            <li class="nav-item hidden-sm-up">
+                                <a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)"><i class="ti-menu"></i>
+                                </a>
+                            </li>
+
+                            <!-- ============================================================== -->
+                            <!-- Search -->
+                            <!-- ============================================================== -->
+                            <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark"
+                                                                href="javascript:void(0)"><i class="fa fa-search"></i></a>
+                                <form class="app-search">
+                                    <input type="text" class="form-control" placeholder="ค้นหาด้วยชื่อลูกค้า ..."> <a
+                                        class="srh-btn"><i class="fa fa-times"></i></a>
+                                </form>
+                            </li>
+
+
+                        </ul>
+                        <ul class="navbar-nav my-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Report <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Report 1</a>
+                                    <a class="dropdown-item" href="#">Report 2</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Report 3</a>
+                                </div>
+                            </li>
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../assets/images/users/1.png" alt="user" class="img-circle" width="30">
+                                </a>
+                                
+                            </li>
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- ============================================================== -->
+            <!-- End Topbar header -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar">
+                <div class="d-flex no-block nav-text-box align-items-center">
+                    <span>
+                        <img src="../assets/images/logo-icon.png" alt="elegant admin template">
+                    </span>
+                    <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)">
+                        <i class="ti-menu"></i>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <!--
+                            <li>
+                                <a class="waves-effect waves-dark" href="#" aria-expanded="false">
+                                    <i class="fa fa-tachometer"></i>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="index.html">Minimal </a></li>
+                                    <li><a href="index2.html">Analytical</a></li>
+                                    <li><a href="index3.html">Demographical</a></li>
+                                    <li><a href="index4.html">Modern</a></li>
+                                </ul>
+                            </li>
+                            -->
+                            <li>
+                                <a class="waves-effect waves-dark" href="index.html" aria-expanded="false">
+                                    <i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="home.html" aria-expanded="false">
+                                    <i class="fa fa-users"></i><span class="hide-menu">รับงาน</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="marketing.html" aria-expanded="false">
+                                    <i class="fa fa-tags"></i><span class="hide-menu">การตลาด</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="account.html" aria-expanded="false">
+                                    <i class="fa fa-usd"></i><span class="hide-menu">บัญชี / ใบเสนอราคา</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="graphy.html" aria-expanded="false">
+                                    <i class="fa fa-paint-brush"></i><span class="hide-menu">กราฟิก</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="menager.html" aria-expanded="false">
+                                    <i class="fa fa-user-secret"></i><span class="hide-menu">ผู้อนุมัติสั่งผลิต / ตรวจสอบงาน</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="branch-print.html" aria-expanded="false">
+                                    <i class="fa fa-print"></i><span class="hide-menu">งานพิมพ์</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="branch-cnc.html" aria-expanded="false">
+                                    <i class="fa fa-magnet"></i><span class="hide-menu">งาน CNC</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="branch-manufacture.html" aria-expanded="false">
+                                    <i class="fa fa-codepen"></i><span class="hide-menu">ผลิตทั่วไป</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="technician.html" aria-expanded="false">
+                                    <i class="fa fa-wrench"></i><span class="hide-menu">ช่าง</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="transport.html" aria-expanded="false">
+                                    <i class="fa fa-truck"></i><span class="hide-menu">ฝ่ายจัดส่ง</span>
+                                </a>
+                            </li>
+                            <hr/>
+                            <li>
+                                <a class="waves-effect waves-warning" href="#" aria-expanded="false">
+                                    <i class="fa fa-cogs text-warning"></i>
+                                    <span class="hide-menu text-warning">ตั้งค่า</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="#" aria-expanded="false">
+                                    <i class="fa fa-sign-out text-danger"></i>
+                                    <span class="hide-menu text-danger">Log Out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                <!-- ============================================================== -->
+                <!-- Container fluid  -->
+                <!-- ============================================================== -->
+                <div class="container-fluid" style="padding-bottom: 0px;">
+
+                    <!-- ============================================================== -->
+                    <!-- Bread crumb and right sidebar toggle -->
+                    <!-- ============================================================== -->
+                    <div class="row page-titles" style="margin-bottom: 0px; padding-top:0px; ">
+                        <div class="col-md-5 align-self-center">
+                            <h4 class="text-themecolor">ภาพรวม</h4>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Bread crumb and right sidebar toggle -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Yearly Sales -->
+                    <!-- ============================================================== -->
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col-lg-3 col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title" style="margin: 0px;">
+                                        <div class="input-group mb-2 mr-sm-2">
+                                            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="ค้นหา...">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="fa fa-search"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="body-work" style="margin-top: 10px; overflow: auto;">
+                                        <div class="alert alert-success" role="alert" style="background: none;">
+                                            <h4 class="alert-heading">ลูกค้า คุณXXX XXX</h4>
+                                            <p>รายละเอียดงาน ...</p>
+                                            <p>การติดตั้ง: ไม่ติดตั้ง</p>
+                                            <hr>
+                                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-info" onclick="popupaddwork()">รายละเอียด</a>
+                                            <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> ฝ่าย CNC</p>
+                                        </div>
+
+                                        <div class="alert alert-success" role="alert" style="background: none;">
+                                            <h4 class="alert-heading">ลูกค้า คุณDemo Demo</h4>
+                                            <p>รายละเอียดงาน ...</p>
+                                            <p>การติดตั้ง: ไม่ติดตั้ง</p>
+                                            <hr>
+                                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-info" onclick="popupaddwork()">รายละเอียด</a>
+                                            <p class="mb-0 pull-right" style="text-align: center;">สถานะล่าสุด <br/> กราฟิก</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style=" padding-top: 60px;">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title" style=" text-align: center; margin-bottom: 0px; ">
+                                        <img class="img-circle" alt="user" src="../assets/images/graphic-designer.png" style=" margin-top: -80px; background: #ffffff;"><br/>
+                                        <h4 style=" margin-top: 10px;">กราฟิก</h4>
+                                    </div>
+
+                                    <div id="body-history" style="overflow: auto; margin-top: 0px; padding-top: 0px;">
+                                        <div class="steamline m-t-40" style=" margin-top: 0px;">
+                                            <div class="sl-item">
+                                                <div class="sl-left bg-success"> <i class="fa fa-user"></i></div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">PDK SK
+                                                    </div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-primary badge-pill">5</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left bg-info"><i class="fa fa-image"></i></div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">SMEANGKEANG</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-primary badge-pill">4</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img class="img-circle" alt="user"
+                                                                           src="../assets/images/users/1.png"> </div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">โอ๋</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-primary badge-pill">3</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style=" padding-top: 60px;">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title" style=" text-align: center; margin-bottom: 0px;">
+                                        <img class="img-circle" alt="user" src="../assets/images/laser-cutting-machine.png" style=" margin-top: -80px; background: #ffffff;"><br/>
+                                        <h4 style=" margin-top: 10px;">ฝ่ายผลิต</h4>
+                                    </div>
+
+                                    <div class="body-history" style="overflow: auto;">
+                                        <div class="steamline m-t-40">
+                                            <div class="sl-item">
+                                                <div class="sl-left">
+                                                    <img class="img-circle" alt="user" src="../assets/images/printers.png"> </div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">งานพิมพ์
+                                                    </div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-info badge-pill">5</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left"><img class="img-circle" alt="user" src="../assets/images/milling-machine.png" style=" background: #eeeeee"> </div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">CNC</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-info badge-pill">4</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img class="img-circle" alt="user" src="../assets/images/cogs.png" style=" background: #eeeeee"> </div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">ทั่วไป</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-info badge-pill">3</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img class="img-circle" alt="user" src="../assets/images/engineer.png" style=" background: #eeeeee"> </div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">ช่าง / ติดตั้ง</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-info badge-pill">6</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style=" padding-top: 60px;">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title" style=" text-align: center; margin-bottom: 0px; ">
+                                        <img class="img-circle" alt="user" src="../assets/images/contacting.png" style=" margin-top: -80px; background: #ffffff;"><br/>
+                                        <h4 style=" margin-top: 10px;">รับงาน</h4>
+                                    </div>
+
+                                    <div class="body-history" style="overflow: auto;">
+                                        <div class="steamline m-t-40">
+                                            <div class="sl-item">
+                                                <div class="sl-left bg-success"> <i class="fa fa-check"></i></div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">ตกลงซื้อ
+                                                    </div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-dark badge-pill">5</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left bg-danger"> <i class="fa fa-remove"></i></div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">ไม่ซื้อ</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-dark badge-pill">4</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sl-item">
+                                                <div class="sl-left bg-warning"> <i class="fa fa-info-circle"></i></div>
+                                                <div class="sl-right">
+                                                    <div class="font-medium">รอดำเนินการ</div>
+                                                    <div class="desc">
+                                                        จำนวนงาน <span class="badge badge-dark badge-pill">3</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Page wrapper  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+
+
+        <!-- เอาคิวข้าว -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">ข้อมูลรายละเอียดงาน</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body" id="box-popup">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <i class="fa fa-user"></i> ข้อมูลลูกค้า
+                                        </div>
+                                        <div class="card-body box-popup-left"  style="overflow: auto;">
+                                            <label>ชื่อ - สกุล(ลูกค้า) *</label>
+                                            <input type="text" name="fullname" id="fullname" class="form-control" disabled>
+                                            <label >ลูกค้าติดต่อมาที่ช่องทาง *</label>
+                                            <select id="contactcustomer" name="contactcustomer" class="form-control" disabled>
+                                                <option value="1">Line</option>
+                                                <option value="2">โทรศัพท์</option>
+                                                <option value="3">มาที่ร้าน</option>
+                                            </select>
+                                            <label >เบอร์โทรศัพท์ลูกค้า *(ex.0800233232)</label>
+                                            <input type="text" name="tel" id="tel" class="form-control" maxlength="10"  onKeyUp="if (this.value * 1 != this.value)
+                                                        this.value = '';" disabled>
+                                            <label >ช่องทางการติดต่ออื่น ๆ</label>
+                                            <textarea class="form-control" rows="3" id="contactetc" disabled></textarea>
+                                            <label >ที่อยู่(ถ้ามีการจัดส่งจำเป็นต้องใส่)</label>
+                                            <textarea class="form-control" rows="3" id="address" disabled></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <i class="fa fa-briefcase"></i> ข้อมูลรายละเอียดงาน
+                                        </div>
+                                        <div class="card-body box-popup-right"  style="overflow: auto;">
+                                            <label >ประเภทงาน *</label>
+                                            <select id="contactcustomer" name="contactcustomer" class="form-control" disabled="disabled">
+                                                <option value="1">งานพิมพ์</option>
+                                                <option value="2">CNC</option>
+                                                <option value="3">ผลิตทั่วไป</option>
+                                            </select>
+                                            <label >รายละเอียดงาน *</label>
+                                            <textarea class="form-control" rows="3" id="contactetc" disabled="disabled">
+                                                ...............................................
+                                            </textarea>
+
+                                            <br/>
+                                            <label >วันที่ลูกค้ารับงาน *</label>
+                                            <input type="text" id="datepicker"  value="20/03/2564" disabled="disabled"/>
+
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4">
+                                                    <label >ความเร่งด่วน *</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked disabled>
+                                                        ทั่วไป
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2" disabled>
+                                                        เร่งด่วน
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4">
+                                                    <label >การจัดส่ง *</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="tranfer" id="tranfer1" value="1" checked disabled>
+                                                        รับเอง
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="tranfer" id="tranfer2" value="2" disabled>
+                                                        จัดส่ง
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4">
+                                                    <label >การติดตั้ง *</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="setup" id="setup" value="1" checked disabled>
+                                                        ไม่มี
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="setup" id="setup" value="2" disabled>
+                                                        มี
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <hr/>
+                                            <h4>กราฟิก (นาย A รับงาน)</h4>
+                                            <label >วันที่ส่งงานออกแบบ *</label>
+                                            <input type="text" id="datesend"  value="20/03/2564" disabled="disabled"/>
+
+                                            <label>แบบงาน</label>
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4" style="padding: 10px;">
+                                                    <div style=" height: 250px; background: #eeeeee; border-radius: 10px;"></div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4" style="padding: 10px;">
+                                                    <div style=" height: 250px; background: #eeeeee; border-radius: 10px;"></div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4" style=" padding: 10px;">
+                                                    <div style=" height: 250px; background: #eeeeee; border-radius: 10px;"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <i class="fa fa-briefcase"></i> อนุมัติสั่งผลิตงาน
+                                        </div>
+                                        <div class="card-body box-popup-right"  style="overflow: auto;">
+
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked onclick="chcektype(1)" disabled>
+                                                        ต้องส่งผลิต
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2" onclick="chcektype(2)" disabled>
+                                                        ไม่ต้องส่งผลิต
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="detail-box">
+                                                <label >รายละเอียดงาน / คำสั่งงาน *</label>
+                                                <textarea class="form-control" rows="3" id="contactetc" disabled></textarea>
+
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFile">
+                                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                                </div>
+
+                                                <label >ขนาด *</label>
+                                                <input type="text" name="tel" id="tel" class="form-control" maxlength="10"  onKeyUp="if (this.value * 1 != this.value)
+                                                            this.value = '';" disabled>
+                                                <label >จำนวน *</label>
+                                                <input type="text" name="tel" id="tel" class="form-control" maxlength="10"  onKeyUp="if (this.value * 1 != this.value)
+                                                            this.value = '';" disabled>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center;">
+                        <div style=" text-align: center;">
+                            พนักงานที่รับงาน Demo Demo | กราฟิก A
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="popupconfirm" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">ยืนยัน</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-block" onclick="javascript:window.location.reload()"><i class="fa fa-save"></i> ยืนยันสินค้าถึงลูกค้า</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="popupqueue" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">รายละเอียดการจัดส่ง</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body" id="box-popup-graphy">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-8">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            ลูกค้า
+                                        </div>
+                                        <div class="card-body box-popup-left" style="overflow: auto;">
+                                            <label>ชื่อ - สกุล(ลูกค้า) *</label>
+                                            <input type="text" name="fullname" id="fullname" class="form-control" disabled>
+                                            <label >เบอร์โทรศัพท์ลูกค้า *(ex.0800233232)</label>
+                                            <input type="text" name="tel" id="tel" class="form-control" maxlength="10"  onKeyUp="if (this.value * 1 != this.value)
+                                                        this.value = '';" disabled>
+                                            <label >ช่องทางการติดต่ออื่น ๆ</label>
+                                            <textarea class="form-control" rows="3" id="contactetc" disabled></textarea>
+                                            <label >ที่อยู่</label>
+                                            <textarea class="form-control" rows="3" id="address" disabled></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <i class="fa fa-briefcase"></i> ข้อมูลจัดส่ง
+                                        </div>
+                                        <div class="card-body box-popup-right"  style="overflow: auto;">
+
+                                            <label>เลขพัสดุ</label>
+                                            <input type="text" name="tel" id="tel" class="form-control" >
+                                            <label>รายละเอียด</label>
+                                            <textarea class="form-control" rows="5" id="contactetc"></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center;">
+                        <div style=" float: left; position: absolute; left: 5px;">
+                            พนักงานที่รับงาน Demo Demo |  กราฟิก A
+                        </div>
+                        <button type="button" class="btn btn-success" onclick="javascript:window.location.reload()"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="dist/js/sweetalert2.js"></script>
+        <script src="../assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap popper Core JavaScript -->
+        <script src="../assets/node_modules/popper/popper.min.js"></script>
+        <script src="../assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
+        <!--Wave Effects -->
+        <script src="dist/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="dist/js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="dist/js/custom.min.js"></script>
+        <!-- ============================================================== -->
+        <!-- This page plugins -->
+        <!-- ============================================================== -->
+        <!--morris JavaScript -->
+        <script src="../assets/node_modules/raphael/raphael-min.js"></script>
+        <script src="../assets/node_modules/morrisjs/morris.min.js"></script>
+        <script src="../assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <!--c3 JavaScript -->
+        <script src="../assets/node_modules/d3/d3.min.js"></script>
+        <script src="../assets/node_modules/c3-master/c3.min.js"></script>
+        <!-- Chart JS -->
+        <script src="dist/js/dashboard1.js"></script>
+
+        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+        <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+
+        <script type="text/javascript">
+                            setScreen();
+                            function popupaddwork() {
+                                $("#popupaddwork").modal();
+                            }
+
+                            function popupconfirm() {
+                                $("#popupconfirm").modal();
+                            }
+
+                            function popupqueue() {
+                                $("#popupqueue").modal();
+                            }
+
+                            function setScreen() {
+                                var h = window.innerHeight;
+                                var w = window.innerWidth;
+
+                                var boxH = ((h / 2) - 109);
+
+                                $("#box-popup").css({"height": h - 150});
+                                $("#box-popup-graphy").css({"height": h - 150});
+                                $("#body-work").css({"height": h - 227});
+                                $("#body-history").css({"height": h - 300});
+                                $(".body-history").css({"height": h - 300});
+
+                                $(".box-popup-left").css({"height": h - 220});
+                                $(".box-popup-right").css({"height": h - 220});
+
+                                if(w < 500){
+                                    $(".text-head").hide();
+                                } else {
+                                    $(".text-head").show();
+                                }
+                            }
+
+                            function saveWork() {
+                                Swal.fire('Success!', '', 'success');
+                                window.location.reload();
+                            }
+
+                            $('#datepicker').datepicker({
+                                uiLibrary: 'bootstrap4'
+                            });
+
+                            $('#datesend').datepicker({
+                                uiLibrary: 'bootstrap4'
+                            });
+
+                            function chcektype(type) {
+                                if (type == 1) {
+                                    $("#detail-box").show();
+                                } else {
+                                    $("#detail-box").hide();
+                                }
+                            }
+        </script>
+    </body>
+
+</html>

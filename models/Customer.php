@@ -105,7 +105,7 @@ class Customer extends \yii\db\ActiveRecord {
         return $preview;
     }
 
-    function getJob() {
+    function getJob($type) {
         if (!Yii::$app->user->isGuest) {
             $status = Yii::$app->user->identity->status;
             $user_id = Yii::$app->user->identity->id;
@@ -114,10 +114,18 @@ class Customer extends \yii\db\ActiveRecord {
             $user_id = "";
         }
 
-        if ($status == "A" || $status == "M") {
-            $sql = "select * from customer where flag = '0'";
+        if ($type == 1) {
+            $order = "order by c.fast desc,c.level desc";
+        } else if ($type == 2) {
+            $order = "order by c.date_getjob asc";
         } else {
-            $sql = "select * from customer where flag = '0' and user_id = '$user_id'";
+            $order = "order by c.create_date desc";
+        }
+
+        if ($status == "A" || $status == "M") {
+            $sql = "select * from customer c where c.flag = '0' $order";
+        } else {
+            $sql = "select * from customer c where c.flag = '0' and user_id = '$user_id' $order";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();

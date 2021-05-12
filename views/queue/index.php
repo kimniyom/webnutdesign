@@ -17,6 +17,9 @@ $this->title = 'Queue';
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
+                    <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
+                        คิวงาน
+                    </div>
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
@@ -58,9 +61,8 @@ $this->title = 'Queue';
                                     ?>
                                     <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="getViews('<?php echo $queue['ref'] ?>')">
                                         <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px; padding-bottom: 25px;">
-                                            <h4>งาน: <?php echo $queue['project_name'] ?></h4>
+                                            <h4><?php echo $queue['customer'] ?></h4>
                                             <p>
-                                            <ion-icon name="people-circle-outline"></ion-icon> ลูกค้า:<?php echo $queue['customer'] ?>
                                             <ion-icon name="calendar-outline"></ion-icon> วันที่ติดตั้ง: <?php echo $ConfigWeb->thaidate($queue['queuedate']) ?>
                                             </p>
                                             <p class="pull-right text-danger"> <?php echo ($queue['approve'] == 0) ? "ช่างยังไม่รับงาน" : "ช่างรับงานแล้ว"; ?></p>
