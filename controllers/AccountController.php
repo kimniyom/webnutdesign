@@ -278,9 +278,9 @@ class AccountController extends Controller {
         $comment = Yii::$app->request->post('comment');
 
         $columns = array(
-            "flag" => 1,
+            "flag" => '1',
             "comment" => $comment,
-            "approve" => 1,
+            "approve" => '1',
             "confirmdate" => date("Y-m-d H:i:s")
         );
         //update customer

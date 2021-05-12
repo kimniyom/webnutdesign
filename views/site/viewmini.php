@@ -226,7 +226,9 @@ $CustomerModel = new Customer();
                 ?>
                 <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
                 <div class="alert alert-success">
-                    <?php echo $graphic['detail'] ?>
+                    <div class="content-graphic">
+                        <?php echo $graphic['detail'] ?>
+                    </div>
                     <label><i class="fa fa-user text-warning"></i> โดย::<?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
                 </div>
                 <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
@@ -269,13 +271,18 @@ $CustomerModel = new Customer();
 $this->registerJs('
         $(document).ready(function(){
             setScreensView();
-
+            SetImgResponsive(".content-graphic");
+            $(".content-graphic img").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
         });
     ');
 ?>
 
 <script type="text/javascript">
     setImg();
+    
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
@@ -299,7 +306,26 @@ $this->registerJs('
     });
 
     function setImg() {
-
-        $(".boxdetailgf img").addClass("img img-responsive");
+        $(".boxdetailgf img").addClass("img img-responsive fancybox");
+        $(".content-graphic img").addClass("img img-responsive fancybox");
     }
+
+    function SetImgResponsive(BoxID) {
+        var BoxPost = BoxID;
+        var tn_array = $(BoxPost + ' img').map(function () {
+            return $(this).attr("id");
+        });
+
+        for (var i = 0; i < tn_array.length; i++) {
+            var tagimg = tn_array[i];
+            var widthimg = $(BoxPost).width();
+            var img = $(BoxPost + " #" + tagimg).width();
+            if (img >= widthimg) {
+                $(BoxPost + " #" + tagimg).addClass("img-responsive");
+                $(BoxPost + " #" + tagimg).css({"width": "auto", "height": "auto"});
+            }
+        }
+
+    }
+
 </script>

@@ -97,8 +97,8 @@ class Graphic extends \yii\db\ActiveRecord {
             $sql = "select c.*,g.status,g.approve as approver from graphic g INNER JOIN customer c ON g.ref = c.ref
                     where g.approve != '1' and g.status != '2' and c.flag = '0' $order";
         } else {
-            $sql = "select c.*,g.status from graphic g INNER JOIN customer c ON g.ref = c.ref
-                    where g.approve,g.approve as approver != '1' and g.status != '2' and c.flag = '0'  $order";
+            $sql = "select c.*,g.status,g.approve as approver from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve != '1' and g.status != '2' and c.flag = '0'  $order";
         }
 
         //echo $sql;

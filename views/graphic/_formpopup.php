@@ -94,12 +94,28 @@ $configWeb = new ConfigWeb();
                 <div class="graphic-form-1" style=" padding: 0px; font-family: skv; font-size: 18px;">
 
                     <label for="" style=" font-family: skv; color: #ffffff;">รายละเอียดข้อมูลใบสั่งงาน</label>
-                    <?=
+                    <?php
+                    /*
                     $form->field($model, 'detail')->widget(CKEditor::className(), [
                         'options' => ['rows' => 6],
                         'preset' => 'basic'
                     ])->label(false);
+                    */
                     ?>
+
+                       <?=
+                        $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
+                            'clientOptions' => [
+                                //'imageManagerJson' => ['/redactor/upload/image-json'],
+                                //'imageUpload' => ['/redactor/upload/image'],
+                                //'fileUpload' => ['/redactor/upload/file'],
+                                'lang' => 'th',
+                                'plugins' => ['fontcolor', 'fullscreen'], //'clips',
+                                'buttonsHide' => ['deleted','file', 'html', 'format'],//'image'
+                                'minHeight' => '300px'
+                            ]
+                        ])->label(false)
+                        ?>
                     <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => true])->label(false) ?>
                     <?php //$form->field($model, 'link')->textInput(['maxlength' => true])       ?>
                     <div class="form-group field-upload_files">
