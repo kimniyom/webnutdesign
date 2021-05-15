@@ -51,20 +51,25 @@ $this->title = 'รับงาน';
 </style>
 <div class="customer-index">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
-        <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left: 10px;">
+        <div class="card-content" >
+            <div class="card-body" style=" padding: 0px; padding-left: 10px; font-family: skv; padding-top: 5px;">
                 <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
-                    <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
+                    <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style=" float: left;">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['customer/create']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-success"><i class="fa fa-plus"></i> สร้างใหม่</button>
                     </a>
+                    <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: left; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
+                        <option value="1">เร่งด่วน</option>
+                        <option value="2">วันที่จัดส่ง</option>
+                        <option value="3">รับล่าสุด</option>
+                    </select>
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style=" float: left;">
                         <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
                             <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer">
                             <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" >
@@ -72,11 +77,7 @@ $this->title = 'รับงาน';
                         </div>
                     </div>
 
-                    <select class="form-control" style=" width: 200px; margin-right: 10px; border: 0px; background: #eeeeee;" onchange="getJob()" id="souredata">
-                        <option value="1">เรียงตามความเร่งด่วน</option>
-                        <option value="2">เรียงตามวันที่จัดส่ง</option>
-                        <option value="3">เรียงตามงานที่รับล่าสุด</option>
-                    </select>
+
                 </nav>
 
             </div>
@@ -117,36 +118,6 @@ $this->title = 'รับงาน';
             </div>
         </div>
     </div>
-
-    <?php /*
-      GridView::widget([
-      'dataProvider' => $dataProvider,
-      'filterModel' => $searchModel,
-      'columns' => [
-      ['class' => 'yii\grid\SerialColumn'],
-      'id',
-      'project_name',
-      'customer',
-      'tel',
-      'channel',
-      'channel_etc',
-      'address',
-      'typework',
-      'detail:ntext',
-      'file',
-      'date_getjob',
-      'time_getjob',
-      'cur_dep',
-      'last_dep',
-      'create_date',
-      'user_id',
-
-      ['class' => 'yii\grid\ActionColumn'],
-      ],
-      ]);
-     */ ?>
-
-
 </div>
 
 <!-- Popup Detail -->
@@ -158,7 +129,6 @@ $this->title = 'รับงาน';
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
                     <span aria-hidden="true">&times;</span>
                 </button>
-
             </div>
             <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>

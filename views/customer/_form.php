@@ -28,7 +28,7 @@ use kartik\select2\Select2;
                 </a>
                 <div class="pull-right">
 
-                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-outline-success btn-rounded']) ?>
+                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-dark btn-rounded']) ?>
                 </div>
             </div>
         </div>
@@ -36,11 +36,11 @@ use kartik\select2\Select2;
 
     <div class="row" style="margin-top: 0px; padding-top: 0px; font-family: skv;">
         <div class="col-md-6 col-lg-6" style="padding-right: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px;">
-                <div class="card-header">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left: 0px;">
+                <div class="card-header" style=" background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
-                <div class="card-body" id="box-popup-left" style="overflow: auto;">
+                <div class="card-body" id="box-popup-left" style="overflow: auto; background: #eac0d6;">
                     <?= $form->field($model, 'customer')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
                     <?=
@@ -63,10 +63,10 @@ use kartik\select2\Select2;
         <div class="col-md-6 col-lg-6" style=" padding-left: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;">
                 <div class="card-content" >
-                    <div class="card-header">
+                    <div class="card-header" style="background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                         <i class="fa fa-briefcase"></i> รายละเอียดงานการคุยงาน
                     </div>
-                    <div class="card-body" id="box-popup-right" style="overflow: auto;">
+                    <div class="card-body" id="box-popup-right" style="overflow: auto; background: #eac0d6;">
                         <?= $form->field($model, 'project_name')->textInput(['maxlength' => true]) ?>
                         <?php $form->field($model, 'typework')->textInput() ?>
 
@@ -80,7 +80,7 @@ use kartik\select2\Select2;
                                 //'fileUpload' => ['/redactor/upload/file'],
                                 'lang' => 'th',
                                 'plugins' => ['fontcolor', 'fullscreen'], //'clips',
-                                'buttonsHide' => ['deleted','image','file', 'html', 'format'],//'image'
+                                'buttonsHide' => ['deleted', 'image', 'file', 'html', 'format'], //'image'
                                 'minHeight' => '300px'
                             ]
                         ])->label(false)
@@ -88,9 +88,9 @@ use kartik\select2\Select2;
 
                         <?php ///$form->field($model, 'file')->textInput(['maxlength' => true])  ?>
 
-                        <div class="form-group field-upload_files">
+                        <div class="form-group field-upload_files" >
                             <label class="control-label" for="upload_files[]" style=" margin-bottom: 0px; padding-bottom: 0px;"> แนบไฟล์หรือรูปภาพที่คุยกับลูกค้า </label>
-                            <div style=" padding-top:0px;">
+                            <div style=" padding-top:0px; background: #FFFFFF; border-radius: 5px; padding: 5px;">
                                 <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => 255])->label(false); ?>
                                 <?=
                                 FileInput::widget([
@@ -153,7 +153,7 @@ use kartik\select2\Select2;
                         <div class="row">
                             <div class="col-md-4 col-lg-4">
                                 <?=
-                                $form->field($model, 'transport')->radioList(['0' => "ไม่ต้องจัดส่ง", '1' => "ต้องจัดส่ง"])
+                                $form->field($model, 'transport')->radioList(['0' => "รับหน้าร้าน", '1' => "จัดส่ง"])
                                 ?>
                             </div>
                             <div class="col-md-4 col-lg-4">
@@ -161,7 +161,7 @@ use kartik\select2\Select2;
                                 $form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])
                                 ?>
                             </div>
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-4 col-lg-4" style=" display: none;">
                                 <?=
                                 $form->field($model, 'fast')->radioList(['0' => "ทั่วไป", '1' => "ด่วนสำคัญ"])
                                 ?>
@@ -221,13 +221,13 @@ use kartik\select2\Select2;
                                          */
                                         ?>
                                         <div class="row">
-                                            <div class="col-md-3 col-lg-3 col-6">
+                                            <div class="col-md-4 col-lg-4 col-6">
                                                 <label class="dupcheckbox">กราฟิก
                                                     <input type="checkbox" value="3" name="cur_dep[]">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <div class="col-md-3 col-lg-3 col-6">
+                                            <div class="col-md-4 col-lg-4 col-6">
                                                 <label class="dupcheckbox">บัญชี
                                                     <input type="checkbox" value="4" name="cur_dep[]">
                                                     <span class="checkmark"></span>

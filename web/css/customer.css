@@ -34,18 +34,20 @@ and open the template in the editor.
     border: #cccccc solid 1px;
 }
 .customer-form label{
-    color: #0066ff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
 }
 .customer-form .card-header{
     font-weight: bold;
     color: #000000;
     background: #f4f4f4;
     border-radius: 4px 4px 0px 0px;
-    border-bottom: solid 1px #cccccc;
+    border-bottom: solid 1px #ffffff;
 }
 
 .customer-form #head-toolbar{
-    border: solid #cccccc 1px;
+    border: solid #cccccc 0px;
     border-radius: 0px;
 }
 
@@ -54,7 +56,7 @@ and open the template in the editor.
 }
 
 .customer-form .card{
-    border: solid #cccccc 1px;
+    border: solid #de93bc 1px;
     border-radius: 0px;
 }
 

@@ -27,10 +27,9 @@ File: scss
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,600,700");
 
 .skin-default-dark {
-
+    background: #eac0d6;
     /*Theme Colors*/ }
-.skin-default-dark .topbar {
-    background: #fff; }
+.skin-default-dark .topbar { }
 .skin-default-dark .topbar .navbar-dark .navbar-nav .nav-link {
     color: #adb5bd; }
 .skin-default-dark .sidebar-nav ul li a.active, .skin-default-dark .sidebar-nav ul li a:hover {
@@ -51,15 +50,18 @@ File: scss
 .skin-default-dark .left-sidebar {
     background: #2b2f3a; }
 .skin-default-dark .left-sidebar .user-pro-body a.link {
-    color: #8991a9; }
+    color: #000000; }
 .skin-default-dark .left-sidebar .nav-text-box {
     border-color: transparent;
     background: rgba(0, 0, 0, 0.3); }
 .skin-default-dark .left-sidebar .sidebar-nav > ul > li > a, .skin-default-dark .left-sidebar .sidebar-nav ul li a {
-    color: #8991a9;
+    color: #000000;
+    font-size: 20px;
     -webkit-transition: 0.1s ease-in;
     -o-transition: 0.1s ease-in;
-    transition: 0.1s ease-in; }
+    transition: 0.1s ease-in;
+    font-weight: bold;
+}
 .skin-default-dark .left-sidebar .sidebar-nav > ul > li > a i, .skin-default-dark .left-sidebar .sidebar-nav ul li a i {
     color: #7f879b; }
 .skin-default-dark .left-sidebar .sidebar-nav > ul > li > a:hover i, .skin-default-dark .left-sidebar .sidebar-nav > ul > li > a:hover, .skin-default-dark .left-sidebar .sidebar-nav ul li a:hover i, .skin-default-dark .left-sidebar .sidebar-nav ul li a:hover {
@@ -560,7 +562,9 @@ pre code {
 
 @media (min-width: 992px) {
     .container, .container-sm, .container-md, .container-lg {
-        max-width: 960px; } }
+        max-width: 960px;
+    }
+}
 
 @media (min-width: 1600px) {
     .container, .container-sm, .container-md, .container-lg, .container-xl {
@@ -4006,7 +4010,8 @@ input[type="button"].btn-block {
         flex-flow: row nowrap;
         -webkit-box-pack: start;
         -ms-flex-pack: start;
-        justify-content: flex-start; }
+        justify-content: flex-start;
+    }
     .navbar-expand-lg .navbar-nav {
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
@@ -12028,7 +12033,7 @@ sidebar navigation
 .sidebar-nav ul li {
     list-style: none; }
 .sidebar-nav ul li a {
-    color: #54667a;
+    color: #000000;
     padding: 10px 15px 10px 15px;
     display: block;
     -webkit-box-align: center;
@@ -13001,7 +13006,7 @@ Fixed -Header
 /*******************
 Mini sidebar
 ******************/
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
     .left-sidebar:hover {
         left: 0px; }
     .navbar-header {
@@ -13015,13 +13020,13 @@ Mini sidebar
         width: 220px; }
     .lock-nav .page-wrapper,
     .lock-nav .footer {
-        margin-left: 220px; }
+        margin-left: 250px; }
     .lock-nav .topbar {
         padding-left: 220px; }
     .lock-nav .topbar .navbar-header {
         margin-left: 0px; } }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .show-sidebar .left-sidebar {
         left: 0px; }
     .left-sidebar {
