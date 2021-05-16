@@ -16,7 +16,7 @@ $TimeLineModel = new Timeline();
         <div class="alert alert-dark box-list-work" role="alert" style="background: none;">
             <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rs['project_name'] ?></h2>
             <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo $rs['time_getjob'] ?></h3>
-            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['customer'] ?></h4>
+            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rs['project_name'] ?></h4>
             <hr>
             <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
 

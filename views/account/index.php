@@ -29,7 +29,7 @@
     }
 
     .account-index .card-header{
-        background-image: linear-gradient(to right, #16222A 0%, #3A6073  100%);
+        background: #de93bc;
         border-radius: 0px;
         border:0px;
         color:#ffffff;
@@ -79,15 +79,15 @@ $this->title = 'Accounts';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-index">
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border:0px;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border:0px; font-family: skv;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left:0px;">
-                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
+            <div class="card-body" style=" padding: 0px; padding-left:0px; padding-top: 5px; ">
+                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px; padding-left: 10px;">
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
 
-<div class="navbar-brand" style=" color: #ffffff;" id="title-head">
+                    <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
                         บัญชี
                     </div>
 
@@ -114,7 +114,7 @@ $this->title = 'Accounts';
                 <div class="card-header">
                     <i class="far fa-file-alt text-info"></i> ออกใบเสนอราคา / แนบใบเสนอราคา
                 </div>
-                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #eeeeee;">
+                <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #eac0d6;">
                     <div id="jobaccount"></div>
                 </div>
             </div>
@@ -140,11 +140,11 @@ $this->title = 'Accounts';
                     <div class="card-header">
                         <i class="fas fa-truck-pickup text-danger"></i> ส่งผลิตนอกร้าน
                     </div>
-                    <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px; background: #eeeeee;">
+                    <div class="card-body" id="box-timeline" style="overflow: auto; padding: 0px; background: #eac0d6;">
                         <ul class="list-group" style=" padding: 0px; margin: 0px;">
                             <?php foreach ($outside as $outsides):
                                 ?>
-                                <li class="list-group-item" style="border: none; border-bottom: solid 1px #eeeeee; background:#eeeeee" onclick="popupMenu('<?php echo $outsides['ref'] ?>')">
+                                <li class="list-group-item" style="border: none; border-bottom: solid 0px #eeeeee;background: #eac0d6;" onclick="popupMenu('<?php echo $outsides['ref'] ?>')">
                                     <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px;">
                                         <h4><?php echo $outsides['customer'] ?></h4>
                                         <p>กำหนดส่ง: <?php echo $ConfigWeb->thaidate($outsides['date_getjob']) ?></p>
@@ -223,16 +223,17 @@ $this->registerJs('
 
 <script type="text/javascript">
     setInterval(function() {
+        loadJobConfirm();
         loadJobAccount();
     }, 300000);
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
         if (w > 768) {
-            $("#box-popup-left").css({"height": h - 184});
-            $("#box-popup-right").css({"height": h - 184});
-            $("#box-timeline").css({"height": h - 184});
-            $("#box-content").css({"height": h - 184});
+            $("#box-popup-left").css({"height": h - 190});
+            $("#box-popup-right").css({"height": h - 190});
+            $("#box-timeline").css({"height": h - 190});
+            $("#box-content").css({"height": h - 190});
         } else {
             $(".modal-dialog").addClass("modal-dialog-scrollable");
             $(".mr-sm-2").css({"margin-top": "10px"});
@@ -307,6 +308,7 @@ $this->registerJs('
                     timer: 1500
                 });
                 loadJobConfirm();
+                loadJobAccount();
                 //window.location.reload();
             } else {
                 Swal.fire('Warning!', 'เกิดข้อผิดพลาด...', 'warning');

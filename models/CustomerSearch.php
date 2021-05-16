@@ -17,7 +17,7 @@ class CustomerSearch extends Customer {
     public function rules() {
         return [
             [['id', 'channel', 'typework', 'last_dep', 'user_id'], 'integer'],
-            [['project_name', 'customer', 'tel', 'channel_etc', 'address', 'detail', 'file', 'date_getjob', 'time_getjob', 'create_date', 'cur_dep'], 'safe'],
+            [['project_name', 'customer', 'tel', 'channel_etc', 'lineid', 'address', 'detail', 'file', 'date_getjob', 'time_getjob', 'create_date', 'cur_dep'], 'safe'],
         ];
     }
 
@@ -57,6 +57,8 @@ class CustomerSearch extends Customer {
         $query->andFilterWhere([
             'id' => $this->id,
             'channel' => $this->channel,
+            'channel_etc' => $this->channel_etc,
+            'lineid' => $this->lineid,
             'typework' => $this->typework,
             'date_getjob' => $this->date_getjob,
             'time_getjob' => $this->time_getjob,
@@ -70,6 +72,7 @@ class CustomerSearch extends Customer {
                 ->andFilterWhere(['like', 'customer', $this->customer])
                 ->andFilterWhere(['like', 'tel', $this->tel])
                 ->andFilterWhere(['like', 'channel_etc', $this->channel_etc])
+                ->andFilterWhere(['like', 'lineid', $this->lineid])
                 ->andFilterWhere(['like', 'address', $this->address])
                 ->andFilterWhere(['like', 'detail', $this->detail])
                 ->andFilterWhere(['like', 'file', $this->file]);

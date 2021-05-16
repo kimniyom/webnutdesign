@@ -41,13 +41,25 @@ class Customer extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'channel_etc', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment'], 'required'],
+            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment'], 'required'],
+            ['lineid', 'required', 'when' => function ($model) {
+                    return $model->channel == 1;
+                }, 'whenClient' => "function (attribute, value) {
+                return $('#Customer-channel').val() == 1;
+            }",
+            ],
+            ['channel_etc', 'required', 'when' => function ($model) {
+                    return $model->channel == 4;
+                }, 'whenClient' => "function (attribute, value) {
+                return $('#Customer-channel').val() == 4;
+            }"
+            ],
             [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel', 'level', 'payment'], 'integer'],
             [['detail'], 'string'],
             [['cur_dep'], 'safe'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
-            [['project_name', 'channel_etc', 'address', 'ref', 'canceletc'], 'string', 'max' => 255],
-            [['customer', 'tel'], 'string', 'max' => 100]
+            [['project_name', 'channel_etc', 'lineid', 'address', 'ref', 'canceletc'], 'string', 'max' => 255],
+            [['customer', 'tel'], 'string', 'max' => 100],
                 // 'file'
                 // 'cur_dep'
         ];
@@ -63,7 +75,8 @@ class Customer extends \yii\db\ActiveRecord {
             'customer' => 'ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง',
             'tel' => 'เบอร์โทรศัพท์',
             'channel' => 'ช่องทางที่ลูกค้าติดต่อ',
-            'channel_etc' => 'อื่น ๆ ระบุ เช่น line Id',
+            'lineid' => 'Line ID',
+            'channel_etc' => 'อื่น ๆ ระบุ เช่น ฝากช่างมา',
             'address' => 'ที่อยู่ / ข้อมูลการจัดส่ง',
             'typework' => 'ประเภทงาน',
             'detail' => 'รายละเอียดงาน',

@@ -51,6 +51,9 @@ use kartik\select2\Select2;
                     <div id="ch_etc" style=" display: none;">
                         <?= $form->field($model, 'channel_etc')->textInput(['maxlength' => true]) ?>
                     </div>
+                    <div id="ch_line" style=" display: none;">
+                        <?= $form->field($model, 'lineid')->textInput(['maxlength' => true]) ?>
+                    </div>
                     <?= $form->field($model, 'address')->textarea(['rows' => 5]) ?>
 
                     <?=
@@ -151,12 +154,12 @@ use kartik\select2\Select2;
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-6 col-lg-6">
                                 <?=
                                 $form->field($model, 'transport')->radioList(['0' => "รับหน้าร้าน", '1' => "จัดส่ง"])
                                 ?>
                             </div>
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-6 col-lg-6">
                                 <?=
                                 $form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])
                                 ?>
@@ -228,8 +231,20 @@ use kartik\select2\Select2;
                                                 </label>
                                             </div>
                                             <div class="col-md-4 col-lg-4 col-6">
-                                                <label class="dupcheckbox">บัญชี
-                                                    <input type="checkbox" value="4" name="cur_dep[]">
+                                                <label class="dupcheckbox">งานพิมพ์
+                                                    <input type="checkbox" value="5" name="cur_dep[]">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-6">
+                                                <label class="dupcheckbox">CNC / Laser
+                                                    <input type="checkbox" value="6" name="cur_dep[]">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-6">
+                                                <label class="dupcheckbox">ผลิตทั่วไป
+                                                    <input type="checkbox" value="7" name="cur_dep[]">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -285,21 +300,29 @@ $this->registerJs('
 
     function setChannel() {
         var channel = $('input[name="Customer[channel]"]:checked').val();
-        if (channel == 1 || channel == 4) {
-            $("#customer-channel_etc").val("");
+        if (channel == 1) {
+            $("#ch_line").show();
+            $("#ch_etc").hide();
+        } else if (channel == 4) {
             $("#ch_etc").show();
+            $("#ch_line").hide();
         } else {
             $("#ch_etc").hide();
-            $("#customer-channel_etc").val("-");
+            $("#ch_line").hide();
         }
     }
 
     function setChannelLoad() {
         var channel = $('input[name="Customer[channel]"]:checked').val();
-        if (channel == 1 || channel == 4) {
+        if (channel == 1) {
+            $("#ch_line").show();
+            $("#ch_etc").hide();
+        } else if (channel == 4) {
             $("#ch_etc").show();
+            $("#ch_line").hide();
         } else {
             $("#ch_etc").hide();
+            $("#ch_line").hide();
         }
     }
 

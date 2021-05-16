@@ -51,21 +51,21 @@ class AccountController extends Controller {
     function getQuotation() {
         $sql = "SELECT c.*
                     FROM account a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`status` = '0' AND c.flag = '0'";
+                    WHERE a.`status` = '0' AND c.flag = '0' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function getWorkNonApprove() {
         $sql = "SELECT c.*
                 FROM customer c
-                WHERE c.flag = '0' AND c.outside = '0'";
+                WHERE c.flag = '0' AND c.outside = '0' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function getWorkOutside() {
         $sql = "SELECT c.*
                 FROM customer c
-                WHERE c.flag = '0' AND c.outside = '1'";
+                WHERE c.flag = '0' AND c.outside = '1' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -168,8 +168,8 @@ class AccountController extends Controller {
                         ->execute();
             }
             //ส่งไปแผนก
-            $depVal = array('3');
-            $this->sendDepartment($depVal, $model->ref);
+            //$depVal = array('3');
+            //$this->sendDepartment($depVal, $model->ref);
 
             return $this->redirect(['index']);
             //return $this->redirect(['view', 'ref' => $model->ref]);
