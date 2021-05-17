@@ -710,4 +710,14 @@ class CustomerController extends Controller {
         }
     }
 
+    public function actionGetqueue(){
+        $model = new Customer();
+        $datesend = Yii::$app->request->post('datesend');
+        $data['jobToday'] = $model->getJobToDay($datesend);
+        $data['jobTomorow'] = $model->getJobTomorow($datesend);
+        $data['datetomorow'] = $model->getTomorow($datesend);
+        $data['dateselect'] = $datesend;
+        return $this->renderPartial('queue', $data);
+    }
+
 }

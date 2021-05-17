@@ -4,7 +4,7 @@
         height: 15px; /* Can be anything */
         position: relative;
         margin: 0px 0 0px 0; /* Just for demo spacing */
-        background: #555;
+        background: #d25fa0;
         border-radius: 25px;
         padding: 2px;
         box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
@@ -128,7 +128,7 @@ $GraphicLog = new GraphicLog();
             $flag = $GraphicLog->getFlag($rs['ref']);
             ?>
             <div class="col-md-6 col-lg-6" style=" padding: 0px;">
-                <div class="alert alert-dark box-list-work" role="alert" style="background: #666666; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
+                <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
                     <?php if ($flag == 1) { ?>
                         <div class="badge" style=" padding: 10px 15px; border-radius: 15px; background: red; position: absolute; top: -10px; right: -10px; text-align: center;"><i class="fa fa-info" style="color:#ffffff;"></i></div>
                     <?php } ?>
@@ -174,37 +174,31 @@ $GraphicLog = new GraphicLog();
 
                         </div>
                     </div>
-                    <div style=" clear: both; border-top: solid 3px #8a8a8a; padding-top: 10px;">
+                    <div style=" clear: both; border-top: solid 3px #ffffff; padding-top: 10px;">
                         <div style=" float: left; width: 65%;">
                             <?php
-                            if ($rs['fast'] == 1) {
-                                $text = "ด่วนสำคัญ";
-                                $color = "red";
-                                $percent = "100%";
-                            } else {
-
                                 if ($rs['level'] == 1) {
                                     $text = "ระดับ 1";
                                     $color = "green";
-                                    $percent = "25%";
+                                    $percent = "30%";
                                 } else if ($rs['level'] == 2) {
                                     $text = "ระดับ 2";
                                     $color = "orange";
-                                    $percent = "35%";
+                                    $percent = "40%";
                                 } else if ($rs['level'] == 3) {
                                     $text = "ระดับ 3";
                                     $color = "orange";
-                                    $percent = "50%";
+                                    $percent = "60%";
                                 } else if ($rs['level'] == 4) {
                                     $text = "ด่วน";
                                     $color = "red";
-                                    $percent = "65%";
+                                    $percent = "80%";
                                 } else {
                                     $text = "ด่วนมาก";
                                     $color = "red";
-                                    $percent = "80%";
+                                    $percent = "100%";
                                 }
-                            }
+                            
                             ?>
                             <div class="meter <?php echo $color ?> nostripes">
                                 <span style="width: <?php echo $percent ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">

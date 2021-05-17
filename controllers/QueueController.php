@@ -61,7 +61,7 @@ class QueueController extends Controller {
     function getWork() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`confirm` = '0'";
+                    WHERE a.`confirm` = '0' and c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -69,7 +69,7 @@ class QueueController extends Controller {
     function getQueue() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`confirm` = '1' AND a.approve != '2' order by a.queuedate ASC";
+                    WHERE a.`confirm` = '1' AND a.approve != '2' AND c.flag = '0' order by a.queuedate ASC";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 

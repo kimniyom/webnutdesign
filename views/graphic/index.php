@@ -16,10 +16,10 @@ $this->title = 'กราฟิก / ออกแบบ';
 ?>
 <style type="text/css" media="screen">
     html,body{
-        background: #535353;
+        background: #eac0d6;
     }
     #main-wrapper{
-        background: #535353;
+        background: #eac0d6;
     }
 
     .my-box-search input[type='search']{
@@ -29,11 +29,11 @@ $this->title = 'กราฟิก / ออกแบบ';
     }
 
 </style>
-<div class="graphic-index" style=" background: #535353;">
+<div class="graphic-index" style=" background: #eac0d6;">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
-                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
+                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px; font-family: skv; padding-top: 5px;">
 
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
@@ -42,10 +42,10 @@ $this->title = 'กราฟิก / ออกแบบ';
                         กราฟิก
                     </div>
 
-                    <select class="form-control" style=" width: 200px; margin-right: 10px; border: 0px; background: #eeeeee;" onchange="getJob()" id="souredata">
-                        <option value="1">เรียงตามความเร่งด่วน</option>
-                        <option value="2">เรียงตามวันที่จัดส่ง</option>
-                        <option value="3">เรียงตามงานที่รับล่าสุด</option>
+                    <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: left; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
+                        <option value="1">เร่งด่วน</option>
+                        <option value="2">วันที่จัดส่ง</option>
+                        <option value="3">รับล่าสุด</option>
                     </select>
                     <!--
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style=" display: none">
@@ -68,7 +68,7 @@ $this->title = 'กราฟิก / ออกแบบ';
 
     <div class="row" style="margin-bottom: 0px;">
         <div class="col-lg-12 col-md-12">
-            <div id="body-work" style="margin-top: 10px; overflow: auto; background: #535353;">
+            <div id="body-work" style="margin-top: 10px; overflow: auto;">
                 <div id="job">
                     <div style="text-align: center; margin-top: 10%;">Loading...</div>
                 </div>
@@ -143,7 +143,7 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        $(".tab-bottom").css({"background": "#535353", "border-top": "0px", "color": "#ffffff"});
+        $(".tab-bottom").css({"border-top": "0px", "color": "#ffffff"});
 
         if (w > 768) {
             $("#body-work").css({"height": h - 160});

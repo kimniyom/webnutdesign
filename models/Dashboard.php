@@ -25,7 +25,7 @@ class Dashboard {
     function countCustomerFast(){
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM customer c
-            WHERE c.flag = '0' AND c.fast = '1'";
+            WHERE c.flag = '0' AND c.level = '5'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -41,16 +41,16 @@ class Dashboard {
     //Account
     function countAccountNopaper(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM account c
-            WHERE c.approve = '0'";
+            FROM account c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve = '0' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
      function countOutside(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM customer c
-            WHERE c.flag = '0' AND c.outside = '1'";
+            FROM customer c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.flag = '0' AND c.outside = '1' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -58,16 +58,16 @@ class Dashboard {
     //Graphic
     function countGraphicNopaper(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM graphic c
-            WHERE c.approve = '0'";
+            FROM graphic c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve = '0' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countGraphicApproveToday(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM graphic c
-            WHERE c.approve = '1' AND LEFT(c.update_date,10) = DATE(NOW())";
+            FROM graphic c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve = '1' AND LEFT(c.update_date,10) = DATE(NOW()) AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -75,16 +75,16 @@ class Dashboard {
      //Print
     function countPrintNoapprove(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM branchprint c
-            WHERE c.status != '4'";
+            FROM branchprint c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '4' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countPrintApproveToday(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM branchprint c
-            WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW())";
+            FROM branchprint c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW()) AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -92,16 +92,16 @@ class Dashboard {
     //Cnc/Laser
     function countLaserNoapprove(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM branchlaser c
-            WHERE c.status != '4'";
+            FROM branchlaser c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '4' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countLaserApproveToday(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM branchlaser c
-            WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW())";
+            FROM branchlaser c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW()) AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -109,16 +109,16 @@ class Dashboard {
     //ผลิตทั่วไป
     function countFactureNoapprove(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM branchfacture c
-            WHERE c.status != '4'";
+            FROM branchfacture c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '4' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countFactureApproveToday(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM branchfacture c
-            WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW())";
+            FROM branchfacture c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW()) AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -126,16 +126,16 @@ class Dashboard {
     //ติดตั้ง
     function countQueueNoapprove(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM queue c
-            WHERE c.approve != '2'";
+            FROM queue c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve != '2' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countQueueApproveToday(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM queue c
-            WHERE c.approve = '2' AND LEFT(c.queuedate,10) = DATE(NOW())";
+            FROM queue c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve = '2' AND LEFT(c.queuedate,10) = DATE(NOW()) AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
@@ -143,16 +143,16 @@ class Dashboard {
     //จัดส่ง
     function countTransportNoapprove(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM transport c
-            WHERE c.status != '1'";
+            FROM transport c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '1' AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countTransportApproveToday(){
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM transport c
-            WHERE c.status = '2' AND LEFT(c.confirm_date,10) = DATE(NOW())";
+            FROM transport c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status = '2' AND LEFT(c.confirm_date,10) = DATE(NOW())  AND m.flag = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }

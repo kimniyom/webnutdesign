@@ -59,6 +59,9 @@ use kartik\select2\Select2;
                     <?=
                     $form->field($model, 'payment')->radioList([1 => "ยังไม่ชำระเงิน", 2 => "วางมัดจำ", 3 => "ชำระ้งินแล้ว"]);
                     ?>
+
+                    <hr/>
+                    <div id="queue"></div>
                 </div>
 
             </div>
@@ -132,8 +135,11 @@ use kartik\select2\Select2;
                                     'pluginOptions' => [
                                         'format' => 'yyyy-mm-dd',
                                         'todayHighlight' => true,
-                                        'autoclose' => true
-                                    ]
+                                        'autoclose' => true,
+                                    ],
+                                    'pluginEvents' =>[
+                                        "changeDate" => "function(e) { getJobSend(); }",
+                                    ]    
                                 ]);
                                 ?>
                             </div>
@@ -276,11 +282,31 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<!-- Popup Detail -->
+<div class="modal fade " tabindex="-1" role="dialog" id="popupdate" data-backdrop="static" >
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content  bg-dark" style="position: relative;">
+            <div class="modal-header border-dark">
+                <h5 class="modal-title text-white" style=" text-align: center; font-family: skv;">คิวงาน</h5>
+
+            </div>
+            <div class="modal-body" id="box-popup" style=" font-family: skv; ">
+                <div id="queue-popup"></div>
+            </div>
+            <div class=" modal-footer border-dark">
+                    <button type="button" class="btn btn-danger btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
 $this->registerJs('
         $(document).ready(function(){
             setScreens();
             setChannelLoad();
+            LoadgetJobSend();
         });
             ');
 ?>
@@ -337,5 +363,25 @@ $this->registerJs('
             //$("#customer-cur_dep").prop("readonly", false);
             $("#showaccountalert").hide();
         }
+    }
+
+    function LoadgetJobSend(){
+        var dateSend = $("#customer-date_getjob").val();
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getqueue']) ?>";
+        var data = {datesend: dateSend};
+        $.post(url,data,function(res){
+            $("#queue").html(res);
+        });
+    }
+
+    function getJobSend(){
+        var dateSend = $("#customer-date_getjob").val();
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getqueue']) ?>";
+        var data = {datesend: dateSend};
+        $.post(url,data,function(res){
+            $("#popupdate").modal();
+            $("#queue").html(res);
+            $("#queue-popup").html(res);
+        });
     }
 </script>

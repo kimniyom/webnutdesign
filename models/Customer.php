@@ -161,8 +161,27 @@ class Customer extends \yii\db\ActiveRecord {
     }
 
     function getJobAll() {
-        $sql = "select * from customer";
+        $sql = "select * from customer order by date_getjob desc";
         return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getJobToDay($date){
+         $sql = "SELECT * FROM customer
+            WHERE date_getjob = '$date'
+            AND flag = '0'";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getJobTomorow($date){
+         $sql = "SELECT * FROM customer
+            WHERE date_getjob = DATE_ADD('$date', INTERVAL 1 DAY)
+            AND flag = '0'";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getTomorow($date){
+         $sql= "SELECT DATE_ADD('$date', INTERVAL 1 DAY) as tomorow";
+         return Yii::$app->db->createCommand($sql)->queryOne()['tomorow'];
     }
 
 }

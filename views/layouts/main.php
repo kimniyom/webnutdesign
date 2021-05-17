@@ -38,6 +38,9 @@ $rule = $configWeb->getRule();
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        
+        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/css/jquery.dataTables.css" rel="stylesheet">
+
         <style>
 
             /* Works on Firefox */
@@ -344,6 +347,7 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery/jquery-3.2.1.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
         <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        
         <!---->
         <?php $this->endBody() ?>
 
@@ -371,6 +375,7 @@ $rule = $configWeb->getRule();
         <!--c3 JavaScript -->
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/d3/d3.min.js"></script>
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/jquery.dataTables.js"></script>
 
         <!--
                 <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ?>/theme/assets/gijgo/gijgo.min.js"></script>

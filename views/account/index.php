@@ -185,7 +185,6 @@ $this->title = 'Accounts';
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
                     <span aria-hidden="true">&times;</span>
                 </button>
-
             </div>
             <div class="modal-body" id="box-popup" >
                 <div id="view-customer"></div>
@@ -195,12 +194,15 @@ $this->title = 'Accounts';
 </div>
 
 <!-- Menu -->
-<div class="modal fade" tabindex="-1" role="dialog" id="popupmenu" data-backdrop="static">
+<div class="modal fade" tabindex="-1" role="dialog" id="popupmenu" data-backdrop="static" style="background: #111111;">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content" style="position: relative;">
-            <div class="modal-body">
-                <input type="hidden" name="" id="ref">
+            <div class="modal-body bg-dark">
                 <button class="btn btn-danger btn-rounded pull-right" data-dismiss="modal" aria-label="Close" id="btn-exit" style="padding:0px 5px;"><i class="fa fa-remove"></i></button>
+                <input type="hidden" name="" id="ref">
+                <p class="text-danger" style="text-align: center;">*ต้องตรวจเช็คข้อมูลงานก่อนยืนยันทุกครั้ง<br/>
+                ให้แน่ใจว่างานส่งมอบให้ลูกค้าแล้ว</p>
+                <hr/>
                 <label>Comment ถ้ามี</label>
                 <textarea class="form-control" rows="8" id="comment"></textarea>
                 <button type="button" class="btn btn-success btn-block btn-rounded" onclick="confirmWork()"><i class="fa fa-check"></i> ยืนยัน</button>
