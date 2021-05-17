@@ -91,7 +91,7 @@ $this->title = 'Accounts';
                         บัญชี
                     </div>
 
-                    <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 10px;">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
 
@@ -112,7 +112,7 @@ $this->title = 'Accounts';
         <div class="col-md-4 col-lg-4" style="padding-right: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border:0px; margin-bottom: 0px;">
                 <div class="card-header">
-                    <i class="far fa-file-alt text-info"></i> ออกใบเสนอราคา / แนบใบเสนอราคา
+                    <i class="far fa-file-alt text-info"></i> ออกใบเสนอราคา
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto; padding: 5px; background: #eac0d6;">
                     <div id="jobaccount"></div>
@@ -231,16 +231,29 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        if (w > 768) {
+        if (w > 1024) {
             $("#box-popup-left").css({"height": h - 190});
             $("#box-popup-right").css({"height": h - 190});
             $("#box-timeline").css({"height": h - 190});
             $("#box-content").css({"height": h - 190});
         } else {
+            if(w > 768){
+                $("#box-popup-left").css({"height": h - 190});
+                $("#box-popup-right").css({"height": h - 190});
+                $("#box-timeline").css({"height": h - 190});
+                $("#box-content").css({"height": h - 190});
+            } 
             $(".modal-dialog").addClass("modal-dialog-scrollable");
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px", "margin-left": "10px"});
+
+            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
+            $("#title-head").hide();
+            $("#icon-menu-ham").css({"margin-left": "0px"});
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='color:#ffffff'>บัญชี</font>");
+        
         }
     }
 

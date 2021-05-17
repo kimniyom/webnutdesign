@@ -31,6 +31,7 @@
         .text-tran-head{
             font-size: 20px;
             line-height: 10pt;
+            margin-top: 8px;
         }
 
         .alert-heading{
@@ -103,7 +104,8 @@ $TimeLineModel = new Timeline();
     setStatusWork();
     function setStatusWork() {
         var w = window.innerWidth;
-        if (w < 768) {
+
+        if (w < 1024) {
             $(".status-work").removeClass('mb-0 pull-right');
             $(".status-work").css({"width": "100%", "margin-top": "10px"});
         }

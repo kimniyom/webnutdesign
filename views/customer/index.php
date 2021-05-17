@@ -184,13 +184,19 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        if (w > 768) {
+        if (w > 1024) {
             $("#body-work").css({"height": h - 170});
             $("#body-history").css({"height": h - 210});
         } else {
+
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
+            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
+            $("#title-head").hide();
+            $("#icon-menu-ham").css({"margin-left": "0px"});
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='color:#ffffff'>รับงาน</font>");
         }
     }
 

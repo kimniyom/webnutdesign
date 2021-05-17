@@ -39,8 +39,11 @@ $rule = $configWeb->getRule();
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
         
+        <!-- Datatable -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/css/jquery.dataTables.css" rel="stylesheet">
 
+        <!-- screen Mobile -->
+        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/screen-mobile.css" rel="stylesheet">
         <style>
 
             /* Works on Firefox */
@@ -402,7 +405,7 @@ $rule = $configWeb->getRule();
                                         function fixheader() {
 
                                             var w = window.innerWidth;
-                                            if (w <= 768) {
+                                            if (w <= 1024) {
                                                 if (window.pageYOffset > 20) {
                                                     $("#head-toolbar").css({"position": "fixed", "width": "100%", "margin-top": "0px", "z-index": "100"});
                                                 } else {
@@ -419,6 +422,7 @@ $rule = $configWeb->getRule();
                                                 $(".text-head").hide();
                                                 $(".navbar-header").show();
                                                 $("#logo-head-sidebar").css({"margin-left": "20px"});
+                                                $("#logo-home").hide();
                                             } else {
                                                 //$(".left-sidebar").css({"left": "0px"});
 

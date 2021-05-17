@@ -27,7 +27,7 @@ use yii\helpers\Url;
                 </a>
 
                 <div class="pull-right">
-                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-outline-success btn-rounded']) ?>
+                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-dark btn-rounded']) ?>
                 </div>
             </div>
         </div>

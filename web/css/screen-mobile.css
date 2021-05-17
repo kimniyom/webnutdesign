@@ -1,0 +1,13 @@
+    .sourecombo{
+        -webkit-appearance: none;
+        width: 100px;
+        height: 40px;
+        border-radius: 20px;
+        margin-top: 2px;
+        background-color: #000000;
+        color: #FFFFFF;
+        border:0px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: skv;
+    }

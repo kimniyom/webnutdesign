@@ -16,14 +16,14 @@ $this->title = "cnc / laser";
 ?>
 <style type="text/css" media="screen">
     html,body{
-        background: #535353;
+        background: #eac0d6;
     }
     #main-wrapper{
-        background: #535353;
+        background: #eac0d6;
     }
 
     .page-wrapper{
-        background: #535353 !important;
+        background: #eac0d6 !important;
     }
 
     .my-box-search input[type='search']{
@@ -33,21 +33,22 @@ $this->title = "cnc / laser";
     }
 
 </style>
-<div class="branchlaser-index" style=" background: #535353;">
+<div class="branchlaser-index" style=" background: #eac0d6;">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left: 10px;">
-                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
+            <div class="card-body" style=" padding: 0px; padding-left: 10px; padding-top: 5px;">
+                
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
                     <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
                         CNC/LASER
                     </div>
+
+                    <!--
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
-
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
                             <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
@@ -55,13 +56,13 @@ $this->title = "cnc / laser";
                             <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
-
-                    <select class="form-control" style=" width: 200px; margin-right: 10px; border: 0px; background: #eeeeee;" onchange="getJob()" id="souredata">
-                        <option value="1">เรียงตามความเร่งด่วน</option>
-                        <option value="2">เรียงตามวันที่จัดส่ง</option>
-                        <option value="3">เรียงตามงานที่รับล่าสุด</option>
+                    -->
+                    <select class="sourecombo pull-right" style="margin-right: 10px;" onchange="getJob()" id="souredata">
+                        <option value="1">เร่งด่วน</option>
+                        <option value="2">วันที่จัดส่ง</option>
+                        <option value="3">รับล่าสุด</option>
                     </select>
-                </nav>
+            
 
             </div>
         </div>
@@ -89,7 +90,7 @@ $this->title = "cnc / laser";
 </div>
 
 <!-- Popup Detail -->
-<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
+<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style="background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">
@@ -145,21 +146,26 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        $(".tab-bottom").css({"background": "#535353", "border-top": "0px", "color": "#ffffff"});
-        if (w > 768) {
+        $(".tab-bottom").css({"background": "#eac0d6", "border-top": "0px", "color": "#ffffff"});
+
+        if (w > 1024) {
             $("#body-work").css({"height": h - 150});
             $("#body-history").css({"height": h - 210});
-        } else {
+            //$("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+        } else if(w > 500){
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
-            $(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
-            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+            //$(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
+            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
-            $("#icon-menu-ham").css({"margin-left": "20px"});
+            $("#icon-menu-ham").css({"margin-left": "0px"});
             $(".text-head-mobile").show();
-            $(".head-mobile").html("CNC / LASER");
-
+            $(".head-mobile").html("<font style='color:#FFFFFF;'>CNC / LASER</font>");
+            //$(".sourecombo").css({"background": "#eac0d6"});
+        } else {
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='font-size:20px;color:#ffffff;'>CNC / LASER</font>");
         }
     }
 
