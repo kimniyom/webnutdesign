@@ -41,7 +41,7 @@ class Customer extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment','typecustomer'], 'required'],
+            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment', 'typecustomer'], 'required'],
             ['lineid', 'required', 'when' => function ($model) {
                     return $model->channel == 1;
                 }, 'whenClient' => "function (attribute, value) {
@@ -54,7 +54,7 @@ class Customer extends \yii\db\ActiveRecord {
                 return $('#Customer-channel').val() == 4;
             }"
             ],
-            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel', 'level', 'payment','typecustomer'], 'integer'],
+            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel', 'level', 'payment', 'typecustomer'], 'integer'],
             [['detail'], 'string'],
             [['cur_dep'], 'safe'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
@@ -162,27 +162,27 @@ class Customer extends \yii\db\ActiveRecord {
     }
 
     function getJobAll() {
-        $sql = "select * from customer order by date_getjob desc";
+        $sql = "select * from customer order by flag ASC,date_getjob ASC";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-    function getJobToDay($date){
-         $sql = "SELECT * FROM customer
+    function getJobToDay($date) {
+        $sql = "SELECT * FROM customer
             WHERE date_getjob = '$date'
             AND flag = '0'";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-    function getJobTomorow($date){
-         $sql = "SELECT * FROM customer
+    function getJobTomorow($date) {
+        $sql = "SELECT * FROM customer
             WHERE date_getjob = DATE_ADD('$date', INTERVAL 1 DAY)
             AND flag = '0'";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-    function getTomorow($date){
-         $sql= "SELECT DATE_ADD('$date', INTERVAL 1 DAY) as tomorow";
-         return Yii::$app->db->createCommand($sql)->queryOne()['tomorow'];
+    function getTomorow($date) {
+        $sql = "SELECT DATE_ADD('$date', INTERVAL 1 DAY) as tomorow";
+        return Yii::$app->db->createCommand($sql)->queryOne()['tomorow'];
     }
 
 }

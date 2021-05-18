@@ -16,15 +16,15 @@ $this->title = "ผลิตทั่วไป";
 ?>
 <style type="text/css" media="screen">
     html,body{
-        background: #535353;
+        background: #eac0d6;
     }
     #main-wrapper{
-        background: #535353;
+        background: #eac0d6;
     }
 
 
     .page-wrapper{
-        background: #535353;
+        background: #eac0d6;
     }
 
     .my-box-search input[type='search']{
@@ -34,7 +34,7 @@ $this->title = "ผลิตทั่วไป";
     }
 
 </style>
-<div class="branchlaser-index" style=" background: #535353;">
+<div class="branchlaser-index" style=" background: #eac0d6; font-family: skv;">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px;">
@@ -43,7 +43,7 @@ $this->title = "ผลิตทั่วไป";
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
 
-                     <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
+                    <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
                         ผลิตทั่วไป
                     </div>
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,22 +146,27 @@ $this->registerJs('
         var h = window.innerHeight;
         var w = window.innerWidth;
 
-        $(".tab-bottom").css({"background": "#535353", "border-top": "0px", "color": "#ffffff"});
-        $(".page-wrapper").css({"background": "#535353"});
+        $(".tab-bottom").css({"background": "#eac0d6", "border-top": "0px", "color": "#ffffff"});
+        $(".page-wrapper").css({"background": "#eac0d6"});
 
-        if (w > 768) {
-            $("#body-work").css({"height": h - 170});
+        if (w > 1024) {
+            $("#body-work").css({"height": h - 150});
             $("#body-history").css({"height": h - 210});
-        } else {
+            //$("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+        } else if (w > 500) {
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
-            $(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
-            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+            //$(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
+            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
-            $("#icon-menu-ham").css({"margin-left": "20px"});
+            $("#icon-menu-ham").css({"margin-left": "0px"});
             $(".text-head-mobile").show();
-            $(".head-mobile").html("ผลิตทั่วไป");
+            $(".head-mobile").html("<font style='color:#FFFFFF;'>ผลิตทั่วไป</font>");
+            //$(".sourecombo").css({"background": "#eac0d6"});
+        } else {
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='font-size:20px;color:#ffffff;'>ผลิตทั่วไป</font>");
         }
     }
 
@@ -176,9 +181,9 @@ $this->registerJs('
 
     function getViews(ref, status) {
         $("#_ref").val(ref);
-        
+
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
-        
+
         if (status == 1) {
             $("#btnSendWork").show();
         } else {

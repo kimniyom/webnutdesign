@@ -8,14 +8,14 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="typecustomer-form">
+<div class="typecustomer-form container" style=" margin-top: 10px;">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'typename')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('บันทึกข้อมูล', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -16,15 +16,15 @@ $this->title = "งานพิมพ์";
 ?>
 <style type="text/css" media="screen">
     html,body{
-        background: #535353;
+        background: #eac0d6;
     }
     #main-wrapper{
-        background: #535353;
+        background: #eac0d6;
     }
 
 
     .page-wrapper{
-        background: #535353;
+        background: #eac0d6;
     }
 
     .my-box-search input[type='search']{
@@ -34,10 +34,10 @@ $this->title = "งานพิมพ์";
     }
 
 </style>
-<div class="branchprint-index" style=" background: #535353;">
+<div class="branchprint-index" style=" background: #eac0d6;">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left: 10px;">
+            <div class="card-body" style=" padding: 0px; padding-left: 10px; font-family: skv;">
                 <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
@@ -144,23 +144,26 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        $(".tab-bottom").css({"background": "#535353", "border-top": "0px", "color": "#ffffff"});
-        $(".page-wrapper").css({"background": "#535353"});
-        if (w > 768) {
-            $("#body-work").css({"height": h - 140});
+        $(".tab-bottom").css({"background": "#eac0d6", "border-top": "0px", "color": "#ffffff"});
+        $(".page-wrapper").css({"background": "#eac0d6"});
+        if (w > 1024) {
+            $("#body-work").css({"height": h - 150});
             $("#body-history").css({"height": h - 210});
-        } else {
-
+            //$("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+        } else if (w > 500) {
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
-            $(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
-            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
+            //$(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
+            $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
-            $("#icon-menu-ham").css({"margin-left": "20px"});
+            $("#icon-menu-ham").css({"margin-left": "0px"});
             $(".text-head-mobile").show();
-            $(".head-mobile").html("งานพิมพ์");
-
+            $(".head-mobile").html("<font style='color:#FFFFFF;'>งานพิมพ์</font>");
+            //$(".sourecombo").css({"background": "#eac0d6"});
+        } else {
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='font-size:20px;color:#ffffff;'>งานพิมพ์</font>");
         }
     }
 

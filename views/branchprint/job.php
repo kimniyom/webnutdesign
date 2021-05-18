@@ -5,7 +5,7 @@
         height: 15px; /* Can be anything */
         position: relative;
         margin: 0px 0 0px 0; /* Just for demo spacing */
-        background: #555;
+        background: #d25fa0;
         border-radius: 25px;
         padding: 2px;
         box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
@@ -58,6 +58,11 @@
     .animate > span:after {
         display: none;
     }
+
+    .yellow > span {
+        background-image: linear-gradient(#ffff00, #ffff00);
+    }
+
     .orange > span {
         background-image: linear-gradient(#f1a165, #f36d0a);
     }
@@ -120,71 +125,18 @@ $TimeLineModel = new Timeline();
 ?>
 
 <!--
-งานที่รับเห็นเฉพาะของ User
--->
-<div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px;">
-    <?php if (Yii::$app->user->identity->status == "U") { ?>
-        <?php if ($dataListjob) { ?>
-            <?php
-            foreach ($dataListjob as $rss):
-                ?>
-                <div class="col-md-6 col-lg-6" style=" padding: 0px;">
-                    <div class="alert alert-dark box-list-work" role="alert" style="background: #666666; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
-                        <div>
-                            <div style=" width: 80%; float: left;">
-                                <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
-                                    <h2 class="alert-heading" >
-                                        <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rss['ref'] ?>')"><?php echo $rss['customer'] ?></span>
-                                    </h2>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--
-                        <div class="row">
-                            <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                                <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php //echo $rss['project_name']                                ?></h2>
-                                <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php //echo $ConfigWeb->thaidate($rss['date_getjob'])                                ?> <?php //echo $rss['time_getjob']                                ?></h3>
-                                <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php //echo $rss['customer']                                ?></h4>
-                            </div>
-                            <div class="col-md-4 col-lg-4 col-sm-4 col-6">
-
-                                <div class="btn-work-nut-success" onclick="updateStatus('<?php //echo $rss['ref']                                ?>', '4')" >
-                                    <div class="vertical-center">
-                                        ยืนยันการผลิต
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <a href="javascript:getViews('<?php //echo $rss['ref']                                ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                        <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php //echo $TimeLineModel->getLastTimeline($rss['ref'])                                ?></p>
-                        -->
-
-
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php } else { ?>
-            <div class="container">
-                <div class="alert alert-danger" style="text-align: center">ไม่มีงานค้าง</div>
-            </div>
-        <?php } ?>
-    <?php } ?>
-</div>
-<!--
 งานที่ส่งมาจากแผนกอื่นยังไม่มีคนรับ
 -->
 
-<input type="hidden" id="_ref"/>
-<div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px;">
 
+<div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px;">
+    <input type="hidden" id="_ref"/>
     <?php if ($dataList) { ?>
         <?php
         foreach ($dataList as $rs):
             ?>
             <div class="col-md-6 col-lg-6" style=" padding: 0px;">
-                <div class="alert alert-dark box-list-work" role="alert" style="background: #666666; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
+                <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
 
                     <div>
                         <div style=" width: 80%; float: left;">
@@ -213,7 +165,7 @@ $TimeLineModel = new Timeline();
                         </div>
                     </div>
 
-                    <div style=" clear: both; border-top: solid 3px #8a8a8a; padding-top: 10px;">
+                    <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
                         <div style=" float: left; width: 65%;">
                             <?php
                             if ($rs['fast'] == 1) {
@@ -228,7 +180,7 @@ $TimeLineModel = new Timeline();
                                     $percent = "25%";
                                 } else if ($rs['level'] == 2) {
                                     $text = "ระดับ 2";
-                                    $color = "orange";
+                                    $color = "green";
                                     $percent = "35%";
                                 } else if ($rs['level'] == 3) {
                                     $text = "ระดับ 3";
@@ -258,24 +210,24 @@ $TimeLineModel = new Timeline();
 
                     <div class="row">
                         <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                            <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php //echo $rs['project_name']                             ?></h2>
-                            <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php //echo $ConfigWeb->thaidate($rs['date_getjob'])                             ?> <?php //echo $rs['time_getjob']                             ?></h3>
-                            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php //echo $rs['customer']                             ?></h4>
+                            <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php //echo $rs['project_name']                                           ?></h2>
+                            <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php //echo $ConfigWeb->thaidate($rs['date_getjob'])                                           ?> <?php //echo $rs['time_getjob']                                           ?></h3>
+                            <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php //echo $rs['customer']                                           ?></h4>
                         </div>
                         <div class="col-md-4 col-lg-4 col-sm-4 col-6">
                     <?php //if ($rs['status'] == "1") { ?>
-                                <div class="btn-work-nut-send" onclick="updateStatus('<?php //echo $rs['ref']                             ?>', '2')">
+                                <div class="btn-work-nut-send" onclick="updateStatus('<?php //echo $rs['ref']                                           ?>', '2')">
                                     <div class="vertical-center">
                                         รับงาน
                                     </div>
                                 </div>
-                                <div class="btn-work-nut-edit" onclick="editWork('<?php //echo $rs['ref']                             ?>')" >
+                                <div class="btn-work-nut-edit" onclick="editWork('<?php //echo $rs['ref']                                           ?>')" >
                                     <div class="vertical-center">
                                         ส่งแก้ไข
                                     </div>
                                 </div>
                     <?php //} else if ($rs['status'] == "2") { ?>
-                                <div class="btn-work-nut-success" onclick="updateStatus('<?php //echo $rs['ref']                             ?>', '4')" >
+                                <div class="btn-work-nut-success" onclick="updateStatus('<?php //echo $rs['ref']                                           ?>', '4')" >
                                     <div class="vertical-center">
                                         ยืนยันการผลิต
                                     </div>

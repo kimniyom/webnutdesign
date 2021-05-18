@@ -151,7 +151,7 @@ $GraphicLog = new GraphicLog();
 
                                 <a href="<?php echo \yii\helpers\Url::to(['graphic/formupdate', 'ref' => $rs['ref']]) ?>" id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;">เสร็จแล้ว </a>
                                 <!--
-                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']       ?>')">เสร็จแล้ว </a>
+                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']           ?>')">เสร็จแล้ว </a>
                                 -->
                             <?php } ?>
 
@@ -174,31 +174,30 @@ $GraphicLog = new GraphicLog();
 
                         </div>
                     </div>
-                    <div style=" clear: both; border-top: solid 3px #ffffff; padding-top: 10px;">
+                    <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
                         <div style=" float: left; width: 65%;">
                             <?php
-                                if ($rs['level'] == 1) {
-                                    $text = "ระดับ 1";
-                                    $color = "green";
-                                    $percent = "30%";
-                                } else if ($rs['level'] == 2) {
-                                    $text = "ระดับ 2";
-                                    $color = "orange";
-                                    $percent = "40%";
-                                } else if ($rs['level'] == 3) {
-                                    $text = "ระดับ 3";
-                                    $color = "orange";
-                                    $percent = "60%";
-                                } else if ($rs['level'] == 4) {
-                                    $text = "ด่วน";
-                                    $color = "red";
-                                    $percent = "80%";
-                                } else {
-                                    $text = "ด่วนมาก";
-                                    $color = "red";
-                                    $percent = "100%";
-                                }
-                            
+                            if ($rs['level'] == 1) {
+                                $text = "ระดับ 1";
+                                $color = "green";
+                                $percent = "30%";
+                            } else if ($rs['level'] == 2) {
+                                $text = "ระดับ 2";
+                                $color = "green";
+                                $percent = "40%";
+                            } else if ($rs['level'] == 3) {
+                                $text = "ระดับ 3";
+                                $color = "orange";
+                                $percent = "60%";
+                            } else if ($rs['level'] == 4) {
+                                $text = "ด่วน";
+                                $color = "red";
+                                $percent = "80%";
+                            } else {
+                                $text = "ด่วนมาก";
+                                $color = "red";
+                                $percent = "100%";
+                            }
                             ?>
                             <div class="meter <?php echo $color ?> nostripes">
                                 <span style="width: <?php echo $percent ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">
