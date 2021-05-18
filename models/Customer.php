@@ -41,7 +41,7 @@ class Customer extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment'], 'required'],
+            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment','typecustomer'], 'required'],
             ['lineid', 'required', 'when' => function ($model) {
                     return $model->channel == 1;
                 }, 'whenClient' => "function (attribute, value) {
@@ -54,7 +54,7 @@ class Customer extends \yii\db\ActiveRecord {
                 return $('#Customer-channel').val() == 4;
             }"
             ],
-            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel', 'level', 'payment'], 'integer'],
+            [['channel', 'typework', 'last_dep', 'user_id', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'mascancel', 'level', 'payment','typecustomer'], 'integer'],
             [['detail'], 'string'],
             [['cur_dep'], 'safe'],
             [['date_getjob', 'time_getjob', 'create_date'], 'safe'],
@@ -93,7 +93,8 @@ class Customer extends \yii\db\ActiveRecord {
             'confirm' => 'สถานะการซื้อ',
             'quotation' => 'ใบเสนอราคา',
             'level' => 'ระดับความเร่งด่วน 5 = ด่วนมาก',
-            'payment' => 'การชำระเงิน'
+            'payment' => 'การชำระเงิน',
+            'typecustomer' => 'ประเภทลูกค้า'
         ];
     }
 

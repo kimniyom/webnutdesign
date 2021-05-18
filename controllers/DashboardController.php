@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Dashboard;
 
 class DashboardController extends Controller
 {
@@ -63,7 +64,20 @@ class DashboardController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Dashboard();
+        $reschartMonth = $model->chartMonth();
+        $label = array();
+        $value = array();
+        foreach($reschartMonth as $rs):
+            //echo $rs['DAY'];
+            array_push($label, $rs['DAY']);
+            array_push($value, $rs['total']);
+        endforeach;
+        $data['label'] = implode(",", $label);
+        $data['value'] = implode(",", $value);
+
+        //echo $data['label'];
+        return $this->render('index',$data);
     }
 
     /**

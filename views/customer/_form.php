@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use app\models\Department;
+use app\models\Typecustomer;
 use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 use kartik\widgets\FileInput;
@@ -42,7 +43,19 @@ use kartik\select2\Select2;
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto; background: #eac0d6;">
                     <?= $form->field($model, 'customer')->textInput(['maxlength' => true]) ?>
+                    <?php
+                        $TypeList = ArrayHelper::map(Typecustomer::find()->all(), 'id', 'typename');
+                        echo $form->field($model, 'typecustomer')->widget(Select2::classname(), [
+                                          'data' => $TypeList,
+                                          'options' => ['placeholder' => '... เลือกปรเภทลูกค้า ...'],
+                                          'pluginOptions' => [
+                                          'allowClear' => true,
+                                          'multiple' => false
+                            ],
+                        ])->label("ประเภทลูกค้า");
+                    ?>
                     <?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
+                    
                     <?=
                     $form->field($model, 'channel')->radioList([1 => "Line", 2 => "โทรศัพท์", 3 => "เข้ามาที่ร้าน", 4 => "อื่น ๆ"], [
                         'onChange' => 'setChannel()'

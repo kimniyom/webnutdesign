@@ -27,6 +27,10 @@ $config = [
             'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
         ],
+        'session' => [
+            'class' => 'yii\web\Session',
+            'cookieParams' => ['lifetime' => 365 * 24 *60 * 60]
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
