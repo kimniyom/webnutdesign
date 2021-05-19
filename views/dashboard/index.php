@@ -173,26 +173,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style=" margin: 0px;">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body" style="height:250px;">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body" style="height:250px;">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+                    <div id="jobtoday"></div>
+                
             </div><!-- End control Box -->
         </div><!-- end Col -->
         <div class="col-lg-4 col-md-4 b-right">
@@ -203,12 +186,36 @@
                             <div class="card-body">
                               <div class="form-group has-search" style="margin-bottom: 0px;">
                                 <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" class="form-control" placeholder="ค้นหา...พิมพ์ชื่องานที่นี้">
+                                <input type="text" class="form-control" placeholder="ค้นหา...พิมพ์ชื่องานที่นี้" id="txtsearch">
                               </div>
+                              <div style="height: 268px; overflow: auto;">
+                                <div id="job"></div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                              <div style="height: 269px;">
-                                Result
-                              </div>
+            <div class="row" style="margin:0px;">
+                <div class="col-12 b-right">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div style="height: 209px; overflow: auto;">
+                                    <table style="width: 100%; font-family: skv;">
+                                    <label style=" padding: 0px; position: relative; top: 0px; text-align: center; width: 100%; font-family: skv; font-size: 20px; border-bottom: solid 2px #b1207b;">ปริมาณงานต่อลูกค้า</label>
+                                    <?php foreach($listCategory as $cat): ?>
+                                        <tr>
+                                            <td><?php echo $cat['typename'] ?></td>
+                                            <td style="text-align: right;">
+                                                <label style="background: #dd4a06; border-radius: 10px; padding: 0px 5px; color: #ffffff;"><?php echo $cat['total'] ?></label>
+                                                    
+                                                </td>
+                                          </tr>
+                                    <?php endforeach ?>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -221,7 +228,7 @@
                         <div class="card-content">
                             <div class="card-body">
                               <div class="body-dasboard-right"> 
-                                <div style="position: relative;  width: 100%; bottom: 0px; padding-bottom: 30px; height: 205px;">
+                                <div style="position: relative;  width: 100%; bottom: 0px; padding-bottom: 30px; height: 210px;">
                                     <label style=" padding: 0px; position: relative; top: 0px; text-align: center; width: 100%; font-family: skv; font-size: 20px; border-bottom: solid 2px #b1207b;">ช่องทางที่ลูกค้าติดต่อมา</label>
                                     <table style=" width: 100%;">
                                         <tr>
@@ -230,20 +237,24 @@
                                                     <canvas id="chartJobType" style="height: 100%; width: 100%; margin-top: 15px; margin-top: 30px; float: left;"></canvas>
                                                 </div>
                                             </td>
-                                            <td style=" padding-top: 20px; font-family: skv; font-size: 20px;">
+                                            <td style=" padding-top: 20px; font-family: skv; font-size: 18px;">
+                                                <?php 
+                                                    $countTotal = ($Dashboard->countCustomerType(1) + $Dashboard->countCustomerType(0));
+                                                    $percent = ($Dashboard->countCustomerType(1) * $countTotal) / 100;
+                                                ?>
                                                 <table style=" width: 100%;">
                                                     <tr>
                                                         <td>ออนไลน์</td>
-                                                        <td>8</td>
+                                                        <td><?php echo $Dashboard->countCustomerType(1) ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>หน้าร้าน</td>
-                                                        <td>4</td>
+                                                        <td><?php echo $Dashboard->countCustomerType(0) ?></td>
                                                     </tr>
                                                 </table>
                                                 <div class="meter red nostripes">
                                                     <span style="width: 80%; font-size: 12px; color: #FFFFFF; text-align: center;">
-                                                        
+                                                        <?php echo $percent ?> %
                                                     </span>
                                                 </div>
                                             </td>
@@ -269,6 +280,14 @@
             getPieChart();
             getLevel();
             getPieChartTypeOnline();
+            getWork();
+        });
+
+        $(document).keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == "13"){
+                searchWork();
+            }
         });
     ');
 ?>
@@ -283,12 +302,37 @@
             $(".text-head").show();                         
         }
 
-        if(w > 1024){
+        if(w > 768){
             //$(".body-history").css({"height": h-100});
             //$(".body-dasboard-right").css({"height": h-255});
             $(".b-left").css({"padding-right": "0px"});
             $(".b-right").css({"padding-left": "0px"});
         }
+    }
+
+    function searchWork(){
+        var project = $("#txtsearch").val();
+        if(project == ""){
+            $("#txtsearch").focus();
+        }
+
+        $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/searchjob']) ?>";
+        var data = {project: project};
+        $.post(url, data, function(res) {
+            $("#job").html(res);
+        });
+        
+    }
+
+    function getWork(){
+        $("#jobtoday").html("<p style='text-align:center;'>Loading ...</p>");
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/getqueue']) ?>";
+        var data = {};
+        $.post(url, data, function(res) {
+            $("#jobtoday").html(res);
+        });
+        
     }
 
     function getChart(){
@@ -482,6 +526,7 @@
     }
 
     function getPieChartTypeOnline(){
+
         var ctxs = document.getElementById('chartJobType').getContext("2d");
         var campaignDonut = new Chart(ctxs, {
             type: 'doughnut',
@@ -491,10 +536,10 @@
                     'หน้าร้าน'
                 ], 
                 datasets: [{
-                    label: 'My First Dataset',
+                    //label: 'My First Dataset',
                     data: [
-                            <?php echo $Dashboard->countAccountNopaperAll() ?>, 
-                            <?php echo $Dashboard->countGraphicNoapproveAll() ?>
+                            <?php echo $Dashboard->countCustomerType(1) ?>, 
+                            <?php echo $Dashboard->countCustomerType(0) ?>
                         ],
                     backgroundColor: [
                         '#d5a7c4',

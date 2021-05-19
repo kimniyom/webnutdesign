@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Dashboard;
+use app\models\Customer;
 
 class DashboardController extends Controller
 {
@@ -76,6 +77,7 @@ class DashboardController extends Controller
         $data['label'] = implode(",", $label);
         $data['value'] = implode(",", $value);
 
+        $data['listCategory'] = $model->countCustotmerCat();
         //echo $data['label'];
         return $this->render('index',$data);
     }
@@ -142,5 +144,24 @@ class DashboardController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionSearchjob() {
+        $project = Yii::$app->request->post('project');
+        $Model = new Dashboard();
+        $dataList = $Model->searchJob($project);
+        return $this->renderPartial('job', [
+                    'dataList' => $dataList
+        ]);
+    }
+
+    public function actionGetqueue(){
+        $model = new Customer();
+        $datesend = date("Y-m-d");
+        $data['jobToday'] = $model->getJobToDay($datesend);
+        $data['jobTomorow'] = $model->getJobTomorow($datesend);
+        $data['datetomorow'] = $model->getTomorow($datesend);
+        $data['dateselect'] = $datesend;
+        return $this->renderPartial('queue', $data);
     }
 }

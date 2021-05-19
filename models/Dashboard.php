@@ -247,5 +247,40 @@ class Dashboard {
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
+
+    function countCustomerType($type = ""){
+        if($type == '1'){
+            $where = " AND c.`channel` = '1'";
+        } else {
+            $where = " AND c.`channel` != '1'";
+        }
+        $sql = "SELECT COUNT(*) AS TOTAL
+                FROM customer c
+                WHERE c.flag = '1' $where";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countCustotmerCat(){
+        $sql = "SELECT t.typename,IFNULL(Q.total,0) AS total
+                    FROM typecustomer t 
+                    LEFT JOIN (
+                    SELECT c.typecustomer,COUNT(*) AS total
+                    FROM customer c
+                    GROUP BY c.typecustomer
+                    ) AS Q ON t.id = Q.typecustomer ";
+        $rs = Yii::$app->db->createCommand($sql)->queryAll();
+        return $rs;
+    }
+
+    function searchJob($project = "") {
+        if($project){
+            $sql = "select c.* from customer c WHERE c.project_name LIKE '%" . $project . "%'";
+        } else {
+            $sql = "select c.* from customer c WHERE c.id = ''";
+        }
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
+    }
     
 }
