@@ -7,7 +7,6 @@
     .has-search .form-control {
         padding-left: 2.375rem;
     }
-
     .has-search .form-control-feedback {
         position: absolute;
         z-index: 2;
@@ -18,6 +17,77 @@
         text-align: center;
         pointer-events: none;
         color: #aaa;
+    }
+
+    .meter {
+        box-sizing: content-box;
+        height: 15px; /* Can be anything */
+        position: relative;
+        margin: 0px 0 0px 0; /* Just for demo spacing */
+        background: #d5a7c4;
+        border-radius: 25px;
+        padding: 2px;
+        box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+    }
+    .meter > span {
+        display: block;
+        height: 100%;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        background-color: rgb(43, 194, 83);
+        background-image: linear-gradient(
+            center bottom,
+            rgb(43, 194, 83) 37%,
+            rgb(84, 240, 84) 69%
+            );
+        box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+    .meter > span:after,
+    .animate > span > span {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-image: linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.2) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.2) 75%,
+            transparent 75%,
+            transparent
+            );
+        z-index: 1;
+        background-size: 50px 50px;
+        animation: move 2s linear infinite;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        overflow: hidden;
+    }
+    .animate > span:after {
+        display: none;
+    }
+    .orange > span {
+        background-image: linear-gradient(#f1a165, #f36d0a);
+    }
+
+    .red > span {
+        background:#b1207b;
+    }
+
+    .nostripes > span > span,
+    .nostripes > span::after {
+        background-image: none;
     }
 </style>
 <div style="padding: 10px; padding-top: 20px;">
@@ -38,20 +108,66 @@
                 </div>
 
                 <div class="row" style=" margin: 0px;">
-                    <div class="col-md-8 col-lg-8">
+                    <div class="col-md-7 col-lg-7">
                         <div class="card">
                             <div class="card-content">
-                                <div class="card-body" style="height: 200px;">
-
+                                <div class="card-body" style="height: 250px; font-family: skv;">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-8 col-8">
+                                            <label style=" padding: 0px; position: absolute; top: -10px; text-align: center; width: 100%;">ปริมาณค้างงานในระบบวันนี้</label>
+                                            <canvas id="chartJobNonApprove" style="height: 180px; width: 100%; margin-top: 15px;"></canvas>
+                                            <label style=" padding: 0px; position: absolute; width: 100%; bottom: -33px; text-align: center;">
+                                                <font style=" text-align: center; background: #d25fa0; color: #FFFFFF; margin-top: 20px; padding: 5px;">คิวงานทั้งหมด</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 col-4" style=" margin-top: 15px;">
+                                            <table style=" width: 100%;">
+                                                <tr>
+                                                    <td>บัญชี</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countAccountNopaperAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>กราฟิก</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countGraphicNoapproveAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>งานพิมพ์</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countPrintNoapproveAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CNC/Laser</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countLaserNoapproveAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ผลิตทั่วไป</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countFactureNoapproveAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ช่างติดตั้ง</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countSetupNoapproveAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>จัดส่ง</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countTransportNoapproveAll() ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>รับหน้าร้าน</td>
+                                                    <td style=" text-align: right;"><?php echo $Dashboard->countNoTransportNoapproveAll() ?></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-5 col-lg-5">
                         <div class="card">
                             <div class="card-content">
-                                <div class="card-body" style="height: 200px;">
-
+                                <div class="card-body" style="height: 250px; font-family: skv;">
+                                    <label style=" padding: 0px; position: absolute; top: 10px; text-align: left; width: 95%;">ตามระดับความด่วน 1-5</label>
+                                    <canvas id="chartJobLevel" style="height: 180px; width: 100%; margin-top: 15px;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -89,6 +205,10 @@
                                 <span class="fa fa-search form-control-feedback"></span>
                                 <input type="text" class="form-control" placeholder="ค้นหา...พิมพ์ชื่องานที่นี้">
                               </div>
+
+                              <div style="height: 269px;">
+                                Result
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -100,8 +220,36 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                              <div class="body-dasboard-right" style="overflow: auto;"> 
-
+                              <div class="body-dasboard-right"> 
+                                <div style="position: relative;  width: 100%; bottom: 0px; padding-bottom: 30px; height: 205px;">
+                                    <label style=" padding: 0px; position: relative; top: 0px; text-align: center; width: 100%; font-family: skv; font-size: 20px; border-bottom: solid 2px #b1207b;">ช่องทางที่ลูกค้าติดต่อมา</label>
+                                    <table style=" width: 100%;">
+                                        <tr>
+                                            <td style=" width: 130px;">
+                                                <div style=" width: 120px; height: 120px; float: left;">
+                                                    <canvas id="chartJobType" style="height: 100%; width: 100%; margin-top: 15px; margin-top: 30px; float: left;"></canvas>
+                                                </div>
+                                            </td>
+                                            <td style=" padding-top: 20px; font-family: skv; font-size: 20px;">
+                                                <table style=" width: 100%;">
+                                                    <tr>
+                                                        <td>ออนไลน์</td>
+                                                        <td>8</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>หน้าร้าน</td>
+                                                        <td>4</td>
+                                                    </tr>
+                                                </table>
+                                                <div class="meter red nostripes">
+                                                    <span style="width: 80%; font-size: 12px; color: #FFFFFF; text-align: center;">
+                                                        
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                               </div>
                             </div>
                         </div>
@@ -118,6 +266,9 @@
         $(document).ready(function(){
             setScreens();
             getChart();
+            getPieChart();
+            getLevel();
+            getPieChartTypeOnline();
         });
     ');
 ?>
@@ -133,90 +284,244 @@
         }
 
         if(w > 1024){
-            $(".body-history").css({"height": h-100});
-            $(".body-dasboard-right").css({"height": h-255});
+            //$(".body-history").css({"height": h-100});
+            //$(".body-dasboard-right").css({"height": h-255});
             $(".b-left").css({"padding-right": "0px"});
             $(".b-right").css({"padding-left": "0px"});
         }
     }
 
-            function getChart(){
-                var ctx = document.getElementById('chartSumMonth').getContext("2d");
-                var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-                gradientStroke.addColorStop(0, '#80b6f4');
-                gradientStroke.addColorStop(1, '#f49080');
+    function getChart(){
+        var ctx = document.getElementById('chartSumMonth').getContext("2d");
+        var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientStroke.addColorStop(0, '#80b6f4');
+        gradientStroke.addColorStop(1, '#f49080');
 
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: [<?php echo $label ?>],
-                        datasets: [{
-                            label: "จำนวนงาน",
-                            borderColor: gradientStroke,
-                            pointBorderColor: gradientStroke,
-                            pointBackgroundColor: gradientStroke,
-                            pointHoverBackgroundColor: gradientStroke,
-                            pointHoverBorderColor: gradientStroke,
-                            pointBorderWidth: 10,
-                            pointHoverRadius: 10,
-                            pointHoverBorderWidth: 1,
-                            pointRadius: 3,
-                            fill: false,
-                            borderWidth: 4,
-                            data: [<?php echo $value ?>]
-                        }]
-                    },
-                    options: {          
-                        legend: {
-                            display: true,
-                            position: "bottom"
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [<?php echo $label ?>],
+                datasets: [{
+                label: "จำนวนงาน",
+                borderColor: gradientStroke,
+                pointBorderColor: gradientStroke,
+                pointBackgroundColor: gradientStroke,
+                pointHoverBackgroundColor: gradientStroke,
+                pointHoverBorderColor: gradientStroke,
+                pointBorderWidth: 10,
+                pointHoverRadius: 10,
+                pointHoverBorderWidth: 1,
+                pointRadius: 3,
+                fill: false,
+                borderWidth: 4,
+                    data: [<?php echo $value ?>]
+                }]
+            },
+            options: {    
+                tooltipTemplate: "",
+                showTooltips: true,      
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                hover: {
+                    animationDuration: 0
+                },
+                onAnimationComplete: function() {
+                    this.showTooltip(this.datasets[0].points, true);
+                },
+                tooltipEvents: [],
+                tooltips: {
+                    enabled: true
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                            ticks: {
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "bold",
+                                beginAtZero: true,
+                                maxTicksLimit: 5,
+                                padding: 20
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false
+                            }
+                    }],
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            zeroLineColor: "transparent"
                         },
-                        hover: {
-                           animationDuration: 0
-                         },
-                         tooltipTemplate: "",
-
-  showTooltips: true,
-
-  onAnimationComplete: function() {
-    this.showTooltip(this.datasets[0].points, true);
-  },
-  tooltipEvents: []
-,
-                        tooltips: {
-                           enabled: true
-                        },
-                        scales: {
-                            yAxes: [{
-                                display: true,
-                                ticks: {
-                                    fontColor: "rgba(0,0,0,0.5)",
-                                    fontStyle: "bold",
-                                    beginAtZero: true,
-                                    maxTicksLimit: 5,
-                                    padding: 20
-                                },
-                                gridLines: {
-                                    drawTicks: false,
-                                    display: false
-                                }
-
-                            }],
-                            xAxes: [{
-                                display: true,
-                                gridLines: {
-                                    zeroLineColor: "transparent"
-                                },
-                                ticks: {
-                                    precision: 0,
-                                    padding: 20,
-                                    fontColor: "rgba(0,0,0,0.5)",
-                                    fontStyle: "bold"
-                                }
-                            }]
+                        ticks: {
+                            precision: 0,
+                            padding: 20,
+                            fontColor: "rgba(0,0,0,0.5)",
+                            fontStyle: "bold"
                         }
-                    }
-                });
+                    }]
                 }
-                            
-        </script>
+            }
+        });
+    }
+
+    function getPieChart(){
+        var ctxs = document.getElementById('chartJobNonApprove').getContext("2d");
+        var campaignDonut = new Chart(ctxs, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'บัญชี',
+                    'กราฟิก',
+                    'งานพิมพ์',
+                    'CNC/Laser',
+                    'ผลิตทั่วไป',
+                    'ช่างติดตั้ง',
+                    'จัดส่ง',
+                    'รับหน้าร้าน'
+                ], 
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [
+                            <?php echo $Dashboard->countAccountNopaperAll() ?>, 
+                            <?php echo $Dashboard->countGraphicNoapproveAll() ?>, 
+                            <?php echo $Dashboard->countPrintNoapproveAll() ?>,
+                            <?php echo $Dashboard->countLaserNoapproveAll() ?>,
+                            <?php echo $Dashboard->countFactureNoapproveAll() ?>,
+                            <?php echo $Dashboard->countSetupNoapproveAll() ?>,
+                            <?php echo $Dashboard->countTransportNoapproveAll() ?>,
+                            <?php echo $Dashboard->countNoTransportNoapproveAll() ?>
+                        ],
+                    backgroundColor: [
+                        '#d5a7c4',
+                        '#ce85b0',
+                        '#d560a4',
+                        '#d15498',
+                        '#ca56a7',
+                        '#be2f89',
+                        '#cb1e91',
+                        '#b1207b'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },  
+                    maintainAspectRatio : false,
+                    aspectRatio: 1,
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                        }
+                    },
+                    responsive: true,
+                    cutoutPercentage: 90,
+                }
+            });
+    }  
+
+    function getLevel(){
+        var ctxs = document.getElementById('chartJobLevel').getContext("2d");
+        var campaignDonut = new Chart(ctxs, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Level 1',
+                    'Level 2',
+                    'Level 3',
+                    'Level 4',
+                    'Level 5'
+                ], 
+                datasets: [{
+                    label: 'จำนวนงาน',
+                    data: [
+                            <?php echo $Dashboard->countLevel(1) ?>, 
+                            <?php echo $Dashboard->countLevel(2) ?>, 
+                            <?php echo $Dashboard->countLevel(3) ?>,
+                            <?php echo $Dashboard->countLevel(4) ?>,
+                            <?php echo $Dashboard->countLevel(5) ?>
+                        ],
+                    backgroundColor: [
+                        '#3b693b',
+                        '#88bb52',
+                        '#f6eb3b',
+                        '#ff4800',
+                        '#ff000c'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },  
+                    maintainAspectRatio : false,
+                    aspectRatio: 1,
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                        }
+                    },
+                    responsive: true,
+                    cutoutPercentage: 90,
+                }
+            });
+    }
+
+    function getPieChartTypeOnline(){
+        var ctxs = document.getElementById('chartJobType').getContext("2d");
+        var campaignDonut = new Chart(ctxs, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'ออนไลน์',
+                    'หน้าร้าน'
+                ], 
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [
+                            <?php echo $Dashboard->countAccountNopaperAll() ?>, 
+                            <?php echo $Dashboard->countGraphicNoapproveAll() ?>
+                        ],
+                    backgroundColor: [
+                        '#d5a7c4',
+                        '#b1207b'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },  
+                    maintainAspectRatio : false,
+                    aspectRatio: 1,
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                        }
+                    },
+                    responsive: false,
+                    cutoutPercentage: 90,
+                }
+            });
+    }                 
+</script>

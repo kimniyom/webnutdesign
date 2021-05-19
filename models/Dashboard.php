@@ -175,4 +175,77 @@ class Dashboard {
         return $rs;
     }
 
+
+    function countAccountNopaperAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM account c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status = '0' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countGraphicNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM graphic c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve = '0' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countPrintNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM branchprint c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '4' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+     function countLaserNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM branchlaser c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '4' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countFactureNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM branchfacture c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status != '4' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countSetupNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM queue c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.approve != '2' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countTransportNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM transport c INNER JOIN customer m ON c.ref = m.ref
+            WHERE c.status = '1' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countNoTransportNoapproveAll(){
+        $sql = "SELECT COUNT(*) AS TOTAL
+            FROM customer m
+            WHERE m.transport = '0' AND m.flag = '0'";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+
+    function countLevel($level){
+        $sql = "SELECT COUNT(*) AS TOTAL
+                FROM customer c
+                WHERE c.flag = '1' AND c.`level` = '$level' ";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs['TOTAL'];
+    }
+    
 }

@@ -29,24 +29,39 @@ $this->title = 'กราฟิก / ออกแบบ';
     }
 
 </style>
-<div class="graphic-index" style=" background: #eac0d6;">
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
+<div class="graphic-index" style=" background: #eac0d6; font-family: skv;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left: 10px;">
-                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px; font-family: skv; padding-top: 5px;">
-
-                    <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
-                        <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
+            <div class="card-body" style=" padding: 0px; padding-left: 10px; padding-top: 5px;">
+                <div style="position: absolute; left: 5px; z-index: 2; top: 1px;">
+                    <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="z-index: 100;">
+                        <button type="button" class="btn btn-dark btn-rounded text-warning" style="z-index: 100;"><i class="fa fa-home"></i></button>
                     </a>
-                    <div class="navbar-brand" style=" color: #ffffff;" id="title-head">
+                </div>
+                    <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
                         กราฟิก
-                    </div>
+                    </font>
 
-                    <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: left; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
+                    <!--
+                    <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: right; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
                         <option value="1">เร่งด่วน</option>
                         <option value="2">วันที่จัดส่ง</option>
                         <option value="3">รับล่าสุด</option>
                     </select>
+                    -->
+                    <input type="hidden" name="" id="souredata" value="1">
+                    <!-- Default dropleft button -->
+                    <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
+                      <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        จัดเรียง
+                      </button>
+                      <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
+                        <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                      </div>
+                    </div>
+
                     <!--
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style=" display: none">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
@@ -60,7 +75,7 @@ $this->title = 'กราฟิก / ออกแบบ';
                         </div>
                     </div>
                     -->
-                </nav>
+               
 
             </div>
         </div>
@@ -168,6 +183,11 @@ $this->registerJs('
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
+    }
+
+    function setType(val){
+        $("#souredata").val(val);
+        getJob();
     }
 
     function getViews(ref) {
