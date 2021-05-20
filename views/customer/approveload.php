@@ -24,7 +24,7 @@ lส่งมอบงาน
                         <div class="col-md-9 col-lg-9 col-sm-9 col-9">
                             <div style="height: 35px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h3 class="alert-heading">
-                                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" style=" font-weight: bold; color: #FFFFFF; line-height: 10pt;"><?php echo $rs['customer'] ?></a>
+                                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" style=" font-weight: bold; color: #FFFFFF; line-height: 10pt;"><?php echo $rs['project_name'] ?></a>
                                 </h3>
                             </div>
                             <h4 class="alert-heading" style=" font-weight: normal; color: #FFFFFF;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></h4>
