@@ -61,36 +61,31 @@ $TimeLineModel = new Timeline();
 //$this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row" style=" margin: 0px; margin-bottom: 20px; padding-top: 10px;">
-    <?php if ($dataList) { ?>
+<br/>
+<?php if ($dataList) { ?>
+    <ul class=" list-group" style=" font-family: skv;">
         <?php
         foreach ($dataList as $rs):
             ?>
-                <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow:#4a4a4a 5px 5px 10px 0px;">
-                    <div style=" float: left; width: 80%;">
-                        <div style="height: 35px; overflow: hidden;">
-                            <a href="javascript:getViews('<?php echo $rs['ref'] ?>')">
-                                <div class="text-tran-head" style=" font-weight: bold; color:#FFFFFF;"><?php echo $rs['project_name'] ?></div>
-                            </a>
-                        </div>
-                        <div class="send-heading" style=" font-weight: normal; color: #FFFFFF;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
-                    </div>
-
-                    <div style=" position: absolute; right: 10px; top: 10px;">
-                        <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/update', 'id' => $rs['id']]) ?>" class="btn btn-rounded btn-dark btn-sm" style="padding: 0px 5px; width: 60px;">แก้ไข <i class="fas fa-pencil-alt"></i></a>
-                        <br/>
-                        <a href="javascript:cancelJob('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger btn-sm" style="margin-top: 5px;padding: 0px 5px; width: 60px;">ยกเลิก <i class="fa fa-remove"></i></a>
-                    </div>
-
-                    <div style=" clear: both;">
-                        <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px; border-top: #FFFFFF solid 3px;">
-                        <div style=" overflow: hidden;">
-                            <p class="mb-0 status-work" style="text-align: center; white-space: nowrap; color: #FFFFFF;"><?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
-                        </div>
-                    </div>
+            <li class=" list-group-item">
+                <div style=" position: absolute; bottom: 0px; right: 3px;">
+                    <?php if ($rs['flag'] == "0") { ?>
+                        <label class="alert alert-warning" style=" padding: 3px; margin: 5px;">กำลังดำเนินการ</label>
+                    <?php } else if ($rs['flag'] == "1") { ?>
+                        <label class="alert alert-success" style=" padding: 3px; margin: 5px;">เสร็จแล้ว</label>
+                    <?php } else { ?>
+                        <label class="alert alert-danger" style=" padding: 3px; margin: 5px;">ยกเลิก</label>
+                    <?php } ?>
                 </div>
+                <a href="javascript:getViews('<?php echo $rs['ref'] ?>')">
+                    <div  style=" font-weight: bold;"><?php echo $rs['project_name'] ?></div>
+                </a>
+                ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?><br/>
+                <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?>
+            </li>
         <?php endforeach; ?>
-    <?php } else { ?>
-            <div class="alert alert-primary" style="text-align: center; width: 100%;">ไม่พบข้อมูล</div>
-    <?php } ?>
-</div>
+    </ul>
+<?php } else { ?>
+    <div class="alert alert-primary" style="text-align: center; width: 100%;">ไม่พบข้อมูล</div>
+<?php } ?>
+

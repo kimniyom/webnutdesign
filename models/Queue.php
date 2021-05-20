@@ -79,7 +79,7 @@ class Queue extends \yii\db\ActiveRecord {
         foreach ($uploadFiles as $file) {
             $preview[] = [
                 'url' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
-                'src' => self::getUploadUrl(true) . $ref . '/thumbnail/' . $file->real_filename,
+                'src' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
                 'options' => ['title' => $event_name]
             ];
         }

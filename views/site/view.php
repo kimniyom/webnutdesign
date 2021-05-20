@@ -1,6 +1,6 @@
 
 <!--
-<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                  ?>/css/account.css" rel="stylesheet">
+<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                      ?>/css/account.css" rel="stylesheet">
 -->
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
@@ -89,7 +89,6 @@
         font-size:20px;
         font-weight: bold;
         color: rgb(184, 0, 153);
-        letter-spacing: 1px;
         font-family: skvl;
     }
     .txt-customer{
@@ -272,10 +271,10 @@ $CustomerModel = new Customer();
                                         <label style="font-weight: bold;">ใบเสนอราคา</label>
                                         <ul>
                                         <?php // if ($account['link']) { ?>
-                                                <li><a href="<?php //echo $account['link']                                                                                                                                                 ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
+                                                <li><a href="<?php //echo $account['link']                                                                                                                                                     ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
                                         <?php //} ?>
                                         <?php //if ($account['file']) { ?>
-                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                                 ?>" target="_back">ใบเสนอราคา</a></li>
+                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                                     ?>" target="_back">ใบเสนอราคา</a></li>
                                         <?php //} ?>
                                         </ul>
                                         -->
@@ -305,7 +304,7 @@ $CustomerModel = new Customer();
                                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                                         <?php
                                         foreach ($filegraphic as $files):
-                                            $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/thumbnail/' . $files['real_filename'];
+                                            $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                                             $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                                             ?>
                                             <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
@@ -500,8 +499,8 @@ $this->registerJs('
         }
     });
 
-    function setImg(){
-        
+    function setImg() {
+
         $(".boxdetailgf img").addClass("img img-responsive");
     }
 </script>

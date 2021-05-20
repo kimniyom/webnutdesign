@@ -86,7 +86,7 @@ class Graphic extends \yii\db\ActiveRecord {
         }
 
         if ($type == 1) {
-            $order = "order by c.fast desc,c.level desc";
+            $order = "order by c.level desc";
         } else if ($type == 2) {
             $order = "order by c.date_getjob asc";
         } else {
@@ -119,7 +119,7 @@ class Graphic extends \yii\db\ActiveRecord {
         foreach ($uploadFiles as $file) {
             $preview[] = [
                 'url' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
-                'src' => self::getUploadUrl(true) . $ref . '/thumbnail/' . $file->real_filename,
+                'src' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
                 'options' => ['title' => $event_name]
             ];
         }

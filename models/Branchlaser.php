@@ -49,7 +49,7 @@ class Branchlaser extends \yii\db\ActiveRecord {
         $status = Yii::$app->user->identity->status;
 
         if ($type == 1) {
-            $order = "order by c.fast desc,c.level desc";
+            $order = "order by c.level desc";
         } else if ($type == 2) {
             $order = "order by c.date_getjob asc";
         } else {

@@ -26,11 +26,11 @@
     }
 
 
-    @media screen and (min-width: 769px) and (max-width: 1024px) {
+    @media screen and (min-width: 769px) and (max-width: 1023px) {
         /* STYLES HERE */
         .text-tran-head{
-            font-size: 20px;
-            line-height: 10pt;
+            font-size: 24px;
+            line-height: 30pt;
             margin-top: 8px;
         }
 

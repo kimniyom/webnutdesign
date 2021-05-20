@@ -190,7 +190,7 @@ $CustomerModel = new Customer();
                 <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                     <?php
                     foreach ($filegraphic as $files):
-                        $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/thumbnail/' . $files['real_filename'];
+                        $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                         $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                         ?>
                         <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">

@@ -81,16 +81,16 @@ $this->title = 'Accounts';
 <div class="account-index">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border:0px; font-family: skv;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left: 10px;">
-               <div style="position: absolute; left: 5px; z-index: 2; top: 3px;">
+            <div class="card-body" style=" padding: 0px; padding-left: 10px; height: 50px; ">
+                <div style="position: absolute; left: 5px; z-index: 2; top: 3px;">
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
                 </div>
-                    <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
-                        บัญชี
-                    </font>
-               <div class="btn-group dropleft pull-right" style=" margin-right: 5px; margin-top: 8px;">
+                <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
+                บัญชี
+                </font>
+                <div class="btn-group dropleft pull-right" style=" margin-right: 5px; margin-top: 8px;">
                     <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         ค้นหา
                     </button>
@@ -98,7 +98,7 @@ $this->title = 'Accounts';
                         <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 20px;  padding: 30px 10px 30px 20px; min-width: 350px;">
                             <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" autocomplete="off" style="border-radius: 20px; border:0px; margin-bottom: 5px; width: 100%;">
                             <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" autocomplete="off" style="border-radius: 20px; border:0px; width: 100%;">
-                            
+
                             <button class="btn btn-dark btn-rounded search-btn btn-block" type="button" onclick="searchJob()" style="margin-top: 30px;"><i class="fa fa-search"></i> ค้นหา</button>
                         </div>
                     </div>
@@ -202,7 +202,7 @@ $this->title = 'Accounts';
                 <button class="btn btn-danger btn-rounded pull-right" data-dismiss="modal" aria-label="Close" id="btn-exit" style="padding:0px 5px;"><i class="fa fa-remove"></i></button>
                 <input type="hidden" name="" id="ref">
                 <p class="text-danger" style="text-align: center;">*ต้องตรวจเช็คข้อมูลงานก่อนยืนยันทุกครั้ง<br/>
-                ให้แน่ใจว่างานส่งมอบให้ลูกค้าแล้ว</p>
+                    ให้แน่ใจว่างานส่งมอบให้ลูกค้าแล้ว</p>
                 <hr/>
                 <label>Comment ถ้ามี</label>
                 <textarea class="form-control" rows="8" id="comment"></textarea>
@@ -232,29 +232,28 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        if (w > 1024) {
-            $("#box-popup-left").css({"height": h - 190});
-            $("#box-popup-right").css({"height": h - 190});
-            $("#box-timeline").css({"height": h - 190});
-            $("#box-content").css({"height": h - 190});
+        $(".tab-bottom").css({"background": "#eac0d6", "border-top": "solid 1px #ffffff", "color": "#ffffff"});
+        $(".page-wrapper").css({"background": "#eac0d6"});
+        if (w >= 800) {
+            $("#box-popup-left").css({"height": h - 179});
+            $("#box-popup-right").css({"height": h - 179});
+            $("#box-timeline").css({"height": h - 179});
+            $("#box-content").css({"height": h - 179});
         } else {
-            if(w > 768){
-                $("#box-popup-left").css({"height": h - 190});
-                $("#box-popup-right").css({"height": h - 190});
-                $("#box-timeline").css({"height": h - 190});
-                $("#box-content").css({"height": h - 190});
-            } 
+            if (w > 768) {
+                $("#box-popup-left").css({"height": h - 179});
+                $("#box-popup-right").css({"height": h - 179});
+                $("#box-timeline").css({"height": h - 179});
+                $("#box-content").css({"height": h - 179});
+            }
             $(".modal-dialog").addClass("modal-dialog-scrollable");
-            $(".mr-sm-2").css({"margin-top": "10px"});
-            $(".search-btn").addClass("btn btn-block");
-            $(".my-box-search").css({"background": "#111111", "margin-right": "10px", "margin-left": "10px"});
 
             $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
             $("#icon-menu-ham").css({"margin-left": "0px"});
             $(".text-head-mobile").show();
             $(".head-mobile").html("<font style='color:#ffffff'>บัญชี</font>");
-        
+
         }
     }
 

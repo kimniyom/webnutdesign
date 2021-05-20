@@ -288,7 +288,7 @@ class GraphicController extends Controller {
     }
 
     private function getTemplatePreview(Uploads $model) {
-        $filePath = Graphic::getUploadUrl() . $model->ref . '/thumbnail/' . $model->real_filename;
+        $filePath = Graphic::getUploadUrl() . $model->ref . '/' . $model->real_filename;
         $isImage = $this->isImage($filePath);
         if ($isImage) {
             $file = Html::img($filePath, ['class' => 'file-preview-image', 'alt' => $model->file_name, 'title' => $model->file_name]);

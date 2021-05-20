@@ -139,7 +139,7 @@ class CustomerController extends Controller {
 
             $model->create_date = date("Y-m-d H:i:s");
             $model->confirm = 1;
-            if ($model->confirm = 1) {
+            if ($model->confirm == "1") {
                 if (isset($_POST['cur_dep'])) {
                     $cur_dep = implode(", ", $_POST['cur_dep']);
                 } else {
@@ -174,15 +174,15 @@ class CustomerController extends Controller {
                 //ส่งไปแผนก
                 $this->sendDepartment($depVal, $model->ref);
 
-                if ($model->quotation == 1) {
+                if ($model->quotation == "1") {
                     $this->SendAccount($model->ref);
                 }
 
-                if ($model->transport == 1) {
+                if ($model->transport == "1") {
                     $this->SendTransport($model->ref);
                 }
 
-                if ($model->setup == 1) {
+                if ($model->setup == "1") {
                     $this->SendSetup($model->ref);
                 }
             }
@@ -251,7 +251,7 @@ class CustomerController extends Controller {
             //$this->sendDepartment($depVal, $model->ref);
             //}
             $ref = $model->ref;
-            if ($model->quotation == 1) {
+            if ($model->quotation == "1") {
                 $this->SendAccount($model->ref);
             } else {
                 Yii::$app->db->createCommand()
@@ -263,7 +263,7 @@ class CustomerController extends Controller {
                         ->execute();
             }
 
-            if ($model->transport == 1) {
+            if ($model->transport == "1") {
                 $this->SendTransport($model->ref);
             } else {
                 Yii::$app->db->createCommand()
@@ -275,7 +275,7 @@ class CustomerController extends Controller {
                         ->execute();
             }
 
-            if ($model->setup == 1) {
+            if ($model->setup == "1") {
                 $this->SendSetup($model->ref);
             } else {
                 Yii::$app->db->createCommand()
@@ -393,7 +393,7 @@ class CustomerController extends Controller {
     }
 
     private function getTemplatePreview(Uploads $model) {
-        $filePath = Customer::getUploadUrl() . $model->ref . '/thumbnail/' . $model->real_filename;
+        $filePath = Customer::getUploadUrl() . $model->ref . '/' . $model->real_filename;
         $isImage = $this->isImage($filePath);
         if ($isImage) {
             $file = Html::img($filePath, ['class' => 'file-preview-image', 'alt' => $model->file_name, 'title' => $model->file_name]);
@@ -708,7 +708,7 @@ class CustomerController extends Controller {
         }
     }
 
-    public function actionGetqueue(){
+    public function actionGetqueue() {
         $model = new Customer();
         $datesend = Yii::$app->request->post('datesend');
         $data['jobToday'] = $model->getJobToDay($datesend);
@@ -718,7 +718,7 @@ class CustomerController extends Controller {
         return $this->renderPartial('queue', $data);
     }
 
-    public function actionSearchapprove(){
+    public function actionSearchapprove() {
         $customer = Yii::$app->request->post('customer');
         $project = Yii::$app->request->post('project');
         $Model = new Customer();

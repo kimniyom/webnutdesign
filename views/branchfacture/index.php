@@ -35,7 +35,7 @@ $this->title = "ผลิตทั่วไป";
 
 </style>
 <div class="branchlaser-index" style=" background: #eac0d6; font-family: skv;">
-     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px; font-family: skv;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px; font-family: skv;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px; padding-top: 5px;">
                 <div style="position: absolute; left: 5px; z-index: 2; top: 1px;">
@@ -44,7 +44,7 @@ $this->title = "ผลิตทั่วไป";
                     </a>
                 </div>
                 <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
-                    ผลิตทั่วไป
+                ผลิตทั่วไป
                 </font>
                 <input type="hidden" name="" id="souredata" value="1">
                 <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
@@ -52,9 +52,9 @@ $this->title = "ผลิตทั่วไป";
                         จัดเรียง
                     </button>
                     <div class="dropdown-menu">
-                    <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
-                    <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
-                    <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
+                        <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
                     </div>
                 </div>
             </div>
@@ -146,9 +146,7 @@ $this->registerJs('
             $("#body-history").css({"height": h - 210});
             //$("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
         } else if (w > 500) {
-            $(".mr-sm-2").css({"margin-top": "10px"});
-            $(".search-btn").addClass("btn btn-block");
-            $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
+
             //$(".topbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "border-top": "0px", "color": "#ffffff"});
             $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
@@ -172,7 +170,7 @@ $this->registerJs('
         });
     }
 
-     function setType(val){
+    function setType(val) {
         $("#souredata").val(val);
         getJob();
     }

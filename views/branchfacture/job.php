@@ -185,7 +185,7 @@ $TimeLineModel = new Timeline();
                             ?>
                             <div class="meter <?php echo $color ?> nostripes">
                                 <span style="width: <?php echo $percent ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">
-                                    <?php echo $text ?> <?php echo $rs['level'] ?>
+                                    <?php echo $text ?> 
                                 </span>
                             </div>
                         </div>

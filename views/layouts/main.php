@@ -38,7 +38,7 @@ $rule = $configWeb->getRule();
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link rel="stylesheet" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/linearicons/icon-font.min.css">
-        
+
         <!-- Datatable -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/css/jquery.dataTables.css" rel="stylesheet">
 
@@ -215,15 +215,15 @@ $rule = $configWeb->getRule();
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">จัดการผู้ใช้งาน</a>
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['mascancel/index']) ?>">ตั้งค่าสาเหตุยกเลิกงาน</a>
                                             <!--
-                                            <a class="dropdown-item" href="<?php //echo Yii::$app->urlManager->createUrl(['maseditwork/index']) ?>">ตั้งค่าสาเหตุส่งกลับแก้ไข</a>
+                                            <a class="dropdown-item" href="<?php //echo Yii::$app->urlManager->createUrl(['maseditwork/index'])   ?>">ตั้งค่าสาเหตุส่งกลับแก้ไข</a>
                                             -->
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['typecustomer/index']) ?>">ตั้งค่าประเภทลูกค้า</a>
                                         </div>
                                     </li>
                                 <?php } else { ?>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link text-info" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>" style=" color: #FFFFFF;">
-                                            <?php echo Yii::$app->user->identity->username ?> <i class="fas fa-cog"></i>
+                                        <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>" style=" color: #FFFFFF;">
+                                            <i class="fas fa-cog"></i>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -245,7 +245,7 @@ $rule = $configWeb->getRule();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -353,7 +353,7 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/jquery/jquery-3.2.1.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/css/linearicons/svgembedder.min.js"></script>
-        
+
         <!---->
         <?php $this->endBody() ?>
 
@@ -384,10 +384,10 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/jquery.dataTables.js"></script>
 
         <!-- chart Js -->
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('

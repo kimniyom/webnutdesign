@@ -153,14 +153,16 @@ $ConfigModel = new ConfigWeb();
                                     'label' => 'ใบเสนอราคา',
                                     'value' => ($model->quotation == 1) ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา"
                                 ],
-                                [
-                                    'format' => 'html',
-                                    'label' => 'รายละเอียด',
-                                    'value' => $model->detail
-                                ],
                             ],
                         ])
                         ?>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class=" card-body">
+                                    <?php echo $model->detail ?>
+                                </div>
+                            </div>
+                        </div>
                         <div class="panel panel-default">
                             <div class="panel-body" style="padding: 10px;">
                                 รูปภาพแนบ

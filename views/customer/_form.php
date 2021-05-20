@@ -37,25 +37,25 @@ use kartik\select2\Select2;
 
     <div class="row" style="margin-top: 0px; padding-top: 0px; font-family: skv;">
         <div class="col-md-6 col-lg-6" style="padding-right: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px; border-left: 0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left: 0px; border-bottom: 0px;">
                 <div class="card-header" style=" background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
                 <div class="card-body" id="box-popup-left" style="overflow: auto; background: #eac0d6;">
                     <?= $form->field($model, 'customer')->textInput(['maxlength' => true]) ?>
                     <?php
-                        $TypeList = ArrayHelper::map(Typecustomer::find()->all(), 'id', 'typename');
-                        echo $form->field($model, 'typecustomer')->widget(Select2::classname(), [
-                                          'data' => $TypeList,
-                                          'options' => ['placeholder' => '... เลือกปรเภทลูกค้า ...'],
-                                          'pluginOptions' => [
-                                          'allowClear' => true,
-                                          'multiple' => false
-                            ],
-                        ])->label("ประเภทลูกค้า");
+                    $TypeList = ArrayHelper::map(Typecustomer::find()->all(), 'id', 'typename');
+                    echo $form->field($model, 'typecustomer')->widget(Select2::classname(), [
+                        'data' => $TypeList,
+                        'options' => ['placeholder' => '... เลือกปรเภทลูกค้า ...'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'multiple' => false
+                        ],
+                    ])->label("ประเภทลูกค้า");
                     ?>
                     <?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
-                    
+
                     <?=
                     $form->field($model, 'channel')->radioList([1 => "Line", 2 => "โทรศัพท์", 3 => "เข้ามาที่ร้าน", 4 => "อื่น ๆ"], [
                         'onChange' => 'setChannel()'
@@ -80,7 +80,7 @@ use kartik\select2\Select2;
             </div>
         </div>
         <div class="col-md-6 col-lg-6" style=" padding-left: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px; border-bottom: 0px;">
                 <div class="card-content" >
                     <div class="card-header" style="background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                         <i class="fa fa-briefcase"></i> รายละเอียดงานการคุยงาน
@@ -150,9 +150,9 @@ use kartik\select2\Select2;
                                         'todayHighlight' => true,
                                         'autoclose' => true,
                                     ],
-                                    'pluginEvents' =>[
+                                    'pluginEvents' => [
                                         "changeDate" => "function(e) { getJobSend(); }",
-                                    ]    
+                                    ]
                                 ]);
                                 ?>
                             </div>
@@ -308,7 +308,7 @@ use kartik\select2\Select2;
                 <div id="queue-popup"></div>
             </div>
             <div class=" modal-footer border-dark">
-                    <button type="button" class="btn btn-danger btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">ปิด</button>
+                <button type="button" class="btn btn-danger btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">ปิด</button>
             </div>
         </div>
     </div>
@@ -329,11 +329,19 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
+        $(".tab-bottom").css({"background": "#eac0d6", "border-top": "0px", "color": "#ffffff"});
         if (w > 1024) {
             $("#box-popup-left").css({"height": h - 193});
             $("#box-popup-right").css({"height": h - 193});
         } else {
-             $(".head-mobile").html("<font style='color:#ffffff'>รับงาน</font>");
+            if (w > 768) {
+                $("#box-popup-left").css({"height": h - 193});
+                $("#box-popup-right").css({"height": h - 193});
+                $(".text-head-mobile").show();
+                $(".head-mobile").html("<font style='color:#ffffff'>รับงาน</font>");
+            }
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='color:#ffffff'>รับงาน</font>");
         }
 
         $("#menu1").addClass("active");
@@ -380,20 +388,20 @@ $this->registerJs('
         }
     }
 
-    function LoadgetJobSend(){
+    function LoadgetJobSend() {
         var dateSend = $("#customer-date_getjob").val();
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getqueue']) ?>";
         var data = {datesend: dateSend};
-        $.post(url,data,function(res){
+        $.post(url, data, function(res) {
             $("#queue").html(res);
         });
     }
 
-    function getJobSend(){
+    function getJobSend() {
         var dateSend = $("#customer-date_getjob").val();
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getqueue']) ?>";
         var data = {datesend: dateSend};
-        $.post(url,data,function(res){
+        $.post(url, data, function(res) {
             $("#popupdate").modal();
             $("#queue").html(res);
             $("#queue-popup").html(res);

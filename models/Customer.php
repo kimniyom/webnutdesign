@@ -106,13 +106,26 @@ class Customer extends \yii\db\ActiveRecord {
         return Url::base(true) . '/' . self::UPLOAD_FOLDER . '/';
     }
 
-    public function getThumbnails($ref, $event_name) {
+    public function getThumbnailsOld($ref, $event_name) {
         $uploadFiles = Uploads::find()->where(['ref' => $ref])->all();
         $preview = [];
         foreach ($uploadFiles as $file) {
             $preview[] = [
                 'url' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
                 'src' => self::getUploadUrl(true) . $ref . '/thumbnail/' . $file->real_filename,
+                'options' => ['title' => $event_name]
+            ];
+        }
+        return $preview;
+    }
+
+    public function getThumbnails($ref, $event_name) {
+        $uploadFiles = Uploads::find()->where(['ref' => $ref])->all();
+        $preview = [];
+        foreach ($uploadFiles as $file) {
+            $preview[] = [
+                'url' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
+                'src' => self::getUploadUrl(true) . $ref . '/' . $file->real_filename,
                 'options' => ['title' => $event_name]
             ];
         }
@@ -129,7 +142,7 @@ class Customer extends \yii\db\ActiveRecord {
         }
 
         if ($type == 1) {
-            $order = "order by c.fast desc,c.level desc";
+            $order = "order by c.level desc";
         } else if ($type == 2) {
             $order = "order by c.date_getjob asc";
         } else {
