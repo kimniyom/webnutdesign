@@ -118,49 +118,12 @@ $TimeLineModel = new Timeline();
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<!--
-งานที่รับเห็นเฉพาะของ User
--->
-<?php if (Yii::$app->user->identity->status == "U") { ?>
-    <?php if ($dataListjob) { ?>
-        <?php
-        foreach ($dataListjob as $rss):
-            ?>
-            <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff;">
-                <div class="row">
-                    <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                        <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rss['project_name'] ?></h2>
-                        <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rss['date_getjob']) ?> <?php echo $rss['time_getjob'] ?></h3>
-                        <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rss['customer'] ?></h4>
-                    </div>
-                    <div class="col-md-4 col-lg-4 col-sm-4 col-6">
-
-                        <div class="btn-work-nut-success" onclick="updateStatus('<?php echo $rss['ref'] ?>', '4')" >
-                            <div class="vertical-center">
-                                ยืนยันการผลิต
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <a href="javascript:getViews('<?php echo $rss['ref'] ?>')" class="btn btn-rounded btn-info">ดูรายละเอียด <i class="fa fa-eye"></i></a>
-                <p class="mb-0 pull-right status-work" style="text-align: center;">สถานะล่าสุด <br/> <?php echo $TimeLineModel->getLastTimeline($rss['ref']) ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php } else { ?>
-        <div class="container">
-            <div class="alert alert-danger" style="text-align: center">ไม่มีงานค้าง</div>
-        </div>
-    <?php } ?>
-<?php } ?>
 
 <!--
 งานที่ส่งมาจากแผนกอื่นยังไม่มีคนรับ
 -->
-
 <input type="hidden" id="_ref"/>
 <div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px; ">
-
     <?php if ($dataList) { ?>
         <?php
         foreach ($dataList as $rs):
@@ -198,19 +161,19 @@ $TimeLineModel = new Timeline();
                     <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
                         <div style=" float: left; width: 65%;">
                             <?php
-                            if ($rs['level'] == 1) {
+                            if ($rs['level'] == "1") {
                                 $text = "ระดับ 1";
                                 $color = "green";
                                 $percent = "25%";
-                            } else if ($rs['level'] == 2) {
+                            } else if ($rs['level'] == "2") {
                                 $text = "ระดับ 2";
                                 $color = "green";
                                 $percent = "40%";
-                            } else if ($rs['level'] == 3) {
+                            } else if ($rs['level'] == "3") {
                                 $text = "ระดับ 3";
                                 $color = "orange";
                                 $percent = "60%";
-                            } else if ($rs['level'] == 4) {
+                            } else if ($rs['level'] == "4") {
                                 $text = "ด่วน";
                                 $color = "red";
                                 $percent = "80%";
@@ -222,7 +185,7 @@ $TimeLineModel = new Timeline();
                             ?>
                             <div class="meter <?php echo $color ?> nostripes">
                                 <span style="width: <?php echo $percent ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">
-                                    <?php echo $text ?>
+                                    <?php echo $text ?> <?php echo $rs['level'] ?>
                                 </span>
                             </div>
                         </div>

@@ -63,10 +63,10 @@ class Branchfacture extends \yii\db\ActiveRecord {
 
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status in('1','2') and c.flag = '0'";
+                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
         } else {
             $sql = "select c.*,g.status from branchfacture g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status in('1','2') and c.flag = '0'";
+                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
