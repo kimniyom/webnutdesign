@@ -137,6 +137,9 @@ $this->title = 'ส่งมอบงาน';
     ?>
 
     <script>
+        setInterval(function() {
+        getJob();
+    }, 300000);
         function setScreens() {
             var h = window.innerHeight;
             var w = window.innerWidth;
