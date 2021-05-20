@@ -19,15 +19,15 @@ lส่งมอบงาน
         foreach ($dataList as $rs):
             ?>
             <div class="col-md-6 col-lg-4 col-12" style=" padding: 0px;">
-                <div class="alert alert-dark box-list-work" role="alert"  style=" background: #ffffff; font-family: skv; margin:10px 20px;">
+                <div class="alert alert-dark box-list-work" role="alert"  style=" background: #d25fa0; font-family: skv; margin:10px 20px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px;">
                     <div class="row" style=" margin: 0px;">
                         <div class="col-md-9 col-lg-9 col-sm-9 col-9">
                             <div style="height: 35px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h3 class="alert-heading">
-                                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" style=" font-weight: bold; color: rgb(184, 0, 153); line-height: 10pt;"><?php echo $rs['customer'] ?></a>
+                                    <a href="javascript:getViews('<?php echo $rs['ref'] ?>')" style=" font-weight: bold; color: #FFFFFF; line-height: 10pt;"><?php echo $rs['customer'] ?></a>
                                 </h3>
                             </div>
-                            <h4 class="alert-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></h4>
+                            <h4 class="alert-heading" style=" font-weight: normal; color: #FFFFFF;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></h4>
                         </div>
                         <div class="col-md-3 col-lg-3 col-sm-3 col-3">
                             <div class="btn-work-nut-send" onclick="updateStatus('<?php echo $rs['ref'] ?>')">
@@ -52,9 +52,11 @@ lส่งมอบงาน
     setStatusWork();
     function setStatusWork() {
         var w = window.innerWidth;
-        if (w < 768) {
+        if (w < 1204) {
             $(".status-work").removeClass('mb-0 pull-right');
             $(".status-work").css({"width": "100%", "margin-top": "10px"});
+        } else {
+            $(".btn-work-nut-send").css({"font-size": "20px"});
         }
     }
 

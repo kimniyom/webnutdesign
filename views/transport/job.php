@@ -68,27 +68,23 @@ $TimeLineModel = new Timeline();
         foreach ($dataList as $rs):
             ?>
             <div class="col-md-6 col-lg-6" style="margin: 0px; padding: 0px;">
-                <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff; font-family: skv; margin: 10px;">
+                <div class="alert alert-dark box-list-work " role="alert"  style=" background: #d25fa0; font-family: skv; margin: 10px; border:none; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px;">
                     <div class="row">
                         <div class="col-md-9 col-lg-9 col-sm-9 col-9">
                             <div style=" width: 100%; float: left;">
                                 <div class="box-title-tran" style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                     <div class="alert-heading" >
-                                        <div class="text-tran-head"  style=" font-weight: bold; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['customer'] ?></div>
+                                        <div class="text-tran-head"  style=" font-weight: bold; cursor: pointer; line-height: 35pt; color: #FFFFFF;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['project_name'] ?></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="send-heading" style=" font-weight: normal;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+                            <div class="send-heading" style=" font-weight: normal; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
                         </div>
                         <div class="col-md-3 col-lg-3 col-sm-3 col-3">
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['transport/update', 'ref' => $rs['ref']]) ?>" class="pull-right">
                                 <button type=" button" class="btn btn-dark"> บันทึกจัดส่ง</button>
                             </a>
                         </div>
-                    </div>
-                    <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px;">
-                    <div style=" overflow: hidden;">
-                        <p class="mb-0 status-work" style="text-align: center; white-space: nowrap;"><?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?></p>
                     </div>
                 </div>
             </div>

@@ -75,8 +75,8 @@ $this->title = 'งานทั้งหมด';
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
-                    <div style="margin-right: 10px; font-size: 20px; color: #FFFFFF; text-align: center;">งานทั้งหมด</div>
-<div style="display: none;">
+                    <div style="margin-right: 10px; font-size: 20px; color: #FFFFFF; text-align: center;" id="title-head">งานทั้งหมด</div>
+                    <div style="display: none;">
                     <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
                     </button>
@@ -307,9 +307,9 @@ $this->registerJs('
             });
         } else {
             $("#btn-export").hide();
-            $(".mr-sm-2").css({"margin-top": "10px"});
-            $(".search-btn").addClass("btn btn-block");
-            $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
+            $("#title-head").hide();
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='color:#ffffff'>งานทั้งหมด</font>");
         }
     }
 

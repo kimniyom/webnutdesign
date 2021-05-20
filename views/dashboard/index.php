@@ -542,8 +542,8 @@
                             <?php echo $Dashboard->countCustomerType(0) ?>
                         ],
                     backgroundColor: [
-                        '#d5a7c4',
-                        '#b1207b'
+                        '#b1207b',
+                        '#d5a7c4'
                     ],
                     hoverOffset: 4
                 }]

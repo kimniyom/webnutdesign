@@ -162,7 +162,7 @@ class Customer extends \yii\db\ActiveRecord {
     }
 
     function getJobAll() {
-        $sql = "select * from customer order by flag ASC,date_getjob ASC";
+        $sql = "select * from customer order by flag ASC,create_date DESC";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -183,6 +183,22 @@ class Customer extends \yii\db\ActiveRecord {
     function getTomorow($date) {
         $sql = "SELECT DATE_ADD('$date', INTERVAL 1 DAY) as tomorow";
         return Yii::$app->db->createCommand($sql)->queryOne()['tomorow'];
+    }
+
+    function searchApprove($customer = "", $project = "") {
+        $where = "";
+        if ($customer != "" && $project == "") {
+            $where .= "WHERE c.flag = '0' AND c.transport = '0' AND c.customer LIKE '%" . $customer . "%'";
+        } else if ($customer == "" && $project != "") {
+            $where .= "WHERE c.flag = '0' AND c.transport = '0' AND c.project_name LIKE '%" . $project . "%'";
+        } else if ($customer != "" && $project != "") {
+            $where .= "WHERE c.flag = '0' AND c.transport = '0' AND c.customer LIKE '%" . $customer . "%' AND c.project_name LIKE '%" . $project . "%'";
+        }
+
+        $sql = "select c.* from customer c $where";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
     }
 
 }

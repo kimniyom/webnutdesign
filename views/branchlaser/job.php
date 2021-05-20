@@ -128,7 +128,7 @@ $TimeLineModel = new Timeline();
             <div class="alert alert-dark box-list-work " role="alert"  style=" background: #ffffff;">
                 <div class="row">
                     <div class="col-md-8 col-lg-8 col-sm-8 col-6">
-                        <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rss['customer'] ?></h2>
+                        <h2 class="alert-heading" style=" font-weight: bold; color: rgb(184, 0, 153);"><?php echo $rss['project_name'] ?></h2>
                         <h3 class="alert-heading" style=" font-weight: normal;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($rss['date_getjob']) ?> <?php echo $rss['time_getjob'] ?></h3>
                         <h4 class="alert-heading" style=" font-weight: normal;">ลูกค้า: <?php echo $rss['customer'] ?></h4>
                     </div>
@@ -171,7 +171,7 @@ $TimeLineModel = new Timeline();
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h2 class="alert-heading" >
-                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['customer'] ?></span>
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['project_name'] ?></span>
                                 </h2>
                             </div>
                         </div>

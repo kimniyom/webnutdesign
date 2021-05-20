@@ -16,17 +16,23 @@ use yii\helpers\Url;
                 'options' => ['enctype' => 'multipart/form-data']
     ]);
     ?>
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; border:0px;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 10px;">
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-home text-warning"></i></button>
-                </a>
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['account/index']) ?>" style="text-decoration: none;">
-                    <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-chevron-left text-info"></i></button>
-                </a>
+            <div class="card-body" style=" padding: 10px; height: 50px;">
+                <div style="position: absolute; left: 5px; z-index: 2; top: 8px;">
+                    <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style="text-decoration: none;">
+                        <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-home text-warning"></i></button>
+                    </a>
+                    <a href="<?php echo Yii::$app->urlManager->createUrl(['account/index']) ?>" style="text-decoration: none;">
+                        <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-chevron-left text-info"></i></button>
+                    </a>
+                </div>
 
-                <div class="pull-right">
+                    <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0; font-family: skv;" id="title-head">
+                        บัญชี
+                    </font>
+
+                <div  style=" margin-right: 0px; margin-top: 0px; z-index: 15; margin-bottom: 5px; position: absolute; right: 5px; top:8px;">
                     <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-dark btn-rounded']) ?>
                 </div>
             </div>
@@ -34,11 +40,11 @@ use yii\helpers\Url;
     </div>
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
         <div class="col-md-6 col-lg-6" style="padding-right: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px;">
-                <div class="card-header">
+            <div class="card" style="border-radius: 0px; border:0px; font-family: skv;">
+                <div class="card-header" style=" background: #de93bc; border-radius: 0px; border: 0px;">
                     <i class="fa fa-user"></i> แนบหรืออัพโหลดใบเสนอราคา
                 </div>
-                <div class="card-body" id="box-popup-left" style="overflow: auto;">
+                <div class="card-body" id="box-popup-left" style="overflow: auto; background: #eac0d6;">
                     <?php if ($error) { ?>
                         <br/><div class="alert alert-danger"><?php echo $error ?></div>
                     <?php } ?>
@@ -70,12 +76,12 @@ use yii\helpers\Url;
             </div>
         </div>
         <div class="col-md-6 col-lg-6" style=" padding-left: 0px;">
-            <div class="card" style="border-radius: 0px; border-top:0px; border-left:0px; border-right:0px;">
+            <div class="card" style="border-radius: 0px; border-top:0px; border-left:solid 1px #de93bc; border-right:0px; font-family: skv;">
                 <div class="card-content" >
-                    <div class="card-header">
+                  <div class="card-header" style=" background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                         <i class="fa fa-briefcase"></i> รายละเอียด
                     </div>
-                    <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 0px;">
+                    <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 0px; background: #eac0d6;">
                         <?php
                         echo $this->render('//customer/viewpage', [
                             'model' => $modelCustomer,
@@ -102,11 +108,16 @@ $this->registerJs('
 <script type="text/javascript">
 
     function setScreens() {
+
         var h = window.innerHeight;
         var w = window.innerWidth;
-        if (w > 768) {
+        if (w > 1024) {
             $("#box-popup-left").css({"height": h - 193});
             $("#box-popup-right").css({"height": h - 193});
+        } else {
+            $("#title-head").hide();
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='color:#ffffff'>บัญชี</font>");
         }
         $("#menu4").addClass("active");
     }

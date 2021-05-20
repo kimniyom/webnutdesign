@@ -97,9 +97,7 @@ class CustomerController extends Controller {
 
     public function actionGetjob() {
         $ModelCustomer = new Customer();
-
         $type = Yii::$app->request->post("type");
-
         $dataList = $ModelCustomer->getJob($type);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
@@ -718,6 +716,16 @@ class CustomerController extends Controller {
         $data['datetomorow'] = $model->getTomorow($datesend);
         $data['dateselect'] = $datesend;
         return $this->renderPartial('queue', $data);
+    }
+
+    public function actionSearchapprove(){
+        $customer = Yii::$app->request->post('customer');
+        $project = Yii::$app->request->post('project');
+        $Model = new Customer();
+        $dataList = $Model->searchApprove($customer, $project);
+        return $this->renderPartial('searchapprove', [
+                    'dataList' => $dataList
+        ]);
     }
 
 }

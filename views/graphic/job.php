@@ -136,7 +136,7 @@ $GraphicLog = new GraphicLog();
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h2 class="alert-heading" >
-                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['customer'] ?></span>
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['project_name'] ?></span>
                                 </h2>
                             </div>
                         </div>

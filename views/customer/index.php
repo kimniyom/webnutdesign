@@ -53,32 +53,46 @@ $this->title = 'รับงาน';
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px;">
         <div class="card-content" >
             <div class="card-body" style=" padding: 0px; padding-left: 10px; font-family: skv; padding-top: 5px;">
-                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px;">
+                <div style="position: absolute; left: 5px; z-index: 2; top: 5px;">
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style=" float: left;">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
                     <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['customer/create']) ?>">
-                        <button type="button" class="btn btn-dark btn-rounded text-success"><i class="fa fa-plus"></i> สร้างใหม่</button>
+                        <button type="button" class="btn btn-dark btn-rounded" style="color: pink"><i class="fa fa-plus"></i> สร้างใหม่</button>
                     </a>
-                    <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: left; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
-                        <option value="1">เร่งด่วน</option>
-                        <option value="2">วันที่จัดส่ง</option>
-                        <option value="3">รับล่าสุด</option>
-                    </select>
-                    <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
-                    </button>
+                </div>
+                    <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
+                        รับงาน
+                    </font>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style=" float: left;">
-                        <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
-                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer">
-                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" >
-                            <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
+                    <div class="pull-right" style=" margin-right: 0px; margin-top: 4px; z-index: 5; margin-bottom: 5px;">
+                    <div class="btn-group dropleft" >
+                        <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ค้นหา
+                        </button>
+                        <div class="dropdown-menu" style="border-radius: 20px;">
+                            <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 20px;  padding: 30px 10px 30px 20px; min-width: 350px;">
+                                <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" autocomplete="off" style="border-radius: 20px; border:0px; margin-bottom: 5px; width: 100%;">
+                                <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" autocomplete="off" style="border-radius: 20px; border:0px; width: 100%;">
+                                
+                                <button class="btn btn-dark btn-rounded search-btn btn-block" type="button" onclick="searchJob()" style="margin-top: 30px;"><i class="fa fa-search"></i> ค้นหา</button>
+                            </div>
                         </div>
                     </div>
 
-
-                </nav>
+                    <input type="hidden" name="" id="souredata" value="1">
+                    <div class="btn-group dropleft" style=" margin-right: 10px; margin-top: 2px;">
+                      <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        จัดเรียง
+                      </button>
+                      <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
+                        <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                      </div>
+                    </div>
+                </div>
+                
 
             </div>
         </div>
@@ -188,10 +202,6 @@ $this->registerJs('
             $("#body-work").css({"height": h - 170});
             $("#body-history").css({"height": h - 210});
         } else {
-
-            $(".mr-sm-2").css({"margin-top": "10px"});
-            $(".search-btn").addClass("btn btn-block");
-            $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
             $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
             $("#icon-menu-ham").css({"margin-left": "0px"});
@@ -257,6 +267,11 @@ $this->registerJs('
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
+    }
+
+    function setType(val){
+        $("#souredata").val(val);
+        getJob();
     }
 
     function getJob() {

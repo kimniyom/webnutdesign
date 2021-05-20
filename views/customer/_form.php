@@ -329,9 +329,11 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
-        if (w > 768) {
+        if (w > 1024) {
             $("#box-popup-left").css({"height": h - 193});
             $("#box-popup-right").css({"height": h - 193});
+        } else {
+             $(".head-mobile").html("<font style='color:#ffffff'>รับงาน</font>");
         }
 
         $("#menu1").addClass("active");

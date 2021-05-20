@@ -128,7 +128,6 @@ $TimeLineModel = new Timeline();
 งานที่ส่งมาจากแผนกอื่นยังไม่มีคนรับ
 -->
 
-
 <div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px;">
     <input type="hidden" id="_ref"/>
     <?php if ($dataList) { ?>
@@ -137,12 +136,11 @@ $TimeLineModel = new Timeline();
             ?>
             <div class="col-md-6 col-lg-6" style=" padding: 0px;">
                 <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
-
                     <div>
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
                                 <h2 class="alert-heading" >
-                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['customer'] ?></span>
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['project_name'] ?></span>
                                 </h2>
                             </div>
                         </div>
@@ -168,33 +166,26 @@ $TimeLineModel = new Timeline();
                     <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
                         <div style=" float: left; width: 65%;">
                             <?php
-                            if ($rs['fast'] == 1) {
-                                $text = "ด่วนสำคัญ";
+                            if ($rs['level'] == 1) {
+                                $text = "ระดับ 1";
+                                $color = "green";
+                                $percent = "25%";
+                            } else if ($rs['level'] == 2) {
+                                $text = "ระดับ 2";
+                                $color = "green";
+                                $percent = "40%";
+                            } else if ($rs['level'] == 3) {
+                                $text = "ระดับ 3";
+                                $color = "orange";
+                                $percent = "60%";
+                            } else if ($rs['level'] == 4) {
+                                $text = "ด่วน";
+                                $color = "red";
+                                $percent = "80%";
+                            } else {
+                                $text = "ด่วนมาก";
                                 $color = "red";
                                 $percent = "100%";
-                            } else {
-
-                                if ($rs['level'] == 1) {
-                                    $text = "ระดับ 1";
-                                    $color = "green";
-                                    $percent = "25%";
-                                } else if ($rs['level'] == 2) {
-                                    $text = "ระดับ 2";
-                                    $color = "green";
-                                    $percent = "35%";
-                                } else if ($rs['level'] == 3) {
-                                    $text = "ระดับ 3";
-                                    $color = "orange";
-                                    $percent = "50%";
-                                } else if ($rs['level'] == 4) {
-                                    $text = "ด่วน";
-                                    $color = "red";
-                                    $percent = "65%";
-                                } else {
-                                    $text = "ด่วนมาก";
-                                    $color = "red";
-                                    $percent = "80%";
-                                }
                             }
                             ?>
                             <div class="meter <?php echo $color ?> nostripes">

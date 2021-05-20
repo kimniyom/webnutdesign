@@ -181,8 +181,8 @@ $rule = $configWeb->getRule();
                             <li style="padding-top:10px;font-size:20px;" class="text-head">
                                 <a class="nav-link">
                                     <span class="text-head">
-                                        <b style=" font-family: skv; font-size: 22px; color: #0e0e0e">
-                                            Nutdesign System Queue
+                                        <b style=" font-family: skv; font-size: 22px; color: #0e0e0e; text-shadow: 0px 1px #eeeeee;">
+                                            Natdesign System <font style=" color: #FFD800; text-shadow: none;">Q</font>ueue
                                         </b>
                                     </span>
                                 </a>
@@ -194,7 +194,7 @@ $rule = $configWeb->getRule();
                         </ul>
                         <ul class="navbar-nav my-lg-0">
                             <?php if (!Yii::$app->user->isGuest) { ?>
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown" style=" display: none;">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #FFFFFF;">
                                         รายงาน <i class="fa fa-chevron-down" aria-hidden="true"></i>
                                     </a>

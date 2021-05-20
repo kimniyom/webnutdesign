@@ -101,7 +101,10 @@ $CustomerModel = new Customer();
                             </tr>
                             <tr>
                                 <th>รายละเอียดงาน</th>
-                                <td><?php echo $model['detail'] ?></td>
+                                <td style="word-break: break-all;">
+                                    <?php echo $model['detail'] ?>
+                                        
+                                    </td>
                             </tr>
                         </table>
 

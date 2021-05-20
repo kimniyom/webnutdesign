@@ -23,7 +23,7 @@ $address = Customer::findOne(['ref' => $model->ref])['address'];
                 </a>
 
                 <div class="pull-right">
-                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-outline-success btn-rounded']) ?>
+                    <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-dark btn-rounded']) ?>
                 </div>
             </div>
         </div>
@@ -77,6 +77,7 @@ $this->registerJs('
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
+        $("#menu9").addClass("active");
         if (w > 768) {
             $("#box-popup-left").css({"height": h - 190});
             $("#box-popup-right").css({"height": h - 190});
