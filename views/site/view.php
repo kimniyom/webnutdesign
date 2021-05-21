@@ -1,152 +1,10 @@
-
-<!--
-<link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                      ?>/css/account.css" rel="stylesheet">
--->
+<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/view.css" rel="stylesheet">
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/dosamigos-blueimp-gallery.js"></script>
 <!-- Add fancyBox main JS and CSS files -->
 <script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
-<style>
-    @font-face {
-        font-family: sarabun;
-        src: url('<?php echo Yii::$app->urlManager->baseUrl ?>/css/sarabun/THSarabun Bold.ttf');
-    }
-
-    .box-work-detail img{
-        border-radius: 10px;
-        margin: 10px;
-        width: 20%;
-        transition: box-shadow 0.3s ease-in-out;
-    }
-    .box-work-detail img:hover{
-        box-shadow: 0px 5px 20px 10px #cccccc;
-    }
-
-
-    .fancybox .img-crop{
-        border-radius: 10px;
-        margin: 10px;
-        transition: box-shadow 0.3s ease-in-out;
-        border: solid 1px #eeeeee;
-    }
-
-    .fancybox .img-crop:hover{
-        box-shadow: 0px 0px 10px 0px #cccccc;
-    }
-    .head-title{
-        color: #00cccc;
-
-    }
-
-    .customer-view-all{
-
-    }
-
-    .customer-view-all table tr th{
-        padding: 5px;
-        border-top: 0px;
-    }
-    .customer-view-all table tr td{
-        padding: 5px;
-        border-top: 0px;
-    }
-    .customer-view-all table{
-        border-right: 0px;
-    }
-
-
-    .customer-view-all .card{
-        border-radius: 0px;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-
-    }
-
-    .customer-view-all .card-header{
-        border-bottom: solid 1px #eeeeee;
-    }
-
-    .customer-view-all #box-popup-right-view{
-        border-left: solid 1px #eeeeee;
-        border-right: solid 1px #eeeeee;
-    }
-
-    .customer-view-all .card-responsive-content{
-        border-left: solid 1px #eeeeee;
-        border-right: solid 1px #eeeeee;
-    }
-
-    .img-crop{
-        width: 150px;
-        height: 150px;
-        background-position: center center;
-        background-repeat: no-repeat;
-    }
-
-    .head-title-view{
-        font-size:20px;
-        font-weight: bold;
-        color: rgb(184, 0, 153);
-        font-family: skvl;
-    }
-    .txt-customer{
-        padding-left: 10px;
-        border-bottom:solid 1px #eeeeee;
-    }
-    @media(max-width:767px) {
-        .customer-view-all .card{
-            padding:10px;
-            margin-bottom: 20px;
-            border:0px;
-            border-radius: 10px;
-
-        }
-        .customer-view-all .card-header{
-            background: none;
-            border:none;
-            border-radius: 0px;
-            margin: 0px;
-
-            font-weight: bold;
-            padding-left: 0px;
-        }
-
-        .customer-view-all .box-production .list-group{
-            margin-bottom: 10px;
-        }
-
-        .customer-view-all .card-responsive{
-            padding: 0px !important;
-            margin: 0px;
-        }
-
-        .customer-view-all .card-responsive-content{
-            padding: 0px;
-            margin: 0px;
-            border:none;
-        }
-
-
-
-        .customer-view-all #box-popup-right-view{
-            border-left: none;
-            border-right: none;
-        }
-
-        .customer-view-all .card{
-            margin-top: 0px;
-            padding-top: 0px;
-        }
-
-        .head-title{
-            color: #00cccc;
-
-        }
-
-    }
-</style>
 <?php
 
 use yii\helpers\Html;
@@ -158,7 +16,7 @@ use app\models\Customer;
 $ConfigModel = new ConfigWeb();
 $CustomerModel = new Customer();
 ?>
-<div class="customer-view-all" style=" padding-top: 0px; margin-top: 0px; font-family: skvb;">
+<div class="customer-view-all">
     <div class="row" style="margin-top: 0px; padding-top: 0px;">
         <div class="col-md-4 col-lg-4 card-responsive" style="padding-right: 0px;">
             <div class="card" style=" border-top:0px;   background: #eeeeee;">
@@ -172,7 +30,19 @@ $CustomerModel = new Customer();
                         <label class="head-title-view">เบอร์โทรศัพท์</label>
                         <p class="txt-customer"><?php echo $model['tel'] ?></p>
                         <label class="head-title-view">ช่องทางลูกค้าติดต่อมา</label>
-                        <p class="txt-customer"><?php echo $ConfigModel->getChannel($model['channel']) . ' (ข้อมูลอื่น ๆ: ' . $model['channel_etc'] . ')' ?></p>
+                        <p class="txt-customer">
+                            <?php 
+                            if($model['channel'] == "1"){
+                                echo "Line ".$model['lineid'];
+                            } else if($model['channel'] == "2"){
+                                 echo "โทรศัพท์";
+                            } else if($model['channel'] == "3"){
+                                echo "หน้าร้าน";
+                            } else {
+                                echo $model['channel_etc'];
+                            }
+                            ?>        
+                        </p>
                         <label class="head-title-view">ที่อยู่ / ข้อมูลการจัดส่ง</label>
                         <p class="txt-customer"><?php echo $model['address'] ?></p>
                         <label class="head-title-view">ผู้รับงาน</label>
@@ -205,58 +75,59 @@ $CustomerModel = new Customer();
                                     </tr>
                                     <tr>
                                         <th>การจัดส่ง</th>
-                                        <td><?php echo ($model['transport'] == 1) ? "ต้องจัดส่ง" : "ไม่ต้องจัดส่ง" ?></td>
+                                        <td><?php echo ($model['transport'] == "1") ? "ต้องจัดส่ง" : "รับหน้าร้าน" ?></td>
                                     </tr>
                                     <tr>
                                         <th>การติดตั้ง</th>
-                                        <td><?php echo ($model['setup'] == 1) ? "มีการติดตั้ง" : "ไม่มีการติดตั้ง" ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>ความเร่งด่วน</th>
-                                        <td><?php echo ($model['fast'] == 1) ? "เร่งด่วน" : "ทั่วไป" ?></td>
+                                        <td><?php echo ($model['setup'] == "1") ? "มีการติดตั้ง" : "ไม่มีการติดตั้ง" ?></td>
                                     </tr>
                                     <tr>
                                         <th>ใบเสนอราคา</th>
-                                        <td><?php echo ($model['quotation'] == 1) ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา" ?></td>
+                                        <td><?php echo ($model['quotation'] == "1") ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา" ?></td>
                                     </tr>
-
+                                    <tr>
+                                        <th>รายละเอียดงาน</th>
+                                        <td>
+                                            <div style=" position: relative; word-wrap: break-word;" id="boxdetailcustomer">
+                                                <?php echo $model['detail'] ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
+                                        </td>
+                                    </tr>
                                 </table>
-
-                                <label>รายละเอียดงาน</label>
-                                <div style=" position: relative; word-wrap: break-word;" class="boxdetailgf">
-                                    <?php echo $model['detail'] ?>
-                                </div>
-
+                                <?php 
+                                    $ref = $model['ref'];
+                                    $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+                                    $count = Yii::$app->db->createCommand($sql)->queryScalar();
+                                    if($count > 0){
+                                ?>
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         รูปภาพแนบ
                                         <?php
-                                        $ref = $model['ref'];
-                                        $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
-                                        $count = Yii::$app->db->createCommand($sql)->queryScalar();
                                         if ($count > 0) {
                                             echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
-                                        } else {
-                                            echo "-";
-                                        }
-                                        ?>
-                                        <br/>ไฟล์แนบ
+                                        } ?>
+                                        
                                         <?php if ($filelist) { ?>
+                                            <br/>ไฟล์แนบ
                                             <ul>
                                                 <?php foreach ($filelist as $f): ?>
                                                     <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
                                                 <?php endforeach; ?>
                                             </ul>
-                                        <?php } else { ?>
-                                            -
                                         <?php } ?>
                                     </div>
                                 </div>
+                            <?php } ?>
                             </div>
                         </div>
 
                         <!-- Account -->
-
                         <div class="box-account">
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">บัญชี</h3>
@@ -267,18 +138,6 @@ $CustomerModel = new Customer();
                                             <?php echo ($account['detail']) ? $account['detail'] : "-" ?>
                                             <label><i class="fa fa-user text-warning"></i>โดย <?php echo dektrium\user\models\Profile::findOne(['user_id' => $account['user_id']])['name'] ?></label>
                                         </div>
-                                        <!--
-                                        <label style="font-weight: bold;">ใบเสนอราคา</label>
-                                        <ul>
-                                        <?php // if ($account['link']) { ?>
-                                                <li><a href="<?php //echo $account['link']                                                                                                                                                     ?>" target="_back">ใบเสนอราคา ไฟล์แนบ</a></li>
-                                        <?php //} ?>
-                                        <?php //if ($account['file']) { ?>
-                                                <li><a href="<?php //echo Url::to('@web/uploads/account/' . $account['file'])                                                                                                                                                     ?>" target="_back">ใบเสนอราคา</a></li>
-                                        <?php //} ?>
-                                        </ul>
-                                        -->
-
                                     <?php } else { ?>
                                         ยังไม่มีข้อมูลในส่วนนี้
                                     <?php } ?>
@@ -298,6 +157,7 @@ $CustomerModel = new Customer();
                                         <div class="boxdetailgf">
                                             <?php echo $graphic['detail'] ?>
                                         </div>
+                                        <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImgGraphic"></div>
                                         <label><i class="fa fa-user text-warning"></i>โดย <?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
                                     </div>
                                     <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
@@ -466,6 +326,14 @@ $CustomerModel = new Customer();
     </div>
 </div>
 
+<div id="boxImgDetail" style=" display: none;">
+        <?php echo $model['detail'] ?>
+    </div>
+
+    <div id="boxImgGraphic" style="display: none;">
+        <?php echo $graphic['detail'] ?>
+    </div>
+
 <?php
 $this->registerJs('
         $(document).ready(function(){
@@ -475,9 +343,20 @@ $this->registerJs('
 ?>
 
 <script type="text/javascript">
+        
+        setImg();
+        setImgGraphic();
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
+            openEffect: "elastic",
+            closeEffect: "none"
+        });
+        $(".fancyboxdetail").fancybox({
+            openEffect: "elastic",
+            closeEffect: "none"
+        });
+        $(".fancyboxGraphic").fancybox({
             openEffect: "elastic",
             closeEffect: "none"
         });
@@ -486,8 +365,8 @@ $this->registerJs('
             closeEffect: "none"
         });
 
-        setScreensView();
-        setImg();
+        
+setScreensView();
         function setScreensView() {
             var h = window.innerHeight;
             var w = window.innerWidth;
@@ -500,7 +379,27 @@ $this->registerJs('
     });
 
     function setImg() {
+        $("#boxdetailcustomer p img:last-child").remove()
+        var imgs = $('#boxImgDetail p').children('img').map(function () {
+            return $(this).attr('src')
+        }).get();
+        
+        for( var i=0; i<imgs.length; i++ ) {
+            let imgUrl = imgs[i];
+            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='"+ imgUrl +"' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url("+ imgUrl +");'></div></a>");
+        }
+    }
 
-        $(".boxdetailgf img").addClass("img img-responsive");
+     function setImgGraphic() {
+        $(".boxdetailgf p img:last-child").remove()
+        var imgs = $('#boxImgGraphic p').children('img').map(function () {
+            return $(this).attr('src')
+        }).get();
+        
+        for( var i=0; i<imgs.length; i++ ) {
+            let imgUrl = imgs[i];
+            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='"+ imgUrl +"' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url("+ imgUrl +");'></div></a>");
+        }
+    
     }
 </script>

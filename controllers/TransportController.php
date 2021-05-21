@@ -208,6 +208,10 @@ class TransportController extends Controller {
         \Yii::$app->db->createCommand()
                 ->insert("timeline", $culumnstimeline)
                 ->execute();
+
+        \Yii::$app->db->createCommand()
+                ->update("customer", array("approve" => "1"), "ref = '$ref'")
+                ->execute();
     }
 
 }

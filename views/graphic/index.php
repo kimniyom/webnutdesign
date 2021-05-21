@@ -105,15 +105,14 @@ $this->title = 'กราฟิก / ออกแบบ';
 <!-- Popup Detail -->
 <div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content  bg-dark" style="position: relative;">
-            <div class="modal-header border-dark">
+        <div class="modal-content" style="position: relative; background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%);">
+            <div class="modal-header" style="border:none;">
                 <h5 class="modal-title text-white" style=" text-align: center;">ข้อมูลรายละเอียด</h5>
-
             </div>
             <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
             </div>
-            <div class=" modal-footer border-dark">
+            <div class=" modal-footer" style="border:none;">
                 <button type="button" class="btn btn-danger btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">อ่านทำความเข้าใจแล้ว</button>
             </div>
         </div>
@@ -191,7 +190,7 @@ $this->registerJs('
     }
 
     function getViews(ref) {
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmini']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
         var data = {ref: ref};
         $.post(url, data, function(res) {
             $("#view-customer").html(res);

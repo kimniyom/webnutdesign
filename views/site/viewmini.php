@@ -169,15 +169,11 @@ $CustomerModel = new Customer();
                 </tr>
                 <tr>
                     <th>การจัดส่ง</th>
-                    <td><?php echo ($model['transport'] == 1) ? "ต้องจัดส่ง" : "ไม่ต้องจัดส่ง" ?></td>
+                    <td><?php echo ($model['transport'] == 1) ? "ต้องจัดส่ง" : "รับหน้าร้าน" ?></td>
                 </tr>
                 <tr>
                     <th>การติดตั้ง</th>
                     <td><?php echo ($model['setup'] == 1) ? "มีการติดตั้ง" : "ไม่มีการติดตั้ง" ?></td>
-                </tr>
-                <tr>
-                    <th>ความเร่งด่วน</th>
-                    <td><?php echo ($model['fast'] == 1) ? "เร่งด่วน" : "ทั่วไป" ?></td>
                 </tr>
                 <tr>
                     <th>ใบเสนอราคา</th>
@@ -255,7 +251,19 @@ $CustomerModel = new Customer();
         <label class="head-title-view">เบอร์โทรศัพท์</label>
         <p class="txt-customer"><?php echo $model['tel'] ?></p>
         <label class="head-title-view">ช่องทางลูกค้าติดต่อมา</label>
-        <p class="txt-customer"><?php echo $ConfigModel->getChannel($model['channel']) . ' (ข้อมูลอื่น ๆ: ' . $model['channel_etc'] . ')' ?></p>
+        <p class="txt-customer">
+            <?php 
+                            if($model['channel'] == "1"){
+                                echo "Line ".$model['lineid'];
+                            } else if($model['channel'] == "2"){
+                                 echo "โทรศัพท์";
+                            } else if($model['channel'] == "3"){
+                                echo "หน้าร้าน";
+                            } else {
+                                echo $model['channel_etc'];
+                            }
+                            ?> 
+        </p>
         <label class="head-title-view">ที่อยู่ / ข้อมูลการจัดส่ง</label>
         <p class="txt-customer"><?php echo $model['address'] ?></p>
         <label class="head-title-view">ผู้รับงาน</label>

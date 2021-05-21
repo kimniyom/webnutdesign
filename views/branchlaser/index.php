@@ -84,8 +84,8 @@ $this->title = "cnc / laser";
 <!-- Popup Detail -->
 <div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style="background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content  bg-dark" style="position: relative;">
-            <div class="modal-header border-dark">
+        <div class="modal-content" style="position: relative;background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%); border-radius: 20px;">
+            <div class="modal-header" style="border:none;">
                 <h5 class="modal-title text-white">ข้อมูลรายละเอียด</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
                     <span aria-hidden="true">&times;</span>
@@ -95,8 +95,8 @@ $this->title = "cnc / laser";
             <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
             </div>
-            <div class="modal-footer border-dark">
-                <button type=" button" class="btn btn-primary btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
+            <div class="modal-footer" style="border:none;">
+                <button type=" button" class="btn btn-dark btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,171 @@
+@font-face {
+        font-family: sarabun;
+        src: url('sarabun/THSarabun Bold.ttf');
+    }
+
+    .box-work-detail img{
+        border-radius: 10px;
+        margin: 10px;
+        width: 20%;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .box-work-detail img:hover{
+        box-shadow: 0px 5px 20px 10px #cccccc;
+    }
+
+
+    .head-title{
+        color: #00cccc;
+
+    }
+
+    .customer-view-all{
+        padding-top: 0px; margin-top: 0px; font-family: skvb;
+    }
+
+    .customer-view-all table tr th{
+        padding: 5px;
+        border-top: 0px;
+    }
+    .customer-view-all table tr td{
+        padding: 5px;
+        border-top: 0px;
+    }
+    .customer-view-all table{
+        border-right: 0px;
+    }
+
+
+    .customer-view-all .card{
+        border-radius: 0px;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+
+    }
+
+    .customer-view-all .card-header{
+        border-bottom: solid 1px #eeeeee;
+    }
+
+    .customer-view-all #box-popup-right-view{
+        border-left: solid 1px #eeeeee;
+        border-right: solid 1px #eeeeee;
+    }
+
+    .customer-view-all .card-responsive-content{
+        border-left: solid 1px #eeeeee;
+        border-right: solid 1px #eeeeee;
+    }
+
+
+    .head-title-view{
+        font-size:20px;
+        font-weight: bold;
+        color: rgb(184, 0, 153);
+        font-family: skvl;
+    }
+    .txt-customer{
+        padding-left: 10px;
+        border-bottom:solid 1px #eeeeee;
+    }
+
+    /*FanCyBox*/
+    .img-crop{
+        width: 150px;
+        height: 150px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .fancybox .img-crop{
+        border-radius: 10px;
+        margin: 10px;
+        transition: box-shadow 0.3s ease-in-out;
+        border: solid 1px #eeeeee;
+    }
+
+    .fancybox .img-crop:hover{
+        box-shadow: 0px 0px 10px 0px #cccccc;
+    }
+
+    .fancyboxdetail .img-crop-detail{
+        border-radius: 10px;
+        margin: 5px;
+        transition: box-shadow 0.3s ease-in-out;
+        border: solid 1px #eeeeee;
+    }
+
+    .fancyboxdetail .img-crop-detail:hover{
+        box-shadow: 0px 0px 10px 0px #cccccc;
+    }
+
+
+    .fancyboxGraphic .img-crop-detail{
+        border-radius: 10px;
+        margin: 5px;
+        transition: box-shadow 0.3s ease-in-out;
+        border: solid 1px #eeeeee;
+    }
+
+    .fancyboxGraphic .img-crop-detail:hover{
+        box-shadow: 0px 0px 10px 0px #cccccc;
+    }
+
+    .img-crop-detail{
+        width: 80px;
+        height: 80px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    @media(max-width:767px) {
+        .customer-view-all .card{
+            padding:10px;
+            margin-bottom: 20px;
+            border:0px;
+            border-radius: 10px;
+
+        }
+        .customer-view-all .card-header{
+            background: none;
+            border:none;
+            border-radius: 0px;
+            margin: 0px;
+
+            font-weight: bold;
+            padding-left: 0px;
+        }
+
+        .customer-view-all .box-production .list-group{
+            margin-bottom: 10px;
+        }
+
+        .customer-view-all .card-responsive{
+            padding: 0px !important;
+            margin: 0px;
+        }
+
+        .customer-view-all .card-responsive-content{
+            padding: 0px;
+            margin: 0px;
+            border:none;
+        }
+
+
+
+        .customer-view-all #box-popup-right-view{
+            border-left: none;
+            border-right: none;
+        }
+
+        .customer-view-all .card{
+            margin-top: 0px;
+            padding-top: 0px;
+        }
+
+        .head-title{
+            color: #00cccc;
+
+        }
+
+    }

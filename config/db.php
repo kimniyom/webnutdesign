@@ -4,7 +4,7 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=nutdesign_db',
     'username' => 'root',
-    'password' => 'root',
+    'password' => '',
     /*
       'dsn' => 'mysql:host=localhost;dbname=plearnp1_queue',
       'username' => 'plearnp1_queue',
