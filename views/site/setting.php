@@ -4,7 +4,7 @@
 use yii\helpers\Html;
 
 $this->title = 'ตั้งค่า';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
     /* The container */
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
         background: white;
     }
 </style>
-<div class="site-setting container" style=" font-family: skv; background: #FFFFFF; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+<div class="site-setting container" style=" font-family: skv; background: #FFFFFF; padding: 20px; border-radius: 10px; margin-bottom: 30px; margin-top: 30px;">
     <h4><i class="fa fa-cogs"></i> ตั้งค่า</h4>
     <hr/>
     <div class="row" style=" margin: 0px;">
@@ -81,10 +81,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ชื่อ: <?php echo $profile['name'] ?><br/>
                 ชื่อเล่น: <?php echo ($profile['nickname']) ? $profile['nickname'] : "-"; ?><br/>
                 โทรศัพท์: <?php echo $profile['tel'] ?><br/>
-                แผนก: <?php echo ($profile['departmentname']) ? $profile['departmentname'] : "-"; ?><br/>
+                แผนก: <?php echo ($profile['departmentname']) ? $profile['departmentname'] : "-"; ?><br/><br/>
+
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['user/settings/account']) ?>" >
+                    <button type="button" class="btn btn-dark btn-rounded btn-sm"><i class="fa fa-pencil-square-o"></i> แก้ไขรหัสผ่าน</button></a>
                 <hr/>
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['user/settings/account']) ?>">
-                    <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-pencil-square-o"></i> แก้ไขรหัสผ่าน</button></a>
             </div>
         </div>
         <div class="col-md-6 col-lg-6">
