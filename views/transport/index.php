@@ -135,7 +135,7 @@ $this->registerJs('
     setInterval(function() {
         getJob();
     }, 300000);
-    
+
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;

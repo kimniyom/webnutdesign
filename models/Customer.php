@@ -174,8 +174,17 @@ class Customer extends \yii\db\ActiveRecord {
         //return $sql;
     }
 
-    function getJobAll() {
-        $sql = "select * from customer order by flag ASC,create_date DESC";
+    function getJobAll($type) {
+        if ($type == "1") {
+            $sql = "select * from customer WHERE flag = '0' order by flag ASC,create_date DESC";
+        } else if ($type == "2") {
+            $sql = "select * from customer WHERE flag = '1' order by flag ASC,create_date DESC";
+        } else if ($type == "2") {
+            $sql = "select * from customer WHERE flag = '2' order by flag ASC,create_date DESC";
+        } else {
+            $sql = "select * from customer order by flag ASC,create_date DESC";
+        }
+
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 

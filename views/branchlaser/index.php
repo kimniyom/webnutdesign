@@ -1,4 +1,4 @@
-<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/graphic.css" rel="stylesheet">
+<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/branchlaser.css" rel="stylesheet">
 <?php
 
 use yii\helpers\Html;
@@ -6,9 +6,6 @@ use yii\grid\GridView;
 use app\models\ConfigWeb;
 use app\models\Timeline;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\CustomerSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
 $this->title = "cnc / laser";
@@ -31,10 +28,9 @@ $this->title = "cnc / laser";
         border-radius: 20px; border:0px;
         color: #FFFFFF;
     }
-
 </style>
 <div class="branchlaser-index" style=" background: #eac0d6;">
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px; font-family: skv;">
+    <div class="card" id="head-toolbar">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px; padding-top: 5px;">
                 <div style="position: absolute; left: 5px; z-index: 2; top: 1px;">
@@ -123,8 +119,6 @@ $this->title = "cnc / laser";
     </div>
 </div>
 
-
-
 <?php
 $this->registerJs('
         $(document).ready(function(){
@@ -133,7 +127,6 @@ $this->registerJs('
         });
             ');
 ?>
-
 <script>
     setInterval(function() {
         getJob();

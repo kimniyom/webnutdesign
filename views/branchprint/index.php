@@ -1,4 +1,4 @@
-<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/graphic.css" rel="stylesheet">
+<link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/branchlaser.css" rel="stylesheet">
 <?php
 
 use yii\helpers\Html;
@@ -35,7 +35,7 @@ $this->title = "งานพิมพ์";
 
 </style>
 <div class="branchprint-index" style=" background: #eac0d6;">
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px; font-family: skv;">
+    <div class="card" id="head-toolbar">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px; padding-top: 5px;">
                 <div style="position: absolute; left: 5px; z-index: 2; top: 1px;">
@@ -70,24 +70,15 @@ $this->title = "งานพิมพ์";
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4" style=" border-left: #eeeeee solid 1px; padding-bottom: 0px; display: none;" >
-            <div class="card" >
-                <div class="card-body" style=" padding-left:0px; padding-right: 10px; padding-bottom: 0px;">
-                    <div class="card-title" style=" font-weight: bold;">ประวัติการรับงาน</div>
-                    <div id="body-history" style="overflow: auto; padding: 0px;">
 
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <!-- Popup Detail -->
-<div class="modal fade" tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style=" background: #111111;">
+<div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style="background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content  bg-dark" style="position: relative;">
-            <div class="modal-header border-dark">
+        <div class="modal-content" style="position: relative;background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%); border-radius: 20px;">
+            <div class="modal-header" style="border:none;">
                 <h5 class="modal-title text-white">ข้อมูลรายละเอียด</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn-exit">
                     <span aria-hidden="true">&times;</span>
@@ -97,8 +88,8 @@ $this->title = "งานพิมพ์";
             <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
             </div>
-            <div class="modal-footer border-dark">
-                <button type=" button" class="btn btn-danger btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
+            <div class="modal-footer" style="border:none;">
+                <button type=" button" class="btn btn-dark btn-block btn-rounded" onclick="updateStatus()" id="btnSendWork">อ่านทั้งหมดเข้าใจแล้ว</button>
             </div>
         </div>
     </div>

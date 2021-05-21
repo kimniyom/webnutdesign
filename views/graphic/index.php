@@ -105,7 +105,7 @@ $this->title = 'กราฟิก / ออกแบบ';
 <!-- Popup Detail -->
 <div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content" style="position: relative; background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%);">
+        <div class="modal-content" style="position: relative;background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%); border-radius: 20px;">
             <div class="modal-header" style="border:none;">
                 <h5 class="modal-title text-white" style=" text-align: center;">ข้อมูลรายละเอียด</h5>
             </div>
@@ -113,7 +113,7 @@ $this->title = 'กราฟิก / ออกแบบ';
                 <div id="view-customer"></div>
             </div>
             <div class=" modal-footer" style="border:none;">
-                <button type="button" class="btn btn-danger btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">อ่านทำความเข้าใจแล้ว</button>
+                <button type="button" class="btn btn-dark btn-rounded btn-block"  data-dismiss="modal" aria-label="Close" id="btn-exit">อ่านทำความเข้าใจแล้ว</button>
             </div>
         </div>
     </div>

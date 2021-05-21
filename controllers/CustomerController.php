@@ -651,11 +651,22 @@ class CustomerController extends Controller {
         ]);
     }
 
-    public function actionAll() {
+    public function actionAll($type = "1") {
+        if ($type == "1") {
+            $txt = "กำลังดำเนินการ";
+        } else if ($type == "2") {
+            $txt = "สำเร็จ";
+        } else if ($type == "3") {
+            $txt = "ยกเลิก";
+        } else {
+            $txt = "ทุกสถานะ";
+        }
         $ModelCustomer = new Customer();
-        $dataList = $ModelCustomer->getJobAll();
+        $dataList = $ModelCustomer->getJobAll($type);
+
         return $this->render('viewall', [
-                    'dataList' => $dataList
+                    'dataList' => $dataList,
+                    'statushead' => $txt,
         ]);
     }
 

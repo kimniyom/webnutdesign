@@ -72,7 +72,22 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        if (!Yii::$app->user->isGuest) {
+            $userId = Yii::$app->user->identity->id;
+            $sql = "select * from pagesetting where user_id = '$userId' ";
+            $rs = Yii::$app->db->createCommand($sql)->queryOne();
+            if ($rs) {
+                $page = $rs['controller'];
+                //return $this->render($page);
+                $this->redirect([$page], 302);
+            } else {
+                //return $this->render('site/setting');
+                $this->redirect(['/site/setting'], 302);
+                //exit(0);
+            }
+        } else {
+            return $this->render('index');
+        }
     }
 
     /**
@@ -190,6 +205,37 @@ class SiteController extends Controller {
         //return $this->renderPartial("views");
     }
 
+    public function actionSetting() {
+        $userId = Yii::$app->user->identity->id;
+        $sql = "SELECT d.id,d.department,d.url
+                    FROM rule r INNER JOIN department d On r.department_id = d.id
+                    WHERE d.active = '1' AND r.user_id = '$userId' ";
+        $data['privilege'] = Yii::$app->db->createCommand($sql)->queryAll();
+        $data['activepage'] = $this->activePage();
+        $data['profile'] = $this->getProfile();
+        return $this->render("setting", $data);
+    }
+
+    function activePage() {
+        $userId = Yii::$app->user->identity->id;
+        $sql = "select * from pagesetting where user_id = '$userId' ";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        if ($rs) {
+            return $rs['department'];
+        } else {
+            return 0;
+        }
+    }
+
+    function getProfile() {
+        $userId = Yii::$app->user->identity->id;
+        $sql = "SELECT p.*,d.department AS departmentname
+                    FROM `profile` p LEFT JOIN department d ON p.department = d.id
+                    WHERE p.user_id = '$userId' ";
+        $rs = Yii::$app->db->createCommand($sql)->queryOne();
+        return $rs;
+    }
+
     function getFile($ref) {
         $sql = "select * from uploads where ref = '$ref' and typefile = '2'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
@@ -212,6 +258,24 @@ class SiteController extends Controller {
     function actionSetmenu() {
         $menuId = \Yii::$app->request->post('menuId');
         Yii::$app->session->set("menu", $menuId);
+    }
+
+    public function actionSetpage() {
+        $userId = Yii::$app->user->identity->id;
+        $id = \Yii::$app->request->post('id');
+        $url = \Yii::$app->request->post('link');
+        Yii::$app->db->createCommand()
+                ->delete("pagesetting", "user_id = '$userId'")
+                ->execute();
+
+        $columns = array(
+            "department" => $id,
+            "controller" => $url,
+            "user_id" => $userId
+        );
+        Yii::$app->db->createCommand()
+                ->insert("pagesetting", $columns)
+                ->execute();
     }
 
 }

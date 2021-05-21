@@ -41,7 +41,7 @@ $rule = $configWeb->getRule();
 
         <!-- Datatable -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/css/jquery.dataTables.css" rel="stylesheet">
-
+        <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/css/buttons.dataTables.min.css" rel="stylesheet">
         <!-- screen Mobile -->
         <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/screen-mobile.css" rel="stylesheet">
         <style>
@@ -212,17 +212,18 @@ $rule = $configWeb->getRule();
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>">Acount</a>
+                                            <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['site/setting']) ?>">ตั้งค่าหน้าแรก</a>
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['user/admin/index']) ?>">จัดการผู้ใช้งาน</a>
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['mascancel/index']) ?>">ตั้งค่าสาเหตุยกเลิกงาน</a>
                                             <!--
-                                            <a class="dropdown-item" href="<?php //echo Yii::$app->urlManager->createUrl(['maseditwork/index'])   ?>">ตั้งค่าสาเหตุส่งกลับแก้ไข</a>
+                                            <a class="dropdown-item" href="<?php //echo Yii::$app->urlManager->createUrl(['maseditwork/index'])         ?>">ตั้งค่าสาเหตุส่งกลับแก้ไข</a>
                                             -->
                                             <a class="dropdown-item" href="<?php echo Yii::$app->urlManager->createUrl(['typecustomer/index']) ?>">ตั้งค่าประเภทลูกค้า</a>
                                         </div>
                                     </li>
                                 <?php } else { ?>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['/user/settings/account']) ?>" style=" color: #FFFFFF;">
+                                        <a class="nav-link" href="<?php echo Yii::$app->urlManager->createUrl(['site/setting']) ?>" style=" color: #FFFFFF;">
                                             <i class="fas fa-cog"></i>
                                         </a>
                                     </li>
@@ -245,7 +246,7 @@ $rule = $configWeb->getRule();
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ?>" alt="user" class="img-circle" width="30">
+                                    <img src="<?php //echo Url::to('@web/images/users/1.png')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ?>" alt="user" class="img-circle" width="30">
                                 </a>
                             </li>
                             -->
@@ -382,12 +383,18 @@ $rule = $configWeb->getRule();
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/d3/d3.min.js"></script>
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/c3-master/c3.min.js"></script>
         <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/jquery.dataTables.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/dataTables.buttons.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/jszip.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/pdfmake.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/vfs_fonts.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/buttons.html5.min.js"></script>
+        <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/DataTables/DataTables-1.10.24/js/buttons.print.min.js"></script>
 
         <!-- chart Js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
         <!--
-                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ?>/theme/assets/gijgo/gijgo.min.js"></script>
-                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
+                <script src="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ?>/theme/assets/gijgo/gijgo.min.js"></script>
+                <link href="<?php //echo Yii::$app->urlManager->baseUrl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ?>/theme/assets/gijgo/gijgo.min.css" rel="stylesheet">
         -->
         <?php
         $this->registerJs('

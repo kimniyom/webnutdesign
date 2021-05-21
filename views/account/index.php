@@ -147,7 +147,7 @@ $this->title = 'Accounts';
                                 ?>
                                 <li class="list-group-item" style="border: none; border-bottom: solid 0px #eeeeee;background: #eac0d6;" onclick="popupMenu('<?php echo $outsides['ref'] ?>')">
                                     <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px;">
-                                        <h4><?php echo $outsides['customer'] ?></h4>
+                                        <h4><?php echo $outsides['project_name'] ?></h4>
                                         <p>กำหนดส่ง: <?php echo $ConfigWeb->thaidate($outsides['date_getjob']) ?></p>
                                     </div>
                                 </li>
@@ -234,7 +234,7 @@ $this->registerJs('
         var w = window.innerWidth;
         $(".tab-bottom").css({"background": "#eac0d6", "border-top": "solid 1px #ffffff", "color": "#ffffff"});
         $(".page-wrapper").css({"background": "#eac0d6"});
-        if (w >= 800) {
+        if (w >= 900) {
             $("#box-popup-left").css({"height": h - 179});
             $("#box-popup-right").css({"height": h - 179});
             $("#box-timeline").css({"height": h - 179});
@@ -245,9 +245,11 @@ $this->registerJs('
                 $("#box-popup-right").css({"height": h - 179});
                 $("#box-timeline").css({"height": h - 179});
                 $("#box-content").css({"height": h - 179});
+                $("#title-head").hide();
+                $(".text-head-mobile").show();
+                $(".head-mobile").html("<font style='color:#ffffff'>บัญชี</font>");
             }
             $(".modal-dialog").addClass("modal-dialog-scrollable");
-
             $("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)"});
             $("#title-head").hide();
             $("#icon-menu-ham").css({"margin-left": "0px"});

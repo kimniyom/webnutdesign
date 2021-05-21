@@ -5,6 +5,15 @@
 <!-- Add fancyBox main JS and CSS files -->
 <script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
+<style type="text/css" media="screen">
+    .head-title-view{
+        font-weight: bold;
+        font-size: 20px;
+        color:#000000;
+        letter-spacing: -1px;
+        font-family: skv;
+    }
+</style>
 <?php
 
 use yii\helpers\Html;
@@ -25,7 +34,7 @@ $CustomerModel = new Customer();
                 </div>
                 <div class="card-body" id="box-popup-left-view-all" style="overflow: auto; padding: 10px; background: #eeeeee;">
                     <div class="view-content-left bg-white" style=" padding: 10px; border-radius: 10px;">
-                        <label class="head-title-view">ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</label>
+                        <label class="head-title-view">ลูกค้า</label>
                         <p class="txt-customer"><i class="fa fa-user-circle text-danger"></i> <?php echo $model['customer'] ?></p>
                         <label class="head-title-view">เบอร์โทรศัพท์</label>
                         <p class="txt-customer"><?php echo $model['tel'] ?></p>
@@ -64,41 +73,50 @@ $CustomerModel = new Customer();
                         <div class="box-work-detail">
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px;">
                                 <h3 class="head-title-view">ข้อมูลรับงาน</h3>
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th style=" width: 120px;">ชื่องาน</th>
-                                        <td><?php echo $model['project_name'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>วันที่รับสินค้า</th>
-                                        <td><?php echo $ConfigModel->thaidate($model['date_getjob']) . " " . $model['time_getjob'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>การจัดส่ง</th>
-                                        <td><?php echo ($model['transport'] == "1") ? "ต้องจัดส่ง" : "รับหน้าร้าน" ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>การติดตั้ง</th>
-                                        <td><?php echo ($model['setup'] == "1") ? "มีการติดตั้ง" : "ไม่มีการติดตั้ง" ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>ใบเสนอราคา</th>
-                                        <td><?php echo ($model['quotation'] == "1") ? "ทำใบเสนอราคา" : "ไม่ต้องทำใบเสนอราคา" ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>รายละเอียดงาน</th>
-                                        <td>
-                                            <div style=" position: relative; word-wrap: break-word;" id="boxdetailcustomer">
-                                                <?php echo $model['detail'] ?>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="row" style="margin: 0px;">
+                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                    <div style="width: 120px;">ชื่องาน</div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-9">
+                    <div style=" position: relative; word-wrap: break-word;">
+                        <?php echo $model['project_name'] ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 0px;">
+                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                    <div style="width: 120px;">ลูกค้า</div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-9">
+                    <div style=" position: relative; word-wrap: break-word;">
+                        <?php echo $model['customer'] ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 0px;">
+                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                    <div style="width: 120px;">วันที่รับสินค้า</div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-9">
+                    <div style=" position: relative; word-wrap: break-word;">
+                        <?php echo $ConfigModel->thaidate($model['date_getjob']) . " " . $model['time_getjob'] ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 0px;">
+                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                    <div style="width: 120px;">รายละเอียด</div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-9">
+                    <div style=" position: relative; word-wrap: break-word; " id="boxdetailcustomer">
+                        <?php echo $model['detail'] ?>
+                    </div>
+                    <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
+                </div>
+            </div>
                                 <?php 
                                     $ref = $model['ref'];
                                     $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
@@ -198,12 +216,12 @@ $CustomerModel = new Customer();
                                                 <img src="<?php echo Url::to('@web/icon/printers.png') ?>" class=" img-responsive" style=" width: 48px;"/><br/>
                                                 <?php if ($model['print_status'] != "0") { ?>
                                                     <?php if ($model['print_status'] == 1) { ?>
-                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                                        <i class="fa fa-remove text-danger"></i> กำลังผลิต
                                                     <?php } else { ?>
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
                                                     <?php } ?>
                                                 <?php } else { ?>
-                                                    ไม่มีการผลิต
+                                                   <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -217,12 +235,12 @@ $CustomerModel = new Customer();
                                                 <img src="<?php echo Url::to('@web/icon/laser-cutting-machine.png') ?>" class=" img-responsive" style=" width: 48px;"/><br/>
                                                 <?php if ($model['cnc_status'] != "0") { ?>
                                                     <?php if ($model['cnc_status'] == 1) { ?>
-                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                                        <i class="fa fa-remove text-danger"></i> กำลังผลิต
                                                     <?php } else { ?>
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
                                                     <?php } ?>
                                                 <?php } else { ?>
-                                                    ไม่มีการผลิต
+                                                    <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -236,7 +254,7 @@ $CustomerModel = new Customer();
                                                 <img src="<?php echo Url::to('@web/icon/engineer.png') ?>" class=" img-responsive" style=" width: 48px;"/><br/>
                                                 <?php if ($model['manufacture_status'] != "0") { ?>
                                                     <?php if ($model['manufacture_status'] == 1) { ?>
-                                                        <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการผลิต
+                                                        <i class="fa fa-remove text-danger"></i> กำลังผลิต
                                                     <?php } else { ?>
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
                                                     <?php } ?>

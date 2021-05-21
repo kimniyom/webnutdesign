@@ -13,6 +13,7 @@
 
 
 <?php
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\ConfigWeb;
@@ -70,29 +71,37 @@ $this->title = 'งานทั้งหมด';
 <div class="customer-viewall">
     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-top: 5px;">
         <div class="card-content">
-            <div class="card-body" style=" padding: 0px; padding-left: 10px;">
-                <nav class="navbar navbar-expand-lg navbar-light" style=" padding: 0px; font-family: skv;">
-                    <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
+
+            <div class="card-body" style=" padding: 0px; padding-left: 10px; font-family: skv; padding-top: 5px;">
+                <div style="position: absolute; left: 5px; z-index: 2; top: 2px;">
+                    <a class="navbar-brand" href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>" style=" float: left;">
                         <button type="button" class="btn btn-dark btn-rounded text-warning"><i class="fa fa-home"></i></button>
                     </a>
-                    <div style="margin-right: 10px; font-size: 20px; color: #FFFFFF; text-align: center;" id="title-head">งานทั้งหมด</div>
-                    <div style="display: none;">
-                    <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
-                    </button>
+                </div>
+                <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
+                ทั้งหมด(<?php echo $statushead ?>)
+                </font>
+                <input type="hidden" name="" id="souredata" value="1">
+                <div class="pull-right" style=" margin-right: 0px; margin-top: -5px; z-index: 5; margin-bottom: 5px;">
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
-                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer">
-                            <input class="form-control mr-sm-2 mr-md-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" >
-                            <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
+
+                    <div class="btn-group dropleft" style=" margin-right: 10px; margin-top: 2px;">
+                        <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            สถานะงาน
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button" onclick="setType(1)">กำลังดำเนินการ</button>
+                            <button class="dropdown-item" type="button" onclick="setType(2)">สำเร็จ</button>
+                            <button class="dropdown-item" type="button" onclick="setType(3)">ยกเลิกงาน</button>
+                            <button class="dropdown-item" type="button" onclick="setType(4)">ทั้งหมด</button>
                         </div>
                     </div>
-</div>
-                    <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/export']) ?>" target="_bank" style="position: absolute;right: 10px;" id="btn-export">
-                    <button type="button" class="btn btn-dark" ><i class="fa fa-file-excel-o"></i> Export</button></a>
-                    
-                </nav>
+                </div>
+
+                <!--
+                                       <a href="<?php //echo Yii::$app->urlManager->createUrl(['customer/export'])                          ?>" target="_bank" style="position: absolute;right: 10px;" id="btn-export">
+                                           <button type="button" class="btn btn-dark" ><i class="fa fa-file-excel-o"></i> Export</button></a>
+                -->
 
             </div>
         </div>
@@ -102,12 +111,12 @@ $this->title = 'งานทั้งหมด';
         <div class="col-lg-12 col-md-12">
             <div style=" top: 0px; font-weight: bold; margin-left: 10px; margin-top: 10px;">
                 <!--
-                <span class="badge bg-dark text-white">ทั้งหมด <?php //echo count($dataList)        ?> </span>
+                <span class="badge bg-dark text-white">ทั้งหมด <?php //echo count($dataList)                                       ?> </span>
                 <span class="badge bg-success text-white">ยืนยันแล้ว 0 </span>
                 <span class="badge bg-warning text-white">กำลังดำเนินการ 0 </span>
                 <span class="badge bg-danger text-white">ยกเลิก 0 </span>
                 -->
-                
+
             </div>
             <div id="body-work" style="margin-top: 10px; overflow: auto; margin-bottom: 15px;">
                 <div id="job" class=" table-responsive">
@@ -155,7 +164,7 @@ $this->title = 'งานทั้งหมด';
                                     </td>
                                     <td><?php echo $rs['customer'] ?></td>
                                     <td><?php echo $rs['project_name'] ?></td>
-                                    <td><?php echo $ConfigWeb->thaidate(substr($rs['create_date'],0,10)) ?></td>
+                                    <td><?php echo $ConfigWeb->thaidate(substr($rs['create_date'], 0, 10)) ?></td>
                                     <td><?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></td>
                                     <td><?php echo Profile::findOne(['user_id' => $rs['user_id']])['name'] ?></td>
                                     <td>
@@ -211,7 +220,7 @@ $this->title = 'งานทั้งหมด';
                                             echo "<i class='fa fa-remove text-danger'></i>";
                                         } else if ($rs['cnc_status'] == 2) {
                                             //$useLaser = Profile::findOne(['user_id' => $bLaser['user_id']])['name'];
-                                             echo "<i class='fa fa-check text-success'></i>";
+                                            echo "<i class='fa fa-check text-success'></i>";
                                         } else {
                                             echo "-";
                                         }
@@ -297,13 +306,16 @@ $this->registerJs('
             $("#tb-all").DataTable({
                 "scrollY": hTb + "px",
                 "scrollCollapse": true,
-                "scrollX":true,
+                "scrollX": true,
                 "paging": false,
                 "info": false,
                 "oLanguage": {
                     "sSearch": "ค้นหา: ", // เปลี่ยน label คำว่า Search เป็น ค้นหา
-                }
-                
+                },
+                "dom": "Bfrtip",
+                buttons: [
+                    'excel',
+                ]
             });
         } else {
             $("#btn-export").hide();
@@ -347,6 +359,11 @@ $this->registerJs('
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
+    }
+
+    function setType(type) {
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/all']) ?>" + "?type=" + type;
+        window.location = url;
     }
 
 </script>
