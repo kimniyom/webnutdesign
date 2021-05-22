@@ -77,50 +77,54 @@ $configWeb = new ConfigWeb();
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
+
+    .help-block{
+        color: #ffcc00;
+    }
 </style>
 <!-- Popup Detail -->
 
 <div class="modal fade" tabindex="-1" role="dialog" id="popupOrder" data-backdrop="static">
-    <div class="modal-dialog odal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
 
         <?php $form = ActiveForm::begin(['action' => ['graphic/update', 'ref' => $model->ref], 'options' => ['enctype' => 'multipart/form-data']]); ?>
-        <div class="modal-content bg-dark border-dark" style="position: relative;">
-            <div class="modal-header border-dark">
-                <h4 class="modal-title text-warning" style=" font-family: skv; text-align: center;">สั่งงาน</h4>
+        <div class="modal-content" style="position: relative;background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%); border-radius: 20px;">
+            <div class="modal-header" style="border:none;">
+                <h4 class="modal-title" style=" font-family: skv; text-align: center; color: #FFFFFF;">สั่งงาน</h4>
                 <a href="<?php echo Url::to(['graphic/index']) ?>" class=" pull-right">
                     <div class="btn btn-danger" style=" border-radius: 15px;"><i class="fa fa-remove fa-2x"></i></div></a>
             </div>
-            <div class="modal-body bg-dark" id="box-popup">
+            <div class="modal-body" id="box-popup">
                 <div class="graphic-form-1" style=" padding: 0px; font-family: skv; font-size: 18px;">
 
                     <label for="" style=" font-family: skv; color: #ffffff;">รายละเอียดข้อมูลใบสั่งงาน</label>
                     <?php
                     /*
-                    $form->field($model, 'detail')->widget(CKEditor::className(), [
-                        'options' => ['rows' => 6],
-                        'preset' => 'basic'
-                    ])->label(false);
-                    */
+                      $form->field($model, 'detail')->widget(CKEditor::className(), [
+                      'options' => ['rows' => 6],
+                      'preset' => 'basic'
+                      ])->label(false);
+                     */
                     ?>
 
-                       <?=
-                        $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
-                            'clientOptions' => [
-                                //'imageManagerJson' => ['/redactor/upload/image-json'],
-                                //'imageUpload' => ['/redactor/upload/image'],
-                                //'fileUpload' => ['/redactor/upload/file'],
-                                'lang' => 'th',
-                                'plugins' => ['fontcolor', 'fullscreen'], //'clips',
-                                'buttonsHide' => ['deleted','file', 'html', 'format'],//'image'
-                                'minHeight' => '300px'
-                            ]
-                        ])->label(false)
-                        ?>
+                    <?=
+                    $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
+                        'clientOptions' => [
+                            //'imageManagerJson' => ['/redactor/upload/image-json'],
+                            //'imageUpload' => ['/redactor/upload/image'],
+                            //'fileUpload' => ['/redactor/upload/file'],
+                            'lang' => 'th',
+                            'plugins' => ['fontcolor', 'fullscreen'], //'clips',
+                            'buttonsHide' => ['deleted', 'file', 'html', 'format'], //'image'
+                            'minHeight' => '300px'
+                        ]
+                    ])->label(false)
+                    ?>
                     <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => true])->label(false) ?>
                     <?php //$form->field($model, 'link')->textInput(['maxlength' => true])       ?>
                     <div class="form-group field-upload_files">
                         <label class="control-label" for="upload_files[]" style=" margin-bottom: 0px; padding-bottom: 0px; color: #ffffff;"> แนบไฟล์รูปภาพ </label>
-                        <div style=" padding-top:0px;">
+                        <div style=" padding-top:0px; background: #FFFFFF; border-radius: 5px; padding: 5px;">
 
                             <?=
                             FileInput::widget([
@@ -179,9 +183,9 @@ $configWeb = new ConfigWeb();
                     <?= $form->field($model, 'ref_graphic')->hiddenInput(['maxlength' => true])->label(false) ?>
                 </div>
             </div>
-            <div class="modal-footer border-dark">
+            <div class="modal-footer" style=" border:none;">
                 <div style="text-align: center; width: 100%;" id="btn-save-gf">
-                    <?= Html::submitButton('ส่งผลิต <i class="fa fa-save"></i>', ['class' => 'btn btn-danger btn-rounded btn-lg btn-block']) ?>
+                    <?= Html::submitButton('ส่งผลิต <i class="fa fa-save"></i>', ['class' => 'btn btn-dark btn-rounded btn-lg btn-block']) ?>
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ use Yii;
 
 class Dashboard {
 
-    function countCustomerToday(){
+    function countCustomerToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM customer c
             WHERE LEFT(c.create_date,10) = DATE(NOW())";
@@ -14,15 +14,14 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countCustomerNoApprove(){
+    function countCustomerNoApprove() {
         $sql = "SELECT COUNT(*) AS TOTAL
-            FROM customer c
-            WHERE c.flag = '0'";
+            FROM customer c WHERE c.flag = '0' AND c.approve = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
-    function countCustomerFast(){
+    function countCustomerFast() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM customer c
             WHERE c.flag = '0' AND c.level = '5'";
@@ -30,7 +29,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countCustomerCancel(){
+    function countCustomerCancel() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM customer c
             WHERE c.flag = '2'";
@@ -39,7 +38,7 @@ class Dashboard {
     }
 
     //Account
-    function countAccountNopaper(){
+    function countAccountNopaper() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM account c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve = '0' AND m.flag = '0'";
@@ -47,7 +46,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-     function countOutside(){
+    function countOutside() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM customer c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.flag = '0' AND c.outside = '1' AND m.flag = '0'";
@@ -56,7 +55,7 @@ class Dashboard {
     }
 
     //Graphic
-    function countGraphicNopaper(){
+    function countGraphicNopaper() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM graphic c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve = '0' AND m.flag = '0'";
@@ -64,7 +63,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countGraphicApproveToday(){
+    function countGraphicApproveToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM graphic c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve = '1' AND LEFT(c.update_date,10) = DATE(NOW()) AND m.flag = '0'";
@@ -72,8 +71,8 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-     //Print
-    function countPrintNoapprove(){
+    //Print
+    function countPrintNoapprove() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchprint c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status != '4' AND m.flag = '0'";
@@ -81,7 +80,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countPrintApproveToday(){
+    function countPrintApproveToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchprint c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW()) AND m.flag = '0'";
@@ -90,7 +89,7 @@ class Dashboard {
     }
 
     //Cnc/Laser
-    function countLaserNoapprove(){
+    function countLaserNoapprove() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchlaser c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status != '4' AND m.flag = '0'";
@@ -98,7 +97,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countLaserApproveToday(){
+    function countLaserApproveToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchlaser c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW()) AND m.flag = '0'";
@@ -107,7 +106,7 @@ class Dashboard {
     }
 
     //ผลิตทั่วไป
-    function countFactureNoapprove(){
+    function countFactureNoapprove() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchfacture c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status != '4' AND m.flag = '0'";
@@ -115,7 +114,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countFactureApproveToday(){
+    function countFactureApproveToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchfacture c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status = '4' AND LEFT(c.confirm_date,10) = DATE(NOW()) AND m.flag = '0'";
@@ -124,7 +123,7 @@ class Dashboard {
     }
 
     //ติดตั้ง
-    function countQueueNoapprove(){
+    function countQueueNoapprove() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM queue c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve != '2' AND m.flag = '0'";
@@ -132,7 +131,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countQueueApproveToday(){
+    function countQueueApproveToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM queue c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve = '2' AND LEFT(c.queuedate,10) = DATE(NOW()) AND m.flag = '0'";
@@ -141,32 +140,32 @@ class Dashboard {
     }
 
     //จัดส่ง
-    function countTransportNoapprove(){
+    function countTransportNoapprove() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM transport c INNER JOIN customer m ON c.ref = m.ref
-            WHERE c.status != '1' AND m.flag = '0'";
+            WHERE c.status != '1' AND m.flag = '0' AND m.approve = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
-    function countTransportApproveToday(){
+    function countTransportApproveToday() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM transport c INNER JOIN customer m ON c.ref = m.ref
-            WHERE c.status = '2' AND LEFT(c.confirm_date,10) = DATE(NOW())  AND m.flag = '0'";
+            WHERE c.status = '2' AND LEFT(c.confirm_date,10) = DATE(NOW())  AND m.flag = '0' ";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
-    function chartMonth(){
+    function chartMonth() {
         $Month = date("m");
-        if(strlen($Month) < 2){
-            $m = "0".$Month;
+        if (strlen($Month) < 2) {
+            $m = "0" . $Month;
         } else {
             $m = $Month;
         }
         $sql = "SELECT DAY(c.create_date) AS DAY,COUNT(*) AS total
-                FROM customer c 
-                WHERE c.flag != '2' 
+                FROM customer c
+                WHERE c.flag != '2'
                 AND LEFT(c.create_date,4) = YEAR(CURDATE())
                 AND SUBSTR(c.create_date,6,2) = '05'
                 GROUP BY LEFT(c.create_date,10)
@@ -175,8 +174,7 @@ class Dashboard {
         return $rs;
     }
 
-
-    function countAccountNopaperAll(){
+    function countAccountNopaperAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM account c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status = '0' AND m.flag = '0'";
@@ -184,7 +182,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countGraphicNoapproveAll(){
+    function countGraphicNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM graphic c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve = '0' AND m.flag = '0'";
@@ -192,7 +190,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countPrintNoapproveAll(){
+    function countPrintNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchprint c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status != '4' AND m.flag = '0'";
@@ -200,7 +198,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-     function countLaserNoapproveAll(){
+    function countLaserNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchlaser c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status != '4' AND m.flag = '0'";
@@ -208,7 +206,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countFactureNoapproveAll(){
+    function countFactureNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM branchfacture c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.status != '4' AND m.flag = '0'";
@@ -216,7 +214,7 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countSetupNoapproveAll(){
+    function countSetupNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM queue c INNER JOIN customer m ON c.ref = m.ref
             WHERE c.approve != '2' AND m.flag = '0'";
@@ -224,23 +222,23 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countTransportNoapproveAll(){
+    function countTransportNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM transport c INNER JOIN customer m ON c.ref = m.ref
-            WHERE c.status = '1' AND m.flag = '0'";
+            WHERE c.status = '1' AND m.flag = '0' AND m.approve = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
-    function countNoTransportNoapproveAll(){
+    function countNoTransportNoapproveAll() {
         $sql = "SELECT COUNT(*) AS TOTAL
             FROM customer m
-            WHERE m.transport = '0' AND m.flag = '0'";
+            WHERE m.transport = '0' AND m.flag = '0' AND m.approve = '0'";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
-    function countLevel($level){
+    function countLevel($level) {
         $sql = "SELECT COUNT(*) AS TOTAL
                 FROM customer c
                 WHERE c.flag = '1' AND c.`level` = '$level' ";
@@ -248,8 +246,8 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countCustomerType($type = ""){
-        if($type == '1'){
+    function countCustomerType($type = "") {
+        if ($type == '1') {
             $where = " AND c.`channel` = '1'";
         } else {
             $where = " AND c.`channel` != '1'";
@@ -261,9 +259,9 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function countCustotmerCat(){
+    function countCustotmerCat() {
         $sql = "SELECT t.typename,IFNULL(Q.total,0) AS total
-                    FROM typecustomer t 
+                    FROM typecustomer t
                     LEFT JOIN (
                     SELECT c.typecustomer,COUNT(*) AS total
                     FROM customer c
@@ -274,7 +272,7 @@ class Dashboard {
     }
 
     function searchJob($project = "") {
-        if($project){
+        if ($project) {
             $sql = "select c.* from customer c WHERE c.project_name LIKE '%" . $project . "%'";
         } else {
             $sql = "select c.* from customer c WHERE c.id = ''";
@@ -282,5 +280,5 @@ class Dashboard {
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;
     }
-    
+
 }

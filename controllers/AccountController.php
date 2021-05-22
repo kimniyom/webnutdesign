@@ -138,6 +138,13 @@ class AccountController extends Controller {
             $model->create_date = date("Y-m-d H:i:s");
             $model->save();
 
+            //ส่งไปกราฟิก
+            $refgraphic = \app\models\Graphic::findOne(['ref' => $ref]);
+            if (!$refgraphic['ref']) {
+                Yii::$app->db->createCommand()
+                        ->insert("graphic", array("ref" => $ref))
+                        ->execute();
+            }
             //Time Line
             $rs = \app\models\Timeline::find()
                     ->where(['ref' => $ref])

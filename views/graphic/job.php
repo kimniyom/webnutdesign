@@ -1,110 +1,4 @@
 <style>
-    .meter {
-        box-sizing: content-box;
-        height: 15px; /* Can be anything */
-        position: relative;
-        margin: 0px 0 0px 0; /* Just for demo spacing */
-        background: #d25fa0;
-        border-radius: 25px;
-        padding: 2px;
-        box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
-    }
-    .meter > span {
-        display: block;
-        height: 100%;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        background-color: rgb(43, 194, 83);
-        background-image: linear-gradient(
-            center bottom,
-            rgb(43, 194, 83) 37%,
-            rgb(84, 240, 84) 69%
-            );
-        box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3),
-            inset 0 -2px 6px rgba(0, 0, 0, 0.4);
-        position: relative;
-        overflow: hidden;
-    }
-    .meter > span:after,
-    .animate > span > span {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-image: linear-gradient(
-            -45deg,
-            rgba(255, 255, 255, 0.2) 25%,
-            transparent 25%,
-            transparent 50%,
-            rgba(255, 255, 255, 0.2) 50%,
-            rgba(255, 255, 255, 0.2) 75%,
-            transparent 75%,
-            transparent
-            );
-        z-index: 1;
-        background-size: 50px 50px;
-        animation: move 2s linear infinite;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        overflow: hidden;
-    }
-    .animate > span:after {
-        display: none;
-    }
-    .orange > span {
-        background-image: linear-gradient(#f1a165, #f36d0a);
-    }
-
-    .red > span {
-        background-image: linear-gradient(#ff0000, #f42323);
-    }
-
-    .nostripes > span > span,
-    .nostripes > span::after {
-        background-image: none;
-    }
-
-    @media screen and (max-device-width: 768px) {
-        /* STYLES HERE */
-        .text-gf-head{
-            font-size: 20px;
-        }
-
-        .alert-heading{
-            /*margin-top: -10px;*/
-        }
-    }
-
-    @media screen and (min-device-width: 769px) and (max-device-width: 1024px) {
-        /* STYLES HERE */
-        .text-gf-head{
-            font-size: 20px;
-        }
-
-        .alert-heading{
-            margin-top: -10px;
-        }
-    }
-
-    .active-false{
-        background-image:linear-gradient(to right, #cf1b76, #666666);
-    }
-
-    .active-true{
-        background:#ffff00;
-        color: #ffff00;
-    }
-
-    .active-true:hover{
-        background:#ffff00;
-        color: #ffff00;
-    }
 
 </style>
 <?php
@@ -135,9 +29,12 @@ $GraphicLog = new GraphicLog();
                     <div>
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
-                                <h2 class="alert-heading" >
+                                <div class="alert-heading" >
                                     <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['project_name'] ?></span>
-                                </h2>
+                                </div>
+                            </div>
+                            <div style="height: 20px; overflow: hidden; clear: both; ">
+                                <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
                             </div>
                         </div>
                         <div style="float: right; position: absolute; top: 5px; right: 15px;">
@@ -151,7 +48,7 @@ $GraphicLog = new GraphicLog();
 
                                 <a href="<?php echo \yii\helpers\Url::to(['graphic/formupdate', 'ref' => $rs['ref']]) ?>" id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;">เสร็จแล้ว </a>
                                 <!--
-                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']           ?>')">เสร็จแล้ว </a>
+                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']                   ?>')">เสร็จแล้ว </a>
                                 -->
                             <?php } ?>
 

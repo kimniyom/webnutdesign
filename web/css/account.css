@@ -117,6 +117,68 @@ and open the template in the editor.
     border-radius: 0px;
 }
 
+/*PopUp*/
+.text-tran-head{
+    font-size: 24px;
+}
+
+.text-tran-customer{
+    font-size: 16px;
+}
+
+
+.send-heading{
+    font-size: 16px;
+}
+@media screen and (max-width: 768px) {
+    /* STYLES HERE */
+    .text-tran-head{
+        font-size: 20px;
+    }
+
+    .text-tran-customer{
+        font-size: 14px;
+    }
+
+    .alert-heading{
+        margin-top: -10px;
+    }
+
+    .send-heading{
+        font-size: 14px;
+    }
+
+    .box-title-tran{
+        height: 20px;
+    }
+}
+
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    /* STYLES HERE */
+    .text-tran-head{
+        font-size: 20px;
+        line-height: 20pt;
+    }
+
+    .text-tran-customer{
+        font-size: 14px;
+    }
+
+    .alert-heading{
+        margin-top: -10px;
+    }
+
+    .send-heading{
+        font-size: 14px;
+    }
+
+    .box-title-tran{
+        height: 30px;
+    }
+
+}
+
 
 
 

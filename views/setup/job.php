@@ -124,56 +124,59 @@ $TimeLineModel = new Timeline();
 คิวติดตั้ง
 -->
 <div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px;">
-<input type="hidden" id="_ref"/>
-<?php if ($dataList) { ?>
-    <?php
-    foreach ($dataList as $rs):
-        ?>
-        <div class="col-md-6 col-lg-6" style=" padding: 0px;">
-         <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
-            <div>
-                <div style=" width: 80%; float: left;">
-                    <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
-                        <h2 class="alert-heading" >
-                            <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['approve'] ?>')"><?php echo $rs['project_name'] ?></span>
-                        </h2>
-                    </div>
-                </div>
-                <div style="float: right; position: absolute; top: 5px; right: 15px;">
-                <!-- ถ้ามีการรับงานแล้ว -->
-                    <?php if ($rs['approve'] == "1") { ?>
-                        <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right active-false" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="confirmStatus('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
-                    <?php } else if($rs['approve'] == "2") { ?>
-                        <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
-                            <span  style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
-                        </a>
-                    <?php } else { ?>
-                        <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right disabled" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
-                            เสร็จแล้ว
-                        </a>
-                    <?php } ?> 
-                </div>
-                  
-
-                <!--
-                    <?php //if ($rs['approve'] == "0") { ?>
-                        <div class="btn-work-nut-send" onclic0k="updateStatus('<?php //echo $rs['ref'] ?>')">
-                            <div class="vertical-center">
-                                <ion-icon name="color-wand-outline" style="float: left;"></ion-icon> รับงาน
+    <input type="hidden" id="_ref"/>
+    <?php if ($dataList) { ?>
+        <?php
+        foreach ($dataList as $rs):
+            ?>
+            <div class="col-md-6 col-lg-6" style=" padding: 0px;">
+                <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow: #343434 0px 5px 10px 0px; padding-bottom: 25px;">
+                    <div>
+                        <div style=" width: 80%; float: left;">
+                            <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
+                                <div class="alert-heading" >
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['approve'] ?>')"><?php echo $rs['project_name'] ?></span>
+                                </div>
+                            </div>
+                            <div style="height: 20px; overflow: hidden; clear: both; ">
+                                <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
                             </div>
                         </div>
-                    <?php //} else if ($rs['approve'] == "1") { ?>
-                        <a href="<?php //echo Yii::$app->urlManager->createUrl(['setup/update', 'ref' => $rs['ref']]) ?>">
-                            <div class="btn-work-nut-success">
-                                <div class="vertical-center">
+                        <div style="float: right; position: absolute; top: 5px; right: 15px;">
+                            <!-- ถ้ามีการรับงานแล้ว -->
+                            <?php if ($rs['approve'] == "1") { ?>
+                                <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right active-false" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="confirmStatus('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
+                            <?php } else if ($rs['approve'] == "2") { ?>
+                                <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
+                                    <span  style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
+                                </a>
+                            <?php } else { ?>
+                                <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right disabled" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
                                     เสร็จแล้ว
-                                </div>
-                            </div></a>
-                    <?php //} ?>
-                    -->
-                </div>
+                                </a>
+                            <?php } ?>
+                        </div>
 
-                <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
+
+                        <!--
+                        <?php //if ($rs['approve'] == "0") { ?>
+                                <div class="btn-work-nut-send" onclic0k="updateStatus('<?php //echo $rs['ref']     ?>')">
+                                    <div class="vertical-center">
+                                        <ion-icon name="color-wand-outline" style="float: left;"></ion-icon> รับงาน
+                                    </div>
+                                </div>
+                        <?php //} else if ($rs['approve'] == "1") { ?>
+                                <a href="<?php //echo Yii::$app->urlManager->createUrl(['setup/update', 'ref' => $rs['ref']])     ?>">
+                                    <div class="btn-work-nut-success">
+                                        <div class="vertical-center">
+                                            เสร็จแล้ว
+                                        </div>
+                                    </div></a>
+                        <?php //} ?>
+                        -->
+                    </div>
+
+                    <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
                         <div style=" float: left; width: 65%;">
                             <?php
                             if ($rs['level'] == 1) {
@@ -207,14 +210,14 @@ $TimeLineModel = new Timeline();
                         <p class="mb-0 pull-right" style="text-align: center; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></p>
                     </div>
 
+                </div>
             </div>
+        <?php endforeach; ?>
+    <?php } else { ?>
+        <div class="container">
+            <div class="alert alert-primary" style="text-align: center">ไม่มีงานส่งมา</div>
         </div>
-    <?php endforeach; ?>
-<?php } else { ?>
-    <div class="container">
-        <div class="alert alert-primary" style="text-align: center">ไม่มีงานส่งมา</div>
-    </div>
-<?php } ?>
+    <?php } ?>
 
 </div>
 <script type="text/javascript">

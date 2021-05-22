@@ -38,44 +38,44 @@ $this->title = 'กราฟิก / ออกแบบ';
                         <button type="button" class="btn btn-dark btn-rounded text-warning" style="z-index: 100;"><i class="fa fa-home"></i></button>
                     </a>
                 </div>
-                    <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
-                        กราฟิก
-                    </font>
+                <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
+                กราฟิก
+                </font>
 
-                    <!--
-                    <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: right; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
-                        <option value="1">เร่งด่วน</option>
-                        <option value="2">วันที่จัดส่ง</option>
-                        <option value="3">รับล่าสุด</option>
-                    </select>
-                    -->
-                    <input type="hidden" name="" id="souredata" value="1">
-                    <!-- Default dropleft button -->
-                    <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
-                      <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!--
+                <select class="form-control" style=" width: 150px; margin-right: 10px; border: 0px; background: #111111; float: right; border-radius: 30px; color: #FFFFFF;" onchange="getJob()" id="souredata">
+                    <option value="1">เร่งด่วน</option>
+                    <option value="2">วันที่จัดส่ง</option>
+                    <option value="3">รับล่าสุด</option>
+                </select>
+                -->
+                <input type="hidden" name="" id="souredata" value="1">
+                <!-- Default dropleft button -->
+                <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
+                    <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         จัดเรียง
-                      </button>
-                      <div class="dropdown-menu">
+                    </button>
+                    <div class="dropdown-menu">
                         <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
                         <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
                         <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
-                      </div>
                     </div>
+                </div>
 
-                    <!--
-                    <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style=" display: none">
-                        <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
-                    </button>
+                <!--
+                <button class="navbar-toggler bg-dark btn-rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style=" display: none">
+                    <span class="btn btn-sm btn-rounded text-white" style="color: rgb(184, 0, 153); font-weight: bold; padding: 0px;"><i class="fa fa-search"></i> ค้นหา</span>
+                </button>
 
-                    <div class="collapse navbar-collapse " id="navbarSupportedContent" style=" display: none;">
-                        <div class="form-inline my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
-                            <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
-                            <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" style="border-radius: 20px; border:0px;">
-                            <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
-                        </div>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent" style=" display: none;">
+                    <div class="form-inline my-box-search" style="border-radius: 30px;  padding: 1px 10px 1px 10px;">
+                        <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" style="border-radius: 20px; border:0px;">
+                        <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" style="border-radius: 20px; border:0px;">
+                        <button class="btn btn-dark my-2 btn-rounded search-btn" type="button" onclick="searchJob()"><i class="fa fa-search"></i> ค้นหา</button>
                     </div>
-                    -->
-               
+                </div>
+                -->
+
 
             </div>
         </div>
@@ -184,7 +184,7 @@ $this->registerJs('
         });
     }
 
-    function setType(val){
+    function setType(val) {
         $("#souredata").val(val);
         getJob();
     }

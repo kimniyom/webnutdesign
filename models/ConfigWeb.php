@@ -76,6 +76,11 @@ class ConfigWeb {
         return $thai_month;
     }
 
+    function getMonth($key) {
+        $thai_month = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+        return $thai_month[(int) $key];
+    }
+
     function month_shot() {
         $thai_month = Array(
             "01" => "ม.ค.",

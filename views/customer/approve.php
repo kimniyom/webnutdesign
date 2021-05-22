@@ -96,8 +96,8 @@ $this->title = 'ส่งมอบงาน';
                             <table class="table">
                                 <?php //foreach ($transportTag as $tag): ?>
                                 <tr>
-                                    <td><?php //echo $tag['customer']      ?></td>
-                                    <td><?php //echo $tag['tagnumber']      ?></td>
+                                    <td><?php //echo $tag['customer']        ?></td>
+                                    <td><?php //echo $tag['tagnumber']        ?></td>
                                     <td></td>
                                 </tr>
                                 <?php //endforeach; ?>
@@ -138,8 +138,8 @@ $this->title = 'ส่งมอบงาน';
 
     <script>
         setInterval(function() {
-        getJob();
-    }, 300000);
+            getJob();
+        }, 300000);
         function setScreens() {
             var h = window.innerHeight;
             var w = window.innerWidth;

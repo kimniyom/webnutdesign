@@ -101,7 +101,7 @@ $this->title = "ผลิตทั่วไป";
 </div>
 
 <!-- Popup Confirm -->
-<div class="modal fade " tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static">
+<div class="modal fade" tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">

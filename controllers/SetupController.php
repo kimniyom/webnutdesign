@@ -128,7 +128,7 @@ class SetupController extends Controller {
     function getWork() {
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name,c.level
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.`confirm` = '1' AND a.approve != '2' AND c.flag = '0'";
+                    WHERE a.approve != '2' AND c.flag = '0'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -167,28 +167,28 @@ class SetupController extends Controller {
 
     public function actionConfirmstatus() {
         $ref = Yii::$app->request->post('ref');
-            //อัพเดทสถานะงาน
-            \Yii::$app->db->createCommand()
-                    ->update("queue", array("approve" => '2','dupdate' => date("Y-m-d H:i:s")), "ref = '$ref'")
-                    ->execute();
+        //อัพเดทสถานะงาน
+        \Yii::$app->db->createCommand()
+                ->update("queue", array("approve" => '2', 'dupdate' => date("Y-m-d H:i:s")), "ref = '$ref'")
+                ->execute();
 
-            $culumnstimeline = array(
-                "department" => '8',
-                "ref" => $ref,
-                "user_id" => Yii::$app->user->identity->id,
-                "log" => "ติดตั้งงานลูกค้า",
-                "todep" => "ช่างติดตั้ง(ส่งงานลูกค้า)",
-                "d_update" => date("Y-m-d H:i:s")
-            );
+        $culumnstimeline = array(
+            "department" => '8',
+            "ref" => $ref,
+            "user_id" => Yii::$app->user->identity->id,
+            "log" => "ติดตั้งงานลูกค้า",
+            "todep" => "ช่างติดตั้ง(ส่งงานลูกค้า)",
+            "d_update" => date("Y-m-d H:i:s")
+        );
 
-            \Yii::$app->db->createCommand()
-                    ->insert("timeline", $culumnstimeline, "ref = '$ref'")
-                    ->execute();
+        \Yii::$app->db->createCommand()
+                ->insert("timeline", $culumnstimeline, "ref = '$ref'")
+                ->execute();
 
-            //อัพเดทสถานะงาน
-            \Yii::$app->db->createCommand()
-                    ->update("customer", array("technician_status" => '2'), "ref = '$ref'")
-                    ->execute();
+        //อัพเดทสถานะงาน
+        \Yii::$app->db->createCommand()
+                ->update("customer", array("technician_status" => '2'), "ref = '$ref'")
+                ->execute();
     }
 
     public function actionJob() {

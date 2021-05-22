@@ -91,6 +91,7 @@ $this->title = 'รับงาน';
                             <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
                             <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
                             <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                            <button class="dropdown-item" type="button" onclick="setType(4)">งานที่รับวันนี้</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +102,7 @@ $this->title = 'รับงาน';
     </div>
     <div class="row" style="margin-bottom: 0px;">
         <div class="col-lg-12 col-md-12">
-            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px;">
+            <div style=" top: 0px; font-weight: bold; margin-left: 30px; margin-top: 10px; font-family: skv; font-size: 14px;">
                 !หมายเหตุ ข้อมูลจะหายไปเมื่อมีการยกเลิกงานหรืองานได้ Approve แล้ว
             </div>
             <div id="body-work" style="margin-top: 10px; overflow: auto;">

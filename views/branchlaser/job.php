@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use app\models\ConfigWeb;
 use app\models\Timeline;
 use app\models\GraphicLog;
+
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
 //$this->title = 'รับงาน';
@@ -26,9 +27,12 @@ $TimeLineModel = new Timeline();
                     <div>
                         <div style=" width: 80%; float: left;">
                             <div class="control-head-box">
-                                <h2 class="alert-heading" >
-                                    <span class="text-gf-head" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['project_name'] ?></span>
-                                </h2>
+                                <div class="alert-heading" >
+                                    <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['project_name'] ?></span>
+                                </div>
+                            </div>
+                            <div style="height: 20px; overflow: hidden; clear: both; ">
+                                <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
                             </div>
                         </div>
 
@@ -36,9 +40,9 @@ $TimeLineModel = new Timeline();
                             <!-- ถ้ามีการรับงานแล้ว -->
                             <?php if ($rs['status'] == "2") { ?>
                                 <?php if ($rs['status'] != "4") { ?>
-                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right active-false" 
-                                        onclick="popupConfirm('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
-                                <?php } else { ?>
+                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right active-false"
+                                       onclick="popupConfirm('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
+                                   <?php } else { ?>
                                     <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
                                         <span  style="background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px;"></span>
                                     </a>

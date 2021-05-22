@@ -4,7 +4,11 @@
     }
 
     .send-heading{
-        font-size: 18px;
+        font-size: 14px;
+    }
+
+    .text-tran-customer{
+        font-size: 16px;
     }
     @media screen and (max-width: 768px) {
         /* STYLES HERE */
@@ -12,12 +16,16 @@
             font-size: 20px;
         }
 
+        .text-tran-customer{
+            font-size: 14px;
+        }
+
         .alert-heading{
             margin-top: -10px;
         }
 
         .send-heading{
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .box-title-tran{
@@ -33,12 +41,16 @@
             line-height: 10pt;
         }
 
+        .text-tran-customer{
+            font-size: 14px;
+        }
+
         .alert-heading{
             margin-top: -10px;
         }
 
         .send-heading{
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .box-title-tran{
@@ -77,8 +89,11 @@ $TimeLineModel = new Timeline();
                                         <div class="text-tran-head"  style=" font-weight: bold; cursor: pointer; line-height: 35pt; color: #FFFFFF;" onclick="getViews('<?php echo $rs['ref'] ?>')"><?php echo $rs['project_name'] ?></div>
                                     </div>
                                 </div>
+                                <div style="height: 20px; overflow: hidden; clear: both; ">
+                                    <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
+                                </div>
                             </div>
-                            <div class="send-heading" style=" font-weight: normal; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+
                         </div>
                         <div class="col-md-3 col-lg-3 col-sm-3 col-3">
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['transport/update', 'ref' => $rs['ref']]) ?>" class="pull-right">
@@ -86,6 +101,8 @@ $TimeLineModel = new Timeline();
                             </a>
                         </div>
                     </div>
+                    <hr style=" border-top: solid 3px #eac0d6; height: 3px; margin-top: 5px; margin-bottom: 5px;">
+                    <div class="send-heading " style=" font-weight: normal; text-align: right; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
                 </div>
             </div>
         <?php endforeach; ?>

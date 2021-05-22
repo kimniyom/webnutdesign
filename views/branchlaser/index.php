@@ -39,7 +39,7 @@ $this->title = "cnc / laser";
                     </a>
                 </div>
                 <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
-                    CNC/Laser
+                CNC/Laser
                 </font>
                 <input type="hidden" name="" id="souredata" value="1">
                 <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
@@ -47,9 +47,9 @@ $this->title = "cnc / laser";
                         จัดเรียง
                     </button>
                     <div class="dropdown-menu">
-                    <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
-                    <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
-                    <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
+                        <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@ $this->title = "cnc / laser";
 </div>
 
 <!-- Popup Confirm -->
-<div class="modal fade " tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static">
+<div class="modal fade" tabindex="-1" role="dialog" id="popupConfirmwork" data-backdrop="static" style=" background: #111111;">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">
@@ -140,7 +140,7 @@ $this->registerJs('
             $("#body-work").css({"height": h - 150});
             $("#body-history").css({"height": h - 210});
             //$("#head-toolbar").css({"background-image": "linear-gradient(to right, #c65f8e, #cf1b76)", "box-shadow": "#343434 0px 5px 10px 0px"});
-        } else if(w > 500){
+        } else if (w > 500) {
             $(".mr-sm-2").css({"margin-top": "10px"});
             $(".search-btn").addClass("btn btn-block");
             $(".my-box-search").css({"background": "#111111", "margin-right": "10px"});
@@ -167,7 +167,7 @@ $this->registerJs('
         });
     }
 
-    function setType(val){
+    function setType(val) {
         $("#souredata").val(val);
         getJob();
     }

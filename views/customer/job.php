@@ -1,54 +1,3 @@
-<style>
-    .text-tran-head{
-        font-size: 26px;
-    }
-
-    .send-heading{
-        font-size: 18px;
-    }
-    @media screen and (max-width: 768px) {
-        /* STYLES HERE */
-        .text-tran-head{
-            font-size: 20px;
-        }
-
-        .alert-heading{
-            margin-top: -10px;
-        }
-
-        .send-heading{
-            font-size: 16px;
-        }
-
-        .box-title-tran{
-            height: 20px;
-        }
-    }
-
-
-    @media screen and (min-width: 769px) and (max-width: 1023px) {
-        /* STYLES HERE */
-        .text-tran-head{
-            font-size: 24px;
-            line-height: 30pt;
-            margin-top: 8px;
-        }
-
-        .alert-heading{
-            margin-top: -10px;
-        }
-
-        .send-heading{
-            font-size: 16px;
-        }
-
-        .box-title-tran{
-            height: 30px;
-        }
-
-
-    }
-</style>
 <?php
 
 use yii\helpers\Html;
@@ -67,14 +16,17 @@ $TimeLineModel = new Timeline();
         foreach ($dataList as $rs):
             ?>
             <div class="col-md-6 col-lg-4 col-sm-6" style="margin: 0px; padding: 0px;">
-                <div class="alert alert-dark box-list-work" role="alert" style="background: #d25fa0; font-family: skv; margin: 10px; border-radius: 10px; box-shadow:#4a4a4a 5px 5px 10px 0px;">
+                <div class="alert alert-dark box-list-work" role="alert">
                     <div style=" float: left; width: 80%;">
                         <div style="height: 35px; overflow: hidden;">
                             <a href="javascript:getViews('<?php echo $rs['ref'] ?>')">
                                 <div class="text-tran-head" style=" font-weight: bold; color:#FFFFFF;"><?php echo $rs['project_name'] ?></div>
                             </a>
                         </div>
-                        <div class="send-heading" style=" font-weight: normal; color: #FFFFFF;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+
+                        <div style="height: 20px; overflow: hidden; clear: both; ">
+                            <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
+                        </div>
                     </div>
 
                     <div style=" position: absolute; right: 10px; top: 10px;">
@@ -82,6 +34,8 @@ $TimeLineModel = new Timeline();
                         <br/>
                         <a href="javascript:cancelJob('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger btn-sm" style="margin-top: 5px;padding: 0px 5px; width: 60px;">ยกเลิก <i class="fa fa-remove"></i></a>
                     </div>
+
+                    <div class="send-heading pull-right" style=" font-weight: normal; color: #FFFFFF;"><i class="far fa-calendar-alt"></i> ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
 
                     <div style=" clear: both;">
                         <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px; border-top: #FFFFFF solid 3px;">

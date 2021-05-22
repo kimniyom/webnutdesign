@@ -1,52 +1,3 @@
-<style>
-    .text-tran-head{
-        font-size: 26px;
-    }
-
-    .send-heading{
-        font-size: 18px;
-    }
-    @media screen and (max-width: 768px) {
-        /* STYLES HERE */
-        .text-tran-head{
-            font-size: 20px;
-        }
-
-        .alert-heading{
-            margin-top: -10px;
-        }
-
-        .send-heading{
-            font-size: 16px;
-        }
-
-        .box-title-tran{
-            height: 20px;
-        }
-    }
-
-
-    @media screen and (min-width: 769px) and (max-width: 1024px) {
-        /* STYLES HERE */
-        .text-tran-head{
-            font-size: 20px;
-            line-height: 20pt;
-        }
-
-        .alert-heading{
-            margin-top: -10px;
-        }
-
-        .send-heading{
-            font-size: 16px;
-        }
-
-        .box-title-tran{
-            height: 30px;
-        }
-
-    }
-</style>
 <?php
 
 use yii\helpers\Html;
@@ -63,14 +14,17 @@ $ConfigWeb = new ConfigWeb();
                     <a href="javascript:getViews('<?php echo $rs['ref'] ?>')">
                         <div class="text-tran-head" style=" font-weight: bold; color:#FFFFFF;"><?php echo $rs['project_name'] ?></div>
                     </a>
-                    <div class="send-heading" style=" font-weight: normal; color: #FFFFFF;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+                    <div style="height: 20px; overflow: hidden; clear: both; ">
+                        <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
+                    </div>
                 </div>
             </div>
+            <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px; border-top: #FFFFFF solid 3px;">
             <div class="row" style=" margin: 0px; padding: 0px;">
-                <div class="col-md-4 col-lg-6 col-12" style="padding:0px;">
-
+                <div class="col-md-6 col-lg-6 col-6" style="padding:0px;">
+                    <div class="send-heading" style=" font-weight: normal; color: #FFFFFF;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
                 </div>
-                <div class="col-md-8 col-lg-6 col-12" style="padding:0px;">
+                <div class="col-md-6 col-lg-6 col-6" style="padding:0px;">
                     <a href="<?php echo Yii::$app->urlManager->createUrl(['account/update', 'ref' => $rs['ref']]) ?>" class="btn btn-dark btn-block btn-sm" style="border-radius: 10px;">ใบเสนอราคา <i class="fas fa-pencil-alt"></i></a>
                 </div>
             </div>

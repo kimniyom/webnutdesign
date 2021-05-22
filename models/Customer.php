@@ -141,18 +141,20 @@ class Customer extends \yii\db\ActiveRecord {
             $user_id = "";
         }
 
-        if ($type == 1) {
+        if ($type == "1") {
             $order = "order by c.level desc";
-        } else if ($type == 2) {
+        } else if ($type == "2") {
             $order = "order by c.date_getjob asc";
-        } else {
+        } else if ($type == "3") {
             $order = "order by c.create_date desc";
+        } else {
+            $order = "and DATE(c.create_date) = CURDATE() order by c.create_date desc";
         }
 
         if ($status == "A" || $status == "M") {
-            $sql = "select * from customer c where c.flag = '0' $order";
+            $sql = "select * from customer c where c.flag = '0' AND c.approve = '0' $order";
         } else {
-            $sql = "select * from customer c where c.flag = '0' and user_id = '$user_id' $order";
+            $sql = "select * from customer c where c.flag = '0' AND c.approve = '0' and user_id = '$user_id' $order";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
@@ -179,7 +181,7 @@ class Customer extends \yii\db\ActiveRecord {
             $sql = "select * from customer WHERE flag = '0' order by flag ASC,create_date DESC";
         } else if ($type == "2") {
             $sql = "select * from customer WHERE flag = '1' order by flag ASC,create_date DESC";
-        } else if ($type == "2") {
+        } else if ($type == "3") {
             $sql = "select * from customer WHERE flag = '2' order by flag ASC,create_date DESC";
         } else {
             $sql = "select * from customer order by flag ASC,create_date DESC";
@@ -191,14 +193,21 @@ class Customer extends \yii\db\ActiveRecord {
     function getJobToDay($date) {
         $sql = "SELECT * FROM customer
             WHERE date_getjob = '$date'
-            AND flag = '0'";
+            AND flag = '0' AND approve = '0'";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    function getJobBeforDay($date) {
+        $sql = "SELECT * FROM customer
+            WHERE date_getjob < '$date'
+            AND flag = '0' AND approve = '0'";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     function getJobTomorow($date) {
         $sql = "SELECT * FROM customer
             WHERE date_getjob = DATE_ADD('$date', INTERVAL 1 DAY)
-            AND flag = '0'";
+            AND flag = '0' AND approve = '0'";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 

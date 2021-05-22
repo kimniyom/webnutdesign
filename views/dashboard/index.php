@@ -2,10 +2,32 @@
 
 use yii\helpers\Url;
 use app\models\Dashboard;
+use app\models\ConfigWeb;
 
+$ConfigWeb = new ConfigWeb();
 $Dashboard = new Dashboard();
 ?>
 <style type="text/css">
+
+    @media(min-width:767px) {
+        #popupaddwork .modal-dialog{
+            min-width: 99% !important;
+            margin-top: 10px !important;
+            margin: auto;
+        }
+
+        #detail-q{
+            position: relative;
+            overflow: auto;
+        }
+
+        #box-popup{
+            ;
+            padding:0px;
+            padding-bottom: 0px;
+        }
+    }
+
     .has-search .form-control {
         padding-left: 2.375rem;
     }
@@ -100,7 +122,9 @@ $Dashboard = new Dashboard();
                     <div class="col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-content">
-                                <div class="card-header"><?php echo "เดือน พฤษภาคม" ?></div>
+                                <div class="card-header" style=" font-family: skv;">
+                                    <?php echo "เดือน " . $ConfigWeb->getMonth(date("m")); ?>
+                                </div>
                                 <div class="card-body" style="height: 300px;">
                                     <canvas id="chartSumMonth" style="width: 100%; height: 100%;"></canvas>
                                 </div>
@@ -125,35 +149,35 @@ $Dashboard = new Dashboard();
                                         <div class="col-md-6 col-lg-4 col-4" style=" margin-top: 15px;">
                                             <table style=" width: 100%;">
                                                 <tr>
-                                                    <td>บัญชี</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #d5a7c4"></i>บัญชี</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countAccountNopaperAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>กราฟิก</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #ce85b0"></i>กราฟิก</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countGraphicNoapproveAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>งานพิมพ์</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #d560a4"></i>งานพิมพ์</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countPrintNoapproveAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>CNC/Laser</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #d15498"></i>CNC/Laser</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countLaserNoapproveAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>ผลิตทั่วไป</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #ca56a7"></i>ผลิตทั่วไป</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countFactureNoapproveAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>ช่างติดตั้ง</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #be2f89"></i>ช่างติดตั้ง</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countSetupNoapproveAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>จัดส่ง</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #cb1e91"></i>จัดส่ง</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countTransportNoapproveAll() ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>รับหน้าร้าน</td>
+                                                    <td><i class="fa fa-dot-circle-o" style=" color: #b1207b"></i>รับหน้าร้าน</td>
                                                     <td style=" text-align: right;"><?php echo $Dashboard->countNoTransportNoapproveAll() ?></td>
                                                 </tr>
                                             </table>
@@ -242,7 +266,7 @@ $Dashboard = new Dashboard();
                                                 <td style=" padding-top: 20px; font-family: skv; font-size: 18px;">
                                                     <?php
                                                     $countTotal = ($Dashboard->countCustomerType(1) + $Dashboard->countCustomerType(0));
-                                                    $percent = ($Dashboard->countCustomerType(1) * $countTotal) / 100;
+                                                    $percent = ($Dashboard->countCustomerType(1) / $countTotal) * 100;
                                                     ?>
                                                     <table style=" width: 100%;">
                                                         <tr>
@@ -276,7 +300,7 @@ $Dashboard = new Dashboard();
 
 <!-- Popup Detail -->
 <div class="modal fade " tabindex="-1" role="dialog" id="popupaddwork" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content  bg-dark" style="position: relative;">
             <div class="modal-header border-dark">
                 <h5 class="modal-title text-white">ข้อมูลรายละเอียด</h5>
@@ -288,9 +312,7 @@ $Dashboard = new Dashboard();
             <div class="modal-body" id="box-popup">
                 <div id="view-customer"></div>
             </div>
-            <div class="modal-footer border-dark">
 
-            </div>
         </div>
     </div>
 </div>
@@ -328,6 +350,8 @@ $this->registerJs('
         if (w > 768) {
             //$(".body-history").css({"height": h-100});
             //$(".body-dasboard-right").css({"height": h-255});
+            $(".text-head-mobile").show();
+            $(".head-mobile").html("<font style='font-size:32px;color:#ffffff;'>NDSq</font>");
             $(".b-left").css({"padding-right": "0px"});
             $(".b-right").css({"padding-left": "0px"});
         }
@@ -594,7 +618,7 @@ $this->registerJs('
     }
 
     function getViews(ref) {
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/viewmobile']) ?>";
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
         var data = {ref: ref};
         $.post(url, data, function(res) {
             $("#view-customer").html(res);

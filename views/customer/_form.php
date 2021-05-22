@@ -1,5 +1,19 @@
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/customer.css" rel="stylesheet">
 <style type="text/css">
+    .field-customer-transport{
+        padding-bottom: -1px;
+        margin-bottom: -1px;
+    }
+    .field-customer-setup{
+        padding-bottom: -1px;
+        margin-bottom: -1px;
+    }
+    .field-customer-quotation{
+        padding-bottom: -1px;
+        margin-bottom: -1px;
+    }
+
+
 
 </style>
 <?php
@@ -18,7 +32,7 @@ use kartik\select2\Select2;
 
 <div class="customer-form" >
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-left: 0px; font-family: skv;">
         <div class="card-content">
             <div class="card-body" style=" padding: 10px;">
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['site']) ?>">
@@ -41,8 +55,11 @@ use kartik\select2\Select2;
                 <div class="card-header" style=" background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                     <i class="fa fa-user"></i> ข้อมูลลูกค้า
                 </div>
+
                 <div class="card-body" id="box-popup-left" style="overflow: auto; background: #eac0d6;">
-                    <?= $form->field($model, 'customer')->textInput(['maxlength' => true]) ?>
+                    <label style=" margin-bottom: 0px;"> ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</label>
+                    <div style="font-size:14px; color: #000000;">(ถ้าชื่อหน่วยงาน<font style='color:red'>ใส่ให้ถูกต้องเหมือนกันทุกครั้ง</font> ระวังเรื่องเคาะวรรค อักษรย่อ หรือเครื่องหมายอื่น ๆ)</div>
+                    <?= $form->field($model, 'customer')->textInput(['maxlength' => true])->label(false) ?>
                     <?php
                     $TypeList = ArrayHelper::map(Typecustomer::find()->all(), 'id', 'typename');
                     echo $form->field($model, 'typecustomer')->widget(Select2::classname(), [
@@ -74,6 +91,9 @@ use kartik\select2\Select2;
                     ?>
 
                     <hr/>
+                    <div style=" text-align: center;">
+                        <label style=" text-align: center;">ประเมินคิวงานที่มีก่อนกำหนดส่งมอบ</label>
+                    </div>
                     <div id="queue"></div>
                 </div>
 
@@ -86,11 +106,14 @@ use kartik\select2\Select2;
                         <i class="fa fa-briefcase"></i> รายละเอียดงานการคุยงาน
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto; background: #eac0d6;">
-                        <?= $form->field($model, 'project_name')->textInput(['maxlength' => true]) ?>
+                        <label style=" margin-bottom: 0px;"> ชื่องาน</label>
+                        <div style="font-size:14px; color: #000000;">ระบุสั้นๆ พอรู้ว่าคืองานอะไร เริ่มจากชื่อวัสดุ เช่น(ป้ายไวนิบข้าวมันไก่,พลาสวูดพิมพ์ยูวีรูปเด็ก เป็นต้น)</div>
+                        <?= $form->field($model, 'project_name')->textInput(['maxlength' => true])->label(false) ?>
                         <?php $form->field($model, 'typework')->textInput() ?>
 
                         <?php //$form->field($model, 'detail')->textarea(['rows' => 6]) ?>
-                        <label for="">รายละเอียด</label>
+                        <label style=" margin-bottom: 0px;"> รายละเอียด</label>
+                        <div style="font-size:14px; color: #000000;">ให้เขียนว่า งานชิ้นนี้ให้ทำอย่างไรบ้าง กรณี 1 ชุดคำสั่งมีหลายงานให้เขียนทีละงาน โดยใช้เครื่องหมาย -- คั่นบันทัดใหม่</div>
                         <?=
                         $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
                             'clientOptions' => [
@@ -109,6 +132,7 @@ use kartik\select2\Select2;
 
                         <div class="form-group field-upload_files" >
                             <label class="control-label" for="upload_files[]" style=" margin-bottom: 0px; padding-bottom: 0px;"> แนบไฟล์หรือรูปภาพที่คุยกับลูกค้า </label>
+                            <div style="font-size:14px; color: #000000;">ถ้ามีไฟล์รูปให้อัพโหลด ถ้าเขียนบนกระดาษให้ถ่ายภาพกระดาษลงได้เลย</div>
                             <div style=" padding-top:0px; background: #FFFFFF; border-radius: 5px; padding: 5px;">
                                 <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => 255])->label(false); ?>
                                 <?=
@@ -172,40 +196,25 @@ use kartik\select2\Select2;
                                 ?>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-6">
+                        <div class="row" style=" margin: 0px;">
+                            <div class="col-md-12 col-lg-12" style=" padding-bottom: 0px;">
                                 <?=
-                                $form->field($model, 'transport')->radioList(['0' => "รับหน้าร้าน", '1' => "จัดส่ง"])
+                                $form->field($model, 'transport')->radioList(['0' => "รับหน้าร้าน", '1' => "จัดส่ง"])->label(false);
                                 ?>
                             </div>
-                            <div class="col-md-6 col-lg-6">
+                            <div class="col-md-12 col-lg-12" style=" padding-bottom: 0px;">
                                 <?=
-                                $form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])
+                                $form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])->label(false);
                                 ?>
                             </div>
-                            <div class="col-md-4 col-lg-4" style=" display: none;">
-                                <?=
-                                $form->field($model, 'fast')->radioList(['0' => "ทั่วไป", '1' => "ด่วนสำคัญ"])
-                                ?>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12 col-lg-12">
-                                <?=
-                                $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
-                                ?>
-                            </div>
                         </div>
-
                         <!--
                             ##### เมื่อมีการส่งไปยังแผนกอื่นจะไม่สามารถแก้ไขข้อมูลบ้างส่วนได้ ###########
                         -->
                         <?php if ($flag == "c") { ?>
-                            <hr/>
-                            <div class="row">
+                            <div class="row" style=" margin: 0px;">
                                 <div class="col-md-12 col-lg-12">
-                                    <label>ใบเสนอราคา(* เมื่อต้องออกใบเสนอราคาระบบจะบังคับส่งไปยังแผนกบัญชีอัตโนมัติ)</label>
                                     <?=
                                     $form->field($model, 'quotation')->radioList([0 => "ไม่ต้องออกใบเสนอราคา", 1 => "ต้องออกใบเสนอราคา"], [
                                         'onChange' => 'setQuotation()'
@@ -215,69 +224,38 @@ use kartik\select2\Select2;
                                 </div>
                             </div>
 
-                            <div class="card" style=" border-radius: 5px;">
-                                <div class="card-content">
-                                    <div class=" card-header">ส่งต่อแผนก(เลือกได้มากกว่า 1)</div>
-                                    <div class="card-body bg-white" style=" border-radius: 5px; padding-bottom: 5px;">
-                                        <?php
-//echo $form->field($model, 'cur_dep')->textInput()
-                                        $departmentList = ArrayHelper::map(Department::find()->where(['active' => 1])->andWhere(["IN", "id", ['2', '3', '4']])->all(), 'id', 'department');
-                                        /*
-                                          $form->field($model, 'cur_dep')->widget(Select2::classname(), [
-                                          'language' => 'th',
-                                          'data' => $departmentList,
-                                          'options' => ['placeholder' => '... เลือกแผนกส่งต่อ ...'],
-                                          'pluginOptions' => [
-                                          'allowClear' => true,
-                                          'multiple' => true
-                                          ],
-                                          ])->label(false);
-                                         *
-                                         */
-                                        ?>
-                                        <?php
-                                        /*
-                                          $departmentList = ArrayHelper::map(Department::find()->where(['active' => 1])->all(), 'id', 'department');
-                                          echo $form->field($model, 'cur_dep')->checkboxList($departmentList)->label(false);
-                                         *
-                                         */
-                                        ?>
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-4 col-6">
-                                                <label class="dupcheckbox">กราฟิก
-                                                    <input type="checkbox" value="3" name="cur_dep[]">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4 col-6">
-                                                <label class="dupcheckbox">งานพิมพ์
-                                                    <input type="checkbox" value="5" name="cur_dep[]">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4 col-6">
-                                                <label class="dupcheckbox">CNC / Laser
-                                                    <input type="checkbox" value="6" name="cur_dep[]">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4 col-6">
-                                                <label class="dupcheckbox">ผลิตทั่วไป
-                                                    <input type="checkbox" value="7" name="cur_dep[]">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
 
-                                        <div class="alert alert-warning" id="showaccountalert" style="display: none;">ต้องส่งแผนกบัญชีด้วยทุกครั้ง</div>
-                                    </div>
+                            <div class="row" style=" margin: 0px;">
+                                <div class="col-md-6 col-lg-4 col-6">
+                                    <label class="dupcheckbox">กราฟิก
+                                        <input type="checkbox" value="3" name="cur_dep[]">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-6">
+                                    <label class="dupcheckbox">งานพิมพ์
+                                        <input type="checkbox" value="5" name="cur_dep[]">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-6">
+                                    <label class="dupcheckbox">CNC / Laser
+                                        <input type="checkbox" value="6" name="cur_dep[]">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-6">
+                                    <label class="dupcheckbox">ผลิตทั่วไป
+                                        <input type="checkbox" value="7" name="cur_dep[]">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
-
-                            <div class="row" style=" display: none;">
-                                <div class="col-md-6 col-lg-6">
-                                    <?php
-                                    //$form->field($model, 'confirm')->radioList([0 => "ยังไม่ตกลงซื้อ", 1 => "ตกลงซื้อ"])
+                            <hr/>
+                            <div class="row" style=" margin: 0px;">
+                                <div class="col-md-12 col-lg-12">
+                                    <?=
+                                    $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
                                     ?>
                                 </div>
                             </div>
@@ -287,6 +265,12 @@ use kartik\select2\Select2;
                             </div>
 
                         <?php } ?>
+
+                        <div class="col-md-4 col-lg-4" style=" display: none;">
+                            <?=
+                            $form->field($model, 'fast')->radioList(['0' => "ทั่วไป", '1' => "ด่วนสำคัญ"])
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -134,16 +134,19 @@ $TimeLineModel = new Timeline();
                     <div>
                         <div style=" width: 80%; float: left;">
                             <div style="height: 45px; overflow: hidden; width: 100%; position: relative; padding-top: 5px;">
-                                <h2 class="alert-heading" >
+                                <div class="alert-heading" >
                                     <span class="text-gf-head"  style=" font-weight: bold; color: #FFFFFF; cursor: pointer; line-height: 35pt;" onclick="getViews('<?php echo $rs['ref'] ?>', '<?php echo $rs['status'] ?>')"><?php echo $rs['project_name'] ?></span>
-                                </h2>
+                                </div>
+                            </div>
+                            <div style="height: 20px; overflow: hidden; clear: both; ">
+                                <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
                             </div>
                         </div>
 
                         <div style="float: right; position: absolute; top: 5px; right: 15px;">
                             <!-- ถ้ามีการรับงานแล้ว -->
-                            <?php if ($rs['status'] == 2) { ?>
-                                <?php if ($rs['status'] != 4) { ?>
+                            <?php if ($rs['status'] == "2") { ?>
+                                <?php if ($rs['status'] != "4") { ?>
                                     <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right active-false" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupConfirm('<?php echo $rs['ref'] ?>')">เสร็จแล้ว </a>
                                 <?php } else { ?>
                                     <a class="btn btn-rounded btn-rounded btn-dark btn-sm pull-right active-true" id="btn-list" style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px; width: 100%; height: 20px; cursor: default;">
@@ -185,7 +188,7 @@ $TimeLineModel = new Timeline();
                             ?>
                             <div class="meter <?php echo $color ?> nostripes">
                                 <span style="width: <?php echo $percent ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">
-                                    <?php echo $text ?> 
+                                    <?php echo $text ?>
                                 </span>
                             </div>
                         </div>

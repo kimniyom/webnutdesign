@@ -12,41 +12,39 @@ use app\models\ContactForm;
 use app\models\Dashboard;
 use app\models\Customer;
 
-class DashboardController extends Controller
-{
+class DashboardController extends Controller {
     /**
      * {@inheritdoc}
      */
     //public function behaviors()
     //{
-        /*
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-        */
+    /*
+      return [
+      'access' => [
+      'class' => AccessControl::className(),
+      'only' => ['logout'],
+      'rules' => [
+      [
+      'actions' => ['logout'],
+      'allow' => true,
+      'roles' => ['@'],
+      ],
+      ],
+      ],
+      'verbs' => [
+      'class' => VerbFilter::className(),
+      'actions' => [
+      'logout' => ['post'],
+      ],
+      ],
+      ];
+     */
     //}
 
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -63,13 +61,12 @@ class DashboardController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $model = new Dashboard();
         $reschartMonth = $model->chartMonth();
         $label = array();
         $value = array();
-        foreach($reschartMonth as $rs):
+        foreach ($reschartMonth as $rs):
             //echo $rs['DAY'];
             array_push($label, $rs['DAY']);
             array_push($value, $rs['total']);
@@ -79,7 +76,7 @@ class DashboardController extends Controller
 
         $data['listCategory'] = $model->countCustotmerCat();
         //echo $data['label'];
-        return $this->render('index',$data);
+        return $this->render('index', $data);
     }
 
     /**
@@ -87,8 +84,7 @@ class DashboardController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -100,7 +96,7 @@ class DashboardController extends Controller
 
         $model->password = '';
         return $this->render('login', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -109,12 +105,11 @@ class DashboardController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         //Yii::$app->user->logout();
-        if(!Yii::$app->user->isGuest)
+        if (!Yii::$app->user->isGuest)
         //Yii::app()->session->destroy();
-        Yii::$app->user->logout(true);
+            Yii::$app->user->logout(true);
         return $this->goHome();
     }
 
@@ -123,8 +118,7 @@ class DashboardController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -132,7 +126,7 @@ class DashboardController extends Controller
             return $this->refresh();
         }
         return $this->render('contact', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -141,8 +135,7 @@ class DashboardController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
 
@@ -155,13 +148,15 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function actionGetqueue(){
+    public function actionGetqueue() {
         $model = new Customer();
         $datesend = date("Y-m-d");
         $data['jobToday'] = $model->getJobToDay($datesend);
+        $data['jobBeforday'] = $model->getJobBeforDay($datesend);
         $data['jobTomorow'] = $model->getJobTomorow($datesend);
         $data['datetomorow'] = $model->getTomorow($datesend);
         $data['dateselect'] = $datesend;
         return $this->renderPartial('queue', $data);
     }
+
 }

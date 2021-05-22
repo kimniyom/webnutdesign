@@ -161,7 +161,7 @@ and open the template in the editor.
     background-size: 200% auto;
     color: white;
     right: 5px;
-    font-size:2vw;
+    font-size:20px;
 }
 
 .btn-work-nut-success:hover {
@@ -171,8 +171,26 @@ and open the template in the editor.
     cursor: pointer;
 }
 
+.text-tran-head{
+    font-size: 26px;
+}
+
+.text-tran-customer{
+    font-size: 16px;
+}
+
 
 @media(max-width:768px) {
+
+    .text-tran-head{
+        font-size: 20px;
+        line-height: 30pt;
+    }
+
+    .text-tran-customer{
+        font-size: 14px;
+    }
+
     .btn-work-nut-send {background-image: linear-gradient(to right, #41295a 0%, #2F0743  51%, #41295a  100%)}
     .btn-work-nut-send{
         width: 97%;
@@ -231,6 +249,32 @@ and open the template in the editor.
         right: 5px;
         font-size:20px;
     }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    /* STYLES HERE */
+    .text-tran-head{
+        font-size: 24px;
+        line-height: 30pt;
+    }
+
+    .text-tran-customer{
+        font-size: 14px;
+    }
+
+    .alert-heading{
+        margin-top: -10px;
+    }
+
+    .send-heading{
+        font-size: 14px;
+    }
+
+    .box-title-tran{
+        height: 30px;
+    }
+
+
 }
 
 

@@ -65,10 +65,12 @@ and open the template in the editor.
 }
 
 .box-list-work{
-    box-shadow: 0px 5px 20px 10px #cccccc;
-    margin: 30px;
     border: none;
-
+    background: #d25fa0;
+    font-family: skv;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow:#4a4a4a 5px 5px 10px 0px;
 }
 
 
@@ -160,5 +162,67 @@ and open the template in the editor.
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.text-tran-head{
+    font-size: 26px;
+}
+
+.text-tran-customer{
+    font-size: 16px;
+}
+
+.send-heading{
+    font-size: 14px;
+}
+@media screen and (max-width: 768px) {
+    /* STYLES HERE */
+    .text-tran-head{
+        font-size: 20px;
+        line-height: 30pt;
+    }
+
+    .text-tran-customer{
+        font-size: 14px;
+    }
+
+    .alert-heading{
+        margin-top: -10px;
+    }
+
+    .send-heading{
+        font-size: 14px;
+    }
+
+    .box-title-tran{
+        height: 20px;
+    }
+}
+
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    /* STYLES HERE */
+    .text-tran-head{
+        font-size: 24px;
+        line-height: 30pt;
+    }
+
+    .text-tran-customer{
+        font-size: 14px;
+    }
+
+    .alert-heading{
+        margin-top: -10px;
+    }
+
+    .send-heading{
+        font-size: 14px;
+    }
+
+    .box-title-tran{
+        height: 30px;
+    }
+
+
 }
 
