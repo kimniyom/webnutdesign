@@ -76,6 +76,11 @@
 .animate > span:after {
     display: none;
 }
+
+.yellow > span {
+    background-image: linear-gradient(#f8ea0d, #f8ea0d);
+}
+
 .orange > span {
     background-image: linear-gradient(#f1a165, #f36d0a);
 }

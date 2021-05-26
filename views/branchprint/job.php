@@ -65,7 +65,7 @@ $TimeLineModel = new Timeline();
                                 $percent = "40%";
                             } else if ($rs['level'] == 3) {
                                 $text = "ระดับ 3";
-                                $color = "orange";
+                                $color = "yellow";
                                 $percent = "60%";
                             } else if ($rs['level'] == 4) {
                                 $text = "ด่วน";

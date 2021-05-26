@@ -149,8 +149,13 @@ and open the template in the editor.
 .animate > span:after {
     display: none;
 }
+
 .orange > span {
     background-image: linear-gradient(#f1a165, #f36d0a);
+}
+
+.yellow > span {
+    background-image: linear-gradient(#f8ea0d, #f8ea0d);
 }
 
 .red > span {

@@ -48,7 +48,7 @@ $GraphicLog = new GraphicLog();
 
                                 <a href="<?php echo \yii\helpers\Url::to(['graphic/formupdate', 'ref' => $rs['ref']]) ?>" id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;">เสร็จแล้ว </a>
                                 <!--
-                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']                   ?>')">เสร็จแล้ว </a>
+                                    <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']                    ?>')">เสร็จแล้ว </a>
                                 -->
                             <?php } ?>
 
@@ -84,7 +84,7 @@ $GraphicLog = new GraphicLog();
                                 $percent = "40%";
                             } else if ($rs['level'] == 3) {
                                 $text = "ระดับ 3";
-                                $color = "orange";
+                                $color = "yellow";
                                 $percent = "60%";
                             } else if ($rs['level'] == 4) {
                                 $text = "ด่วน";

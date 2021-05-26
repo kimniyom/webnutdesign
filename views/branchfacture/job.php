@@ -61,6 +61,10 @@
         background-image: linear-gradient(#f1a165, #f36d0a);
     }
 
+    .yellow > span {
+        background-image: linear-gradient(#f8ea0d, #f8ea0d);
+    }
+
     .red > span {
         background-image: linear-gradient(#ff0000, #f42323);
     }
@@ -174,7 +178,7 @@ $TimeLineModel = new Timeline();
                                 $percent = "40%";
                             } else if ($rs['level'] == "3") {
                                 $text = "ระดับ 3";
-                                $color = "orange";
+                                $color = "yellow";
                                 $percent = "60%";
                             } else if ($rs['level'] == "4") {
                                 $text = "ด่วน";

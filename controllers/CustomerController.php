@@ -129,9 +129,11 @@ class CustomerController extends Controller {
         $model->transport = 1;
         $model->quotation = 1;
         $model->fast = 0;
-        $model->level = 1;
+        $model->level = 3;
         $model->confirm = 1;
-
+        $model->typecustomer = 4;
+        $model->channel = 1;
+        $model->payment = 1;
         if ($model->load(Yii::$app->request->post())) {
             //print_r($_POST['cur_dep']);
             $this->Uploads(false, $model->ref);
