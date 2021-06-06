@@ -165,9 +165,8 @@ class Dashboard {
         }
         $sql = "SELECT DAY(c.create_date) AS DAY,COUNT(*) AS total
                 FROM customer c
-                WHERE c.flag != '2'
-                AND LEFT(c.create_date,4) = YEAR(CURDATE())
-                AND SUBSTR(c.create_date,6,2) = '05'
+                WHERE LEFT(c.create_date,4) = YEAR(CURDATE())
+                AND SUBSTR(c.create_date,6,2) = '06'
                 GROUP BY LEFT(c.create_date,10)
                 ORDER BY DAY(c.create_date) ASC";
         $rs = Yii::$app->db->createCommand($sql)->queryAll();

@@ -35,7 +35,7 @@ $this->title = "ช่างติดตั้ง";
 
 </style>
 <div class="branchlaser-index">
-     <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px; font-family: skv;">
+    <div class="card" id="head-toolbar" style="border-radius: 0px; margin-bottom: 0px; border-right:0px; border-right: 0px; border-bottom: 0px; padding-bottom: 5px; font-family: skv;">
         <div class="card-content">
             <div class="card-body" style=" padding: 0px; padding-left: 10px; padding-top: 5px;">
                 <div style="position: absolute; left: 5px; z-index: 2; top: 1px;">
@@ -44,7 +44,7 @@ $this->title = "ช่างติดตั้ง";
                     </a>
                 </div>
                 <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
-                    ช่าง/ติดตั้ง
+                ช่าง
                 </font>
                 <input type="hidden" name="" id="souredata" value="1">
                 <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
@@ -52,9 +52,9 @@ $this->title = "ช่างติดตั้ง";
                         จัดเรียง
                     </button>
                     <div class="dropdown-menu">
-                    <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
-                    <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
-                    <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
+                        <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
+                        <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@ $this->title = "ช่างติดตั้ง";
 
     <div class="row" style="margin-bottom: 0px;">
         <div class="col-lg-12 col-md-12">
-            
+
             <div id="body-work" style="margin-top: 10px; overflow: auto;">
                 <div id="job">
                     <div style="text-align: center; margin-top: 10%;">Loading...</div>
@@ -117,7 +117,7 @@ $this->registerJs('
     setInterval(function() {
         getJob();
     }, 300000);
-    
+
     function setScreens() {
         var h = window.innerHeight;
         var w = window.innerWidth;
@@ -136,7 +136,7 @@ $this->registerJs('
             $("#title-head").hide();
             $("#icon-menu-ham").css({"margin-left": "0px"});
             $(".text-head-mobile").show();
-            $(".head-mobile").html("<font style='color:#FFFFFF;'>ช่าง/ติดตั้ง</font>");
+            $(".head-mobile").html("<font style='color:#FFFFFF;'>ช่าง</font>");
             //$(".sourecombo").css({"background": "#eac0d6"});
         } else {
             $("#title-head").hide();
@@ -145,7 +145,7 @@ $this->registerJs('
         }
     }
 
-    function setType(val){
+    function setType(val) {
         $("#souredata").val(val);
         getJob();
     }
