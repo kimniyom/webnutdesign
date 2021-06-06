@@ -266,7 +266,11 @@ $Dashboard = new Dashboard();
                                                 <td style=" padding-top: 20px; font-family: skv; font-size: 18px;">
                                                     <?php
                                                     $countTotal = ($Dashboard->countCustomerType(1) + $Dashboard->countCustomerType(0));
-                                                    $percent = ($Dashboard->countCustomerType(1) / $countTotal) * 100;
+                                                    if ($countTotal > 0) {
+                                                        $percent = ($Dashboard->countCustomerType(1) / $countTotal) * 100;
+                                                    } else {
+                                                        $percent = 0;
+                                                    }
                                                     ?>
                                                     <table style=" width: 100%;">
                                                         <tr>
@@ -280,7 +284,7 @@ $Dashboard = new Dashboard();
                                                     </table>
                                                     <div class="meter red nostripes">
                                                         <span style="width: 80%; font-size: 12px; color: #FFFFFF; text-align: center;">
-                                                            <?php echo $percent ?> %
+                                                            <?php echo number_format($percent, 2) ?> %
                                                         </span>
                                                     </div>
                                                 </td>

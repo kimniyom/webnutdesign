@@ -134,6 +134,7 @@ class CustomerController extends Controller {
         $model->typecustomer = 4;
         $model->channel = 1;
         $model->payment = 1;
+        $model->date_getjob = date("Y-m-d");
         if ($model->load(Yii::$app->request->post())) {
             //print_r($_POST['cur_dep']);
             $this->Uploads(false, $model->ref);

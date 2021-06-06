@@ -148,7 +148,8 @@ $this->title = 'Accounts';
                                 <li class="list-group-item" style="border: none; border-bottom: solid 0px #eeeeee;background: #eac0d6;" onclick="popupMenu('<?php echo $outsides['ref'] ?>')">
                                     <div class="list-out-side" style=" border-radius: 10px; padding: 10px; padding-bottom: 5px;">
                                         <h4><?php echo $outsides['project_name'] ?></h4>
-                                        <p>กำหนดส่ง: <?php echo $ConfigWeb->thaidate($outsides['date_getjob']) ?></p>
+                                        <p><?php echo $outsides['project_name'] ?></p>
+                                        <p style="margin-top: -20px;">กำหนดส่ง: <?php echo $ConfigWeb->thaidate($outsides['date_getjob']) ?></p>
                                     </div>
                                 </li>
                             <?php endforeach; ?>

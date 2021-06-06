@@ -22,7 +22,7 @@ $ConfigWeb = new ConfigWeb();
                                     <?php foreach ($jobToday as $rs): ?>
                                         <tr onclick="getViews('<?php echo $rs['ref'] ?>')" style=" cursor: pointer;">
                                             <td style="padding: 2px;"><?php echo $rs['project_name'] ?></td>
-                                            <td style="padding: 2px; text-align: center;"><?php echo ($rs['transport'] == '1') ? "รับเอง" : "จัดส่ง"; ?></td>
+                                            <td style="padding: 2px; text-align: center;"><?php echo ($rs['transport'] == '1') ? "จัดส่ง" : "รับเอง"; ?></td>
                                             <td style="padding: 2px; text-align: center;"><?php echo $rs['customer'] ?> </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -35,7 +35,7 @@ $ConfigWeb = new ConfigWeb();
                                 <?php foreach ($jobBeforday as $rsbefor): ?>
                                     <tr class="table-warning" onclick="getViews('<?php echo $rsbefor['ref'] ?>')" style=" cursor: pointer;">
                                         <td style="padding: 2px;"><?php echo $rsbefor['project_name'] ?></td>
-                                        <td style="padding: 2px; text-align: center;"><?php echo ($rsbefor['transport'] == '1') ? "รับเอง" : "จัดส่ง"; ?></td>
+                                        <td style="padding: 2px; text-align: center;"><?php echo ($rsbefor['transport'] == '1') ? "จัดส่ง" : "รับเอง"; ?></td>
                                         <td style="padding: 2px; text-align: center;"><?php echo $rsbefor['customer'] ?> </td>
                                     </tr>
                                 <?php endforeach; ?>

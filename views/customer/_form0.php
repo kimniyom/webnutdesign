@@ -13,6 +13,8 @@
         margin-bottom: -1px;
     }
 
+
+
 </style>
 <?php
 
@@ -85,7 +87,7 @@ use kartik\select2\Select2;
                     <?= $form->field($model, 'address')->textarea(['rows' => 5]) ?>
 
                     <?=
-                    $form->field($model, 'payment')->radioList([1 => "ยังไม่ชำระเงิน", 2 => "วางมัดจำ", 3 => "ชำระเงินแล้ว"]);
+                    $form->field($model, 'payment')->radioList([1 => "ยังไม่ชำระเงิน", 2 => "วางมัดจำ", 3 => "ชำระ้งินแล้ว"]);
                     ?>
 
                     <hr/>
@@ -94,6 +96,7 @@ use kartik\select2\Select2;
                     </div>
                     <div id="queue"></div>
                 </div>
+
             </div>
         </div>
         <div class="col-md-6 col-lg-6" style=" padding-left: 0px;">
@@ -163,8 +166,8 @@ use kartik\select2\Select2;
                                     'language' => 'th',
                                     'options' => [
                                         'placeholder' => 'Select date ...',
-                                        'readonly' => 'readonly'
-                                        
+                                        'readonly' => 'readonly',
+                                        'value' => date("Y-m-d")
                                     ],
                                     'pluginOptions' => [
                                         'format' => 'yyyy-mm-dd',
@@ -225,7 +228,7 @@ use kartik\select2\Select2;
                             <div class="row" style=" margin: 0px;">
                                 <div class="col-md-6 col-lg-4 col-6">
                                     <label class="dupcheckbox">กราฟิก
-                                        <input type="checkbox" value="3" name="cur_dep[]" checked="checked">
+                                        <input type="checkbox" value="3" name="cur_dep[]">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -249,50 +252,12 @@ use kartik\select2\Select2;
                                 </div>
                             </div>
                             <hr/>
-                            <label>ความเร่งด่วน 5 = ด่วนมาก</label><br/>
                             <div class="row" style=" margin: 0px;">
-
-                                <?php
-                                //echo $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
-                                ?>
-
-                                <div class="col-md-12 col-lg-12 col-12" style=" background: #01693b; border-radius: 5px; padding: 5px; margin-bottom: 5px;">
-                                    <label class="dupcheckbox" style=" padding-bottom: 0px; margin-bottom: 0px; color: #ffffff;">
-                                        Level 1 = ส่งมอบงานภายใน 2 วันขึ้นไป
-                                        <input type="radio" value="1" name="Customer[level]">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div class="col-md-12 col-lg-12">
+                                    <?=
+                                    $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
+                                    ?>
                                 </div>
-                                <div class="col-md-12 col-lg-12 col-12" style=" background: #66be46; border-radius: 5px; padding: 5px; margin-bottom: 5px;">
-                                    <label class="dupcheckbox" style=" padding-bottom: 0px; margin-bottom: 0px; color: #FFFFFF;">
-                                        Level 2 = ส่งมอบงานภายใน 2 วัน
-                                        <input type="radio" value="2" name="Customer[level]">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="col-md-12 col-lg-12 col-12" style=" background: #f4ec0f; border-radius: 5px; padding: 5px; margin-bottom: 5px;">
-                                    <label class="dupcheckbox" style=" padding-bottom: 0px; margin-bottom: 0px; color: #000000;">
-                                        Level 3 ส่งมอบงานภายในวันพรุ่งนี้
-                                        <input type="radio" value="3" name="Customer[level]" checked="checked">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="col-md-12 col-lg-12 col-12" style=" background: #f05a27; border-radius: 5px; padding: 5px; margin-bottom: 5px;">
-                                    <label class="dupcheckbox" style=" padding-bottom: 0px; margin-bottom: 0px; color: #FFFFFF;">
-                                        Level 4 = ส่งมอบงานภายในวันนี้
-                                        <input type="radio" value="4" name="Customer[level]">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="col-md-12 col-lg-12 col-12" style=" background: #ff0009; border-radius: 5px; padding: 5px; margin-bottom: 5px;">
-                                    <label class="dupcheckbox" style=" padding-bottom: 0px; margin-bottom: 0px; color: #FFFFFF;">
-                                        Level 5 = ส่งมอบงานภายใน 1- 3 ชั่วโมง
-                                        <input type="radio" value="5" name="Customer[level]">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-
-
                             </div>
                             <div class="alert alert-danger" style=" display: none;">
                                 !..หมายเหตุ<br/>

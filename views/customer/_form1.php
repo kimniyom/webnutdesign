@@ -85,7 +85,7 @@ use kartik\select2\Select2;
                     <?= $form->field($model, 'address')->textarea(['rows' => 5]) ?>
 
                     <?=
-                    $form->field($model, 'payment')->radioList([1 => "ยังไม่ชำระเงิน", 2 => "วางมัดจำ", 3 => "ชำระเงินแล้ว"]);
+                    $form->field($model, 'payment')->radioList([1 => "ยังไม่ชำระเงิน", 2 => "วางมัดจำ", 3 => "ชำระ้งินแล้ว"]);
                     ?>
 
                     <hr/>
@@ -163,8 +163,8 @@ use kartik\select2\Select2;
                                     'language' => 'th',
                                     'options' => [
                                         'placeholder' => 'Select date ...',
-                                        'readonly' => 'readonly'
-                                        
+                                        'readonly' => 'readonly',
+                                        'value' => date("Y-m-d")
                                     ],
                                     'pluginOptions' => [
                                         'format' => 'yyyy-mm-dd',
