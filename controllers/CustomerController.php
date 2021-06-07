@@ -185,9 +185,12 @@ class CustomerController extends Controller {
                     $this->SendTransport($model->ref);
                 }
 
-                if ($model->setup == "1") {
-                    $this->SendSetup($model->ref);
-                }
+                /*
+                  if ($model->setup == "1") {
+                  $this->SendSetup($model->ref);
+                  }
+                 *
+                 */
             }
 
             if ($model->save()) {
@@ -278,18 +281,19 @@ class CustomerController extends Controller {
                         ->execute();
             }
 
-            if ($model->setup == "1") {
-                $this->SendSetup($model->ref);
-            } else {
-                Yii::$app->db->createCommand()
-                        ->delete("queue", "ref = '$ref'")
-                        ->execute();
+            /*
+              if ($model->setup == "1") {
+              $this->SendSetup($model->ref);
+              } else {
+              Yii::$app->db->createCommand()
+              ->delete("queue", "ref = '$ref'")
+              ->execute();
 
-                Yii::$app->db->createCommand()
-                        ->update("customer", array("setup" => 0), "ref = '$ref'")
-                        ->execute();
-            }
-
+              Yii::$app->db->createCommand()
+              ->update("customer", array("setup" => 0), "ref = '$ref'")
+              ->execute();
+              }
+             */
 
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -458,7 +462,7 @@ class CustomerController extends Controller {
 
     private function SendAccount($ref) {
         $res = \app\models\Account::findOne(['ref' => $ref]);
-        if (!$res['ref']) {
+        if (!isset($res['ref'])) {
             $columns = array(
                 "ref" => $ref
             );
@@ -475,7 +479,7 @@ class CustomerController extends Controller {
                 ->execute();
 
         $res = \app\models\Transport::findOne(['ref' => $ref]);
-        if (!$res['ref']) {
+        if (!isset($res['ref'])) {
             $columns = array(
                 "ref" => $ref
             );
@@ -491,7 +495,7 @@ class CustomerController extends Controller {
                 ->execute();
 
         $res = \app\models\Queue::findOne(['ref' => $ref]);
-        if (!$res['ref']) {
+        if (!isset($res['ref'])) {
             $columns = array(
                 "confirm" => 1,
                 "ref" => $ref
@@ -563,6 +567,33 @@ class CustomerController extends Controller {
                 //Update customer
                 \Yii::$app->db->createCommand()
                         ->update("customer", array("manufacture_status" => '1'), "ref = '$ref'")
+                        ->execute();
+            }
+        }
+
+        if (in_array("8", $dep)) {//ผลิตทั่วไป
+            Yii::$app->db->createCommand()
+                    ->delete("queue", "ref = '$ref' ")
+                    ->execute();
+
+            //อัพเดทสถานะงาน
+            \Yii::$app->db->createCommand()
+                    ->update("customer", array("setup" => '0'), "ref = '$ref'")
+                    ->execute();
+
+            $res = \app\models\Queue::findOne(['ref' => $ref]);
+            if (!isset($res['ref'])) {
+                $columns = array(
+                    "confirm" => 1,
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("queue", $columns)
+                        ->execute();
+
+                //อัพเดทสถานะงาน
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("setup" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }

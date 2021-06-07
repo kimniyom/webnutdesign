@@ -28,9 +28,9 @@ use yii\helpers\Url;
                     </a>
                 </div>
 
-                    <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0; font-family: skv;" id="title-head">
-                        บัญชี
-                    </font>
+                <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0; font-family: skv;" id="title-head">
+                บัญชี
+                </font>
 
                 <div  style=" margin-right: 0px; margin-top: 0px; z-index: 15; margin-bottom: 5px; position: absolute; right: 5px; top:8px;">
                     <?= Html::submitButton('บันทึกข้อมูล <i class="fa fa-save"></i>', ['class' => 'btn btn-dark btn-rounded']) ?>
@@ -70,7 +70,7 @@ use yii\helpers\Url;
                     ?>
                     <label>บันทึกข้อมูลโดย</label>
                     <?php echo dektrium\user\models\Profile::findOne(['user_id' => Yii::$app->user->id])['name'] ?>
-                    <div class="alert alert-info">หมายเหตุ.. เมื่อท่านกดบันทึกข้อมูล ข้อมูลจะถูกส่งไปยังแผนกกราฟิกอัตโนมัติ</div>
+
                     <?= $form->field($model, 'ref')->HiddenInput(['maxlength' => true])->label(false) ?>
                 </div>
             </div>
@@ -78,7 +78,7 @@ use yii\helpers\Url;
         <div class="col-md-6 col-lg-6" style=" padding-left: 0px;">
             <div class="card" style="border-radius: 0px; border-top:0px; border-left:solid 1px #de93bc; border-right:0px; font-family: skv;">
                 <div class="card-content" >
-                  <div class="card-header" style=" background: #de93bc; border-radius: 0px; border-bottom: 0px;">
+                    <div class="card-header" style=" background: #de93bc; border-radius: 0px; border-bottom: 0px;">
                         <i class="fa fa-briefcase"></i> รายละเอียด
                     </div>
                     <div class="card-body" id="box-popup-right" style="overflow: auto; padding: 0px; background: #eac0d6;">

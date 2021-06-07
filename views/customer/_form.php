@@ -198,9 +198,9 @@ use kartik\select2\Select2;
                                 $form->field($model, 'transport')->radioList(['0' => "รับหน้าร้าน", '1' => "จัดส่ง"])->label(false);
                                 ?>
                             </div>
-                            <div class="col-md-12 col-lg-12" style=" padding-bottom: 0px;">
-                                <?=
-                                $form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])->label(false);
+                            <div class="col-md-12 col-lg-12" style=" padding-bottom: 0px; display: none;">
+                                <?php
+                                //$form->field($model, 'setup')->radioList(['0' => "ไม่ติดตั้ง", '1' => "ติดตั้ง"])->label(false);
                                 ?>
                             </div>
 
@@ -246,6 +246,12 @@ use kartik\select2\Select2;
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
+                                <div class="col-md-6 col-lg-4 col-6">
+                                    <label class="dupcheckbox">ช่าง
+                                        <input type="checkbox" value="8" name="cur_dep[]">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
                             </div>
                             <hr/>
                             <div class="alert alert-danger" style=" display: none;">
@@ -259,7 +265,7 @@ use kartik\select2\Select2;
                         <div class="row" style=" margin: 0px;">
 
                             <?php
-                            echo $model->level;
+                            //echo $model->level;
                             //echo $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
                             ?>
 

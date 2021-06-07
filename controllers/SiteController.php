@@ -160,7 +160,12 @@ class SiteController extends Controller {
         $account = Account::findOne(['ref' => $ref]);
         //กราฟฟิก
         $graphic = Graphic::findOne(['ref' => $ref]);
-        $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
+        if (isset($graphic['ref_graphic'])) {
+            $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
+        } else {
+            $fileGraphic = $this->getImgGraphic("");
+        }
+
         return $this->renderPartial('view', [
                     'model' => $model,
                     'filelist' => $file,

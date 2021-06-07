@@ -40,17 +40,17 @@ $CustomerModel = new Customer();
                         <p class="txt-customer"><?php echo $model['tel'] ?></p>
                         <label class="head-title-view">ช่องทางลูกค้าติดต่อมา</label>
                         <p class="txt-customer">
-                            <?php 
-                            if($model['channel'] == "1"){
-                                echo "Line ".$model['lineid'];
-                            } else if($model['channel'] == "2"){
-                                 echo "โทรศัพท์";
-                            } else if($model['channel'] == "3"){
+                            <?php
+                            if ($model['channel'] == "1") {
+                                echo "Line " . $model['lineid'];
+                            } else if ($model['channel'] == "2") {
+                                echo "โทรศัพท์";
+                            } else if ($model['channel'] == "3") {
                                 echo "หน้าร้าน";
                             } else {
                                 echo $model['channel_etc'];
                             }
-                            ?>        
+                            ?>
                         </p>
                         <label class="head-title-view">ที่อยู่ / ข้อมูลการจัดส่ง</label>
                         <p class="txt-customer"><?php echo $model['address'] ?></p>
@@ -74,74 +74,75 @@ $CustomerModel = new Customer();
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px;">
                                 <h3 class="head-title-view">ข้อมูลรับงาน</h3>
                                 <div class="row" style="margin: 0px;">
-                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
-                    <div style="width: 120px;">ชื่องาน</div>
-                </div>
-                <div class="col-md-9 col-lg-9 col-9">
-                    <div style=" position: relative; word-wrap: break-word;">
-                        <?php echo $model['project_name'] ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin: 0px;">
-                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
-                    <div style="width: 120px;">ลูกค้า</div>
-                </div>
-                <div class="col-md-9 col-lg-9 col-9">
-                    <div style=" position: relative; word-wrap: break-word;">
-                        <?php echo $model['customer'] ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin: 0px;">
-                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
-                    <div style="width: 120px;">วันที่รับสินค้า</div>
-                </div>
-                <div class="col-md-9 col-lg-9 col-9">
-                    <div style=" position: relative; word-wrap: break-word;">
-                        <?php echo $ConfigModel->thaidate($model['date_getjob']) . " " . $model['time_getjob'] ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin: 0px;">
-                <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
-                    <div style="width: 120px;">รายละเอียด</div>
-                </div>
-                <div class="col-md-9 col-lg-9 col-9">
-                    <div style=" position: relative; word-wrap: break-word; " id="boxdetailcustomer">
-                        <?php echo $model['detail'] ?>
-                    </div>
-                    <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
-                </div>
-            </div>
-                                <?php 
-                                    $ref = $model['ref'];
-                                    $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
-                                    $count = Yii::$app->db->createCommand($sql)->queryScalar();
-                                    if($count > 0){
-                                ?>
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        รูปภาพแนบ
-                                        <?php
-                                        if ($count > 0) {
-                                            echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
-                                        } ?>
-                                        
-                                        <?php if ($filelist) { ?>
-                                            <br/>ไฟล์แนบ
-                                            <ul>
-                                                <?php foreach ($filelist as $f): ?>
-                                                    <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        <?php } ?>
+                                    <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                                        <div style="width: 120px;">ชื่องาน</div>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9 col-9">
+                                        <div style=" position: relative; word-wrap: break-word;">
+                                            <?php echo $model['project_name'] ?>
+                                        </div>
                                     </div>
                                 </div>
-                            <?php } ?>
+
+                                <div class="row" style="margin: 0px;">
+                                    <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                                        <div style="width: 120px;">ลูกค้า</div>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9 col-9">
+                                        <div style=" position: relative; word-wrap: break-word;">
+                                            <?php echo $model['customer'] ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin: 0px;">
+                                    <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                                        <div style="width: 120px;">วันที่รับสินค้า</div>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9 col-9">
+                                        <div style=" position: relative; word-wrap: break-word;">
+                                            <?php echo $ConfigModel->thaidate($model['date_getjob']) . " " . $model['time_getjob'] ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin: 0px;">
+                                    <div class="col-md-3 col-lg-3 col-3" style=" padding-left: 0px;">
+                                        <div style="width: 120px;">รายละเอียด</div>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9 col-9">
+                                        <div style=" position: relative; word-wrap: break-word; " id="boxdetailcustomer">
+                                            <?php echo $model['detail'] ?>
+                                        </div>
+                                        <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
+                                    </div>
+                                </div>
+                                <?php
+                                $ref = $model['ref'];
+                                $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+                                $count = Yii::$app->db->createCommand($sql)->queryScalar();
+                                if ($count > 0) {
+                                    ?>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            รูปภาพแนบ
+                                            <?php
+                                            if ($count > 0) {
+                                                echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                                            }
+                                            ?>
+
+                                            <?php if ($filelist) { ?>
+                                                <br/>ไฟล์แนบ
+                                                <ul>
+                                                    <?php foreach ($filelist as $f): ?>
+                                                        <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -154,7 +155,11 @@ $CustomerModel = new Customer();
                                         <label style="font-weight: bold;">รายละเอียด</label>
                                         <div class="alert alert-warning">
                                             <?php echo ($account['detail']) ? $account['detail'] : "-" ?>
-                                            <label><i class="fa fa-user text-warning"></i>โดย <?php echo dektrium\user\models\Profile::findOne(['user_id' => $account['user_id']])['name'] ?></label>
+                                            <label><i class="fa fa-user text-warning"></i>โดย <?php
+                                                if (isset($account['user_id'])) {
+                                                    echo dektrium\user\models\Profile::findOne(['user_id' => $account['user_id']])['name'];
+                                                }
+                                                ?></label>
                                         </div>
                                     <?php } else { ?>
                                         ยังไม่มีข้อมูลในส่วนนี้
@@ -221,7 +226,7 @@ $CustomerModel = new Customer();
                                                         <i class="fa fa-check text-success"></i> ผลิตเสร็จแล้ว
                                                     <?php } ?>
                                                 <?php } else { ?>
-                                                   <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
+                                                    <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -345,12 +350,12 @@ $CustomerModel = new Customer();
 </div>
 
 <div id="boxImgDetail" style=" display: none;">
-        <?php echo $model['detail'] ?>
-    </div>
+    <?php if (isset($graphic['detail'])) echo $graphic['detail']; ?>
+</div>
 
-    <div id="boxImgGraphic" style="display: none;">
-        <?php echo $graphic['detail'] ?>
-    </div>
+<div id="boxImgGraphic" style="display: none;">
+    <?php if (isset($graphic['detail'])) echo $graphic['detail']; ?>
+</div>
 
 <?php
 $this->registerJs('
@@ -361,9 +366,9 @@ $this->registerJs('
 ?>
 
 <script type="text/javascript">
-        
-        setImg();
-        setImgGraphic();
+
+    setImg();
+    setImgGraphic();
     jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
@@ -383,8 +388,8 @@ $this->registerJs('
             closeEffect: "none"
         });
 
-        
-setScreensView();
+
+        setScreensView();
         function setScreensView() {
             var h = window.innerHeight;
             var w = window.innerWidth;
@@ -398,26 +403,26 @@ setScreensView();
 
     function setImg() {
         $("#boxdetailcustomer p img:last-child").remove()
-        var imgs = $('#boxImgDetail p').children('img').map(function () {
+        var imgs = $('#boxImgDetail p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
-        
-        for( var i=0; i<imgs.length; i++ ) {
+
+        for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='"+ imgUrl +"' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url("+ imgUrl +");'></div></a>");
+            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
     }
 
-     function setImgGraphic() {
+    function setImgGraphic() {
         $(".boxdetailgf p img:last-child").remove()
-        var imgs = $('#boxImgGraphic p').children('img').map(function () {
+        var imgs = $('#boxImgGraphic p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
-        
-        for( var i=0; i<imgs.length; i++ ) {
+
+        for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='"+ imgUrl +"' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url("+ imgUrl +");'></div></a>");
+            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
-    
+
     }
 </script>

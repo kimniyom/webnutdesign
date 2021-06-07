@@ -454,10 +454,31 @@ class GraphicController extends Controller {
             }
         }
 
-        if (in_array("8", $dep)) {//ช่าง / ติดตั้ง
-            $columns = array(
-                "ref" => $ref
-            );
+        if (in_array("8", $dep)) {//ช่าง
+            Yii::$app->db->createCommand()
+                    ->delete("queue", "ref = '$ref' ")
+                    ->execute();
+
+            //อัพเดทสถานะงาน
+            \Yii::$app->db->createCommand()
+                    ->update("customer", array("setup" => '0'), "ref = '$ref'")
+                    ->execute();
+
+            $res = \app\models\Queue::findOne(['ref' => $ref]);
+            if (!isset($res['ref'])) {
+                $columns = array(
+                    "confirm" => 1,
+                    "ref" => $ref
+                );
+                \Yii::$app->db->createCommand()
+                        ->insert("queue", $columns)
+                        ->execute();
+
+                //อัพเดทสถานะงาน
+                \Yii::$app->db->createCommand()
+                        ->update("customer", array("setup" => '1'), "ref = '$ref'")
+                        ->execute();
+            }
         }
 
         if (in_array("9", $dep)) {//จัดส่ง

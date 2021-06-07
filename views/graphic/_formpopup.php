@@ -178,6 +178,12 @@ $configWeb = new ConfigWeb();
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
+                            <div class="col-md-4 col-lg-4 col-6">
+                                <label class="dupcheckbox">ช่าง
+                                    <input type="checkbox" value="8" name="todep[]" onclick="setSendDep()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <?= $form->field($model, 'ref_graphic')->hiddenInput(['maxlength' => true])->label(false) ?>

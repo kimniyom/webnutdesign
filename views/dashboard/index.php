@@ -123,9 +123,23 @@ $Dashboard = new Dashboard();
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-header" style=" font-family: skv;">
-                                    <?php echo "เดือน " . $ConfigWeb->getMonth(date("m")); ?>
+                                    <?php
+                                    $monthList = $ConfigWeb->month_shot();
+                                    ?>
+                                    <div style=" float: left; padding-top: 10px; margin-right: 10px;">
+                                        เดือน
+                                    </div>
+                                    <div style=" float: left; width: 200px; ">
+                                        <select id="month" class=" form-control" onchange="getData()">
+                                            <?php foreach ($monthList as $x => $val): ?>
+                                                <option value="<?php echo $x ?>" <?php echo($x == $month) ? "selected" : "" ?>><?php echo $val ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+
+
                                 </div>
-                                <div class="card-body" style="height: 300px;">
+                                <div class="card-body" style="height: 320px;">
                                     <canvas id="chartSumMonth" style="width: 100%; height: 100%;"></canvas>
                                 </div>
                             </div>
@@ -628,5 +642,11 @@ $this->registerJs('
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
+    }
+
+    function getData() {
+        var month = $("#month").val();
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/index']) ?>" + "?month=" + month;
+        window.location = url;
     }
 </script>

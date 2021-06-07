@@ -66,34 +66,34 @@ $CustomerModel = new Customer();
                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
                 </div>
             </div>
-            <?php 
-                $ref = $model['ref'];
-                $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
-                $count = Yii::$app->db->createCommand($sql)->queryScalar();
-            if($count > 0){
-            ?>
-            <div class="panel panel-default">
-                <div class="panel-body" style=" color: #FFFFFF;">
-                    รูปภาพแนบ
-                    <?php
-                    if ($count > 0) {
-                        echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
-                    } else {
-                        echo "-";
-                    }
-                    ?>
-                    
-                    <?php if ($filelist) { ?>
-                        <br/>ไฟล์แนบ
-                        <ul>
-                            <?php foreach ($filelist as $f): ?>
-                                <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php } ?>
+            <?php
+            $ref = $model['ref'];
+            $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+            $count = Yii::$app->db->createCommand($sql)->queryScalar();
+            if ($count > 0) {
+                ?>
+                <div class="panel panel-default">
+                    <div class="panel-body" style=" color: #FFFFFF;">
+                        รูปภาพแนบ
+                        <?php
+                        if ($count > 0) {
+                            echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                        } else {
+                            echo "-";
+                        }
+                        ?>
+
+                        <?php if ($filelist) { ?>
+                            <br/>ไฟล์แนบ
+                            <ul>
+                                <?php foreach ($filelist as $f): ?>
+                                    <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php } ?>
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
         </div>
     </div>
 
@@ -105,7 +105,7 @@ $CustomerModel = new Customer();
             if ($graphic) {
                 ?>
                 <label style="margin-left: 10px; font-weight: bold; color: #ffffff;">รายละเอียดใบสั่งงาน</label>
-                <?php if($graphic['detail']){ ?>
+                <?php if ($graphic['detail']) { ?>
                     <div class="alert alert-dark" style=" padding: 5px; padding-left: 15px; color: #ffffff; background: #d45f93; border:0px;">
                         <div class="boxdetailgf">
                             <?php echo $graphic['detail'] ?>
@@ -113,7 +113,7 @@ $CustomerModel = new Customer();
                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #000000; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImgGraphic"></div>
                     </div>
                 <?php } ?>
-                <?php if($filegraphic){ ?>
+                <?php if ($filegraphic) { ?>
                     <label style="margin-left: 10px; font-weight: bold; color: #ffffff; width: 100%;">ไฟล์งาน / ตัวอย่างงาน</label>
                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                         <?php
@@ -126,15 +126,17 @@ $CustomerModel = new Customer();
                             </a>
                         <?php endforeach; ?>
                     </div>
+                <?php } ?>
+                <?php
+                if (isset($graphic['user_id'])) {
+                    $gName = dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'];
+                    if ($gName) {
+                        ?>
+                        <hr/>
+                        <label style="color: #ffffff;"><i class="fa fa-user text-warning"></i> โดย::<?php echo $gName ?></label>
+                    <?php } ?>
+                <?php } ?>
             <?php } ?>
-            <?php 
-                $gName = dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'];
-                if($gName) {
-            ?>
-                <hr/>
-                <label style="color: #ffffff;"><i class="fa fa-user text-warning"></i> โดย::<?php echo $gName ?></label>
-            <?php } ?>
-        <?php } ?>
         </div>
     </div>
 
@@ -193,26 +195,26 @@ $this->registerJs('
 
     function setImg() {
         $("#boxdetailcustomer p img:last-child").remove()
-        var imgs = $('#boxImgDetail p').children('img').map(function () {
+        var imgs = $('#boxImgDetail p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
-        
-        for( var i=0; i<imgs.length; i++ ) {
+
+        for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='"+ imgUrl +"' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url("+ imgUrl +");'></div></a>");
+            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
     }
 
-     function setImgGraphic() {
+    function setImgGraphic() {
         $(".boxdetailgf p img:last-child").remove()
-        var imgs = $('#boxImgGraphic p').children('img').map(function () {
+        var imgs = $('#boxImgGraphic p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
-        
-        for( var i=0; i<imgs.length; i++ ) {
+
+        for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='"+ imgUrl +"' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url("+ imgUrl +");'></div></a>");
+            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
-    
+
     }
 </script>

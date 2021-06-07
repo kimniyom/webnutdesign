@@ -156,17 +156,11 @@ class Dashboard {
         return $rs['TOTAL'];
     }
 
-    function chartMonth() {
-        $Month = date("m");
-        if (strlen($Month) < 2) {
-            $m = "0" . $Month;
-        } else {
-            $m = $Month;
-        }
+    function chartMonth($month) {
         $sql = "SELECT DAY(c.create_date) AS DAY,COUNT(*) AS total
                 FROM customer c
                 WHERE LEFT(c.create_date,4) = YEAR(CURDATE())
-                AND SUBSTR(c.create_date,6,2) = '06'
+                AND SUBSTR(c.create_date,6,2) = '$month'
                 GROUP BY LEFT(c.create_date,10)
                 ORDER BY DAY(c.create_date) ASC";
         $rs = Yii::$app->db->createCommand($sql)->queryAll();
@@ -239,21 +233,21 @@ class Dashboard {
 
     function countLevel($level) {
         $sql = "SELECT COUNT(*) AS TOTAL
-                FROM customer c
-                WHERE c.flag = '1' AND c.`level` = '$level' ";
+FROM customer c INNER JOIN graphic g ON c.ref = g.ref
+WHERE c.flag = '0' AND c.`level` = '$level' AND g.approve = '0' ";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }
 
     function countCustomerType($type = "") {
         if ($type == '1') {
-            $where = " AND c.`channel` = '1'";
+            $where = " c.`channel` = '1'";
         } else {
-            $where = " AND c.`channel` != '1'";
+            $where = " c.`channel` != '1'";
         }
         $sql = "SELECT COUNT(*) AS TOTAL
                 FROM customer c
-                WHERE c.flag = '1' $where";
+                WHERE $where";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
     }

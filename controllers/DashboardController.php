@@ -61,9 +61,19 @@ class DashboardController extends Controller {
      *
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex($month = "") {
+        if ($month == "") {
+            $Month = date("m");
+            if (strlen($Month) < 2) {
+                $m = "0" . $Month;
+            } else {
+                $m = $Month;
+            }
+        } else {
+            $m = $month;
+        }
         $model = new Dashboard();
-        $reschartMonth = $model->chartMonth();
+        $reschartMonth = $model->chartMonth($m);
         $label = array();
         $value = array();
         foreach ($reschartMonth as $rs):
@@ -73,7 +83,7 @@ class DashboardController extends Controller {
         endforeach;
         $data['label'] = implode(",", $label);
         $data['value'] = implode(",", $value);
-
+        $data['month'] = $m;
         $data['listCategory'] = $model->countCustotmerCat();
         //echo $data['label'];
         return $this->render('index', $data);
