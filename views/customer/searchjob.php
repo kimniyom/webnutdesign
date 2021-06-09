@@ -14,7 +14,7 @@ $TimeLineModel = new Timeline();
     <button type="button" class="btn btn-rounded btn-dark btn-outline" style=" margin-left: 30px;">
         <i class="fa fa-arrow-circle-left"></i> ออกจากหน้าค้นหา
     </button></a>
-<?php if ($dataList) { ?>
+<?php if (isset($dataList)) { ?>
     <?php
     foreach ($dataList as $rs):
         ?>

@@ -122,7 +122,7 @@ $Dashboard = new Dashboard();
                     <div class="col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-content">
-                                <div class="card-header" style=" font-family: skv;">
+                                <div class="card-header" style=" font-family: skv; background: #FFFFFF;">
                                     <?php
                                     $monthList = $ConfigWeb->month_shot();
                                     ?>

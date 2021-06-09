@@ -61,7 +61,7 @@ $CustomerModel = new Customer();
                 </div>
                 <div class="col-md-9 col-lg-9 col-9">
                     <div style=" position: relative; word-wrap: break-word; color:#FFFFFF;" id="boxdetailcustomer">
-                        <?php echo $model['detail'] ?>
+                        <?php echo isset($model['detail']) ? $model['detail'] : ""; ?>
                     </div>
                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
                 </div>
@@ -83,7 +83,7 @@ $CustomerModel = new Customer();
                         }
                         ?>
 
-                        <?php if ($filelist) { ?>
+                        <?php if (isset($filelist)) { ?>
                             <br/>ไฟล์แนบ
                             <ul>
                                 <?php foreach ($filelist as $f): ?>
@@ -102,51 +102,53 @@ $CustomerModel = new Customer();
         <div style=" padding: 10px; border-radius: 10px; position: relative; margin-top: 20px; background: #d983b2;">
             <h4 class="head-title-view" style=" color: #ffffff; font-weight: bold;"><b>กราฟิก / ใบสั่งงาน</b></h4>
             <?php
-            if ($graphic) {
+            if (!empty($graphic)) {
                 ?>
                 <label style="margin-left: 10px; font-weight: bold; color: #ffffff;">รายละเอียดใบสั่งงาน</label>
-                <?php if ($graphic['detail']) { ?>
+                <?php if (!empty($graphic['detail'])) { ?>
                     <div class="alert alert-dark" style=" padding: 5px; padding-left: 15px; color: #ffffff; background: #d45f93; border:0px;">
                         <div class="boxdetailgf">
-                            <?php echo $graphic['detail'] ?>
+                            <?php echo isset($graphic['detail']) ? $graphic['detail'] : "" ?>
                         </div>
                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #000000; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImgGraphic"></div>
                     </div>
                 <?php } ?>
-                <?php if ($filegraphic) { ?>
+                <?php if (isset($filegraphic)) { ?>
                     <label style="margin-left: 10px; font-weight: bold; color: #ffffff; width: 100%;">ไฟล์งาน / ตัวอย่างงาน</label>
                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                         <?php
-                        foreach ($filegraphic as $files):
-                            $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
-                            $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
-                            ?>
-                            <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
-                                <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
-                            </a>
-                        <?php endforeach; ?>
+                        if (!empty($graphic['ref_graphic'])) {
+                            foreach ($filegraphic as $files):
+                                $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                                $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                                ?>
+                                <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
+                                    <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
+                                </a>
+                            <?php endforeach;
+                        } ?>
                     </div>
                 <?php } ?>
                 <?php
                 if (isset($graphic['user_id'])) {
                     $gName = dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'];
-                    if ($gName) {
+                    if (isset($gName)) {
                         ?>
                         <hr/>
                         <label style="color: #ffffff;"><i class="fa fa-user text-warning"></i> โดย::<?php echo $gName ?></label>
                     <?php } ?>
                 <?php } ?>
-            <?php } ?>
+<?php } ?>
         </div>
     </div>
 
 
     <div id="boxImgDetail" style=" display: none;">
-        <?php echo $model['detail'] ?>
+<?php echo isset($model['detail']) ? $model['detail'] : ""; ?>
     </div>
 
     <div id="boxImgGraphic" style="display: none;">
-        <?php echo $graphic['detail'] ?>
+<?php echo isset($graphic['detail']) ? $graphic['detail'] : ""; ?>
     </div>
 </div>
 
@@ -161,7 +163,7 @@ $this->registerJs('
 <script type="text/javascript">
     setImg();
     setImgGraphic();
-    jQuery(function($) {
+    jQuery(function ($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
             openEffect: "elastic",
@@ -195,7 +197,7 @@ $this->registerJs('
 
     function setImg() {
         $("#boxdetailcustomer p img:last-child").remove()
-        var imgs = $('#boxImgDetail p').children('img').map(function() {
+        var imgs = $('#boxImgDetail p').children('img').map(function () {
             return $(this).attr('src')
         }).get();
 
@@ -207,7 +209,7 @@ $this->registerJs('
 
     function setImgGraphic() {
         $(".boxdetailgf p img:last-child").remove()
-        var imgs = $('#boxImgGraphic p').children('img').map(function() {
+        var imgs = $('#boxImgGraphic p').children('img').map(function () {
             return $(this).attr('src')
         }).get();
 

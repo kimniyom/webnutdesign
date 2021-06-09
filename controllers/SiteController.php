@@ -154,7 +154,11 @@ class SiteController extends Controller {
         $ref = \Yii::$app->request->post('ref');
 
         $model = Customer::findOne(['ref' => $ref]);
-        $file = $this->getFile($model['ref']);
+        if (!empty($model['ref'])) {
+            $file = $this->getFile($model['ref']);
+        } else {
+            $file = "";
+        }
         $timeline = $this->getTimeline($model['ref']);
         //Account
         $account = Account::findOne(['ref' => $ref]);
@@ -181,7 +185,12 @@ class SiteController extends Controller {
         $ref = \Yii::$app->request->post('ref');
 
         $model = Customer::findOne(['ref' => $ref]);
-        $file = $this->getFile($model['ref']);
+        
+        if (!empty($model['ref'])) {
+            $file = $this->getFile($model['ref']);
+        } else {
+            $file = "";
+        }
         //กราฟฟิก
         $graphic = Graphic::findOne(['ref' => $ref]);
         $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
@@ -197,10 +206,20 @@ class SiteController extends Controller {
     public function actionViewmobile() {
         $ref = \Yii::$app->request->post('ref');
         $model = Customer::findOne(['ref' => $ref]);
-        $file = $this->getFile($model['ref']);
+        if (!empty($model['ref'])) {
+            $file = $this->getFile($model['ref']);
+        } else {
+            $file = "";
+        }
         //กราฟฟิก
         $graphic = Graphic::findOne(['ref' => $ref]);
-        $fileGraphic = $this->getImgGraphic($graphic['ref_graphic']);
+        if (isset($graphic['ref_graphic'])) {
+            $gf = $graphic['ref_graphic'];
+        } else {
+            $gf = "";
+        }
+
+        $fileGraphic = $this->getImgGraphic($gf);
         return $this->renderPartial('viewmobile', [
                     'model' => $model,
                     'filelist' => $file,

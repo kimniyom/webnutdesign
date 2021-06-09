@@ -98,7 +98,7 @@ class GraphicController extends Controller {
             $model->status = 1; //รับงาน
             //Time Line
             if ($model->flagsend == "1") {
-                $this->addTimeline('3', $ref, "กราฟิก / ออกแบบ", "กราฟิก(รับงาน)");
+                $this->addTimeline('3', $ref, "กราฟิก", "กราฟิก(รับงาน)");
             } else if ($model->flagsend == "2") {//ส่งต่อ
                 if (isset($_POST['todep'])) {
                     $todep = implode(", ", $_POST['todep']);
@@ -123,10 +123,10 @@ class GraphicController extends Controller {
                 $this->sendDepartment($depVal, $model->ref);
             } else if ($model->flagsend == "3") { //จบงานที่นี้
                 //Time Line
-                $this->addTimeline('3', $model->ref, "การตลาด / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+                $this->addTimeline('3', $model->ref, "การตลาด", "-");
                 //ส่งการตลาดแจ้งลูกค้า
                 $res = \app\models\Branchmarketing::findOne(['ref' => $ref]);
-                if ($res['ref'] == "") {
+                if (!isset($res['ref'])) {
                     $columns = array(
                         "ref" => $ref
                     );
@@ -135,7 +135,7 @@ class GraphicController extends Controller {
                             ->execute();
                 }
             } else { //ส่งผลิตนอกร้าน
-                $this->addTimeline('3', $model->ref, "ส่งผลิตนอกร้าน / บัญชี(ตามงาน)", "กราฟิก / ออกปบบ");
+                $this->addTimeline('3', $model->ref, "ส่งผลิตนอกร้าน", "ส่งผลิตนอกร้าน");
                 $columns = array("outside" => '1');
                 Yii::$app->db->createCommand()
                         ->update("customer", $columns, "ref = '$ref'")
@@ -151,6 +151,7 @@ class GraphicController extends Controller {
             //ดึงข้อมูลลูกค้า
             $customer = \app\models\Customer::findOne(['ref' => $ref]);
             //ส่งจัดคิวติดตั้ง
+            /*
             if ($customer['setup'] == 1) {
                 \Yii::$app->db->createCommand()
                         ->delete("queue", "ref = '$ref'")
@@ -160,7 +161,7 @@ class GraphicController extends Controller {
                         ->insert("queue", array("ref" => $ref))
                         ->execute();
             }
-
+            */
             //ส่งต่อแผนกจัดส่ง
             if ($customer['transport'] == 1) {
                 \Yii::$app->db->createCommand()
@@ -175,7 +176,7 @@ class GraphicController extends Controller {
             //return $this->redirect(['view', 'ref' => $model->ref]);
             return $this->redirect(['index']);
         } else {
-            if ($model->ref_graphic == "") {
+            if (!isset($model->ref_graphic)) {
                 $model->ref_graphic = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             } else {
                 $model->ref_graphic = $model->ref_graphic;
@@ -229,7 +230,7 @@ class GraphicController extends Controller {
     private function Uploads($isAjax = false, $ref_graphic = "") {
         if (Yii::$app->request->isPost) {
             $images = UploadedFile::getInstancesByName('upload_ajax');
-            if ($images) {
+            if (isset($images)) {
                 //$ref = Yii::$app->request->post('ref');
                 $this->CreateDir($ref_graphic);
                 foreach ($images as $file) {
@@ -351,7 +352,7 @@ class GraphicController extends Controller {
 
     function addTimeline($department, $ref, $log, $todep) {
         $rs = \app\models\Timeline::findOne(['ref' => $ref, 'department' => $department]);
-        if ($rs['ref']) {
+        if (isset($rs['ref'])) {
             $culumns = array(
                 "department" => $department,
                 "ref" => $ref,
@@ -381,7 +382,7 @@ class GraphicController extends Controller {
     private function sendDepartment($dep, $ref) {
         if (in_array("4", $dep)) {//แผนกบัญชี
             $res = \app\models\Account::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -393,7 +394,7 @@ class GraphicController extends Controller {
 
         if (in_array("3", $dep)) {//แผนกกราฟิก
             $res = \app\models\Graphic::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -405,7 +406,7 @@ class GraphicController extends Controller {
 
         if (in_array("5", $dep)) { //งานพิมพ์
             $res = \app\models\Branchprint::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -422,7 +423,7 @@ class GraphicController extends Controller {
 
         if (in_array("6", $dep)) {//cnc
             $res = \app\models\Branchlaser::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -439,7 +440,7 @@ class GraphicController extends Controller {
 
         if (in_array("7", $dep)) {//ผลิตทั่วไป
             $res = \app\models\Branchfacture::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -465,7 +466,8 @@ class GraphicController extends Controller {
                     ->execute();
 
             $res = \app\models\Queue::findOne(['ref' => $ref]);
-            if (!isset($res['ref'])) {
+            
+        if (!isset($res['ref'])) {
                 $columns = array(
                     "confirm" => 1,
                     "ref" => $ref
@@ -479,12 +481,6 @@ class GraphicController extends Controller {
                         ->update("customer", array("setup" => '1'), "ref = '$ref'")
                         ->execute();
             }
-        }
-
-        if (in_array("9", $dep)) {//จัดส่ง
-            $columns = array(
-                "ref" => $ref
-            );
         }
     }
 
@@ -505,7 +501,7 @@ class GraphicController extends Controller {
 
         $model->todep = explode(',', $model->todep);
 
-        if ($model->ref_graphic == "") {
+        if (empty($model->ref_graphic)) {
             $model->ref_graphic = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
         } else {
             $model->ref_graphic = $model->ref_graphic;

@@ -14,7 +14,7 @@ $TimeLineModel = new Timeline();
 lส่งมอบงาน
 -->
 <div class="row" style="margin: 0px; margin-bottom: 30px; margin-top: 10px; padding: 0px 10px;">
-    <?php if ($dataList) { ?>
+    <?php if (isset($dataList)) { ?>
         <?php
         foreach ($dataList as $rs):
             ?>
@@ -40,7 +40,7 @@ lส่งมอบงาน
                         </div>
                     </div>
                     <hr style=" border-top: solid 3px #eac0d6; height: 3px; margin-top: 5px; margin-bottom: 5px;">
-                    <div class="send-heading " style=" font-weight: normal; text-align: right; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+                    <div class="send-heading " style=" font-weight: normal; text-align: right; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo substr($rs['time_getjob'],0,5) ?></div>
                 </div>
             </div>
         <?php endforeach; ?>

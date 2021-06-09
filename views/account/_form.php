@@ -1,13 +1,8 @@
 <link href="<?php echo Yii::$app->urlManager->baseUrl ?>/css/account.css" rel="stylesheet">
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Account */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="account-form">

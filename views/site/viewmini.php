@@ -183,7 +183,7 @@ $CustomerModel = new Customer();
             </table>
             <label>รายละเอียดงาน</label>
             <div style=" position: relative; word-wrap: break-word;" class="boxdetailgf">
-                <?php echo $model['detail'] ?>
+                <?php if(!empty($model['detail'])) echo $model['detail'] ?>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -199,7 +199,7 @@ $CustomerModel = new Customer();
                     }
                     ?>
                     <br/>ไฟล์แนบ
-                    <?php if ($filelist) { ?>
+                    <?php if (!empty($filelist)) { ?>
                         <ul>
                             <?php foreach ($filelist as $f): ?>
                                 <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
@@ -218,18 +218,19 @@ $CustomerModel = new Customer();
         <div style=" background: #ffffff; padding: 10px; border-radius: 10px; position: relative; margin-top: 20px;">
             <h3 class="head-title-view">กราฟิก / ใบสั่งงาน</h3>
             <?php
-            if ($graphic) {
+            if (!empty($graphic)) {
                 ?>
                 <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
                 <div class="alert alert-success">
                     <div class="content-graphic">
-                        <?php echo $graphic['detail'] ?>
+                        <?php if(!empty($graphic)) echo $graphic['detail'] ?>
                     </div>
                     <label><i class="fa fa-user text-warning"></i> โดย::<?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
                 </div>
                 <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
                 <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                     <?php
+                    if (!empty($graphic['ref_graphic'])) {
                     foreach ($filegraphic as $files):
                         $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                         $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
@@ -237,7 +238,7 @@ $CustomerModel = new Customer();
                         <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
                             <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
                         </a>
-                    <?php endforeach; ?>
+                    <?php endforeach; } ?>
                 </div>
             <?php } ?>
         </div>
@@ -249,7 +250,7 @@ $CustomerModel = new Customer();
         <label class="head-title-view">ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</label>
         <p class="txt-customer"> <?php echo $model['customer'] ?></p>
         <label class="head-title-view">เบอร์โทรศัพท์</label>
-        <p class="txt-customer"><?php echo $model['tel'] ?></p>
+        <p class="txt-customer"><?php if(!empty($model['tel'])) echo $model['tel'] ?></p>
         <label class="head-title-view">ช่องทางลูกค้าติดต่อมา</label>
         <p class="txt-customer">
             <?php 
@@ -265,7 +266,7 @@ $CustomerModel = new Customer();
                             ?> 
         </p>
         <label class="head-title-view">ที่อยู่ / ข้อมูลการจัดส่ง</label>
-        <p class="txt-customer"><?php echo $model['address'] ?></p>
+        <p class="txt-customer"><?php if(!empty($model['address'])) echo $model['address'] ?></p>
         <label class="head-title-view">ผู้รับงาน</label>
         <p class="txt-customer"><?php echo dektrium\user\models\Profile::findOne(['user_id' => $model['user_id']])['name'] ?></p>
         <label class="head-title-view">วันที่ทำรายการ</label>

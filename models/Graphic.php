@@ -86,19 +86,27 @@ class Graphic extends \yii\db\ActiveRecord {
         }
 
         if ($type == 1) {
-            $order = "order by c.level desc";
+            $order = "ORDER BY D,H";
         } else if ($type == 2) {
-            $order = "order by c.date_getjob asc";
+            $order = "ORDER by c.date_getjob asc";
         } else {
-            $order = "order by c.create_date desc";
+            $order = "ORDER by c.create_date desc";
         }
 
         if ($status == "A" || $status == "M") {
-            $sql = "select c.*,g.status,g.approve as approver from graphic g INNER JOIN customer c ON g.ref = c.ref
+            $sql = "select c.*,g.status,g.approve as approver,
+                        TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                        TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                        TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
+                    from graphic g INNER JOIN customer c ON g.ref = c.ref
                     where g.approve != '1' and g.status != '2' and c.flag = '0' $order";
         } else {
-            $sql = "select c.*,g.status,g.approve as approver from graphic g INNER JOIN customer c ON g.ref = c.ref
-                    where g.approve != '1' and g.status != '2' and c.flag = '0'  $order";
+            $sql = "select c.*,g.status,g.approve as approver,
+                        TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                        TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                        TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
+                    from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve != '1' and g.status != '2' and c.flag = '0' $order";
         }
 
         //echo $sql;

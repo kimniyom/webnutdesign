@@ -125,10 +125,22 @@ class SetupController extends Controller {
     }
 
     //ดึงงานที่นังไม่ได้ลงคิวงาน
-    function getWork() {
-        $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name,c.level
+    function getWork($type) {
+        
+        if ($type == 1) {
+            $order = "ORDER BY D,H";
+        } else if ($type == 2) {
+            $order = "order by c.date_getjob asc";
+        } else {
+            $order = "order by c.create_date desc";
+        }
+        
+        $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name,c.level,
+            TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                    TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                    TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.approve != '2' AND c.flag = '0'";
+                    WHERE a.approve != '2' AND c.flag = '0' $order";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -192,7 +204,8 @@ class SetupController extends Controller {
     }
 
     public function actionJob() {
-        $dataList = $this->getWork();
+        $type = Yii::$app->request->post('type');
+        $dataList = $this->getWork($type);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);

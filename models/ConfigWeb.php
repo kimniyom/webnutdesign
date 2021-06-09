@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Customer;
 
 class ConfigWeb {
 
@@ -237,6 +238,50 @@ class ConfigWeb {
         $str = array(
             "1" => "งานไม่ถูกต้อง"
         );
+    }
+
+    function statusBar($day,$h,$inday,$datejob) {
+        $CustomerM = new Customer();    
+        $Tomorow = $CustomerM->getTomorow(date('Y-m-d'));
+        if ($day < 0) {
+            $text = "เลยกำหนดส่งแล้วนะ ให้ไวเลย!!!";
+            $color = "red";
+            $percent = "100%";
+        } else if ($day == 0 && ($inday < 4)) {
+            if ($h < 4) {
+                $text = "ส่งมอบวันนี้";
+                $color = "orange";
+                $percent = "100%";
+            } else {
+                $text = "ส่งมอบ 1 - 3 ชั่วโมง";
+                $color = "red";
+                $percent = "100%";
+            }
+        } else if ($day == 0 && $inday > 4) {
+            $text = "ส่งมอบวันนี้";
+            $color = "orange";
+            $percent = "100%";
+        } else if ($datejob == $Tomorow) {
+            $text = "ส่งมอบพรุ่งนี้";
+            $color = "yellow";
+            $percent = "100%";
+        } else if ($day > 0 && $day < 3) {
+            $text = "ส่งมอบภายใน 2 วัน";
+            $color = "green";
+            $percent = "100%";
+        } else {
+             $text = "ส่งมอบภายใน 2 วันขึ้นไป";
+            $color = "green";
+            $percent = "100%";
+        }
+        
+        $datas = array(
+            "text" => $text,
+            "color" => $color,
+            "percent" => $percent
+        );
+        
+        return $datas;
     }
 
 }

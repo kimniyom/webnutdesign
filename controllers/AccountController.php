@@ -57,8 +57,8 @@ class AccountController extends Controller {
 
     function getWorkNonApprove() {
         $sql = "SELECT c.*
-                FROM customer c
-                WHERE c.flag = '0' AND c.outside = '0' AND c.flag = '0'";
+                FROM customer c 
+                WHERE c.flag = '0' AND c.outside = '0' AND c.flag = '0' AND approve = '1'";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -139,13 +139,17 @@ class AccountController extends Controller {
             $model->save();
 
             //ส่งไปกราฟิก
+            /*
             $refgraphic = \app\models\Graphic::findOne(['ref' => $ref]);
             if (!$refgraphic['ref']) {
                 Yii::$app->db->createCommand()
                         ->insert("graphic", array("ref" => $ref))
                         ->execute();
             }
+             * 
+             */
             //Time Line
+            /*
             $rs = \app\models\Timeline::find()
                     ->where(['ref' => $ref])
                     ->andWhere(['department' => 4])
@@ -174,9 +178,9 @@ class AccountController extends Controller {
                         ->update("timeline", $culumns, "ref = '$ref'")
                         ->execute();
             }
-            //ส่งไปแผนก
-            //$depVal = array('3');
-            //$this->sendDepartment($depVal, $model->ref);
+             * 
+             */
+            
 
             return $this->redirect(['index']);
             //return $this->redirect(['view', 'ref' => $model->ref]);
@@ -242,33 +246,6 @@ class AccountController extends Controller {
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
-    private function sendDepartment($dep, $ref) {
-        if (in_array("4", $dep)) {//แผนกบัญชี
-            $res = \app\models\Account::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
-                $columns = array(
-                    "ref" => $ref
-                );
-                \Yii::$app->db->createCommand()
-                        ->insert("account", $columns)
-                        ->execute();
-            }
-        } else if (in_array("3", $dep)) {//แผนกกราฟิก
-            $res = \app\models\Graphic::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
-                $columns = array(
-                    "ref" => $ref
-                );
-                \Yii::$app->db->createCommand()
-                        ->insert("graphic", $columns)
-                        ->execute();
-            }
-        } else { //แผนกการตลาดลูกค้าสัมพันธ์
-            $columns = array(
-                "ref" => $ref
-            );
-        }
-    }
 
     public function actionSearchjob() {
         $customer = Yii::$app->request->post('customer');

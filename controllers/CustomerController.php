@@ -510,7 +510,7 @@ class CustomerController extends Controller {
 
         if (in_array("3", $dep)) {//แผนกกราฟิก
             $res = \app\models\Graphic::findOne(['ref' => $ref]);
-            if (!$res['ref']) {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -522,7 +522,7 @@ class CustomerController extends Controller {
 
         if (in_array("5", $dep)) { //งานพิมพ์
             $res = \app\models\Branchprint::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -539,7 +539,7 @@ class CustomerController extends Controller {
 
         if (in_array("6", $dep)) {//cnc
             $res = \app\models\Branchlaser::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -556,7 +556,7 @@ class CustomerController extends Controller {
 
         if (in_array("7", $dep)) {//ผลิตทั่วไป
             $res = \app\models\Branchfacture::findOne(['ref' => $ref]);
-            if ($res['ref'] == "") {
+            if (!isset($res['ref'])) {
                 $columns = array(
                     "ref" => $ref
                 );
@@ -718,7 +718,18 @@ class CustomerController extends Controller {
     }
 
     public function actionApproveload() {
-        $data['dataList'] = Customer::find()->where(['approve' => '0'])->andWhere(['flag' => '0'])->andWhere(['transport' => '0'])->all();
+        $type = Yii::$app->request->post('type');
+        if ($type == 1) {
+            $order = "order by level desc";
+        } else if ($type == 2) {
+            $order = "order by date_getjob asc";
+        } else {
+            $order = "order by create_date desc";
+        }
+        
+        $sql = "select * from customer where approve = '0' and flag = '0' and transport = '0' $order";
+        $data['dataList'] = \Yii::$app->db->createCommand($sql)->queryAll();
+        //$data['dataList'] = Customer::find()->where(['approve' => '0'])->andWhere(['flag' => '0'])->andWhere(['transport' => '0'])->all();
         return $this->renderPartial('approveload', $data);
     }
 

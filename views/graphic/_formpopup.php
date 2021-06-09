@@ -86,7 +86,6 @@ $configWeb = new ConfigWeb();
 
 <div class="modal fade" tabindex="-1" role="dialog" id="popupOrder" data-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-
         <?php $form = ActiveForm::begin(['action' => ['graphic/update', 'ref' => $model->ref], 'options' => ['enctype' => 'multipart/form-data']]); ?>
         <div class="modal-content" style="position: relative;background-image: linear-gradient( 135deg, #db7daf 10%, #cc1c77 100%); border-radius: 20px;">
             <div class="modal-header" style="border:none;">

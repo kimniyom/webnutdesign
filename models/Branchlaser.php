@@ -49,7 +49,7 @@ class Branchlaser extends \yii\db\ActiveRecord {
         $status = Yii::$app->user->identity->status;
 
         if ($type == 1) {
-            $order = "order by c.level desc";
+            $order = "ORDER BY D,H";
         } else if ($type == 2) {
             $order = "order by c.date_getjob asc";
         } else {
@@ -57,10 +57,18 @@ class Branchlaser extends \yii\db\ActiveRecord {
         }
 
         if ($status == "A" || $status == "M") {
-            $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref
+            $sql = "select c.*,g.status,
+                    TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                    TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                    TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
+                from branchlaser g INNER JOIN customer c ON g.ref = c.ref
                     where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
         } else {
-            $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref
+            $sql = "select c.*,g.status,
+                    TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                    TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                    TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
+                from branchlaser g INNER JOIN customer c ON g.ref = c.ref
                     where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
         }
 
@@ -69,7 +77,11 @@ class Branchlaser extends \yii\db\ActiveRecord {
 
     function getJobForUser() {
         $user_id = Yii::$app->user->identity->id;
-        $sql = "select c.*,g.status from branchlaser g INNER JOIN customer c ON g.ref = c.ref
+        $sql = "select c.*,g.status, 
+                    TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                    TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                    TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
+            from branchlaser g INNER JOIN customer c ON g.ref = c.ref
                     where g.flag = '0' and g.user_id = '$user_id' and g.status in('2','3') and c.flag = '0'";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }

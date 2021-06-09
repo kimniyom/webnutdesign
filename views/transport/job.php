@@ -75,7 +75,7 @@ $TimeLineModel = new Timeline();
 คิวติดตั้ง
 -->
 <div class="row" style=" margin: 0px;">
-    <?php if ($dataList) { ?>
+    <?php if (isset($dataList)) { ?>
         <?php
         foreach ($dataList as $rs):
             ?>
@@ -93,7 +93,6 @@ $TimeLineModel = new Timeline();
                                     <div class="text-tran-customer" style=" font-weight: bold; color:#FFFFFF;"><i class="far fa-user-circle"></i> <?php echo ($rs['customer']) ? $rs['customer'] : "-"; ?></div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-md-3 col-lg-3 col-sm-3 col-3">
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['transport/update', 'ref' => $rs['ref']]) ?>" class="pull-right">
@@ -102,7 +101,7 @@ $TimeLineModel = new Timeline();
                         </div>
                     </div>
                     <hr style=" border-top: solid 3px #eac0d6; height: 3px; margin-top: 5px; margin-bottom: 5px;">
-                    <div class="send-heading " style=" font-weight: normal; text-align: right; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+                    <div class="send-heading " style=" font-weight: normal; text-align: right; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo substr($rs['time_getjob'],0,5) ?></div>
                 </div>
             </div>
         <?php endforeach; ?>

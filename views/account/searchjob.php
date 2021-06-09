@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\ConfigWeb;
@@ -9,7 +8,7 @@ $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
 ?>
 
-<?php if ($dataList) { ?>
+<?php if (isset($dataList)) { ?>
     <?php
     foreach ($dataList as $rs):
         ?>

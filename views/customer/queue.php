@@ -1,7 +1,5 @@
 <?php
-
 use app\models\ConfigWeb;
-
 $ConfigWeb = new ConfigWeb();
 ?>
 <style type="text/css">
@@ -15,7 +13,7 @@ $ConfigWeb = new ConfigWeb();
             <b style="color: #ce297d; ">งานที่รับวันที่ <?php echo $ConfigWeb->thaidate($dateselect) ?></b>
         </div>
         <div style=" height: 350px; overflow: auto; background: #FFFFFF; border-radius: 10px;">
-            <?php if ($jobToday) { ?>
+            <?php if (isset($jobToday)) { ?>
                 <div class="list-group" style=" border: 0px;">
                     <?php foreach ($jobToday as $rs): ?>
                         <div class="list-group-item" style="padding: 5px; color: #000000; position: relative;">
@@ -25,6 +23,8 @@ $ConfigWeb = new ConfigWeb();
                             </div>
                             <div class="status-transport">
                                 <?php echo ($rs['transport'] == "0") ? "รับเอง" : "จัดส่ง"; ?>
+                                <br/>
+                                <?php echo substr($rs['time_getjob'],0,5) ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -39,7 +39,7 @@ $ConfigWeb = new ConfigWeb();
             <b style="color: #ce297d;">งานที่รับวันที่ <?php echo $ConfigWeb->thaidate($datetomorow) ?></b>
         </div>
         <div style=" height: 350px; overflow: auto; background: #FFFFFF; border-radius: 10px;">
-            <?php if ($jobTomorow) { ?>
+            <?php if (isset($jobTomorow)) { ?>
                 <div class="list-group" style=" border: 0px;">
                     <?php foreach ($jobTomorow as $rss): ?>
                         <div class="list-group-item" style="padding: 5px; color: #000000; position: relative;">
@@ -48,7 +48,8 @@ $ConfigWeb = new ConfigWeb();
                                 <?php echo $rss['customer'] ?>
                             </div>
                             <div class="status-transport">
-                                <?php echo ($rss['transport'] == "0") ? "รับเอง" : "จัดส่ง"; ?>
+                                <?php echo ($rss['transport'] == "0") ? "รับเอง" : "จัดส่ง"; ?><br/>
+                                <?php echo substr($rss['time_getjob'],0,5) ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

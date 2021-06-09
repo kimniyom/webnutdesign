@@ -11,7 +11,7 @@ $TimeLineModel = new Timeline();
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row" style=" margin: 0px; margin-bottom: 20px;">
-    <?php if ($dataList) { ?>
+    <?php if (isset($dataList)) { ?>
         <?php
         foreach ($dataList as $rs):
             ?>
@@ -35,7 +35,7 @@ $TimeLineModel = new Timeline();
                         <a href="javascript:cancelJob('<?php echo $rs['ref'] ?>')" class="btn btn-rounded btn-danger btn-sm" style="margin-top: 5px;padding: 0px 5px; width: 60px;">ยกเลิก <i class="fa fa-remove"></i></a>
                     </div>
 
-                    <div class="send-heading pull-right" style=" font-weight: normal; color: #FFFFFF;"><i class="far fa-calendar-alt"></i> ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></div>
+                    <div class="send-heading pull-right" style=" font-weight: normal; color: #ffffff;"><i class="far fa-calendar-alt"></i> ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo substr($rs['time_getjob'],0,5) ?></div>
 
                     <div style=" clear: both;">
                         <hr style=" height: 5px; margin-top: 0px; margin-bottom: 0px; border-top: #FFFFFF solid 3px;">

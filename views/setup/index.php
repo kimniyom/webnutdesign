@@ -6,9 +6,6 @@ use yii\grid\GridView;
 use app\models\ConfigWeb;
 use app\models\Timeline;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\CustomerSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
 $this->title = "ช่างติดตั้ง";
@@ -114,7 +111,7 @@ $this->registerJs('
 ?>
 
 <script>
-    setInterval(function() {
+    setInterval(function () {
         getJob();
     }, 300000);
 
@@ -152,8 +149,11 @@ $this->registerJs('
 
     function getJob() {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['setup/job']) ?>";
-        var data = {};
-        $.post(url, data, function(res) {
+        var type = $("#souredata").val();
+        var data = {
+            type: type
+        };
+        $.post(url, data, function (res) {
             $("#job").html(res);
         });
     }
@@ -170,7 +170,7 @@ $this->registerJs('
         }
 
         var data = {ref: ref};
-        $.post(url, data, function(res) {
+        $.post(url, data, function (res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
@@ -188,7 +188,7 @@ $this->registerJs('
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
         var url = "<?php echo Yii::$app->urlManager->createUrl(['setup/searchjob']) ?>";
         var data = {customer: customer, project: project};
-        $.post(url, data, function(res) {
+        $.post(url, data, function (res) {
             $("#job").html(res);
         });
     }

@@ -150,16 +150,22 @@ and open the template in the editor.
     display: none;
 }
 
+
 .orange > span {
-    background-image: linear-gradient(#f1a165, #f36d0a);
+    background-image: linear-gradient(#ff6600, #ff9900);
 }
 
 .yellow > span {
+    color: #000000;
     background-image: linear-gradient(#f8ea0d, #f8ea0d);
 }
 
 .red > span {
     background-image: linear-gradient(#ff0000, #f42323);
+}
+
+.redout > span {
+    background-image: linear-gradient(#cc0033, #f42323);
 }
 
 .nostripes > span > span,

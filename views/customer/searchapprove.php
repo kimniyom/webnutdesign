@@ -19,7 +19,7 @@ lส่งมอบงาน
         <i class="fa fa-arrow-circle-left"></i> ออกจากหน้าค้นหา
     </button></a>
 <div class="row" style="margin: 0px; margin-bottom: 30px; margin-top: 10px;">
-    <?php if ($dataList) { ?>
+    <?php if (isset($dataList)) { ?>
         <?php
         foreach ($dataList as $rs):
             ?>

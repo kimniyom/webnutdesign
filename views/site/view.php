@@ -151,7 +151,7 @@ $CustomerModel = new Customer();
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">บัญชี</h3>
                                 <div style="">
-                                    <?php if ($account) { ?>
+                                    <?php if (!empty($account)) { ?>
                                         <label style="font-weight: bold;">รายละเอียด</label>
                                         <div class="alert alert-warning">
                                             <?php echo ($account['detail']) ? $account['detail'] : "-" ?>
@@ -173,7 +173,7 @@ $CustomerModel = new Customer();
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">กราฟิก / ใบสั่งงาน</h3>
                                 <?php
-                                if ($graphic) {
+                                if (!empty($graphic)) {
                                     ?>
                                     <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
                                     <div class="alert alert-success">
@@ -181,11 +181,17 @@ $CustomerModel = new Customer();
                                             <?php echo $graphic['detail'] ?>
                                         </div>
                                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImgGraphic"></div>
-                                        <label><i class="fa fa-user text-warning"></i>โดย <?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
+                                        <label><i class="fa fa-user text-warning"></i>โดย 
+                                            <?php if(isset($graphic['user_id'])){ ?>
+                                            <?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?>
+                                        <?php } ?>
+                                        </label>
                                     </div>
                                     <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
                                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
+                                        
                                         <?php
+                                        if (!empty($graphic['ref_graphic'])) {
                                         foreach ($filegraphic as $files):
                                             $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                                             $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
@@ -193,7 +199,7 @@ $CustomerModel = new Customer();
                                             <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
                                                 <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
                                             </a>
-                                        <?php endforeach; ?>
+                                        <?php endforeach; } ?>
                                     </div>
                                 <?php } else { ?>
                                     <div class="card">
@@ -285,20 +291,22 @@ $CustomerModel = new Customer();
                                                     <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการดำเนินงาน
                                                 <?php } else if ($model['technician_status'] == 2) { ?>
                                                     <i class="fa fa-check text-success"></i> ติดตั้งเสร็จแล้ว
+                                                    <!--
                                                     <br/>รูปภาพการติดตั้งงาน
                                                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                                                         <?php
-                                                        $refsetup = app\models\Queue::findOne(['ref' => $model['ref']])['refsetup'];
-                                                        $filesetups = \app\models\Uploads::findAll(['ref' => $refsetup]);
-                                                        foreach ($filesetups as $file):
-                                                            $imgsetup = Url::to('@web/photolibrarys/') . $refsetup . '/thumbnail/' . $file['real_filename'];
-                                                            $imgfullsetup = Url::to('@web/photolibrarys/') . $refsetup . '/' . $file['real_filename'];
+                                                        //$refsetup = app\models\Queue::findOne(['ref' => $model['ref']])['refsetup'];
+                                                        //$filesetups = \app\models\Uploads::findAll(['ref' => $refsetup]);
+                                                        //foreach ($filesetups as $file):
+                                                            //$imgsetup = Url::to('@web/photolibrarys/') . $refsetup . '/thumbnail/' . $file['real_filename'];
+                                                            //$imgfullsetup = Url::to('@web/photolibrarys/') . $refsetup . '/' . $file['real_filename'];
                                                             ?>
-                                                            <a class="fancybox" rel="gallery1" href="<?php echo $imgfullsetup ?>" title="รูปงานติดตั้ง">
-                                                                <div class="img-crop" style="background-image: url('<?php echo $imgsetup ?>');"></div>
+                                                            <a class="fancybox" rel="gallery1" href="<?php //echo $imgfullsetup ?>" title="รูปงานติดตั้ง">
+                                                                <div class="img-crop" style="background-image: url('<?php //echo $imgsetup ?>');"></div>
                                                             </a>
-                                                        <?php endforeach; ?>
+                                                        <?php //endforeach; ?>
                                                     </div>
+                                                    -->
                                                 <?php } else { ?>
                                                     <i class="fa fa-info"></i> ยังไม่รับงาน
                                                 <?php } ?>

@@ -1,22 +1,21 @@
-<style>
-
-</style>
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\ConfigWeb;
 use app\models\Timeline;
 use app\models\GraphicLog;
-
+use app\models\Customer;
 $ConfigWeb = new ConfigWeb();
 $TimeLineModel = new Timeline();
 $GraphicLog = new GraphicLog();
+$CustomerM = new Customer();
 //$this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
+
+//$Tomorow = $CustomerM->getTomorow(date('Y-m-d'));
 ?>
 <div class="row" style="margin: 0px; margin-top: 0px; margin-bottom: 10px;">
-    <?php if ($dataList) { ?>
+    <?php if (isset($dataList)) { ?>
         <?php
         foreach ($dataList as $rs):
             $flag = $GraphicLog->getFlag($rs['ref']);
@@ -45,7 +44,6 @@ $GraphicLog = new GraphicLog();
                                     <div style=" background: #cf1b76; border-radius: 10px; width: 30px; height: 20px; position: absolute; right: 0px; top: 0px; "></div>
                                 </a>
                             <?php } else { ?>
-
                                 <a href="<?php echo \yii\helpers\Url::to(['graphic/formupdate', 'ref' => $rs['ref']]) ?>" id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;">เสร็จแล้ว </a>
                                 <!--
                                     <a id="btn-list" class="btn btn-rounded btn-dark btn-sm pull-right " style=" font-weight: bold;letter-spacing: 0.5px; padding: 0px 5px;width: 100%;" onclick="popupOrder('<?php //echo $rs['ref']                    ?>')">เสร็จแล้ว </a>
@@ -72,37 +70,17 @@ $GraphicLog = new GraphicLog();
                         </div>
                     </div>
                     <div style=" clear: both; border-top: solid 3px #eac0d6; padding-top: 10px;">
-                        <div style=" float: left; width: 65%;">
+                        <div style=" float: left; width: 55%;">
                             <?php
-                            if ($rs['level'] == 1) {
-                                $text = "ระดับ 1";
-                                $color = "green";
-                                $percent = "30%";
-                            } else if ($rs['level'] == 2) {
-                                $text = "ระดับ 2";
-                                $color = "green";
-                                $percent = "40%";
-                            } else if ($rs['level'] == 3) {
-                                $text = "ระดับ 3";
-                                $color = "yellow";
-                                $percent = "60%";
-                            } else if ($rs['level'] == 4) {
-                                $text = "ด่วน";
-                                $color = "red";
-                                $percent = "80%";
-                            } else {
-                                $text = "ด่วนมาก";
-                                $color = "red";
-                                $percent = "100%";
-                            }
+                            $statusBar = $ConfigWeb->statusBar($rs['D'], $rs['H'], $rs['INDAY'], $rs['date_getjob']);
                             ?>
-                            <div class="meter <?php echo $color ?> nostripes">
-                                <span style="width: <?php echo $percent ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">
-                                    <?php echo $text ?>
+                            <div class="meter <?php echo $statusBar['color'] ?> nostripes">
+                                <span style="width: <?php echo $statusBar['percent'] ?>; font-size: 12px; color: #FFFFFF; text-align: center; letter-spacing: 1px;">
+                                    <?php echo $statusBar['text'] ?>
                                 </span>
                             </div>
                         </div>
-                        <p class="mb-0 pull-right" style="text-align: center; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?></p>
+                        <p class="mb-0 pull-right" style="text-align: center; color: #ffffff;">ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo substr($rs['time_getjob'], 0, 5) ?></p>
                     </div>
                 </div>
             </div>

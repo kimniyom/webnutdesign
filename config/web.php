@@ -25,7 +25,7 @@ $config = [
         'user' => [
             //'identityClass' => 'app\models\User',
             'identityClass' => 'dektrium\user\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
         ],
         'session' => [
             'class' => 'yii\web\Session',

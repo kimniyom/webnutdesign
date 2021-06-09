@@ -150,15 +150,24 @@ class TransportController extends Controller {
     }
 
     //ดึงงานที่ยังไม่ได้จัดส่ง
-    function getWork() {
+    function getWork($type) {
+        if ($type == 1) {
+            $order = "order by c.level desc";
+        } else if ($type == 2) {
+            $order = "order by c.date_getjob asc";
+        } else {
+            $order = "order by c.create_date desc";
+        }
+        
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name
                     FROM transport a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.status = '1' AND c.flag = '0'";
+                    WHERE a.status = '1' AND c.flag = '0' $order";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     public function actionJob() {
-        $dataList = $this->getWork();
+        $type = Yii::$app->request->post('type');
+        $dataList = $this->getWork($type);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);
