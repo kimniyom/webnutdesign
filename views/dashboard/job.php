@@ -67,7 +67,7 @@ $TimeLineModel = new Timeline();
         <?php
         foreach ($dataList as $rs):
             ?>
-            <li class=" list-group-item">
+        <li class=" list-group-item" style="padding: 5px;">
                 <div style=" position: absolute; bottom: 0px; right: 3px;">
                     <?php if ($rs['flag'] == "0") { ?>
                         <label class="alert alert-warning" style=" padding: 3px; margin: 5px;">กำลังดำเนินการ</label>
@@ -80,8 +80,9 @@ $TimeLineModel = new Timeline();
                 <a href="javascript:getViews('<?php echo $rs['ref'] ?>')">
                     <div  style=" font-weight: bold;"><?php echo $rs['project_name'] ?></div>
                 </a>
-                ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?><br/>
-                <?php echo $TimeLineModel->getLastTimeline($rs['ref']) ?>
+            <div  style=" font-weight: bold;"><?php echo $rs['customer'] ?></div>
+                ส่ง: <?php echo $ConfigWeb->thaidate($rs['date_getjob']) ?> <?php echo substr($rs['time_getjob'], 0, 5) ?><br/>
+              
             </li>
         <?php endforeach; ?>
     </ul>

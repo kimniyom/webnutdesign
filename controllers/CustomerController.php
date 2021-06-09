@@ -219,6 +219,7 @@ class CustomerController extends Controller {
         list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->ref);
         if ($model->load(Yii::$app->request->post())) {
             $this->Uploads(false, $model->ref);
+            $model->create_date = $model->create_date;
             //$model->cur_dep = implode(",", $model->cur_dep);
             //$model->cur_dep = $cur_dep;
             //$ref = $model->ref;

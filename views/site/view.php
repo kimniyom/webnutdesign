@@ -112,7 +112,7 @@ $CustomerModel = new Customer();
                                     </div>
                                     <div class="col-md-9 col-lg-9 col-9">
                                         <div style=" position: relative; word-wrap: break-word; " id="boxdetailcustomer">
-                                            <?php echo $model['detail'] ?>
+                                            <?php if(!empty($model['detail'])) echo $model['detail']; else echo ""; ?>
                                         </div>
                                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
                                     </div>
@@ -358,7 +358,7 @@ $CustomerModel = new Customer();
 </div>
 
 <div id="boxImgDetail" style=" display: none;">
-    <?php if (isset($graphic['detail'])) echo $graphic['detail']; ?>
+    <?php if (isset($model['detail'])) echo $model['detail']; ?>
 </div>
 
 <div id="boxImgGraphic" style="display: none;">
@@ -410,7 +410,9 @@ $this->registerJs('
     });
 
     function setImg() {
-        $("#boxdetailcustomer p img:last-child").remove()
+        $("#boxdetailcustomer p img:last-child").remove();
+        $("#boxdetailcustomer img").remove()
+        
         var imgs = $('#boxImgDetail p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
@@ -422,7 +424,7 @@ $this->registerJs('
     }
 
     function setImgGraphic() {
-        $(".boxdetailgf p img:last-child").remove()
+        $(".boxdetailgf p img:last-child").remove();
         var imgs = $('#boxImgGraphic p').children('img').map(function() {
             return $(this).attr('src')
         }).get();

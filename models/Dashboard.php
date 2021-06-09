@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Customer;
 
 class Dashboard {
 
@@ -233,10 +234,63 @@ class Dashboard {
 
     function countLevel($level) {
         $sql = "SELECT COUNT(*) AS TOTAL
-FROM customer c INNER JOIN graphic g ON c.ref = g.ref
-WHERE c.flag = '0' AND c.`level` = '$level' AND g.approve = '0' ";
+                FROM customer c INNER JOIN graphic g ON c.ref = g.ref
+                WHERE c.flag = '0' AND c.`level` = '$level' AND g.approve = '0' ";
         $rs = Yii::$app->db->createCommand($sql)->queryOne();
         return $rs['TOTAL'];
+    }
+
+    function chartColumn() {
+        $CustomerM = new Customer();
+        $sql = "select c.*,g.status,g.approve as approver,
+                        TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
+                        TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
+                        TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
+                    from graphic g INNER JOIN customer c ON g.ref = c.ref
+                    where g.approve != '1' and g.status != '2' and c.flag = '0'";
+        $res = \Yii::$app->db->createCommand($sql)->queryAll();
+        $level1 = 0;
+        $level2 = 0;
+        $level3 = 0;
+        $level4 = 0;
+        $level5 = 0;
+
+        foreach ($res as $rs):
+            //$statusBar = $ConfigWeb->statusBar($rs['D'], $rs['H'], $rs['INDAY'], $rs['date_getjob']);
+            $day = $rs['D'];
+            $h = $rs['H'];
+            $inday = $rs['INDAY'];
+            $datejob = $rs['date_getjob'];
+
+            $Tomorow = $CustomerM->getTomorow(date('Y-m-d'));
+            if ($day < 0) {
+                $level5 = $level5 + 1;
+            } else if ($day == 0 && ($inday < 4)) {
+                if ($h < 4) {
+                    $level4 = $level4 + 1;
+                } else {
+                    $level5 = $level5 + 1;
+                }
+            } else if ($day == 0 && $inday > 4) {
+                $level4 = $level4 + 1;
+            } else if ($datejob == $Tomorow) {
+                $level3 = $level3 + 1;
+            } else if ($day > 0 && $day < 3) {
+                $level2 = $level2 + 1;
+            } else {
+                $level1 = $level1 + 1;
+            }
+        endforeach;
+        
+        $datas = array(
+            "level1" => $level1,
+            "level2" => $level2,
+            "level3" => $level3,
+            "level4" => $level4,
+            "level5" => $level5
+        );
+        
+        return $datas;
     }
 
     function countCustomerType($type = "") {
@@ -265,11 +319,17 @@ WHERE c.flag = '0' AND c.`level` = '$level' AND g.approve = '0' ";
     }
 
     function searchJob($project = "") {
-        if ($project) {
+        if (!empty($project)) {
             $sql = "select c.* from customer c WHERE c.project_name LIKE '%" . $project . "%'";
         } else {
-            $sql = "select c.* from customer c WHERE c.id = ''";
+            $sql = "select c.* from customer c order by id DESC LIMIT 10";
         }
+        return Yii::$app->db->createCommand($sql)->queryAll();
+        //return $sql;
+    }
+    
+    function LastJob() {
+        $sql = "select c.* from customer c order by id DESC LIMIT 10";
         return Yii::$app->db->createCommand($sql)->queryAll();
         //return $sql;
     }

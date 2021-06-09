@@ -6,6 +6,7 @@ use app\models\ConfigWeb;
 
 $ConfigWeb = new ConfigWeb();
 $Dashboard = new Dashboard();
+$this->title="Dash board"
 ?>
 <style type="text/css">
 
@@ -206,7 +207,7 @@ $Dashboard = new Dashboard();
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body" style="height: 250px; font-family: skv;">
-                                    <label style=" padding: 0px; position: absolute; top: 10px; text-align: left; width: 95%;">ตามระดับความด่วน 1-5</label>
+                                    <label style=" padding: 0px; position: absolute; top: 10px; text-align: left; width: 95%;">ตามระดับความด่วน</label>
                                     <canvas id="chartJobLevel" style="height: 180px; width: 100%; margin-top: 15px;"></canvas>
                                 </div>
                             </div>
@@ -226,10 +227,13 @@ $Dashboard = new Dashboard();
                             <div class="card-body">
                                 <div class="form-group has-search" style="margin-bottom: 0px;">
                                     <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" class="form-control" placeholder="ค้นหา...พิมพ์ชื่องานที่นี้" id="txtsearch">
+                                    <input type="text" class="form-control" placeholder="ค้นหา...พิมพ์ชื่องานที่นี้" id="txtsearch" onkeyup="searchWork()">
                                 </div>
                                 <div style="height: 417px; overflow: auto;">
                                     <div id="job"></div>
+                                    <div style=" position: absolute; bottom: 0px; right: 20px;">
+                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index'])?>">View All</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -344,6 +348,7 @@ $this->registerJs('
             getLevel();
             getPieChartTypeOnline();
             getWork();
+            LastWork();
         });
 
         $(document).keypress(function(event){
@@ -377,14 +382,26 @@ $this->registerJs('
 
     function searchWork() {
         var project = $("#txtsearch").val();
-        if (project == "") {
-            $("#txtsearch").focus();
+        //if (project == "") {
+            //$("#txtsearch").focus();
+        //}
+        
+        if(project.length > 3 || project == ""){
+            $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
+            var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/searchjob']) ?>";
+            var data = {project: project};
+            $.post(url, data, function (res) {
+                $("#job").html(res);
+            });
         }
 
+    }
+    
+    function LastWork() {
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/searchjob']) ?>";
-        var data = {project: project};
-        $.post(url, data, function(res) {
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/lastjob']) ?>";
+        var data = {};
+        $.post(url, data, function (res) {
             $("#job").html(res);
         });
 
@@ -394,7 +411,7 @@ $this->registerJs('
         $("#jobtoday").html("<p style='text-align:center;'>Loading ...</p>");
         var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/getqueue']) ?>";
         var data = {};
-        $.post(url, data, function(res) {
+        $.post(url, data, function (res) {
             $("#jobtoday").html(res);
         });
 
@@ -436,7 +453,7 @@ $this->registerJs('
                 hover: {
                     animationDuration: 0
                 },
-                onAnimationComplete: function() {
+                onAnimationComplete: function () {
                     this.showTooltip(this.datasets[0].points, true);
                 },
                 tooltipEvents: [],
@@ -543,20 +560,20 @@ $this->registerJs('
             type: 'bar',
             data: {
                 labels: [
-                    'Level 1',
-                    'Level 2',
-                    'Level 3',
-                    'Level 4',
-                    'Level 5'
+                    '2 วันขึ้นไป',
+                    'ภายใน 2 วัน',
+                    'ส่งพรุ่งนี้',
+                    'ส่งวันนี้',
+                    'เกินกำหนด'
                 ],
                 datasets: [{
                         label: 'จำนวนงาน',
                         data: [
-<?php echo $Dashboard->countLevel(1) ?>,
-<?php echo $Dashboard->countLevel(2) ?>,
-<?php echo $Dashboard->countLevel(3) ?>,
-<?php echo $Dashboard->countLevel(4) ?>,
-<?php echo $Dashboard->countLevel(5) ?>
+<?php echo $chartColumn['level1'] ?>,
+<?php echo $chartColumn['level2'] ?>,
+<?php echo $chartColumn['level3'] ?>,
+<?php echo $chartColumn['level4'] ?>,
+<?php echo $chartColumn['level5'] ?>
                         ],
                         backgroundColor: [
                             '#3b693b',
@@ -638,7 +655,7 @@ $this->registerJs('
     function getViews(ref) {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
         var data = {ref: ref};
-        $.post(url, data, function(res) {
+        $.post(url, data, function (res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });

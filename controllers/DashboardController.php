@@ -85,6 +85,7 @@ class DashboardController extends Controller {
         $data['value'] = implode(",", $value);
         $data['month'] = $m;
         $data['listCategory'] = $model->countCustotmerCat();
+        $data['chartColumn'] = $model->chartColumn();
         //echo $data['label'];
         return $this->render('index', $data);
     }
@@ -153,6 +154,14 @@ class DashboardController extends Controller {
         $project = Yii::$app->request->post('project');
         $Model = new Dashboard();
         $dataList = $Model->searchJob($project);
+        return $this->renderPartial('job', [
+                    'dataList' => $dataList
+        ]);
+    }
+    
+    public function actionLastjob() {
+        $Model = new Dashboard();
+        $dataList = $Model->LastJob();
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);

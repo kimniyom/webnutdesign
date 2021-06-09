@@ -118,8 +118,8 @@ use kartik\select2\Select2;
                                 //'imageUpload' => ['/redactor/upload/image'],
                                 //'fileUpload' => ['/redactor/upload/file'],
                                 'lang' => 'th',
-                                'plugins' => ['fontcolor', 'fullscreen'], //'clips',
-                                'buttonsHide' => ['deleted', 'image', 'file', 'html', 'format'], //'image'
+                                'plugins' => ['fullscreen'], //'clips',
+                                'buttonsHide' => ['deleted', 'image', 'file', 'format','fontcolor',], //'image'/'html',
                                 'minHeight' => '300px'
                             ]
                         ])->label(false)

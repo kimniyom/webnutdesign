@@ -57,8 +57,8 @@ use yii\helpers\Url;
                             //'imageUpload' => ['/redactor/upload/image'],
                             //'fileUpload' => ['/redactor/upload/file'],
                             'lang' => 'th',
-                            'plugins' => ['fontcolor', 'fullscreen'], //'clips',
-                            'buttonsHide' => ['deleted', 'image', 'html', 'format'],
+                            'plugins' => ['fullscreen'], //'clips',
+                            'buttonsHide' => ['deleted', 'image', 'html', 'format','fontcolor',],//'fontcolor',
                             'minHeight' => '300px'
                         ]
                     ])->label(false)

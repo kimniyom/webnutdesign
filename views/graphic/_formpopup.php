@@ -113,8 +113,8 @@ $configWeb = new ConfigWeb();
                             //'imageUpload' => ['/redactor/upload/image'],
                             //'fileUpload' => ['/redactor/upload/file'],
                             'lang' => 'th',
-                            'plugins' => ['fontcolor', 'fullscreen'], //'clips',
-                            'buttonsHide' => ['deleted', 'file', 'html', 'format'], //'image'
+                            'plugins' => ['fullscreen'], //'clips',
+                            'buttonsHide' => ['deleted', 'file', 'html', 'format','fontcolor'], //'image'//'fontcolor',
                             'minHeight' => '300px'
                         ]
                     ])->label(false)
