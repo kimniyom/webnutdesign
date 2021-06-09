@@ -25,7 +25,8 @@ $config = [
         'user' => [
             //'identityClass' => 'app\models\User',
             'identityClass' => 'dektrium\user\models\User',
-            'enableAutoLogin' => false,
+            'enableAutoLogin' => true,
+            
         ],
         'session' => [
             'class' => 'yii\web\Session',
@@ -65,7 +66,7 @@ $config = [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
-            'enableUnconfirmedLogin' => true,
+            'enableUnconfirmedLogin' => false,
             'confirmWithin' => 21600,
             'cost' => 12,
             'admins' => ['admin']

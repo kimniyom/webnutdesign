@@ -123,7 +123,7 @@ class GraphicController extends Controller {
                 $this->sendDepartment($depVal, $model->ref);
             } else if ($model->flagsend == "3") { //จบงานที่นี้
                 //Time Line
-                $this->addTimeline('3', $model->ref, "การตลาด", "-");
+                $this->addTimeline('3', $model->ref, "กราฟิก(จบงาน)", "กราฟิก(จบงาน)");
                 //ส่งการตลาดแจ้งลูกค้า
                 $res = \app\models\Branchmarketing::findOne(['ref' => $ref]);
                 if (!isset($res['ref'])) {
