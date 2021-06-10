@@ -41,7 +41,7 @@ class Customer extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'setup', 'fast', 'confirm', 'quotation', 'level', 'payment', 'typecustomer'], 'required'],
+            [['project_name', 'customer', 'channel', 'date_getjob', 'time_getjob', 'transport', 'fast', 'confirm', 'quotation', 'payment', 'typecustomer'], 'required'],
             ['lineid', 'required', 'when' => function ($model) {
                     return $model->channel == 1;
                 }, 'whenClient' => "function (attribute, value) {

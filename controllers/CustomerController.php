@@ -125,7 +125,7 @@ class CustomerController extends Controller {
      */
     public function actionCreate() {
         $model = new Customer();
-        $model->setup = 0;
+        //$model->setup = 0;
         $model->transport = 1;
         $model->quotation = 1;
         $model->fast = 0;
@@ -160,8 +160,9 @@ class CustomerController extends Controller {
                 endforeach;
                 $curdep = implode(",", $depArr);
                 //Time Line
+            }
 
-
+            if ($model->save()) {
                 $culumns = array(
                     "department" => '1',
                     "ref" => $model->ref,
@@ -176,7 +177,6 @@ class CustomerController extends Controller {
 
                 //ส่งไปแผนก
                 $this->sendDepartment($depVal, $model->ref);
-
                 if ($model->quotation == "1") {
                     $this->SendAccount($model->ref);
                 }
@@ -191,15 +191,12 @@ class CustomerController extends Controller {
                   }
                  *
                  */
-            }
 
-            if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
         }
-
         return $this->render('create', [
                     'model' => $model,
         ]);
@@ -522,6 +519,11 @@ class CustomerController extends Controller {
         }
 
         if (in_array("5", $dep)) { //งานพิมพ์
+            //Update customer
+            \Yii::$app->db->createCommand()
+                    ->update("customer", array("print_status" => '1'), "ref = '$ref'")
+                    ->execute();
+
             $res = \app\models\Branchprint::findOne(['ref' => $ref]);
             if (!isset($res['ref'])) {
                 $columns = array(
@@ -530,15 +532,14 @@ class CustomerController extends Controller {
                 \Yii::$app->db->createCommand()
                         ->insert("branchprint", $columns)
                         ->execute();
-
-                //Update customer
-                \Yii::$app->db->createCommand()
-                        ->update("customer", array("print_status" => '1'), "ref = '$ref'")
-                        ->execute();
             }
         }
 
         if (in_array("6", $dep)) {//cnc
+            //Update customer
+            \Yii::$app->db->createCommand()
+                    ->update("customer", array("cnc_status" => '1'), "ref = '$ref'")
+                    ->execute();
             $res = \app\models\Branchlaser::findOne(['ref' => $ref]);
             if (!isset($res['ref'])) {
                 $columns = array(
@@ -547,15 +548,14 @@ class CustomerController extends Controller {
                 \Yii::$app->db->createCommand()
                         ->insert("branchlaser", $columns)
                         ->execute();
-
-                //Update customer
-                \Yii::$app->db->createCommand()
-                        ->update("customer", array("cnc_status" => '1'), "ref = '$ref'")
-                        ->execute();
             }
         }
 
         if (in_array("7", $dep)) {//ผลิตทั่วไป
+            //Update customer
+            \Yii::$app->db->createCommand()
+                    ->update("customer", array("manufacture_status" => '1'), "ref = '$ref'")
+                    ->execute();
             $res = \app\models\Branchfacture::findOne(['ref' => $ref]);
             if (!isset($res['ref'])) {
                 $columns = array(
@@ -564,22 +564,13 @@ class CustomerController extends Controller {
                 \Yii::$app->db->createCommand()
                         ->insert("branchfacture", $columns)
                         ->execute();
-
-                //Update customer
-                \Yii::$app->db->createCommand()
-                        ->update("customer", array("manufacture_status" => '1'), "ref = '$ref'")
-                        ->execute();
             }
         }
 
-        if (in_array("8", $dep)) {//ผลิตทั่วไป
-            Yii::$app->db->createCommand()
-                    ->delete("queue", "ref = '$ref' ")
-                    ->execute();
-
+        if (in_array("8", $dep)) {//ช่าง
             //อัพเดทสถานะงาน
             \Yii::$app->db->createCommand()
-                    ->update("customer", array("setup" => '0'), "ref = '$ref'")
+                    ->update("customer", array("setup" => '1'), "ref = '$ref'")
                     ->execute();
 
             $res = \app\models\Queue::findOne(['ref' => $ref]);
@@ -588,13 +579,9 @@ class CustomerController extends Controller {
                     "confirm" => 1,
                     "ref" => $ref
                 );
+
                 \Yii::$app->db->createCommand()
                         ->insert("queue", $columns)
-                        ->execute();
-
-                //อัพเดทสถานะงาน
-                \Yii::$app->db->createCommand()
-                        ->update("customer", array("setup" => '1'), "ref = '$ref'")
                         ->execute();
             }
         }
@@ -727,7 +714,7 @@ class CustomerController extends Controller {
         } else {
             $order = "order by create_date desc";
         }
-        
+
         $sql = "select * from customer where approve = '0' and flag = '0' and transport = '0' $order";
         $data['dataList'] = \Yii::$app->db->createCommand($sql)->queryAll();
         //$data['dataList'] = Customer::find()->where(['approve' => '0'])->andWhere(['flag' => '0'])->andWhere(['transport' => '0'])->all();

@@ -138,7 +138,7 @@ $this->registerJs('
         } else {
             $("#title-head").hide();
             $(".text-head-mobile").show();
-            $(".head-mobile").html("<font style='font-size:20px;color:#ffffff;'>ช่าง/ติดตตั้ง</font>");
+            $(".head-mobile").html("<font style='font-size:20px;color:#ffffff;'>ช่าง</font>");
         }
     }
 

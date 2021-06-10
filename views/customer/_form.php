@@ -253,22 +253,17 @@ use kartik\select2\Select2;
                                     </label>
                                 </div>
                             </div>
-                            <hr/>
+                            
                             <div class="alert alert-danger" style=" display: none;">
+                                <hr/>
                                 !..หมายเหตุ<br/>
                                 เมื่อยังไม่มีการยืนยันตกลงซื้อขายข้อมูลจะยังไม่ถูกส่งไปยังแผนกอื่น
                             </div>
 
                         <?php } ?>
 
-                        <label>ความเร่งด่วน 5 = ด่วนมาก</label><br/>
-                        <div class="row" style=" margin: 0px;">
-
-                            <?php
-                            //echo $model->level;
-                            //echo $form->field($model, 'level')->radioList([1 => "Level 1", 2 => "Level 2", 3 => "Level 3", 4 => "Level 4", 5 => "Level 5"]);
-                            ?>
-
+                        <div class="row" style=" margin: 0px; display: none;">
+                            <label>ความเร่งด่วน 5 = ด่วนมาก</label><br/>
                             <div class="col-md-12 col-lg-12 col-12" style=" background: #01693b; border-radius: 5px; padding: 5px; margin-bottom: 5px;">
                                 <label class="dupcheckbox" style=" padding-bottom: 0px; margin-bottom: 0px; color: #ffffff;">
                                     Level 1 = ส่งมอบงานภายใน 2 วันขึ้นไป
@@ -304,9 +299,8 @@ use kartik\select2\Select2;
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-
-
                         </div>
+                        
                         <div class="col-md-4 col-lg-4" style=" display: none;">
                             <?=
                             $form->field($model, 'fast')->radioList(['0' => "ทั่วไป", '1' => "ด่วนสำคัญ"])
