@@ -265,13 +265,7 @@ class Dashboard {
             $Tomorow = $CustomerM->getTomorow(date('Y-m-d'));
             if ($day < 0) {
                 $level5 = $level5 + 1;
-            } else if ($day == 0 && ($inday < 4)) {
-                if ($h < 4) {
-                    $level4 = $level4 + 1;
-                } else {
-                    $level5 = $level5 + 1;
-                }
-            } else if ($day == 0 && $inday > 4) {
+            } else if ($day == 0) {
                 $level4 = $level4 + 1;
             } else if ($datejob == $Tomorow) {
                 $level3 = $level3 + 1;
