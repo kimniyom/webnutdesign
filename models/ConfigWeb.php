@@ -247,17 +247,21 @@ class ConfigWeb {
             $text = "เลยกำหนดส่งแล้วนะ ให้ไวเลย!!!";
             $color = "red";
             $percent = "100%";
-        } else if ($day == 0 && ($inday < 4)) {
-            if ($h < 4) {
+        } else if ($day == 0) {
+            if ($h >= 4) {
                 $text = "ส่งมอบวันนี้";
                 $color = "orange";
                 $percent = "100%";
-            } else {
+            } else if($h > 0 && $h < 4) {
                 $text = "ส่งมอบ 1 - 3 ชั่วโมง";
                 $color = "red";
                 $percent = "100%";
+            } else {
+                $text = "ส่งมอบวันนี้";
+                $color = "orange";
+                $percent = "100%";
             }
-        } else if ($day == 0 && $inday > 4) {
+        } else if ($day == 0 && $h > 4) {
             $text = "ส่งมอบวันนี้";
             $color = "orange";
             $percent = "100%";
