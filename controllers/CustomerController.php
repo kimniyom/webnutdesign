@@ -137,6 +137,11 @@ class CustomerController extends Controller {
         $model->date_getjob = date("Y-m-d");
         if ($model->load(Yii::$app->request->post())) {
             //print_r($_POST['cur_dep']);
+
+            $checkBeforCreate = "select * from customer where ref = '".$model->ref."' ";
+            $res = Yii::$app->db->createCommand($checkBeforCreate)->queryOne();
+            if(empty($res['ref'])){
+
             $this->Uploads(false, $model->ref);
             $model->user_id = Yii::$app->user->identity->id;
 
@@ -194,6 +199,9 @@ class CustomerController extends Controller {
 
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } 
         } else {
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
         }
