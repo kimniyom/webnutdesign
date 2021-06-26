@@ -26,11 +26,20 @@ $config = [
             //'identityClass' => 'app\models\User',
             'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
+            'authTimeout' => 3650*24*60*60,
+            'identityCookie' => [ // <---- here!
+                'name' => '_identity',
+                'httpOnly' => true,
+                'secure'   => true,
+                'domain' => 'https://www.q.natdesigntak.com',
+            ],
             
         ],
         'session' => [
             'class' => 'yii\web\Session',
-            'cookieParams' => ['lifetime' => 365 * 24 *60 * 60]
+            'timeout' => 3650*24*60*60,
+            'cookieParams' => ['lifetime' => 3650*24*60*60],
+            'useCookies' => true
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
