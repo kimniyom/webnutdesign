@@ -41,17 +41,35 @@ $this->title = "cnc / laser";
                 <font style=" color: #ffffff; text-align: center; width: 100%; position: absolute; right: 0px; padding-top: 5px; font-size: 24px; z-index: 0;" id="title-head">
                 CNC/Laser
                 </font>
-                <input type="hidden" name="" id="souredata" value="1">
-                <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
-                    <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        จัดเรียง
-                    </button>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
-                        <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
-                        <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+
+                <div class="pull-right" style=" margin-right: 0px; margin-top: 4px; z-index: 5; margin-bottom: 5px;">
+                    <input type="hidden" name="" id="souredata" value="1">
+                    <div class="btn-group dropleft" >
+                        <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ค้นหา
+                        </button>
+                        <div class="dropdown-menu" style="border-radius: 20px;">
+                            <div class="form-inline my-2 my-lg-0 my-box-search" style="border-radius: 20px;  padding: 30px 10px 30px 20px; min-width: 350px;">
+                                <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่อลูกค้า.." aria-label="ค้นด้วยชื่อลูกค้า.." id="txtcustomer" autocomplete="off" style="border-radius: 20px; border:0px; margin-bottom: 5px; width: 100%;">
+                                <input class="form-control mr-sm-2" type="search" placeholder="ค้นด้วยชื่องาน.." aria-label="ค้นด้วยชื่องาน.." id="txtproject" autocomplete="off" style="border-radius: 20px; border:0px; width: 100%;">
+
+                                <button class="btn btn-dark btn-rounded search-btn btn-block" type="button" onclick="searchJob()" style="margin-top: 30px;"><i class="fa fa-search"></i> ค้นหา</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group dropleft pull-right" style=" margin-right: 10px; margin-top: 2px;">
+                        <button type="button" class="btn btn-dark btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            จัดเรียง
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button" onclick="setType(1)">งานเร่งด่วน</button>
+                            <button class="dropdown-item" type="button" onclick="setType(2)">วันที่จัดส่งล่าสุด</button>
+                            <button class="dropdown-item" type="button" onclick="setType(3)">วันที่รับล่าสุด</button>
+                            <button class="dropdown-item" type="button" onclick="javascript:window.location.reload()">Refresh</button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -187,6 +205,7 @@ $this->registerJs('
         });
     }
     function searchJob() {
+        var type = $("#souredata").val();
         var customer = $("#txtcustomer").val();
         var project = $("#txtproject").val();
 
@@ -195,12 +214,24 @@ $this->registerJs('
             Swal.fire('Warning!', 'กรุณาเลือกอย่างน้อย 1 ตัวเลือก', 'warning');
             return false;
         }
-        $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['branchlaser/searchjob']) ?>";
-        var data = {customer: customer, project: project};
+
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['branchlaser/getjob']) ?>";
+        var data = {
+            type: type,
+            coustomer: customer,
+            project: project
+        };
         $.post(url, data, function(res) {
             $("#job").html(res);
         });
+        /*
+         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
+         var url = "<?php //echo Yii::$app->urlManager->createUrl(['branchlaser/searchjob'])    ?>";
+         var data = {customer: customer, project: project};
+         $.post(url, data, function(res) {
+         $("#job").html(res);
+         });
+         */
     }
 
     function popupConfirm(ref) {

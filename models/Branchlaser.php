@@ -45,7 +45,7 @@ class Branchlaser extends \yii\db\ActiveRecord {
         ];
     }
 
-    function getJob($type) {
+    function getJob($type, $customer, $job) {
         $status = Yii::$app->user->identity->status;
 
         if ($type == 1) {
@@ -56,20 +56,30 @@ class Branchlaser extends \yii\db\ActiveRecord {
             $order = "order by c.create_date desc";
         }
 
+        if ($customer != "" && $job != "") {
+            $searchWhere = " and c.customer like '%$customer%' or c.project_name like '%$job%'";
+        } else if ($customer != "" && $job == "") {
+            $searchWhere = " and c.customer like '%$customer%'";
+        } else if ($customer == "" && $job != "") {
+            $searchWhere = " and c.project_name like '%$job%'";
+        } else {
+            $searchWhere = "";
+        }
+
         if ($status == "A" || $status == "M") {
             $sql = "select c.*,g.status,
                     TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
                     TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
                     TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
                 from branchlaser g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
+                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $searchWhere $order";
         } else {
             $sql = "select c.*,g.status,
                     TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
                     TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
                     TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
                 from branchlaser g INNER JOIN customer c ON g.ref = c.ref
-                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $order";
+                    where g.flag = '0' and g.status in('1','2') and c.flag = '0' $searchWhere $order";
         }
 
         return Yii::$app->db->createCommand($sql)->queryAll();
@@ -77,7 +87,7 @@ class Branchlaser extends \yii\db\ActiveRecord {
 
     function getJobForUser() {
         $user_id = Yii::$app->user->identity->id;
-        $sql = "select c.*,g.status, 
+        $sql = "select c.*,g.status,
                     TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
                     TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
                     TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY

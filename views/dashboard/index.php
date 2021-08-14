@@ -6,7 +6,7 @@ use app\models\ConfigWeb;
 
 $ConfigWeb = new ConfigWeb();
 $Dashboard = new Dashboard();
-$this->title="Dash board"
+$this->title = "Dash board"
 ?>
 <style type="text/css">
 
@@ -138,10 +138,37 @@ $this->title="Dash board"
                                         </select>
                                     </div>
 
-
+                                    <div style=" float: left; padding-top: 10px; margin-right: 10px; margin-left: 10px;">
+                                        <b>จำนวน <?php echo number_format($total) ?> งาน</b>
+                                    </div>
                                 </div>
                                 <div class="card-body" style="height: 320px;">
                                     <canvas id="chartSumMonth" style="width: 100%; height: 100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style=" margin: 0px;">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-header" style=" font-family: skv; background: #FFFFFF;">
+                                    <div style=" float: left; width: 250px; ">
+                                        <select class=" form-control" id="filter" onchange="getData()">
+                                            <option value="yearnow" <?php echo ($filter == "yearnow") ? "selected" : "" ?>>ปีปัจจุบัน</option>
+                                            <option value="3month" <?php echo ($filter == "3month") ? "selected" : "" ?>>3 เดือนที่แล้ว</option>
+                                            <option value="6month" <?php echo ($filter == "6month") ? "selected" : "" ?>>6 เดือนที่แล้ว</option>
+                                            <option value="oldyear" <?php echo ($filter == "oldyear") ? "selected" : "" ?>>ปีก่อน</option>
+                                        </select>
+                                    </div>
+                                    <div style=" float: left; padding-top: 10px; margin-right: 10px; margin-left: 10px;">
+                                        <b>จำนวน <?php echo number_format($sumfilter) ?> งาน</b>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="height: 320px;">
+                                    <canvas id="chartFilter" style="width: 100%; height: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +259,7 @@ $this->title="Dash board"
                                 <div style="height: 417px; overflow: auto;">
                                     <div id="job"></div>
                                     <div style=" position: absolute; bottom: 0px; right: 20px;">
-                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index'])?>">View All</a>
+                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index']) ?>">View All</a>
                                     </div>
                                 </div>
                             </div>
@@ -349,6 +376,7 @@ $this->registerJs('
             getPieChartTypeOnline();
             getWork();
             LastWork();
+            getChartFilter();
         });
 
         $(document).keypress(function(event){
@@ -383,38 +411,36 @@ $this->registerJs('
     function searchWork() {
         var project = $("#txtsearch").val();
         //if (project == "") {
-            //$("#txtsearch").focus();
+        //$("#txtsearch").focus();
         //}
-        
-        if(project.length > 3 || project == ""){
+
+        if (project.length > 3 || project == "") {
             $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
             var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/searchjob']) ?>";
             var data = {project: project};
-            $.post(url, data, function (res) {
+            $.post(url, data, function(res) {
                 $("#job").html(res);
             });
         }
 
     }
-    
+
     function LastWork() {
         $("#job").html("<h4 style='text-align:center;'>Loading ...</h4>");
         var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/lastjob']) ?>";
         var data = {};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#job").html(res);
         });
-
     }
 
     function getWork() {
         $("#jobtoday").html("<p style='text-align:center;'>Loading ...</p>");
         var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/getqueue']) ?>";
         var data = {};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#jobtoday").html(res);
         });
-
     }
 
     function getChart() {
@@ -422,7 +448,6 @@ $this->registerJs('
         var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
         gradientStroke.addColorStop(0, '#80b6f4');
         gradientStroke.addColorStop(1, '#f49080');
-
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -446,6 +471,10 @@ $this->registerJs('
             options: {
                 tooltipTemplate: "",
                 showTooltips: true,
+                title: {
+                    display: true,
+                    text: 'dgfgfdgfggfgdgfdgfdgdgdfgdfgdfg'
+                },
                 legend: {
                     display: true,
                     position: "bottom"
@@ -453,8 +482,81 @@ $this->registerJs('
                 hover: {
                     animationDuration: 0
                 },
-                onAnimationComplete: function () {
+                onAnimationComplete: function() {
                     this.showTooltip(this.datasets[0].points, true);
+                },
+                tooltipEvents: [],
+                tooltips: {
+                    enabled: true
+                },
+                scales: {
+                    yAxes: [{
+                            display: true,
+                            ticks: {
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "bold",
+                                beginAtZero: true,
+                                maxTicksLimit: 5,
+                                padding: 20
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false
+                            }
+                        }],
+                    xAxes: [{
+                            display: true,
+                            gridLines: {
+                                zeroLineColor: "transparent"
+                            },
+                            ticks: {
+                                precision: 0,
+                                padding: 20,
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "bold"
+                            }
+                        }]
+                }
+            }
+        });
+    }
+
+    function getChartFilter() {
+        var ctx = document.getElementById('chartFilter').getContext("2d");
+        var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+        //gradientStroke.addColorStop(0, '#80b6f4');
+        //gradientStroke.addColorStop(1, '#f49080');
+        gradientStroke.addColorStop(0, '#ff33ff');
+        gradientStroke.addColorStop(1, '#ffcc00');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [<?php echo $chartTypeCategory ?>],
+                datasets: [{
+                        label: "จำนวนงาน",
+                        borderColor: gradientStroke,
+                        pointBorderColor: gradientStroke,
+                        pointBackgroundColor: gradientStroke,
+                        pointHoverBackgroundColor: gradientStroke,
+                        pointHoverBorderColor: gradientStroke,
+                        pointBorderWidth: 10,
+                        pointHoverRadius: 10,
+                        pointHoverBorderWidth: 1,
+                        pointRadius: 10,
+                        fill: false,
+                        borderWidth: 4,
+                        data: [<?php echo $chartTypeVal ?>]
+                    }]
+            },
+            options: {
+                tooltipTemplate: "",
+                showTooltips: true,
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                hover: {
+                    animationDuration: 0
                 },
                 tooltipEvents: [],
                 tooltips: {
@@ -655,7 +757,7 @@ $this->registerJs('
     function getViews(ref) {
         var url = "<?php echo Yii::$app->urlManager->createUrl(['site/view']) ?>";
         var data = {ref: ref};
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             $("#view-customer").html(res);
             $("#popupaddwork").modal();
         });
@@ -663,7 +765,8 @@ $this->registerJs('
 
     function getData() {
         var month = $("#month").val();
-        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/index']) ?>" + "?month=" + month;
+        var filter = $("#filter").val();
+        var url = "<?php echo Yii::$app->urlManager->createUrl(['dashboard/index']) ?>" + "?month=" + month + "&filter=" + filter;
         window.location = url;
     }
 </script>

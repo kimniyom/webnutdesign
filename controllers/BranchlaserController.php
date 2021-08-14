@@ -121,12 +121,14 @@ class BranchlaserController extends Controller {
     public function actionGetjob() {
         $Model = new Branchlaser();
         $type = Yii::$app->request->post("type");
-        $dataList = $Model->getJob($type);
-        $dataListjob = $Model->getJobForUser();
+        $coustomer = Yii::$app->request->post("coustomer");
+        $project = Yii::$app->request->post("project");
+        $dataList = $Model->getJob($type, $coustomer, $project);
+        //$dataListjob = $Model->getJobForUser($type, $coustomer, $project);
         $maseditwork = \app\models\Maseditwork::find()->all();
         return $this->renderPartial('job', [
                     'dataList' => $dataList,
-                    'dataListjob' => $dataListjob,
+                    //'dataListjob' => $dataListjob,
                     'maseditwork' => $maseditwork
         ]);
     }

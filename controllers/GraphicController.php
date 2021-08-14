@@ -152,16 +152,16 @@ class GraphicController extends Controller {
             $customer = \app\models\Customer::findOne(['ref' => $ref]);
             //ส่งจัดคิวติดตั้ง
             /*
-            if ($customer['setup'] == 1) {
-                \Yii::$app->db->createCommand()
-                        ->delete("queue", "ref = '$ref'")
-                        ->execute();
+              if ($customer['setup'] == 1) {
+              \Yii::$app->db->createCommand()
+              ->delete("queue", "ref = '$ref'")
+              ->execute();
 
-                \Yii::$app->db->createCommand()
-                        ->insert("queue", array("ref" => $ref))
-                        ->execute();
-            }
-            */
+              \Yii::$app->db->createCommand()
+              ->insert("queue", array("ref" => $ref))
+              ->execute();
+              }
+             */
             //ส่งต่อแผนกจัดส่ง
             if ($customer['transport'] == 1) {
                 \Yii::$app->db->createCommand()
@@ -220,8 +220,10 @@ class GraphicController extends Controller {
 
     public function actionGetjob() {
         $type = Yii::$app->request->post("type");
+        $customer = Yii::$app->request->post("customer");
+        $job = Yii::$app->request->post("job");
         $ModelGraphic = new Graphic();
-        $dataList = $ModelGraphic->getJob($type);
+        $dataList = $ModelGraphic->getJob($type, $customer, $job);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);

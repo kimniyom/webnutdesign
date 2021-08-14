@@ -125,8 +125,8 @@ class SetupController extends Controller {
     }
 
     //ดึงงานที่นังไม่ได้ลงคิวงาน
-    function getWork($type) {
-        
+    function getWork($type, $customer, $job) {
+
         if ($type == 1) {
             $order = "ORDER BY D,H";
         } else if ($type == 2) {
@@ -134,13 +134,23 @@ class SetupController extends Controller {
         } else {
             $order = "order by c.create_date desc";
         }
-        
+
+        if ($customer != "" && $job != "") {
+            $searchWhere = " and c.customer like '%$customer%' or c.project_name like '%$job%'";
+        } else if ($customer != "" && $job == "") {
+            $searchWhere = " and c.customer like '%$customer%'";
+        } else if ($customer == "" && $job != "") {
+            $searchWhere = " and c.project_name like '%$job%'";
+        } else {
+            $searchWhere = "";
+        }
+
         $sql = "SELECT a.*,c.customer,c.confirm,c.tel,c.time_getjob,c.date_getjob,c.project_name,c.level,
             TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
                     TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
                     TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
                     FROM queue a INNER JOIN customer c ON a.ref = c.ref
-                    WHERE a.approve != '2' AND c.flag = '0' $order";
+                    WHERE a.approve != '2' AND c.flag = '0' $searchWhere $order";
         return \Yii::$app->db->createCommand($sql)->queryAll();
     }
 
@@ -205,7 +215,9 @@ class SetupController extends Controller {
 
     public function actionJob() {
         $type = Yii::$app->request->post('type');
-        $dataList = $this->getWork($type);
+        $customer = Yii::$app->request->post("customer");
+        $project = Yii::$app->request->post("project");
+        $dataList = $this->getWork($type, $customer, $project);
         return $this->renderPartial('job', [
                     'dataList' => $dataList
         ]);

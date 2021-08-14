@@ -68,7 +68,9 @@ $ConfigModel = new ConfigWeb();
                 <a href="<?php echo Yii::$app->urlManager->createUrl(['customer/index']) ?>" style="text-decoration: none;">
                     <button type="button" class="btn btn-dark btn-rounded"><i class="fa fa-chevron-left text-info"></i></button>
                 </a>
-
+                <a  href="<?php echo Yii::$app->urlManager->createUrl(['customer/create']) ?>" style="text-decoration: none;">
+                    <button type="button" class="btn btn-dark btn-rounded" style="color: pink"><i class="fa fa-plus"></i> สร้างใหม่</button>
+                </a>
                 <div class="pull-right">
                     <div style="font-size: 20px; float: left; color: #ffffff;">รายละเอียดงาน</div>
                 </div>

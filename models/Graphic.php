@@ -76,13 +76,23 @@ class Graphic extends \yii\db\ActiveRecord {
         ];
     }
 
-    function getJob($type) {
+    function getJob($type, $customer, $job) {
         if (!Yii::$app->user->isGuest) {
             $status = Yii::$app->user->identity->status;
             $user_id = Yii::$app->user->identity->id;
         } else {
             $status = "";
             $user_id = "";
+        }
+
+        if ($customer != "" && $job != "") {
+            $searchWhere = " and c.customer like '%$customer%' or c.project_name like '%$job%'";
+        } else if ($customer != "" && $job == "") {
+            $searchWhere = " and c.customer like '%$customer%'";
+        } else if ($customer == "" && $job != "") {
+            $searchWhere = " and c.project_name like '%$job%'";
+        } else {
+            $searchWhere = "";
         }
 
         if ($type == 1) {
@@ -99,14 +109,14 @@ class Graphic extends \yii\db\ActiveRecord {
                         TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
                         TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
                     from graphic g INNER JOIN customer c ON g.ref = c.ref
-                    where g.approve != '1' and g.status != '2' and c.flag = '0' $order";
+                    where g.approve != '1' and g.status != '2' and c.flag = '0' $searchWhere $order";
         } else {
             $sql = "select c.*,g.status,g.approve as approver,
                         TIMESTAMPDIFF(day,CURDATE(),c.date_getjob) AS D,
                         TIMESTAMPDIFF(HOUR,NOW(),CONCAT(c.date_getjob,' ',c.time_getjob)) AS H,
                         TIMESTAMPDIFF(HOUR,c.`create_date`,CONCAT(c.date_getjob,' ',c.time_getjob)) AS INDAY
                     from graphic g INNER JOIN customer c ON g.ref = c.ref
-                    where g.approve != '1' and g.status != '2' and c.flag = '0' $order";
+                    where g.approve != '1' and g.status != '2' and c.flag = '0' $searchWhere $order";
         }
 
         //echo $sql;

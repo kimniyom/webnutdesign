@@ -45,7 +45,9 @@ class BranchprintController extends Controller {
     public function actionGetjob() {
         $Model = new Branchprint();
         $type = Yii::$app->request->post("type");
-        $dataList = $Model->getJob($type);
+        $customer = Yii::$app->request->post("customer");
+        $project = Yii::$app->request->post("project");
+        $dataList = $Model->getJob($type, $customer, $project);
         $dataListjob = $Model->getJobForUser();
         $maseditwork = \app\models\Maseditwork::find()->all();
         return $this->renderPartial('job', [

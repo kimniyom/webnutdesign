@@ -12,7 +12,6 @@ $TimeLineModel = new Timeline();
 $CustomerM = new Customer();
 //$this->title = 'รับงาน';
 //$this->params['breadcrumbs'][] = $this->title;
-
 //$Tomorow = $CustomerM->getTomorow(date('Y-m-d'));
 ?>
 
@@ -139,7 +138,7 @@ $CustomerM = new Customer();
             if (result.isConfirmed) {
                 var url = "<?php echo Yii::$app->urlManager->createUrl(['branchlaser/updatestatus']) ?>";
                 var data = {status: 2, ref: ref};
-                $.post(url, data, function (res) {
+                $.post(url, data, function(res) {
                     $("#popupaddwork").modal("hide");
                     getJob();
                 });
@@ -187,7 +186,7 @@ $CustomerM = new Customer();
                     type: type,
                     typeetc: etc
                 };
-                $.post(url, data, function (res) {
+                $.post(url, data, function(res) {
                     if (res == 1) {
                         window.location.reload();
                     }
