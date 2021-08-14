@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=127.0.0.1;dbname=nutdesign_db',
+    'dsn' => 'mysql:host=localhost;port=3333;dbname=nutdesign_db',
     'username' => 'root',
     'password' => 'root',
     /*
