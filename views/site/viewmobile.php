@@ -3,8 +3,13 @@
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/dosamigos-blueimp-gallery.js"></script>
 <!-- Add fancyBox main JS and CSS files -->
-<script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
+<!--
+<script type="text/javascript" src="<?php //echo Yii::$app->urlManager->baseUrl                            ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php //echo Yii::$app->urlManager->baseUrl                            ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
+-->
+
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/fancybox4/fancybox.css" media="screen" />
+<script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/fancybox4/fancybox.umd.js"></script>
 
 <?php
 
@@ -61,14 +66,20 @@ $CustomerModel = new Customer();
                 </div>
                 <div class="col-md-9 col-lg-9 col-9">
                     <div style=" position: relative; word-wrap: break-word; color:#FFFFFF;" id="boxdetailcustomer">
-                        <?php if(!empty($model['detail'])) echo $model['detail']; else echo ""; ?>
+                        <?php
+                        if (!empty($model['detail']))
+                            echo $model['detail'];
+                        else
+                            echo "";
+                        ?>
                     </div>
                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
                 </div>
             </div>
             <?php
             $ref = $model['ref'];
-            $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+            $sql = "SELECT *,COUNT(*) FROM uploads WHERE ref = '$ref'";
+
             $count = Yii::$app->db->createCommand($sql)->queryScalar();
             if ($count > 0) {
                 ?>
@@ -77,7 +88,18 @@ $CustomerModel = new Customer();
                         รูปภาพแนบ
                         <?php
                         if ($count > 0) {
-                            echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                            //echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                            $row = Yii::$app->db->createCommand($sql)->queryAll();
+                            ?>
+                            <?php
+                            foreach ($row as $rows):
+                                $imgs = Url::to('@web/photolibrarys/') . $model['ref'] . '/' . $rows['real_filename'];
+                                ?>
+                                <a class="fancybox" data-fancybox="gallery" rel="gallery5" href="<?php echo $imgs ?>" title="แบบงาน/ตัวอย่างงาน">
+                                    <div class="img-crop" style="background-image: url('<?php echo $imgs ?>');"></div>
+                                </a>
+                            <?php endforeach; ?>
+                            <?php
                         } else {
                             echo "-";
                         }
@@ -108,7 +130,12 @@ $CustomerModel = new Customer();
                 <?php if (!empty($graphic['detail'])) { ?>
                     <div class="alert alert-dark" style=" padding: 5px; padding-left: 15px; color: #ffffff; background: #d45f93; border:0px;">
                         <div class="boxdetailgf">
-                            <?php if(!empty($graphic['detail'])) echo $graphic['detail']; else echo ""; ?>
+                            <?php
+                            if (!empty($graphic['detail']))
+                                echo $graphic['detail'];
+                            else
+                                echo "";
+                            ?>
                         </div>
                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #000000; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImgGraphic"></div>
                     </div>
@@ -122,7 +149,7 @@ $CustomerModel = new Customer();
                                 $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                                 $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
                                 ?>
-                                <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
+                                <a class="fancybox" data-fancybox="gallery" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
                                     <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
                                 </a>
                                 <?php
@@ -164,6 +191,7 @@ $CustomerModel = new Customer();
     </div>
 </div>
 
+
 <?php
 $this->registerJs('
         $(document).ready(function(){
@@ -175,7 +203,7 @@ $this->registerJs('
 <script type="text/javascript">
     setImg();
     setImgGraphic();
-    jQuery(function ($) {
+    jQuery(function($) {
         dosamigos.gallery.registerLightBoxHandlers('#w0 a', []);
         $(".fancybox").fancybox({
             openEffect: "elastic",
@@ -210,25 +238,26 @@ $this->registerJs('
     function setImg() {
         $("#boxdetailcustomer p img:last-child").remove();
         $("#boxdetailcustomer img").remove();
-        var imgs = $('#boxImgDetail p').children('img').map(function () {
+        var imgs = $('#boxImgDetail p').children('img').map(function() {
             return $(this).attr('src')
-        }).get();
+        }
+        ).get();
 
         for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
+            $("#showImg").append("<a class='fancyboxdetail'  data-fancybox='gallery' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
     }
 
     function setImgGraphic() {
         $(".boxdetailgf p img:last-child").remove();
-        var imgs = $('#boxImgGraphic p').children('img').map(function () {
+        var imgs = $('#boxImgGraphic p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
 
         for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
+            $("#showImgGraphic").append("<a class='fancyboxdetail'  data-fancybox='gallery' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
 
     }

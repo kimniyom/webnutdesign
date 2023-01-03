@@ -3,8 +3,8 @@
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/dosamigos-blueimp-gallery.js"></script>
 <!-- Add fancyBox main JS and CSS files -->
-<script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/fancybox4/fancybox.css" media="screen" />
+<script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/fancybox4/fancybox.umd.js"></script>
 <style type="text/css" media="screen">
     .head-title-view{
         font-weight: bold;
@@ -112,37 +112,52 @@ $CustomerModel = new Customer();
                                     </div>
                                     <div class="col-md-9 col-lg-9 col-9">
                                         <div style=" position: relative; word-wrap: break-word; " id="boxdetailcustomer">
-                                            <?php if(!empty($model['detail'])) echo $model['detail']; else echo ""; ?>
+                                            <?php if (!empty($model['detail'])) echo $model['detail'];
+                                            else echo ""; ?>
                                         </div>
                                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImg"></div>
                                     </div>
                                 </div>
                                 <?php
                                 $ref = $model['ref'];
-                                $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+                                $sql = "SELECT *,COUNT(*) FROM uploads WHERE ref = '$ref'";
+
                                 $count = Yii::$app->db->createCommand($sql)->queryScalar();
                                 if ($count > 0) {
                                     ?>
                                     <div class="panel panel-default">
-                                        <div class="panel-body">
+                                        <div class="panel-body" style=" color: #FFFFFF;">
                                             รูปภาพแนบ
                                             <?php
                                             if ($count > 0) {
-                                                echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                                                //echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                                                $row = Yii::$app->db->createCommand($sql)->queryAll();
+                                                ?>
+                                                <?php
+                                                foreach ($row as $rows):
+                                                    $imgs = Url::to('@web/photolibrarys/') . $model['ref'] . '/' . $rows['real_filename'];
+                                                    ?>
+                                                    <a class="fancybox" data-fancybox="gallery" rel="gallery5" href="<?php echo $imgs ?>" title="แบบงาน/ตัวอย่างงาน">
+                                                        <div class="img-crop" style="background-image: url('<?php echo $imgs ?>');"></div>
+                                                    </a>
+                                                <?php endforeach; ?>
+                                                <?php
+                                            } else {
+                                                echo "-";
                                             }
                                             ?>
 
-                                            <?php if ($filelist) { ?>
+    <?php if (isset($filelist)) { ?>
                                                 <br/>ไฟล์แนบ
                                                 <ul>
                                                     <?php foreach ($filelist as $f): ?>
                                                         <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
-                                                    <?php endforeach; ?>
+                                                <?php endforeach; ?>
                                                 </ul>
-                                            <?php } ?>
+    <?php } ?>
                                         </div>
                                     </div>
-                                <?php } ?>
+<?php } ?>
                             </div>
                         </div>
 
@@ -151,10 +166,10 @@ $CustomerModel = new Customer();
                             <div style=" background: #ffffff; padding: 10px; border-radius: 10px; margin-top: 10px;">
                                 <h3 class="head-title-view">บัญชี</h3>
                                 <div style="">
-                                    <?php if (!empty($account)) { ?>
+<?php if (!empty($account)) { ?>
                                         <label style="font-weight: bold;">รายละเอียด</label>
                                         <div class="alert alert-warning">
-                                            <?php echo ($account['detail']) ? $account['detail'] : "-" ?>
+                                                <?php echo ($account['detail']) ? $account['detail'] : "-" ?>
                                             <label><i class="fa fa-user text-warning"></i>โดย <?php
                                                 if (isset($account['user_id'])) {
                                                     echo dektrium\user\models\Profile::findOne(['user_id' => $account['user_id']])['name'];
@@ -163,7 +178,7 @@ $CustomerModel = new Customer();
                                         </div>
                                     <?php } else { ?>
                                         ยังไม่มีข้อมูลในส่วนนี้
-                                    <?php } ?>
+<?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -178,30 +193,33 @@ $CustomerModel = new Customer();
                                     <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
                                     <div class="alert alert-success">
                                         <div class="boxdetailgf">
-                                            <?php echo $graphic['detail'] ?>
+    <?php echo $graphic['detail'] ?>
                                         </div>
                                         <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;" id="showImgGraphic"></div>
-                                        <label><i class="fa fa-user text-warning"></i>โดย 
-                                            <?php if(isset($graphic['user_id'])){ ?>
-                                            <?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?>
-                                        <?php } ?>
+                                        <label><i class="fa fa-user text-warning"></i>โดย
+                                            <?php if (isset($graphic['user_id'])) { ?>
+                                                <?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?>
+    <?php } ?>
                                         </label>
                                     </div>
                                     <label style="margin-left: 10px; font-weight: bold;">ไฟล์งาน / ตัวอย่างงาน</label>
                                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
-                                        
+
                                         <?php
                                         if (!empty($graphic['ref_graphic'])) {
-                                        foreach ($filegraphic as $files):
-                                            $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
-                                            $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
-                                            ?>
-                                            <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
-                                                <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
-                                            </a>
-                                        <?php endforeach; } ?>
+                                            foreach ($filegraphic as $files):
+                                                $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                                                $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                                                ?>
+                                                <a class="fancybox" data-fancybox="gallery" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
+                                                    <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
+                                                </a>
+                                                <?php
+                                            endforeach;
+                                        }
+                                        ?>
                                     </div>
-                                <?php } else { ?>
+<?php } else { ?>
                                     <div class="card">
                                         <div class="card-content">
                                             <div class="card-body" style="text-align: center;">
@@ -209,7 +227,7 @@ $CustomerModel = new Customer();
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
+<?php } ?>
                             </div>
                         </div>
 
@@ -233,7 +251,7 @@ $CustomerModel = new Customer();
                                                     <?php } ?>
                                                 <?php } else { ?>
                                                     <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
-                                                <?php } ?>
+<?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +270,7 @@ $CustomerModel = new Customer();
                                                     <?php } ?>
                                                 <?php } else { ?>
                                                     <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
-                                                <?php } ?>
+<?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +289,7 @@ $CustomerModel = new Customer();
                                                     <?php } ?>
                                                 <?php } else { ?>
                                                     <span style="text-align:center; color:#d1d1d1;">ไม่มีการผลิต</span>
-                                                <?php } ?>
+<?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -289,22 +307,22 @@ $CustomerModel = new Customer();
                                             <?php if ($model['setup'] == "1") { ?>
                                                 <?php if ($model['technician_status'] == 1) { ?>
                                                     <i class="fa fa-remove text-danger"></i> อยู่ระหว่างการดำเนินงาน
-                                                <?php } else if ($model['technician_status'] == 2) { ?>
+    <?php } else if ($model['technician_status'] == 2) { ?>
                                                     <i class="fa fa-check text-success"></i> ติดตั้งเสร็จแล้ว
                                                     <!--
                                                     <br/>รูปภาพการติดตั้งงาน
                                                     <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
-                                                        <?php
-                                                        //$refsetup = app\models\Queue::findOne(['ref' => $model['ref']])['refsetup'];
-                                                        //$filesetups = \app\models\Uploads::findAll(['ref' => $refsetup]);
-                                                        //foreach ($filesetups as $file):
-                                                            //$imgsetup = Url::to('@web/photolibrarys/') . $refsetup . '/thumbnail/' . $file['real_filename'];
-                                                            //$imgfullsetup = Url::to('@web/photolibrarys/') . $refsetup . '/' . $file['real_filename'];
-                                                            ?>
-                                                            <a class="fancybox" rel="gallery1" href="<?php //echo $imgfullsetup ?>" title="รูปงานติดตั้ง">
-                                                                <div class="img-crop" style="background-image: url('<?php //echo $imgsetup ?>');"></div>
+                                                    <?php
+                                                    //$refsetup = app\models\Queue::findOne(['ref' => $model['ref']])['refsetup'];
+                                                    //$filesetups = \app\models\Uploads::findAll(['ref' => $refsetup]);
+                                                    //foreach ($filesetups as $file):
+                                                    //$imgsetup = Url::to('@web/photolibrarys/') . $refsetup . '/thumbnail/' . $file['real_filename'];
+                                                    //$imgfullsetup = Url::to('@web/photolibrarys/') . $refsetup . '/' . $file['real_filename'];
+                                                    ?>
+                                                            <a class="fancybox" rel="gallery1" href="<?php //echo $imgfullsetup  ?>" title="รูปงานติดตั้ง">
+                                                                <div class="img-crop" style="background-image: url('<?php //echo $imgsetup  ?>');"></div>
                                                             </a>
-                                                        <?php //endforeach; ?>
+        <?php //endforeach;  ?>
                                                     </div>
                                                     -->
                                                 <?php } else { ?>
@@ -312,7 +330,7 @@ $CustomerModel = new Customer();
                                                 <?php } ?>
                                             <?php } else { ?>
                                                 <span style="text-align:center; color:#d1d1d1;">ไม่มีการติดตั้ง</span>
-                                            <?php } ?>
+<?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +349,7 @@ $CustomerModel = new Customer();
                     </div>
                     <div class="card-body" id="box-timeline-view-all" style="overflow: auto; padding: 0px;">
                         <ul class="list-group" style=" border-radius: 0px;">
-                            <?php foreach ($timeline as $tm): ?>
+<?php foreach ($timeline as $tm): ?>
                                 <li class="list-group-item" style="border-left: 0px; border-right: 0px; border-top: 0px;">
                                     <div class="btn btn-rounded btn-danger" style=" padding: 0px 5px;"><?php echo$ConfigModel->thaidate($tm['d_update']) ?></div>
                                     <ul>
@@ -339,7 +357,7 @@ $CustomerModel = new Customer();
                                             แผนกรับ: <?php echo $tm['curdep'] ?>
                                             <ul>
                                                 <li>
-                                                    <?php echo $tm['log'] ?>
+    <?php echo $tm['log'] ?>
                                                 </li>
                                             </ul>
                                         </li>
@@ -348,7 +366,7 @@ $CustomerModel = new Customer();
                                         <li>โดย: <?php echo $tm['name'] ?></li>
                                     </ul>
                                 </li>
-                            <?php endforeach; ?>
+<?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
@@ -358,11 +376,11 @@ $CustomerModel = new Customer();
 </div>
 
 <div id="boxImgDetail" style=" display: none;">
-    <?php if (isset($model['detail'])) echo $model['detail']; ?>
+<?php if (isset($model['detail'])) echo $model['detail']; ?>
 </div>
 
 <div id="boxImgGraphic" style="display: none;">
-    <?php if (isset($graphic['detail'])) echo $graphic['detail']; ?>
+<?php if (isset($graphic['detail'])) echo $graphic['detail']; ?>
 </div>
 
 <?php
@@ -412,14 +430,14 @@ $this->registerJs('
     function setImg() {
         $("#boxdetailcustomer p img:last-child").remove();
         $("#boxdetailcustomer img").remove()
-        
+
         var imgs = $('#boxImgDetail p').children('img').map(function() {
             return $(this).attr('src')
         }).get();
 
         for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImg").append("<a class='fancyboxdetail' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
+            $("#showImg").append("<a class='fancyboxdetail'  data-fancybox='gallery' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
     }
 
@@ -431,7 +449,7 @@ $this->registerJs('
 
         for (var i = 0; i < imgs.length; i++) {
             let imgUrl = imgs[i];
-            $("#showImgGraphic").append("<a class='fancyboxGraphic' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
+            $("#showImgGraphic").append("<a class='fancyboxdetail'  data-fancybox='gallery' rel='gallery1' href='" + imgUrl + "' title='แบบงาน/ตัวอย่างงาน'><div class='img-crop-detail' style='background-image: url(" + imgUrl + ");'></div></a>");
         }
 
     }

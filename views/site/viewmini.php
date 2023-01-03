@@ -2,8 +2,8 @@
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/js/blueimp-gallery.min.js"></script>
 <script src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/blueimp-gallery/dosamigos-blueimp-gallery.js"></script>
 <!-- Add fancyBox main JS and CSS files -->
-<script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/assets/fancybox-2.1.7/source/jquery.fancybox.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/fancybox4/fancybox.css" media="screen" />
+<script type="text/javascript" src="<?php echo Yii::$app->urlManager->baseUrl ?>/theme/fancybox4/fancybox.umd.js"></script>
 <style>
     @font-face {
         font-family: sarabun;
@@ -183,30 +183,50 @@ $CustomerModel = new Customer();
             </table>
             <label>รายละเอียดงาน</label>
             <div style=" position: relative; word-wrap: break-word;" class="boxdetailgf">
-                <?php if(!empty($model['detail'])) echo $model['detail'] ?>
+                <?php if (!empty($model['detail'])) echo $model['detail'] ?>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
                     รูปภาพแนบ
                     <?php
                     $ref = $model['ref'];
-                    $sql = "SELECT COUNT(*) FROM uploads WHERE ref = '$ref'";
+                    $sql = "SELECT *,COUNT(*) FROM uploads WHERE ref = '$ref'";
+
                     $count = Yii::$app->db->createCommand($sql)->queryScalar();
                     if ($count > 0) {
-                        echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
-                    } else {
-                        echo "-";
-                    }
-                    ?>
-                    <br/>ไฟล์แนบ
-                    <?php if (!empty($filelist)) { ?>
-                        <ul>
-                            <?php foreach ($filelist as $f): ?>
-                                <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php } else { ?>
-                        -
+                        ?>
+                        <div class="panel panel-default">
+                            <div class="panel-body" style=" color: #FFFFFF;">
+                                รูปภาพแนบ
+                                <?php
+                                if ($count > 0) {
+                                    //echo dosamigos\gallery\Gallery::widget(['items' => $CustomerModel->getThumbnails($model['ref'], $model['project_name'])]);
+                                    $row = Yii::$app->db->createCommand($sql)->queryAll();
+                                    ?>
+                                    <?php
+                                    foreach ($row as $rows):
+                                        $imgs = Url::to('@web/photolibrarys/') . $model['ref'] . '/' . $rows['real_filename'];
+                                        ?>
+                                        <a class="fancybox" data-fancybox="gallery" rel="gallery5" href="<?php echo $imgs ?>" title="แบบงาน/ตัวอย่างงาน">
+                                            <div class="img-crop" style="background-image: url('<?php echo $imgs ?>');"></div>
+                                        </a>
+                                    <?php endforeach; ?>
+                                    <?php
+                                } else {
+                                    echo "-";
+                                }
+                                ?>
+
+                                <?php if (isset($filelist)) { ?>
+                                    <br/>ไฟล์แนบ
+                                    <ul>
+                                        <?php foreach ($filelist as $f): ?>
+                                            <li><a href="<?php echo Url::to('@web/photolibrarys/' . $f['ref'] . '/' . $f['real_filename']) ?>" target="_back"><?php echo $f['file_name'] ?></a></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -223,7 +243,7 @@ $CustomerModel = new Customer();
                 <label style="margin-left: 10px; font-weight: bold;">รายละเอียดใบสั่งงาน</label>
                 <div class="alert alert-success">
                     <div class="content-graphic">
-                        <?php if(!empty($graphic)) echo $graphic['detail'] ?>
+                        <?php if (!empty($graphic)) echo $graphic['detail'] ?>
                     </div>
                     <label><i class="fa fa-user text-warning"></i> โดย::<?php echo dektrium\user\models\Profile::findOne(['user_id' => $graphic['user_id']])['name'] ?></label>
                 </div>
@@ -231,16 +251,18 @@ $CustomerModel = new Customer();
                 <div class="table-responsive" style="border-radius: 10px; border:solid 0px #eeeeee; display: flex; flex-wrap: nowrap;text-overflow: auto; width: 100%;">
                     <?php
                     if (!empty($graphic['ref_graphic'])) {
-                    foreach ($filegraphic as $files):
-                        $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
-                        $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
-                        ?>
-                        <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
-                            <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
-                        </a>
-                    <?php endforeach; } ?>
+                        foreach ($filegraphic as $files):
+                            $img = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                            $imgfull = Url::to('@web/photolibrarys/') . $graphic['ref_graphic'] . '/' . $files['real_filename'];
+                            ?>
+                            <a class="fancybox" rel="gallery1" href="<?php echo $imgfull ?>" title="แบบงาน/ตัวอย่างงาน">
+                                <div class="img-crop" style="background-image: url('<?php echo $img ?>');"></div>
+                            </a>
+                        <?php endforeach;
+                    }
+                    ?>
                 </div>
-            <?php } ?>
+<?php } ?>
         </div>
     </div>
 
@@ -250,23 +272,23 @@ $CustomerModel = new Customer();
         <label class="head-title-view">ชื่อ-สกุล / หน่วยงาน ผู้ว่าจ้าง</label>
         <p class="txt-customer"> <?php echo $model['customer'] ?></p>
         <label class="head-title-view">เบอร์โทรศัพท์</label>
-        <p class="txt-customer"><?php if(!empty($model['tel'])) echo $model['tel'] ?></p>
+        <p class="txt-customer"><?php if (!empty($model['tel'])) echo $model['tel'] ?></p>
         <label class="head-title-view">ช่องทางลูกค้าติดต่อมา</label>
         <p class="txt-customer">
-            <?php 
-                            if($model['channel'] == "1"){
-                                echo "Line ".$model['lineid'];
-                            } else if($model['channel'] == "2"){
-                                 echo "โทรศัพท์";
-                            } else if($model['channel'] == "3"){
-                                echo "หน้าร้าน";
-                            } else {
-                                echo $model['channel_etc'];
-                            }
-                            ?> 
+            <?php
+            if ($model['channel'] == "1") {
+                echo "Line " . $model['lineid'];
+            } else if ($model['channel'] == "2") {
+                echo "โทรศัพท์";
+            } else if ($model['channel'] == "3") {
+                echo "หน้าร้าน";
+            } else {
+                echo $model['channel_etc'];
+            }
+            ?>
         </p>
         <label class="head-title-view">ที่อยู่ / ข้อมูลการจัดส่ง</label>
-        <p class="txt-customer"><?php if(!empty($model['address'])) echo $model['address'] ?></p>
+        <p class="txt-customer"><?php if (!empty($model['address'])) echo $model['address'] ?></p>
         <label class="head-title-view">ผู้รับงาน</label>
         <p class="txt-customer"><?php echo dektrium\user\models\Profile::findOne(['user_id' => $model['user_id']])['name'] ?></p>
         <label class="head-title-view">วันที่ทำรายการ</label>
