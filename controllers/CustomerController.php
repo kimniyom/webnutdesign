@@ -138,70 +138,70 @@ class CustomerController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             //print_r($_POST['cur_dep']);
 
-            $checkBeforCreate = "select * from customer where ref = '".$model->ref."' ";
+            $checkBeforCreate = "select * from customer where ref = '" . $model->ref . "' ";
             $res = Yii::$app->db->createCommand($checkBeforCreate)->queryOne();
-            if(empty($res['ref'])){
+            if (empty($res['ref'])) {
 
-            $this->Uploads(false, $model->ref);
-            $model->user_id = Yii::$app->user->identity->id;
+                $this->Uploads(false, $model->ref);
+                $model->user_id = Yii::$app->user->identity->id;
 
-            $model->create_date = date("Y-m-d H:i:s");
-            $model->confirm = 1;
-            if ($model->confirm == "1") {
-                if (isset($_POST['cur_dep'])) {
-                    $cur_dep = implode(", ", $_POST['cur_dep']);
-                } else {
-                    $cur_dep = "4";
-                }
-                $model->cur_dep = $cur_dep;
-                $depStr = "'" . str_replace(",", "','", $cur_dep) . "'";
-                $sql = "select id,department from department where id in ($depStr)";
-                $result = \Yii::$app->db->createCommand($sql)->queryAll();
-                $depArr = [];
-                $depVal = [];
-                foreach ($result as $r):
-                    $depArr[] = $r['department'];
-                    $depVal[] = $r['id'];
-                endforeach;
-                $curdep = implode(",", $depArr);
-                //Time Line
-            }
-
-            if ($model->save()) {
-                $culumns = array(
-                    "department" => '1',
-                    "ref" => $model->ref,
-                    "user_id" => Yii::$app->user->identity->id,
-                    "log" => "บันทึกข้อมูลการรับงาน",
-                    "todep" => $curdep,
-                    "d_update" => date("Y-m-d H:i:s")
-                );
-                \Yii::$app->db->createCommand()
-                        ->insert("timeline", $culumns)
-                        ->execute();
-
-                //ส่งไปแผนก
-                $this->sendDepartment($depVal, $model->ref);
-                if ($model->quotation == "1") {
-                    $this->SendAccount($model->ref);
+                $model->create_date = date("Y-m-d H:i:s");
+                $model->confirm = 1;
+                if ($model->confirm == "1") {
+                    if (isset($_POST['cur_dep'])) {
+                        $cur_dep = implode(", ", $_POST['cur_dep']);
+                    } else {
+                        $cur_dep = "4";
+                    }
+                    $model->cur_dep = $cur_dep;
+                    $depStr = "'" . str_replace(",", "','", $cur_dep) . "'";
+                    $sql = "select id,department from department where id in ($depStr)";
+                    $result = \Yii::$app->db->createCommand($sql)->queryAll();
+                    $depArr = [];
+                    $depVal = [];
+                    foreach ($result as $r):
+                        $depArr[] = $r['department'];
+                        $depVal[] = $r['id'];
+                    endforeach;
+                    $curdep = implode(",", $depArr);
+                    //Time Line
                 }
 
-                if ($model->transport == "1") {
-                    $this->SendTransport($model->ref);
+                if ($model->save()) {
+                    $culumns = array(
+                        "department" => '1',
+                        "ref" => $model->ref,
+                        "user_id" => Yii::$app->user->identity->id,
+                        "log" => "บันทึกข้อมูลการรับงาน",
+                        "todep" => $curdep,
+                        "d_update" => date("Y-m-d H:i:s")
+                    );
+                    \Yii::$app->db->createCommand()
+                            ->insert("timeline", $culumns)
+                            ->execute();
+
+                    //ส่งไปแผนก
+                    $this->sendDepartment($depVal, $model->ref);
+                    if ($model->quotation == "1") {
+                        $this->SendAccount($model->ref);
+                    }
+
+                    if ($model->transport == "1") {
+                        $this->SendTransport($model->ref);
+                    }
+
+                    /*
+                      if ($model->setup == "1") {
+                      $this->SendSetup($model->ref);
+                      }
+                     *
+                     */
+
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
-
-                /*
-                  if ($model->setup == "1") {
-                  $this->SendSetup($model->ref);
-                  }
-                 *
-                 */
-
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
             } else {
                 return $this->redirect(['view', 'id' => $model->id]);
-            } 
+            }
         } else {
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
         }

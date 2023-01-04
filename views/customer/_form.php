@@ -26,6 +26,7 @@ use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 use kartik\widgets\FileInput;
 use kartik\select2\Select2;
+use kartik\editors\Summernote;
 ?>
 
 <div class="customer-form" >
@@ -111,20 +112,28 @@ use kartik\select2\Select2;
                         <?php //$form->field($model, 'detail')->textarea(['rows' => 6]) ?>
                         <label style=" margin-bottom: 0px;"> รายละเอียด</label>
                         <div style="font-size:14px; color: #000000;">ให้เขียนว่า งานชิ้นนี้ให้ทำอย่างไรบ้าง กรณี 1 ชุดคำสั่งมีหลายงานให้เขียนทีละงาน โดยใช้เครื่องหมาย -- คั่นบันทัดใหม่</div>
-                        <?=
-                        $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
-                            'clientOptions' => [
-                                //'imageManagerJson' => ['/redactor/upload/image-json'],
-                                //'imageUpload' => ['/redactor/upload/image'],
-                                //'fileUpload' => ['/redactor/upload/file'],
-                                'lang' => 'th',
-                                'plugins' => ['fullscreen'], //'clips',
-                                'buttonsHide' => ['deleted', 'image', 'file', 'format','fontcolor',], //'image'/'html',
-                                'minHeight' => '300px'
-                            ]
-                        ])->label(false)
-                        ?>
-
+                        <div style=" background: #FFFFFF; padding: 10px; border-radius: 10px;">
+                            <?php
+                            /*
+                              $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
+                              'clientOptions' => [
+                              //'imageManagerJson' => ['/redactor/upload/image-json'],
+                              //'imageUpload' => ['/redactor/upload/image'],
+                              //'fileUpload' => ['/redactor/upload/file'],
+                              'lang' => 'th',
+                              'plugins' => ['fullscreen'], //'clips',
+                              'buttonsHide' => ['deleted', 'image', 'file', 'format','fontcolor',], //'image'/'html',
+                              'minHeight' => '300px'
+                              ]
+                              ])->label(false)
+                             * 
+                             */
+                            echo $form->field($model, 'detail')->widget(Summernote::class, [
+                                'useKrajeePresets' => true,
+                                    // other widget settings
+                            ])->label(false);
+                            ?>
+                        </div>
                         <?php ///$form->field($model, 'file')->textInput(['maxlength' => true])  ?>
 
                         <div class="form-group field-upload_files" >
@@ -253,7 +262,7 @@ use kartik\select2\Select2;
                                     </label>
                                 </div>
                             </div>
-                            
+
                             <div class="alert alert-danger" style=" display: none;">
                                 <hr/>
                                 !..หมายเหตุ<br/>
@@ -300,7 +309,7 @@ use kartik\select2\Select2;
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-4 col-lg-4" style=" display: none;">
                             <?=
                             $form->field($model, 'fast')->radioList(['0' => "ทั่วไป", '1' => "ด่วนสำคัญ"])
@@ -411,7 +420,7 @@ $this->registerJs('
         var dateSend = $("#customer-date_getjob").val();
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getqueue']) ?>";
         var data = {datesend: dateSend};
-        $.post(url, data, function(res) {
+        $.post(url, data, function (res) {
             $("#queue").html(res);
         });
     }
@@ -420,7 +429,7 @@ $this->registerJs('
         var dateSend = $("#customer-date_getjob").val();
         var url = "<?php echo Yii::$app->urlManager->createUrl(['customer/getqueue']) ?>";
         var data = {datesend: dateSend};
-        $.post(url, data, function(res) {
+        $.post(url, data, function (res) {
             $("#popupdate").modal();
             $("#queue").html(res);
             $("#queue-popup").html(res);

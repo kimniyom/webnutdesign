@@ -6,7 +6,7 @@ use app\models\ConfigWeb;
 use yii\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use dosamigos\ckeditor\CKEditor;
-
+use kartik\editors\Summernote;
 $configWeb = new ConfigWeb();
 ?>
 <style type="text/css" media="screen">
@@ -106,7 +106,8 @@ $configWeb = new ConfigWeb();
                      */
                     ?>
 
-                    <?=
+                    <?php
+                    /*
                     $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
                         'clientOptions' => [
                             //'imageManagerJson' => ['/redactor/upload/image-json'],
@@ -118,6 +119,12 @@ $configWeb = new ConfigWeb();
                             'minHeight' => '300px'
                         ]
                     ])->label(false)
+                     * 
+                     */
+                    echo $form->field($model, 'detail')->widget(Summernote::class, [
+                            'useKrajeePresets' => true,
+                                // other widget settings
+                        ])->label(false);
                     ?>
                     <?= $form->field($model, 'ref')->hiddenInput(['maxlength' => true])->label(false) ?>
                     <?php //$form->field($model, 'link')->textInput(['maxlength' => true])       ?>

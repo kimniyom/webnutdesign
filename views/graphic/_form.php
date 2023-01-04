@@ -8,6 +8,7 @@ use kartik\editors\Summernote;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use kartik\select2\Select2;
+use kartik\editors\Summernote;
 ?>
 <style type="text/css" media="screen">
     @media(min-width:767px) {
@@ -70,7 +71,8 @@ use kartik\select2\Select2;
                       ]);
                      */
                     ?>
-                    <?=
+                    <?php
+                    /*
                     $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
                         'clientOptions' => [
                             //'imageManagerJson' => ['/redactor/upload/image-json'],
@@ -82,6 +84,12 @@ use kartik\select2\Select2;
                             'minHeight' => '300px'
                         ]
                     ])->label(false)
+                     * 
+                     */
+                    echo $form->field($model, 'detail')->widget(Summernote::class, [
+                            'useKrajeePresets' => true,
+                                // other widget settings
+                        ])->label(false);
                     ?>
                     <?=
                     $form->field($model, 'flagsend')->radioList(

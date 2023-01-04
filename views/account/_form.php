@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use kartik\editors\Summernote;
 ?>
 
 <div class="account-form">
@@ -50,7 +51,8 @@ use yii\helpers\Url;
                     <em>
                         *วิธีแนบลิงค์ คลิกที่ icon <img src="<?php echo Url::to('@web/images/link-icon.jpg') ?>" alt="" style="width: 36px;">
                     </em>
-                    <?=
+                    <?php
+                    /*
                     $form->field($model, 'detail')->widget(\yii\redactor\widgets\Redactor::className(), [
                         'clientOptions' => [
                             //'imageManagerJson' => ['/redactor/upload/image-json'],
@@ -62,6 +64,12 @@ use yii\helpers\Url;
                             'minHeight' => '300px'
                         ]
                     ])->label(false)
+                     * 
+                     */
+                     echo $form->field($model, 'detail')->widget(Summernote::class, [
+                            'useKrajeePresets' => true,
+                                // other widget settings
+                        ])->label(false);
                     ?>
                     <label>บันทึกข้อมูลโดย</label>
                     <?php echo dektrium\user\models\Profile::findOne(['user_id' => Yii::$app->user->id])['name'] ?>
